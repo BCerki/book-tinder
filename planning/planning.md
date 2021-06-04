@@ -28,8 +28,7 @@ As a user, I can:
 - get asked out by a book to its location
 - click one of three buttons/navigate to pages:
   - swipe section
-  - see my matches section (to-read list, ultimately) and search them
-  - messaging center
+  - see my matches section (to-read list, ultimately) and search them/messaging center
   - my profile edit
 - block/unmatch with books (keep in our databse as no-go)
 
