@@ -49,7 +49,7 @@ Front end: React, Material UI, SASS, Bootstrap?
 Back end: Express
 Database: Postgres
 Testing: Cypress if time
-Boilerplate: Yes please!
+Boilerplate: Yes please! Except chatbot
 APIs:
 
 - Google books (https://developers.google.com/books/docs/v1/using)
@@ -60,10 +60,14 @@ APIs:
 
 ## Andy questions
 
+- ERD !!!!
+- routes
+- boilerplate
 - chatbot (back or front)
 - pitfalls
 - Stack
 - XML data from booknet
+- quick way to test apis
 
 STRETCH
 
