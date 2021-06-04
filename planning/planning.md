@@ -43,7 +43,27 @@ As a user, I can:
 - it's a match popup
 - landing page (login/signup)
 
+## 1e
+
+Front end: React, Material UI, SASS, Bootstrap?
+Back end: Express
+Database: Postgres
+Testing: Cypress if time
+Boilerplate: Yes please!
+APIs:
+
+- Google books (https://developers.google.com/books/docs/v1/using)
+- Booknet (https://booknetcanada.atlassian.net/wiki/spaces/UserDocs/pages/1394723/Bibliographic+Data+Distribution#BibliographicDataDistribution-onixweb)
+- Bookmanager (https://bookmanager.com/public/api/services/shop-local),
+
 ##
+
+## Andy questions
+
+- chatbot (back or front)
+- pitfalls
+- Stack
+- XML data from booknet
 
 STRETCH
 
