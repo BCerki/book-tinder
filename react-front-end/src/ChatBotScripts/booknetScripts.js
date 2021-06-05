@@ -25,4 +25,13 @@ const heeeeeyReader = [
   },
 ];
 
-module.exports = heeeeeyReader;
+const hi = [
+  {
+    id: 1,
+    message: "Hi 😉",
+  },
+];
+
+const booknetScripts = [heeeeeyReader, hi];
+
+export default booknetScripts;
