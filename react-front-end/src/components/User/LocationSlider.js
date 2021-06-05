@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const maxDistance = 200;
-const marks = [
+const locationMarks = [
   {
     value: 0,
     label: "0km",
@@ -42,7 +42,7 @@ export default function DiscreteSlider() {
         getAriaValueText={valuetext}
         aria-labelledby="discrete-slider-always"
         step={10}
-        marks={marks}
+        marks={locationMarks}
         max={maxDistance}
         valueLabelDisplay="auto"
       />

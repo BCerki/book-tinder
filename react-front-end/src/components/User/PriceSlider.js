@@ -23,7 +23,7 @@ export default function RangeSlider() {
 
   const maxPrice = 200;
 
-  const marks = [
+  const priceMarks = [
     {
       value: 0,
       label: "Cheap",
@@ -41,7 +41,7 @@ export default function RangeSlider() {
       </Typography>
       <Slider
         value={value}
-        marks={marks}
+        marks={priceMarks}
         max={maxPrice}
         onChange={handleChange}
         valueLabelDisplay="auto"

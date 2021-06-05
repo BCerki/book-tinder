@@ -23,7 +23,7 @@ export default function RangeSlider() {
 
   const maxPageCount = 1000;
 
-  const marks = [
+  const pageCountMarks = [
     {
       value: 0,
       label: "One-night stand",
@@ -41,7 +41,7 @@ export default function RangeSlider() {
       </Typography>
       <Slider
         value={value}
-        marks={marks}
+        marks={pageCountMarks}
         max={maxPageCount}
         onChange={handleChange}
         valueLabelDisplay="auto"

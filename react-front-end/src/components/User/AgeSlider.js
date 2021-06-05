@@ -25,7 +25,7 @@ export default function RangeSlider() {
 
   const age = thisYear - 1970;
 
-  const marks = [
+  const ageMarks = [
     {
       value: 0,
       label: "0",
@@ -43,7 +43,7 @@ export default function RangeSlider() {
       </Typography>
       <Slider
         value={value}
-        marks={marks}
+        marks={ageMarks}
         max={thisYear - 1970}
         onChange={handleChange}
         valueLabelDisplay="auto"
