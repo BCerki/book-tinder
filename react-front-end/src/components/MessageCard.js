@@ -2,14 +2,16 @@ import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Message from "./Message";
 
+//FIX FIX Avatar not showing up
 export default function MessageCard(props) {
   return (
-    <div>
-      <p>is this showing upFIX FIX why not</p>
+    <article>
       <section>
-        <Avatar src="https://books.google.com/books/content?id=64tuPwAACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api" />
+        <Avatar src={props.coverImage} alt={props.title} />
       </section>
-      <section>{/* <Message /> */}</section>
-    </div>
+      <section>
+        <Message title={props.title} message={props.message} />
+      </section>
+    </article>
   );
 }
