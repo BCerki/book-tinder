@@ -9,6 +9,9 @@ import Switch from "@material-ui/core/Switch";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
+import "../styles/profile.scss";
+// import "../../public/styles/profile.css";
+
 export default function InfoView(props) {
   const handleClick = function() {};
   //Create the cards for info
