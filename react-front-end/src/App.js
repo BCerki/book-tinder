@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./App.css";
-import User from "./Components/User";
+import ProfileView from "./Components/ProfileView";
 
 import NavBar from "./Components/NavBar";
 import MessagesView from "./Components/MessagesView";
 import InfoView from "./Components/InfoView";
+import Toggles from "./Components/Toggles";
 
 class App extends Component {
   constructor(props) {
@@ -37,15 +38,19 @@ class App extends Component {
           <button onClick={this.fetchData}>Fetch Data</button>
         </div>
         <section>
-          This is the user component:
-          <User />
-        </section>
-        <section>
           This is the nav component:
           <NavBar />
         </section>
         <section>
+          This is the profile view:
+          <ProfileView />
+        </section>
+
+        <section>
           this is the messages view:
+          <section>
+            <Toggles />
+          </section>
           <MessagesView />
         </section>
         <section>
