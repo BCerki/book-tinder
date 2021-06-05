@@ -60,21 +60,17 @@ export default function InfoView(props) {
     <main>
       <SearchBar />
       <section>
-        <FormGroup>
-          <Typography component="div">
-            <Grid component="label" container alignItems="center" spacing={1}>
-              <Grid item>Info</Grid>
-              <Grid item>
-                <Switch
-                  checked={state.checkedC}
-                  onChange={handleChange}
-                  name="checkedC"
-                />
-              </Grid>
-              <Grid item>Messages</Grid>
-            </Grid>
-          </Typography>
-        </FormGroup>
+        <Grid component="label" container alignItems="center" spacing={1}>
+          <Grid item>Info</Grid>
+          <Grid item>
+            <Switch
+              checked={state.checkedC}
+              onChange={handleChange}
+              name="checkedC"
+            />
+          </Grid>
+          <Grid item>Messages</Grid>
+        </Grid>
       </section>
       <section>{infoList}</section>
     </main>
