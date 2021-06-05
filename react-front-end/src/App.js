@@ -4,9 +4,8 @@ import "./App.css";
 import ProfileView from "./Components/ProfileView";
 
 import NavBar from "./Components/NavBar";
-import MessagesView from "./Components/MessagesView";
-import InfoView from "./Components/InfoView";
-import Toggles from "./Components/Toggles";
+import MiddleView from "./Components/MiddleView";
+import ChatView from "./Components/ChatView";
 
 class App extends Component {
   constructor(props) {
@@ -47,15 +46,12 @@ class App extends Component {
         </section>
 
         <section>
-          this is the messages view:
-          <section>
-            <Toggles />
-          </section>
-          <MessagesView />
+          this is the middle view:
+          <MiddleView />
         </section>
         <section>
-          this is the info view:
-          <InfoView />
+          this is the ChatBot view:
+          <ChatView />
         </section>
       </main>
     );
