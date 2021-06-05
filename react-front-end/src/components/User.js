@@ -5,6 +5,7 @@ import Slider from "@material-ui/core/Slider";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
 import Switch from "@material-ui/core/Switch";
+import genreData from "../dummyGenreData";
 
 export default function Button() {
   //Chip functions
@@ -100,12 +101,14 @@ export default function Button() {
   ];
 
   //genre
-  const genreArray = ["mystery", "romance"];
-  const genreChips = genreArray.map((genre) => {
+  console.log(genreData);
+  const genreChips = genreData.map((genre) => {
+    console.log(genre);
     return (
       <Chip
         // icon={<FaceIcon />}
-        label={genre}
+        id={genre.id}
+        label={genre.name}
         onClick={handleClick}
         onDelete={handleDelete}
       />
