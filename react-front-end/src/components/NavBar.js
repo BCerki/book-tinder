@@ -3,14 +3,15 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import PhoneIcon from "@material-ui/icons/Phone";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import PersonPinIcon from "@material-ui/icons/PersonPin";
+import MenuBookIcon from "@material-ui/icons/MenuBook";
+import ChatIcon from "@material-ui/icons/Chat";
+import AccountBoxIcon from "@material-ui/icons/AccountBox";
 
+//FIX FIX probably rather styling myself?
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
-    maxWidth: 500,
+    // maxWidth: 100,
   },
 });
 
@@ -28,13 +29,22 @@ export default function IconTabs() {
         value={value}
         onChange={handleChange}
         variant="fullWidth"
-        indicatorColor="primary"
-        textColor="primary"
-        aria-label="icon tabs example"
+        indicatorColor="secondary"
+        textColor="secondary"
+        aria-label="icon label tabs example"
       >
-        <Tab icon={<PhoneIcon />} aria-label="phone" />
-        <Tab icon={<FavoriteIcon />} aria-label="favorite" />
-        <Tab icon={<PersonPinIcon />} aria-label="person" />
+        <Tab
+          icon={<MenuBookIcon />}
+          // label="RECENTS"
+        />
+        <Tab
+          icon={<ChatIcon />}
+          // label="FAVORITES"
+        />
+        <Tab
+          icon={<AccountBoxIcon />}
+          // label="NEARBY"
+        />
       </Tabs>
     </Paper>
   );
