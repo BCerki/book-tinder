@@ -10,6 +10,7 @@ import MaturityToggle from "./Components/User/MaturityToggle";
 import NavBar from "./Components/NavBar";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
+import MatchPage from "./Components/MatchPage";
 
 class App extends Component {
   constructor(props) {
@@ -47,6 +48,10 @@ class App extends Component {
         <section>
           This is the nav component:
           <NavBar />
+        </section>
+        <section>
+          this is the messages page:
+          <MatchPage />
         </section>
       </main>
     );
