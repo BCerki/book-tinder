@@ -1,5 +1,5 @@
 import React from "react";
-import MessageCard from "./Message";
+import InfoCard from "./InfoCard";
 import SearchBar from "./SearchBar";
 import bookData from "../dummyData/dummyBookData";
 
@@ -8,12 +8,17 @@ export default function InfoView(props) {
   const infoList = bookData.map((book) => {
     return (
       <article>
-        <MessageCard
+        <InfoCard
           id={book.id}
           onClick={handleClick}
           title={book.title}
+          author={book.author}
           coverImage={book.coverImage}
+          description={book.description}
+          isbn={book.isbn}
+          pageCount={book.pageCount}
           price={book.price}
+          age={book.age}
         />
       </article>
     );
