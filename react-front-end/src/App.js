@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./App.css";
 import ProfileView from "./Components/ProfileView";
-
+import SwipeView from "./Components/SwipeView";
 import NavBar from "./Components/NavBar";
 import MiddleView from "./Components/MiddleView";
 import ChatView from "./Components/ChatView";
@@ -52,6 +52,11 @@ class App extends Component {
         <section>
           this is the ChatBot view:
           <ChatView />
+        </section>
+        <section>
+          this is the Swipe view:
+          <br />
+          <SwipeView />
         </section>
       </main>
     );
