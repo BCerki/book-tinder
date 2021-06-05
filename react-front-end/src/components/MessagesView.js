@@ -1,7 +1,7 @@
 import React from "react";
 import MessageCard from "./Message";
 import SearchBar from "./SearchBar";
-import bookData from "../dummyBookData";
+import bookData from "../dummyData/dummyBookData";
 
 export default function MatchPage(props) {
   const handleClick = function() {};

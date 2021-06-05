@@ -2,7 +2,7 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import bookData from "../dummyBookData";
+import bookData from "../dummyData/dummyGenreData";
 
 export default function SearchBar(props) {
   return (

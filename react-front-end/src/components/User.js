@@ -5,7 +5,7 @@ import Slider from "@material-ui/core/Slider";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
 import Switch from "@material-ui/core/Switch";
-import genreData from "../dummyGenreData";
+import genreData from "../dummyData/dummyGenreData";
 
 export default function Button() {
   //Chip functions
