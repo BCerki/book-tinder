@@ -3,7 +3,7 @@ import MessageCard from "./Message";
 import SearchBar from "./SearchBar";
 import bookData from "../dummyData/dummyBookData";
 
-export default function MatchPage(props) {
+export default function MessagesView(props) {
   const handleClick = function() {};
   console.log("book data is", bookData);
   const messagesList = bookData.map((book) => {
