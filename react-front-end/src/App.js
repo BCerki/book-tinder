@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./App.css";
 import SimpleForm from "./Components/chatbot/SimpleForm";
-import AgeSlider from "./Components/User/AgeSlider";
+import User from "./Components/User";
 import PriceSlider from "./Components/User/PriceSlider";
 import PageCountSlider from "./Components/User/PageCountSlider";
 import LocationSlider from "./Components/User/LocationSlider";
@@ -10,15 +10,6 @@ import MaturityToggle from "./Components/User/MaturityToggle";
 import NavBar from "./Components/NavBar";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
-
-//Chip functions
-const handleDelete = () => {
-  console.info("You clicked the delete icon.");
-};
-
-const handleClick = () => {
-  console.info("You clicked the Chip.");
-};
 
 class App extends Component {
   constructor(props) {
@@ -50,32 +41,11 @@ class App extends Component {
           <button onClick={this.fetchData}>Fetch Data</button>
         </div>
         <section>
-          <Avatar />
+          This is the user component:
+          <User />
         </section>
         <section>
-          <AgeSlider />
-        </section>
-        <section>
-          <PriceSlider />
-        </section>
-        <section>
-          <PageCountSlider />
-        </section>
-        <section>
-          <LocationSlider />
-        </section>
-        <section>
-          <MaturityToggle />
-        </section>
-        <section>
-          <Chip
-            // icon={<FaceIcon />}
-            label="Genre"
-            onClick={handleClick}
-            onDelete={handleDelete}
-          />
-        </section>
-        <section>
+          This is the nav component:
           <NavBar />
         </section>
       </main>
