@@ -4,5 +4,6 @@ import _ from "lodash";
 
 export default function Swipe(props) {
   const randomBook = _.shuffle(bookData)[0];
+  //set state here
   return <img src={randomBook.coverImage} alt={randomBook.title} />;
 }
