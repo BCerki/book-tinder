@@ -1,16 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./App.css";
-import SimpleForm from "./Components/chatbot/SimpleForm";
 import User from "./Components/User";
-import PriceSlider from "./Components/User/PriceSlider";
-import PageCountSlider from "./Components/User/PageCountSlider";
-import LocationSlider from "./Components/User/LocationSlider";
-import MaturityToggle from "./Components/User/MaturityToggle";
+
 import NavBar from "./Components/NavBar";
-import Avatar from "@material-ui/core/Avatar";
-import Chip from "@material-ui/core/Chip";
-import MatchPage from "./Components/MatchPage";
+import MessagesView from "./Components/MessagesView";
 
 class App extends Component {
   constructor(props) {
@@ -51,7 +45,7 @@ class App extends Component {
         </section>
         <section>
           this is the messages page:
-          <MatchPage />
+          <MessagesView />
         </section>
       </main>
     );
