@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import "./App.css";
+import "./App.scss";
 import ProfileView from "./Components/ProfileView";
 import SwipeView from "./Components/SwipeView";
 import NavBar from "./Components/NavBar";
