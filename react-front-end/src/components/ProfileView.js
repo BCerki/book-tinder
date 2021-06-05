@@ -7,6 +7,8 @@ import Chip from "@material-ui/core/Chip";
 import Switch from "@material-ui/core/Switch";
 import genreData from "../dummyData/dummyGenreData";
 
+import "../styles/profile.scss";
+
 export default function Button() {
   //Chip functions
   const handleDelete = () => {
@@ -31,8 +33,9 @@ export default function Button() {
     return `${value}`;
   }
 
-  //FIX FIX, mentor and talk to DB
+  //do one of these for each slider, mentor and talk to DB
   const [value, setValue] = React.useState([20, 40]);
+
   //State updates
   // const [state, setState] = useState({
   //   day: "Monday",
@@ -42,9 +45,20 @@ export default function Button() {
   // });
   // const setDay = (day) => setState({ ...state, day });
 
+  //do one for each slider
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  //onClick
+  // const [state, setState] = useState({
+  //   sliderOne: false,
+  //   sliderTwo: false,
+  //   sliderThree: false,
+  // });
+  // const sliderHandler = (sliderName) => {
+  //   setState((prevState) => ({ ...prevState, sliderName: !sliderName }));
+  // };
 
   //age variables
   const thisYear = new Date().getFullYear();
@@ -120,9 +134,9 @@ export default function Button() {
       <section>
         <Avatar />
       </section>
-      <div className={classes.root}>
+      <div className="{classes.root}">
         <Typography id="range-slider" gutterBottom>
-          Age range (publication date)
+          <span className="profile-label">Age range (publication date)</span>
         </Typography>
         <Slider
           value={value}
