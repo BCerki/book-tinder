@@ -5,6 +5,7 @@ import User from "./Components/User";
 
 import NavBar from "./Components/NavBar";
 import MessagesView from "./Components/MessagesView";
+import InfoView from "./Components/InfoView";
 
 class App extends Component {
   constructor(props) {
@@ -44,8 +45,12 @@ class App extends Component {
           <NavBar />
         </section>
         <section>
-          this is the messages page:
+          this is the messages view:
           <MessagesView />
+        </section>
+        <section>
+          this is the info view:
+          <InfoView />
         </section>
       </main>
     );
