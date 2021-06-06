@@ -42,6 +42,16 @@ main {
   flex-direction: column;
   overflow: scroll;
 }
+//Conditionally rendered styles depending on view--figure out how to next them with SASS, FIX FIX
+.swipe {
+  // border: 10px solid pink;
+}
+.middle {
+  margin: $spacing1;
+}
+.profile {
+  // margin: $spacing1;
+}
 
 footer {
   position: fixed;

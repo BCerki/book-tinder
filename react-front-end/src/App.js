@@ -8,22 +8,28 @@ import MiddleView from "./Components/MiddleView";
 import ChatView from "./Components/ChatView";
 
 import { values } from "./dummyData/dummyBookData";
+import classNames from "classnames";
 
 export default function App(props) {
+  //State and handlers for the nav bar
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  console.log("value is", value);
+
+  //Styling
+  let mainClass = classNames(
+    { swipe: value === 0 },
+    { middle: value === 1 },
+    { profile: value === 2 }
+  );
   return (
     <>
-      <main>
-        <section className="view">
-          {value === 0 && <SwipeView />}
-          {value === 1 && <MiddleView />}
-          {value === 2 && <ProfileView />}
-        </section>
+      <main className={mainClass}>
+        {value === 0 && <SwipeView />}
+        {value === 1 && <MiddleView />}
+        {value === 2 && <ProfileView />}
       </main>
       <footer>
         <NavBar onChange={handleChange} value={value} />
