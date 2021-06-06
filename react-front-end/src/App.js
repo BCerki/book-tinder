@@ -6,19 +6,20 @@ import SwipeView from "./Components/SwipeView";
 import NavBar from "./Components/NavBar";
 import MiddleView from "./Components/MiddleView";
 import ChatView from "./Components/ChatView";
+import useView from "./Hooks/useView";
 
 export default function App() {
+  const { mode, transition } = useView(0);
   return (
     <main>
-      <section></section>
+      <section className="view">
+        {mode === 0 && <SwipeView />}
+        {mode === 1 && <MiddleView />}
+        {mode === 2 && <ProfileView />}
+      </section>
       <footer>
-        This is the nav component:
         <NavBar />
       </footer>
-      <section>
-        this is the ChatBot view:
-        <ChatView />
-      </section>
     </main>
   );
 }
