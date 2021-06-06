@@ -1,0 +1,57 @@
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS block_user CASCADE;
+DROP TABLE IF EXISTS genre_preference CASCADE;
+DROP TABLE IF EXISTS genres CASCADE;
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  radius_pref INTEGER NOT NULL,
+  pages_max_pref INTEGER NOT NULL,
+  pages_min_pref INTEGER NOT NULL,
+  maturity_pref BOOLEAN NOT NULL,
+  age_max_pref INTEGER NOT NULL,
+  age_min_pref INTEGER NOT NULL,
+  price_max_pref INTEGER NOT NULL
+);
+
+CREATE TABLE block_user (
+  id SERIAL PRIMARY KEY NOT NULL,
+  users_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  book_id INTEGER REFERENCES books(id) ON DELETE CASCADE
+); 
+
+CREATE TABLE genre_user (
+  id SERIAL PRIMARY KEY NOT NULL,
+  users_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  genres_id INTEGER REFERENCES genres(id) ON DELETE CASCADE
+);
+
+CREATE TABLE genres (
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE books (
+id SERIAL PRIMARY KEY NOT NULL,
+author VARCHAR(255) NOT NULL,
+image VARCHAR,
+description VARCHAR,
+page_count INTEGER,
+publish_date DATE,
+price INTEGER
+booknet_available BOOLEAN
+);
+
+CREATE TABLE conversations (
+id SERIAL PRIMARY KEY NOT NULL,
+user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+book_id INTEGER  REFERENCES books(id) ON DELETE CASCADE
+);
+
+CREATE TABLE messages (
+id SERIAL PRIMARY KEY NOT NULL,
+participant_id INTEGER REFERENCES conversations(id) ON DELETE CASCADE,
+body TEXT,
+timestamp TIMESTAMP
+);
