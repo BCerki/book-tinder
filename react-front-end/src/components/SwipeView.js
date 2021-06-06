@@ -9,9 +9,9 @@ export default function Swipe(props) {
 
   useEffect(() => {
     axios
+      //FIX FIX use our real endpoint
       .get("https://my-json-server.typicode.com/bcerki/book-tinder/books")
       .then((response) => {
-        console.log(response.data);
         setCurrentBook(_.shuffle(response.data)[0]);
       });
   }, []);
