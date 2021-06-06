@@ -1,5 +1,5 @@
-[
-  {
+{
+  "books": {
     "id": 1,
     "title": "Flowers for Algeron",
     "author": "Author",
@@ -11,4 +11,4 @@
     "price": 6,
     "latestMessage": "Heeeeeeey"
   }
-]
+}
