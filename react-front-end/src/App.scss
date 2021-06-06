@@ -40,5 +40,11 @@ main {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  height: 100vh;
+  overflow: scroll;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
 }
