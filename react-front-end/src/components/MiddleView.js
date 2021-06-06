@@ -1,5 +1,5 @@
 import React from "react";
-import InfoCard from "./InfoCard";
+import BookCard from "./BookCard";
 import MessageCard from "./Message";
 
 import SearchBar from "./SearchBar";
@@ -15,10 +15,10 @@ import "../styles/middle.scss";
 export default function InfoView(props) {
   const handleClick = function() {};
   //Create the cards for info
-  const infoList = bookData.map((book) => {
+  const bookCards = bookData.map((book) => {
     return (
       <article>
-        <InfoCard
+        <BookCard
           id={book.id}
           onClick={handleClick}
           title={book.title}
@@ -29,19 +29,6 @@ export default function InfoView(props) {
           pageCount={book.pageCount}
           price={book.price}
           age={book.age}
-        />
-      </article>
-    );
-  });
-  //Create the cards for messages
-  const messagesList = bookData.map((book) => {
-    return (
-      <article>
-        <MessageCard
-          id={book.id}
-          onClick={handleClick}
-          title={book.title}
-          coverImage={book.coverImage}
           latestMessage={book.latestMessage}
         />
       </article>
@@ -61,7 +48,9 @@ export default function InfoView(props) {
 
   return (
     <main>
-      <SearchBar />
+      <section>
+        <SearchBar />
+      </section>
       <section>
         <Grid component="label" container alignItems="center" spacing={1}>
           <Grid item>Info</Grid>
@@ -75,7 +64,7 @@ export default function InfoView(props) {
           <Grid item>Messages</Grid>
         </Grid>
       </section>
-      <section>{infoList}</section>
+      <section>{bookCards}</section>
     </main>
   );
 }

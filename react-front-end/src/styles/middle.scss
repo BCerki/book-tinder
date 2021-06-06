@@ -1,17 +1,17 @@
 @import "./variables.scss";
 
-.info-card {
+.card-skeleton {
   display: flex;
   justify-content: flex-start;
   margin: $spacing1 0;
 }
 
-div.info-col {
-  display: flex;
-  flex-direction: column;
+.title-author {
   margin: 0 $spacing1;
 }
+//messages styles
 
+//info styles
 .second-row {
   display: flex;
   justify-content: space-between;
