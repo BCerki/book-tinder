@@ -6,7 +6,7 @@ import SwipeView from "./Components/SwipeView";
 import NavBar from "./Components/NavBar";
 import MiddleView from "./Components/MiddleView";
 import ChatView from "./Components/ChatView";
-import useView from "./Hooks/useView";
+
 import { values } from "./dummyData/dummyBookData";
 
 export default function App(props) {
@@ -26,7 +26,12 @@ export default function App(props) {
         {value === 2 && <ProfileView />}
       </section>
       <footer>
-        <NavBar onChange={handleChange} value={value} />
+        <NavBar
+          onChange={() => {
+            handleChange(value);
+          }}
+          value={value}
+        />
       </footer>
     </main>
   );
