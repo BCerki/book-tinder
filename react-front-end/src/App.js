@@ -10,15 +10,6 @@ import ChatView from "./Components/ChatView";
 import { values } from "./dummyData/dummyBookData";
 
 export default function App(props) {
-  ////Pull in state and functions from custom hook
-  // const {
-  //   state,
-  //   setDay,
-  //   bookInterview,
-  //   cancelInterview,
-  // } = useApplicationData();
-
-  //Navbar state
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -34,12 +25,7 @@ export default function App(props) {
         {value === 2 && <ProfileView />}
       </section>
       <footer>
-        <NavBar
-          onChange={() => {
-            handleChange(value);
-          }}
-          value={value}
-        />
+        <NavBar onChange={handleChange} value={value} />
       </footer>
     </main>
   );
