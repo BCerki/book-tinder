@@ -6,6 +6,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
 import Switch from "@material-ui/core/Switch";
 import genreData from "../dummyData/dummyGenreData";
+import classNames from "classnames";
 
 //Styling
 import "../styles/profile.scss";
@@ -116,15 +117,19 @@ export default function ProfileView() {
   ];
 
   //genre
+
+  const chipClass = classNames({ selected: true }, { deselected: false });
   const genreChips = genreData.map((genre) => {
     return (
-      <Chip
-        // icon={<FaceIcon />}
-        id={genre.id}
-        label={genre.name}
-        onClick={handleClick}
-        onDelete={handleDelete}
-      />
+      <span className={chipClass}>
+        <Chip
+          // icon={<FaceIcon />}
+          id={genre.id}
+          label={genre.name}
+          onClick={handleClick}
+          onDelete={handleDelete}
+        />
+      </span>
     );
   });
 
