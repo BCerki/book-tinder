@@ -13,10 +13,10 @@
       "latestMessage": "Heeeeeeey"
     },
     {
-      "id": 1,
-      "title": "Flowers for Algeron",
+      "id": 2,
+      "title": "Hello Humpback",
       "author": "Author",
-      "coverImage": "https://books.google.com/books/content?id=64tuPwAACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+      "coverImage": "https://cdn.shopify.com/s/files/1/0293/1615/3443/products/9781550177992.jpg?v=1620433160",
       "description": "describe",
       "isbn": "1234567891234",
       "pageCount": 5,
@@ -24,5 +24,9 @@
       "price": 6,
       "latestMessage": "Heeeeeeey"
     }
+  ],
+  "genres": [
+    { "id": 1, "name": "mystery" },
+    { "id": 2, "name": "romance" }
   ]
 }
