@@ -20,6 +20,7 @@ CREATE TABLE users (
 
 CREATE TABLE books (
 id SERIAL PRIMARY KEY NOT NULL,
+title VARCHAR(255) NOT NULL,
 author VARCHAR(255) NOT NULL,
 image VARCHAR,
 description VARCHAR,
@@ -32,7 +33,7 @@ booknet_available BOOLEAN
 CREATE TABLE block_user (
   id SERIAL PRIMARY KEY NOT NULL,
   users_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  book_id INTEGER REFERENCES books(id) ON DELETE CASCADE
+  books_id INTEGER REFERENCES books(id) ON DELETE CASCADE
 );
 
 CREATE TABLE genres (
