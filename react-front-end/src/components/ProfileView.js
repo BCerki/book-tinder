@@ -7,9 +7,19 @@ import Chip from "@material-ui/core/Chip";
 import Switch from "@material-ui/core/Switch";
 import genreData from "../dummyData/dummyGenreData";
 
+//Styling
 import "../styles/profile.scss";
+const useStyles = makeStyles((theme) => ({
+  large: {
+    width: theme.spacing(10),
+    height: theme.spacing(10),
+  },
+}));
 
-export default function Button() {
+export default function ProfileView() {
+  //Material UI styling hook
+  const classes = useStyles();
+
   //Chip functions
   const handleDelete = () => {
     console.info("You clicked the delete icon.");
@@ -18,15 +28,6 @@ export default function Button() {
   const handleClick = () => {
     console.info("You clicked the Chip.");
   };
-
-  //Styling
-  const useStyles = makeStyles({
-    root: {
-      width: 200,
-    },
-  });
-
-  const classes = useStyles();
 
   //Slider helpers
   function valuetext(value) {
@@ -115,9 +116,7 @@ export default function Button() {
   ];
 
   //genre
-  console.log(genreData);
   const genreChips = genreData.map((genre) => {
-    console.log(genre);
     return (
       <Chip
         // icon={<FaceIcon />}
@@ -131,13 +130,12 @@ export default function Button() {
 
   return (
     <main>
-      <section>
-        <Avatar />
-      </section>
-      <div className="{classes.root}">
-        <Typography id="range-slider" gutterBottom>
-          <span className="profile-label">Age range (publication date)</span>
-        </Typography>
+      <div className="profile-avatar">
+        <Avatar className={classes.large} />
+      </div>
+      <div className="profile-preference">
+        <span className="profile-label">Age range (publication date)</span>
+
         <Slider
           value={value}
           marks={ageMarks}
@@ -148,10 +146,8 @@ export default function Button() {
           getAriaValueText={valuetext}
         />
       </div>
-      <div className={classes.root}>
-        <Typography id="range-slider" gutterBottom>
-          Commitment level (page count)
-        </Typography>
+      <div className="profile-preference">
+        <span class="profile-label">Commitment level (page count)</span>
         <Slider
           value={value}
           marks={pageCountMarks}
@@ -162,10 +158,8 @@ export default function Button() {
           getAriaValueText={valuetext}
         />
       </div>
-      <div className={classes.root}>
-        <Typography id="range-slider" gutterBottom>
-          Date cost (price range)
-        </Typography>
+      <div className="profile-preference">
+        <span class="profile-label">Date cost (price range)</span>
         <Slider
           value={value}
           marks={priceMarks}
@@ -176,10 +170,8 @@ export default function Button() {
           getAriaValueText={valuetext}
         />
       </div>
-      <div className={classes.root}>
-        <Typography id="discrete-slider-always" gutterBottom>
-          Maximum distance (to a bookstore)
-        </Typography>
+      <div className="profile-preference">
+        <span class="profile-label">Maximum distance (to a bookstore)</span>
         <Slider
           defaultValue={80}
           getAriaValueText={valuetext}
@@ -190,10 +182,8 @@ export default function Button() {
           valueLabelDisplay="auto"
         />
       </div>
-      <div className={classes.root}>
-        <Typography id="discrete-slider-always" gutterBottom>
-          Adventurous? (maturity level)
-        </Typography>
+      <div className="profile-preference">
+        <span class="profile-label">Adventurous? (maturity level)</span>
         <Switch
           checked={true}
           // onChange={handleChange}
@@ -202,10 +192,10 @@ export default function Button() {
           inputProps={{ "aria-label": "primary checkbox" }}
         />
       </div>
-      <section>
-        <Typography gutterBottom>Genres</Typography>
-        {genreChips}
-      </section>
+      <div className="profile-preference">
+        <span class="profile-label">Genres</span>
+        <div class="genre-box">{genreChips}</div>
+      </div>
     </main>
   );
 }
