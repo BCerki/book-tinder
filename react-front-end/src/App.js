@@ -10,6 +10,14 @@ import ChatView from "./Components/ChatView";
 import { values } from "./dummyData/dummyBookData";
 
 export default function App(props) {
+  ////Pull in state and functions from custom hook
+  // const {
+  //   state,
+  //   setDay,
+  //   bookInterview,
+  //   cancelInterview,
+  // } = useApplicationData();
+
   //Navbar state
   const [value, setValue] = useState(0);
 
