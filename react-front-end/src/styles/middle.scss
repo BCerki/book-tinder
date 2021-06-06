@@ -1,21 +1,41 @@
 @import "./variables.scss";
 
 .info-card {
+  display: flex;
+  justify-content: flex-start;
+  margin: $spacing1 0;
 }
 
-.top-row {
+div.info-col {
+  display: flex;
+  flex-direction: column;
+  margin: 0 $spacing1;
+}
+
+.second-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-content: stretch;
+  margin: 0 $spacing1;
+}
+.third-row {
+  margin: 0 $spacing1;
 }
 
-.article-avatar {
+.title-author {
+  font-weight: bold;
 }
 
-.title-author-display {
+.age {
+  color: pink;
+}
+.page-count {
+  color: green;
+}
+.price {
+  color: blue;
 }
 
-div.info {
-  display: flex;
-  justify-content: space-between;
+.description {
+  color: navy;
 }
