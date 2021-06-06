@@ -6,13 +6,13 @@ import "../styles/swipe.scss";
 
 export default function Swipe(props) {
   const [currentBook, setCurrentBook] = useState({});
-  //bad to requery the api on every mount/render?
-  // _.shuffle(response.data)[0]
+
   useEffect(() => {
     axios
       .get("https://my-json-server.typicode.com/bcerki/book-tinder/books")
       .then((response) => {
-        setCurrentBook(response.data);
+        console.log(response.data);
+        setCurrentBook(_.shuffle(response.data)[0]);
       });
   }, []);
   return (
