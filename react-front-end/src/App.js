@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, Component } from "react";
 import axios from "axios";
 import "./App.scss";
 import ProfileView from "./Components/ProfileView";
@@ -7,18 +7,26 @@ import NavBar from "./Components/NavBar";
 import MiddleView from "./Components/MiddleView";
 import ChatView from "./Components/ChatView";
 import useView from "./Hooks/useView";
+import { values } from "./dummyData/dummyBookData";
 
-export default function App() {
-  const { mode, transition } = useView(0);
+export default function App(props) {
+  //Navbar state
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    console.log("handleChange fired");
+    setValue(newValue);
+  };
+  console.log("value is", value);
   return (
     <main>
       <section className="view">
-        {mode === 0 && <SwipeView />}
-        {mode === 1 && <MiddleView />}
-        {mode === 2 && <ProfileView />}
+        {value === 0 && <SwipeView />}
+        {value === 1 && <MiddleView />}
+        {value === 2 && <ProfileView />}
       </section>
       <footer>
-        <NavBar />
+        <NavBar onChange={handleChange} value={value} />
       </footer>
     </main>
   );

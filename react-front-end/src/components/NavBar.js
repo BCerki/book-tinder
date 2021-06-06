@@ -15,19 +15,19 @@ const useStyles = makeStyles({
   },
 });
 
-export default function IconTabs() {
+export default function NavBar(props) {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  // const [value, setValue] = React.useState(0);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
+  // const handleChange = (event, newValue) => {
+  //   setValue(newValue);
+  // };
+  console.log("navbar props", props);
   return (
     <Paper square className={classes.root}>
       <Tabs
-        value={value}
-        onChange={handleChange}
+        value={props.value}
+        onChange={props.handleChange}
         variant="fullWidth"
         indicatorColor="secondary"
         textColor="secondary"
