@@ -1,24 +1,26 @@
+const { GOOGLE_BOOK_KEY } = require("../.secrets");
 const axios = require("axios");
 
+//to search only subject, put "insubject:" in front of the query term, for example: "insubject:fiction"
 const query = "fiction";
 
 const helper = function (arg) {
+  let results = null;
   arg.find((element) => {
     if (element.identifier.length === 13) {
-      return element.identifier;
+      results = element.identifier;
     }
+    return null;
   });
-  return null;
-};
 
+  return results;
+};
 axios
   .get(
-    `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${process.env.GOOGLE_BOOK_KEY}`
+    `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${GOOGLE_BOOK_KEY}`
   )
   .then((response) => {
     for (let i = 0; i < 10; i++) {
-      // console.log(response.data.items[i].volumeInfo.industryIdentifiers);
-
       console.log(
         `VALUES ('${helper(
           response.data.items[i].volumeInfo.industryIdentifiers
