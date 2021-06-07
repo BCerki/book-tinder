@@ -4,6 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
+
 import Switch from "@material-ui/core/Switch";
 import genreData from "../dummyData/dummyGenreData";
 import classNames from "classnames";
@@ -127,12 +128,18 @@ export default function ProfileView() {
       [chipName.target.innerHTML]: !chips[chipName.target.innerHTML],
     }));
     console.log("chips is:", chips);
+    const chipClass = chips[chipName.target.innerHTML];
+    console.log("chip class is", chipClass);
   };
 
-  const chipClass = classNames({ selected: true }, { deselected: false });
   const genreChips = genreData.map((genre) => {
     return (
-      <span className={chipClass}>
+      <span
+        className={classNames(
+          { selected: chips[genre.name] },
+          { deselected: !chips[genre.name] }
+        )}
+      >
         <Chip
           // icon={<FaceIcon />}
           id={genre.id}
