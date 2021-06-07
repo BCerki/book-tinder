@@ -40,7 +40,7 @@ main {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  overflow: scroll;
+  overflow: hidden;
 }
 //Conditionally rendered styles depending on view--figure out how to next them with SASS, FIX FIX
 .swipe {

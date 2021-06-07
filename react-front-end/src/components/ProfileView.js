@@ -134,7 +134,7 @@ export default function ProfileView() {
   });
 
   return (
-    <main>
+    <>
       <div className="profile-avatar">
         <Avatar className={classes.large} />
       </div>
@@ -201,6 +201,6 @@ export default function ProfileView() {
         <span class="profile-label">Genres</span>
         <div class="genre-box">{genreChips}</div>
       </div>
-    </main>
+    </>
   );
 }

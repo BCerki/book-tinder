@@ -50,7 +50,7 @@ export default function InfoView(props) {
   });
 
   return (
-    <main>
+    <>
       <section>
         <SearchBar />
       </section>
@@ -64,6 +64,6 @@ export default function InfoView(props) {
         </Grid>
       </section>
       <section>{bookCards}</section>
-    </main>
+    </>
   );
 }
