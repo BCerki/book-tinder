@@ -28,6 +28,7 @@ const pool = new Pool({
 // BookTinder GET route
 App.get("/api/test", (req, res) => {
   return pool.query(`SELECT * FROM books`).then(function (result) {
+    console.log("LOG: server: query books: result:", result);
     res.send(result.rows);
   });
 });
