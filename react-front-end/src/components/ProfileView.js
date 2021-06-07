@@ -139,7 +139,7 @@ export default function ProfileView() {
           label={genre.name}
           name={genre.name}
           onClick={chipsHandler}
-          onDelete={handleDelete}
+          // onDelete={handleDelete}
         />
       </span>
     );
