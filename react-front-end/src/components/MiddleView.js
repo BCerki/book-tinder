@@ -12,7 +12,7 @@ import Typography from "@material-ui/core/Typography";
 //Styling
 import "../styles/middle.scss";
 
-export default function InfoView(props) {
+export default function MiddleView(props) {
   const handleClick = function() {};
 
   //functions for toggle
@@ -58,7 +58,7 @@ export default function InfoView(props) {
         <Grid component="label" container alignItems="center" spacing={1}>
           <Grid item>Info</Grid>
           <Grid item>
-            <Switch checked={toggle} onChange={handleChange} name="checkedC" />
+            <Switch checked={toggle} onChange={handleChange} />
           </Grid>
           <Grid item>Messages</Grid>
         </Grid>
