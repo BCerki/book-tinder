@@ -1,26 +1,24 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./App.css";
-import SimpleForm from "./components/chatbot/SimpleForm";
+// import SimpleForm from "./components/chatbot/SimpleForm";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: "Click the button to load data!",
+      books: [],
+      message: "Click the button to load data right now!",
     };
   }
 
   fetchData = () => {
     axios
-      .get("/api/data") // You can simply make your requests to "/api/whatever you want"
+      .get("/api/test") // You can simply make your requests to "/api/whatever you want"
       .then((response) => {
-        // handle success
-        console.log(response.data); // The entire response from the Rails API
-
-        console.log(response.data.message); // Just the message
+        // console.log("LOG: response:", response);
         this.setState({
-          message: response.data.message,
+          books: response.data,
         });
       });
   };
@@ -29,11 +27,13 @@ class App extends Component {
     return (
       <div className="App">
         <h1>{this.state.message}</h1>
+        <div>{JSON.stringify(this.state.books)}</div>
         <button onClick={this.fetchData}>Fetch Data</button>
       </div>
     );
   }
 
+  // Chatbot code
   // render() {
   //   return (
   //     <div>
