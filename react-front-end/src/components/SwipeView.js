@@ -9,8 +9,7 @@ export default function Swipe(props) {
 
   useEffect(() => {
     axios
-      //FIX FIX use our real endpoint
-      .get("https://my-json-server.typicode.com/bcerki/book-tinder/books")
+      .get("/api/test")
       .then((response) => {
         console.log(response.data);
         setCurrentBook(_.shuffle(response.data)[0]);
@@ -18,11 +17,7 @@ export default function Swipe(props) {
       .catch((err) => console.log("Error message:", err.message));
   }, []);
   return (
-    <img
-      className="cover"
-      src={currentBook.coverImage}
-      alt={currentBook.title}
-    />
+    <img className="cover" src={currentBook.image} alt={currentBook.title} />
   );
 }
 
