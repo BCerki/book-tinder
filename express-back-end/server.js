@@ -12,10 +12,10 @@ App.use(Express.static("public"));
 
 // DB Configuration
 const pool = new Pool({
-  user: "vagrant",
-  password: "123",
-  host: "localhost",
-  database: "booktinder",
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  host: process.env.DB_HOST,
+  database: process.env.DB_DATABASE,
 });
 
 // Sample GET route
