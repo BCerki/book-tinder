@@ -1,0 +1,58 @@
+@import "./variables.scss";
+
+.card-skeleton {
+  display: flex;
+  justify-content: flex-start;
+  margin: $spacing1 0;
+}
+
+.title-author {
+  margin: 0 $spacing1;
+}
+//messages styles
+
+//info styles
+.second-row {
+  display: flex;
+  justify-content: space-between;
+  align-content: stretch;
+  margin: 0 $spacing1;
+}
+.third-row {
+  margin: 0 $spacing1;
+}
+
+.title-author {
+  font-weight: bold;
+}
+
+.age {
+  color: pink;
+}
+.page-count {
+  color: green;
+}
+.price {
+  color: blue;
+}
+
+.description {
+  color: navy;
+}
+
+//toggle styles
+.toggle-label {
+  font-family: $primary-font;
+}
+
+section.toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+//search bar styles
+section.search-bar {
+  display: flex;
+  justify-content: center;
+}
