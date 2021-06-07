@@ -1,7 +1,14 @@
 DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS books CASCADE;
 DROP TABLE IF EXISTS block_user CASCADE;
-DROP TABLE IF EXISTS genre_preference CASCADE;
+<<<<<<< HEAD
+DROP TABLE IF EXISTS genre_user CASCADE;
+=======
+>>>>>>> df7098ce3d155dd2dadeca9695566a308d81dd92
 DROP TABLE IF EXISTS genres CASCADE;
+DROP TABLE IF EXISTS genre_user CASCADE;
+DROP TABLE IF EXISTS conversations CASCADE;
+DROP TABLE IF EXISTS messages CASCADE;
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
@@ -15,16 +22,22 @@ CREATE TABLE users (
   price_max_pref INTEGER NOT NULL
 );
 
+CREATE TABLE books (
+id SERIAL PRIMARY KEY NOT NULL,
+title VARCHAR(255) NOT NULL,
+author VARCHAR(255) NOT NULL,
+image VARCHAR,
+description VARCHAR,
+page_count INTEGER,
+publish_date DATE,
+price INTEGER,
+booknet_available BOOLEAN
+);
+
 CREATE TABLE block_user (
   id SERIAL PRIMARY KEY NOT NULL,
   users_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  book_id INTEGER REFERENCES books(id) ON DELETE CASCADE
-); 
-
-CREATE TABLE genre_user (
-  id SERIAL PRIMARY KEY NOT NULL,
-  users_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  genres_id INTEGER REFERENCES genres(id) ON DELETE CASCADE
+  books_id INTEGER REFERENCES books(id) ON DELETE CASCADE
 );
 
 CREATE TABLE genres (
@@ -32,16 +45,15 @@ CREATE TABLE genres (
   name VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE books (
-id SERIAL PRIMARY KEY NOT NULL,
-author VARCHAR(255) NOT NULL,
-image VARCHAR,
-description VARCHAR,
-page_count INTEGER,
-publish_date DATE,
-price INTEGER
-booknet_available BOOLEAN
+CREATE TABLE genre_user (
+  id SERIAL PRIMARY KEY NOT NULL,
+  users_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  genres_id INTEGER REFERENCES genres(id) ON DELETE CASCADE
 );
+
+
+
+
 
 CREATE TABLE conversations (
 id SERIAL PRIMARY KEY NOT NULL,
