@@ -51,17 +51,13 @@ export default function MiddleView(props) {
 
   return (
     <>
-      <section>
+      <section className="search-bar">
         <SearchBar />
       </section>
-      <section>
-        <Grid component="label" container alignItems="center" spacing={1}>
-          <Grid item>Info</Grid>
-          <Grid item>
-            <Switch checked={toggle} onChange={handleChange} />
-          </Grid>
-          <Grid item>Messages</Grid>
-        </Grid>
+      <section className="toggle">
+        <span className="toggle-label">Info</span>
+        <Switch checked={toggle} onChange={handleChange} />
+        <span className="toggle-label">Messages</span>
       </section>
       <section>{bookCards}</section>
     </>

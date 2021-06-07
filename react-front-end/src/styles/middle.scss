@@ -39,3 +39,20 @@
 .description {
   color: navy;
 }
+
+//toggle styles
+.toggle-label {
+  font-family: $primary-font;
+}
+
+section.toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+//search bar styles
+section.search-bar {
+  display: flex;
+  justify-content: center;
+}
