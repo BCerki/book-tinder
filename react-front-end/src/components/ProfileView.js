@@ -21,15 +21,6 @@ export default function ProfileView() {
   //Material UI styling hook
   const classes = useStyles();
 
-  //Chip functions
-  const handleDelete = () => {
-    console.info("You clicked the delete icon.");
-  };
-
-  const handleClick = () => {
-    console.info("You clicked the Chip.");
-  };
-
   //Slider helpers
   function valuetext(value) {
     return `${value}`;
@@ -59,16 +50,6 @@ export default function ProfileView() {
   const handleMaturityChange = (event) => {
     setMaturity(!maturity);
   };
-
-  //onClick
-  // const [state, setState] = useState({
-  //   sliderOne: false,
-  //   sliderTwo: false,
-  //   sliderThree: false,
-  // });
-  // const sliderHandler = (sliderName) => {
-  //   setState((prevState) => ({ ...prevState, sliderName: !sliderName }));
-  // };
 
   //age variables
   const thisYear = new Date().getFullYear();
@@ -126,6 +107,28 @@ export default function ProfileView() {
 
   //genre
 
+  //Chip functions
+  const handleDelete = () => {
+    console.info("You clicked the delete icon.");
+  };
+
+  const handleClick = () => {
+    console.info("You clicked the Chip.");
+  };
+  //onClick
+  const [chips, setChips] = useState({
+    mystery: false,
+    romance: false,
+  });
+  const chipsHandler = (chipName) => {
+    console.log("you clicked the chip:", chipName.target.innerHTML);
+    setChips((prev) => ({
+      ...prev,
+      [chipName.target.innerHTML]: !chips[chipName.target.innerHTML],
+    }));
+    console.log("chips is:", chips);
+  };
+
   const chipClass = classNames({ selected: true }, { deselected: false });
   const genreChips = genreData.map((genre) => {
     return (
@@ -134,8 +137,9 @@ export default function ProfileView() {
           // icon={<FaceIcon />}
           id={genre.id}
           label={genre.name}
-          onClick={handleClick}
-          onDelete={handleDelete}
+          name={genre.name}
+          onClick={chipsHandler}
+          // onDelete={handleDelete}
         />
       </span>
     );

@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const Express = require("express");
 const App = Express();
 const BodyParser = require("body-parser");
@@ -18,7 +20,7 @@ const pool = new Pool({
   host: process.env.DB_HOST,
   database: process.env.DB_DATABASE,
 });
-
+console.log("process.env.DB_USER", process.env.DB_USER);
 // Sample GET route
 // App.get("/api/data", (req, res) =>
 //   res.json({
