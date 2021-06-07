@@ -1,6 +1,6 @@
 import React, { useState, Component } from "react";
 import axios from "axios";
-import "./App.css";
+// import "./App.css";
 // import SimpleForm from "./components/chatbot/SimpleForm";
 
 /* Adrian's working axios/render code
