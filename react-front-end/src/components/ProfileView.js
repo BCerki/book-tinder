@@ -16,16 +16,6 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(10),
     height: theme.spacing(10),
   },
-  selected: {
-    background: "pink",
-  },
-  deselected: {
-    background: "grey",
-  },
-  //this just knocks my background out
-  // none: {
-  //   background: "none",
-  // },
 }));
 
 export default function ProfileView() {
@@ -119,13 +109,7 @@ export default function ProfileView() {
   //genre
 
   //Chip functions
-  const handleDelete = () => {
-    console.info("You clicked the delete icon.");
-  };
 
-  const handleClick = () => {
-    console.info("You clicked the Chip.");
-  };
   //onClick
   const [chips, setChips] = useState({
     mystery: false,
@@ -139,8 +123,8 @@ export default function ProfileView() {
       [chipName.target.innerHTML]: !chips[chipName.target.innerHTML],
     }));
     console.log("chips is:", chips);
-    const chipClass = chips[chipName.target.innerHTML];
-    console.log("chip class is", chipClass);
+    // const chipClass = chips[chipName.target.innerHTML];
+    // console.log("chip class is", chipClass);
   };
 
   const genreChips = genreData.map((genre) => {
@@ -158,6 +142,7 @@ export default function ProfileView() {
           name={genre.name}
           onClick={chipsHandler}
           // onDelete={handleDelete}
+          variant="outlined"
         />
       </span>
     );
