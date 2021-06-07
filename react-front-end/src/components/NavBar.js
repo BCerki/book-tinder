@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 
 export default function NavBar(props) {
   const classes = useStyles();
-  console.log("navbar props", props);
+  // console.log("navbar props", props);
   return (
     <Paper square className={classes.root}>
       <Tabs

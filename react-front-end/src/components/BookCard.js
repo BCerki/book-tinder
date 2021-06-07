@@ -14,12 +14,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function BookCard(props) {
+  console.log("bookcard props", props);
   //styling hook
   const classes = useStyles();
   //this file is where you're doing the conditional rendering
   //check if doing info or messages
-  const checkToggle = function(state) {
-    if (state) {
+  const checkToggle = function(toggle) {
+    if (!toggle) {
       return (
         <Info
           coverImage={props.coverImage}
@@ -31,7 +32,7 @@ export default function BookCard(props) {
         />
       );
     }
-    return <Message message={props.message} />;
+    return <Message latestMessage={props.latestMessage} />;
   };
 
   return (
@@ -50,7 +51,7 @@ export default function BookCard(props) {
         <div className="title-author">
           <TitleAuthorDisplay title={props.title} author={props.author} />
         </div>
-        <div>{checkToggle(true)}</div>
+        <div class>{checkToggle(props.toggle)}</div>
       </div>
     </article>
   );
