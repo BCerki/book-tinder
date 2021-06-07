@@ -10,18 +10,18 @@ export default function Swipe(props) {
   useEffect(() => {
     axios
       //FIX FIX use our real endpoint
-      .get("/api/data")
+      .get("https://my-json-server.typicode.com/bcerki/book-tinder/books")
       .then((response) => {
         console.log(response.data);
-        // setCurrentBook(_.shuffle(response.data)[0]);
+        setCurrentBook(_.shuffle(response.data)[0]);
       })
       .catch((err) => console.log("Error message:", err.message));
   }, []);
   return (
     <img
       className="cover"
-      // src={currentBook.coverImage}
-      // alt={currentBook.title}
+      src={currentBook.coverImage}
+      alt={currentBook.title}
     />
   );
 }

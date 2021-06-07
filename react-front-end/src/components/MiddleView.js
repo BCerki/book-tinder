@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import BookCard from "./BookCard";
 import MessageCard from "./Message";
 
@@ -12,8 +12,21 @@ import Typography from "@material-ui/core/Typography";
 //Styling
 import "../styles/middle.scss";
 
-export default function InfoView(props) {
+export default function MiddleView(props) {
   const handleClick = function() {};
+
+  //functions for toggle
+  const [toggle, setToggle] = useState(false);
+
+  // const handleChange = (event) => {
+  //   setToggle({ ...state, [event.target.name]: event.target.checked });
+  // };
+
+  const handleChange = (event) => {
+    setToggle(!toggle);
+  };
+  console.log("toggle in middle view", toggle);
+
   //Create the cards for info
   const bookCards = bookData.map((book) => {
     return (
@@ -30,41 +43,23 @@ export default function InfoView(props) {
           price={book.price}
           age={book.age}
           latestMessage={book.latestMessage}
+          toggle={toggle}
         />
       </article>
     );
   });
 
-  //functions for toggle
-  const [state, setState] = React.useState({
-    checkedA: true,
-    checkedB: true,
-    checkedC: true,
-  });
-
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-  };
-
   return (
-    <main>
-      <section>
+    <>
+      <section className="search-bar">
         <SearchBar />
       </section>
-      <section>
-        <Grid component="label" container alignItems="center" spacing={1}>
-          <Grid item>Info</Grid>
-          <Grid item>
-            <Switch
-              checked={state.checkedC}
-              onChange={handleChange}
-              name="checkedC"
-            />
-          </Grid>
-          <Grid item>Messages</Grid>
-        </Grid>
+      <section className="toggle">
+        <span className="toggle-label">Info</span>
+        <Switch checked={toggle} onChange={handleChange} />
+        <span className="toggle-label">Messages</span>
       </section>
       <section>{bookCards}</section>
-    </main>
+    </>
   );
 }

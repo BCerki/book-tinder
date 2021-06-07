@@ -36,20 +36,28 @@ export default function ProfileView() {
   }
 
   //do one of these for each slider, mentor and talk to DB
-  const [value, setValue] = React.useState([20, 40]);
-
-  //State updates
-  // const [state, setState] = useState({
-  //   day: "Monday",
-  //   days: [],
-  //   appointments: {},
-  //   interviewers: {},
-  // });
-  // const setDay = (day) => setState({ ...state, day });
+  const [age, setAge] = useState([20, 40]);
+  const [pageCount, setPageCount] = useState([256, 512]);
+  const [price, setPrice] = useState([10, 30]);
+  const [maxDistance, setMaxDistance] = useState(80);
+  const [maturity, setMaturity] = useState(false);
 
   //do one for each slider
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const handleAgeChange = (event, newValue) => {
+    setAge(newValue);
+  };
+  const handlePageCountChange = (event, newValue) => {
+    setPageCount(newValue);
+  };
+  const handlePriceChange = (event, newValue) => {
+    setPrice(newValue);
+  };
+  //FIX FIX this one doesn't have a change function?
+  const handleMaxDistanceChange = (event, newValue) => {
+    setMaxDistance(newValue);
+  };
+  const handleMaturityChange = (event) => {
+    setMaturity(!maturity);
   };
 
   //onClick
@@ -64,55 +72,55 @@ export default function ProfileView() {
 
   //age variables
   const thisYear = new Date().getFullYear();
-  const maxAge = thisYear - 1970;
+  const maxAgeMark = thisYear - 1970;
   const ageMarks = [
     {
       value: 0,
       label: "0",
     },
     {
-      value: maxAge,
-      label: `${maxAge}`,
+      value: maxAgeMark,
+      label: `${maxAgeMark}`,
     },
   ];
 
   //page count variables
-  const maxPageCount = 1000;
+  const maxPageCountMark = 1000;
   const pageCountMarks = [
     {
       value: 0,
       label: "One-night stand",
     },
     {
-      value: maxPageCount,
+      value: maxPageCountMark,
       label: `Long-term relationship`,
     },
   ];
 
   //price variables
-  const maxPrice = 200;
+  const maxPriceMark = 200;
   const priceMarks = [
     {
       value: 0,
       label: "Cheap",
     },
     {
-      value: maxPrice,
+      value: maxPriceMark,
       label: `Expensive`,
     },
   ];
 
   //location variables
-  const maxDistance = 200;
-  const locationMarks = [
+  const maxDistanceMark = 200;
+  const distanceMarks = [
     {
       value: 0,
       label: "0km",
     },
 
     {
-      value: maxDistance,
-      label: `${maxDistance}km`,
+      value: maxDistanceMark,
+      label: `${maxDistanceMark}km`,
     },
   ];
 
@@ -134,7 +142,7 @@ export default function ProfileView() {
   });
 
   return (
-    <main>
+    <>
       <div className="profile-avatar">
         <Avatar className={classes.large} />
       </div>
@@ -142,10 +150,10 @@ export default function ProfileView() {
         <span className="profile-label">Age range (publication date)</span>
 
         <Slider
-          value={value}
+          value={age}
           marks={ageMarks}
           max={thisYear - 1970}
-          onChange={handleChange}
+          onChange={handleAgeChange}
           valueLabelDisplay="auto"
           aria-labelledby="range-slider"
           getAriaValueText={valuetext}
@@ -154,10 +162,10 @@ export default function ProfileView() {
       <div className="profile-preference">
         <span class="profile-label">Commitment level (page count)</span>
         <Slider
-          value={value}
+          value={pageCount}
           marks={pageCountMarks}
-          max={maxPageCount}
-          onChange={handleChange}
+          max={maxPageCountMark}
+          onChange={handlePageCountChange}
           valueLabelDisplay="auto"
           aria-labelledby="range-slider"
           getAriaValueText={valuetext}
@@ -166,10 +174,10 @@ export default function ProfileView() {
       <div className="profile-preference">
         <span class="profile-label">Date cost (price range)</span>
         <Slider
-          value={value}
+          value={price}
           marks={priceMarks}
-          max={maxPrice}
-          onChange={handleChange}
+          max={maxPriceMark}
+          onChange={handlePriceChange}
           valueLabelDisplay="auto"
           aria-labelledby="range-slider"
           getAriaValueText={valuetext}
@@ -178,22 +186,21 @@ export default function ProfileView() {
       <div className="profile-preference">
         <span class="profile-label">Maximum distance (to a bookstore)</span>
         <Slider
-          defaultValue={80}
+          defaultValue={maxDistance}
           getAriaValueText={valuetext}
           aria-labelledby="discrete-slider-always"
           step={10}
-          marks={locationMarks}
-          max={maxDistance}
+          marks={distanceMarks}
+          max={maxDistanceMark}
           valueLabelDisplay="auto"
         />
       </div>
       <div className="profile-preference">
         <span class="profile-label">Adventurous? (maturity level)</span>
         <Switch
-          checked={true}
-          // onChange={handleChange}
+          // checked={true}
+          onChange={handleMaturityChange}
           color="primary"
-          name="checkedB"
           inputProps={{ "aria-label": "primary checkbox" }}
         />
       </div>
@@ -201,6 +208,6 @@ export default function ProfileView() {
         <span class="profile-label">Genres</span>
         <div class="genre-box">{genreChips}</div>
       </div>
-    </main>
+    </>
   );
 }
