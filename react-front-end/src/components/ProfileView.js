@@ -16,6 +16,16 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(10),
     height: theme.spacing(10),
   },
+  selected: {
+    background: "pink",
+  },
+  deselected: {
+    background: "grey",
+  },
+  //this just knocks my background out
+  // none: {
+  //   background: "none",
+  // },
 }));
 
 export default function ProfileView() {
@@ -120,6 +130,7 @@ export default function ProfileView() {
   const [chips, setChips] = useState({
     mystery: false,
     romance: false,
+    adventure: false,
   });
   const chipsHandler = (chipName) => {
     console.log("you clicked the chip:", chipName.target.innerHTML);
