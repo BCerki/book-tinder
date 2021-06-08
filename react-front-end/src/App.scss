@@ -35,28 +35,7 @@
 }
 
 main {
-  // margin: $spacinghalf;
-  margin: 0;
-  // display: flex;
-  // justify-content: space-between;
-  // flex-direction: column;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   height: $space-above-footer;
-}
-//Conditionally rendered styles depending on view--figure out how to next them with SASS, FIX FIX
-.swipe {
-  // border: 10px solid pink;
-}
-.middle {
-  margin: $spacing1;
-  margin-bottom: $spacingnav;
-}
-.profile {
-  // margin: $spacing1;
-  margin-bottom: $spacingnav;
-}
-
-//navbar -FIX FIX move later?
-.MuiTabs-root {
-  height: 7vh !important;
 }
