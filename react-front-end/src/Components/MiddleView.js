@@ -32,7 +32,7 @@ export default function MiddleView(props) {
   const bookCards = bookData.map((book) => {
     return (
       <article>
-        <Link to={`/middle/${book.id}`}>
+        <Link to={`/middle/${book.id}`} className="bookCard">
           <BookCard
             id={book.id}
             onClick={handleClick}

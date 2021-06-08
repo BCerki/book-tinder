@@ -1,13 +1,15 @@
 @import "./variables.scss";
 
+//books
 .card-skeleton {
   display: flex;
   justify-content: flex-start;
   margin: $spacing1 0;
 }
-//why is this not working?
-a {
-  color: none;
+
+a.bookCard {
+  color: black;
+  text-decoration: none;
 }
 
 .title-author {
