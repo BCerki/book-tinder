@@ -1,28 +1,17 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import ProfileView from "./Components/ProfileView";
-import classNames from "classnames";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+//Import components
+import ProfileView from "./Components/ProfileView";
 import SwipeView from "./Components/SwipeView";
 import ChatView from "./Components/ChatView";
 import BooksView from "./Components/BooksView";
 import Footer from "./Components/Footer";
 
-//Styling
+//Import styling
 import "./App.scss";
 
 export default function AppRouter() {
-  // State and handlers for the nav bar
-  // const [value, setValue] = useState(0);
-  // const handleChange = (event, newValue) => {
-  //   setValue(newValue);
-  // };
-  //Styling
-  // let mainClass = classNames(
-  //   { swipe: value === 0 },
-  //   { middle: value === 1 },
-  //   { profile: value === 2 }
-  // );
   return (
     <Router>
       <main>
@@ -41,7 +30,6 @@ export default function AppRouter() {
           </Route>
         </Switch>
       </main>
-
       <Footer />
     </Router>
   );
