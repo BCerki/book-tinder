@@ -4,7 +4,7 @@
   position: relative;
   background-size: cover;
   background-position: center;
-  height: 93vh;
+  height: $space-above-footer;
   background-repeat: no-repeat;
 }
 
@@ -16,5 +16,5 @@
 .swipe {
   position: absolute;
   width: 100vw;
-  height: 93vh;
+  height: $space-above-footer;
 }
