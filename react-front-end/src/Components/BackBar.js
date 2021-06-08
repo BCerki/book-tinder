@@ -15,7 +15,7 @@ import "../styles/backbar.scss";
 export default function BackBar(props) {
   return (
     <div className="backBar">
-      <Link to="/middle">
+      <Link to="/books">
         <ArrowBackIosIcon />
       </Link>
       <Avatar className="chatAvatar" />

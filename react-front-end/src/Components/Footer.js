@@ -20,7 +20,7 @@ export default function Footer(props) {
         </Link>
       </div>
       <div>
-        <Link to="/middle">
+        <Link to="/books">
           <ForumIcon />
         </Link>
       </div>

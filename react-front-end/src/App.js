@@ -16,10 +16,10 @@ export default function AppRouter() {
     <Router>
       <main>
         <Switch>
-          <Route path="/middle/:book">
+          <Route path="/books/:book">
             <ChatView />
           </Route>
-          <Route path="/middle">
+          <Route path="/books">
             <BooksView />
             <Footer />
           </Route>
