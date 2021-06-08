@@ -1,6 +1,6 @@
 import React, { useState, Component } from "react";
 import axios from "axios";
-import "./App.css";
+import "./App.scss";
 
 /* Adrian's working axios/render code
 class App extends Component {
