@@ -58,11 +58,11 @@ export default function ProfileView() {
   const ageMarks = [
     {
       value: 0,
-      label: "0",
+      // label: "0",
     },
     {
       value: maxAgeMark,
-      label: `${maxAgeMark}`,
+      // label: `${maxAgeMark}`,
     },
   ];
 
@@ -71,11 +71,11 @@ export default function ProfileView() {
   const pageCountMarks = [
     {
       value: 0,
-      label: "One-night stand",
+      // label: "One-night stand",
     },
     {
       value: maxPageCountMark,
-      label: `Long-term relationship`,
+      // label: `Long-term relationship`,
     },
   ];
 
@@ -84,11 +84,11 @@ export default function ProfileView() {
   const priceMarks = [
     {
       value: 0,
-      label: "Cheap",
+      // label: "Cheap",
     },
     {
       value: maxPriceMark,
-      label: `Expensive`,
+      // label: `Expensive`,
     },
   ];
 
@@ -97,12 +97,12 @@ export default function ProfileView() {
   const distanceMarks = [
     {
       value: 0,
-      label: "0km",
+      // label: "0km",
     },
 
     {
       value: maxDistanceMark,
-      label: `${maxDistanceMark}km`,
+      // label: `${maxDistanceMark}km`,
     },
   ];
 
@@ -165,6 +165,10 @@ export default function ProfileView() {
           aria-labelledby="range-slider"
           getAriaValueText={valuetext}
         />
+        <div className={"labels"}>
+          <span>0</span>
+          <span>{maxAgeMark}</span>
+        </div>
       </div>
       <div className="profile-preference">
         <span class="profile-label">Commitment level (page count)</span>
@@ -177,6 +181,10 @@ export default function ProfileView() {
           aria-labelledby="range-slider"
           getAriaValueText={valuetext}
         />
+        <div className={"labels"}>
+          <span>One-night stand</span>
+          <span>Long-term relationship</span>
+        </div>
       </div>
       <div className="profile-preference">
         <span class="profile-label">Date cost (price range)</span>
@@ -189,6 +197,10 @@ export default function ProfileView() {
           aria-labelledby="range-slider"
           getAriaValueText={valuetext}
         />
+        <div className={"labels"}>
+          <span>Cheap</span>
+          <span>Expensive</span>
+        </div>
       </div>
       <div className="profile-preference">
         <span class="profile-label">Maximum distance (to a bookstore)</span>
@@ -201,15 +213,23 @@ export default function ProfileView() {
           max={maxDistanceMark}
           valueLabelDisplay="auto"
         />
+        <div className={"labels"}>
+          <span>0km</span>
+          <span>{maxDistance}km</span>
+        </div>
       </div>
       <div className="profile-preference">
-        <span class="profile-label">Adventurous? (maturity level)</span>
-        <Switch
-          // checked={true}
-          onChange={handleMaturityChange}
-          color="primary"
-          inputProps={{ "aria-label": "primary checkbox" }}
-        />
+        <div className="maturity">
+          <span class="profile-label">
+            Adventurous? (include mature content)
+          </span>
+          <Switch
+            // checked={true}
+            onChange={handleMaturityChange}
+            color="primary"
+            inputProps={{ "aria-label": "primary checkbox" }}
+          />
+        </div>
       </div>
       <div className="profile-preference">
         <span class="profile-label">Genres</span>

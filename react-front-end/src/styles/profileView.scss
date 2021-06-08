@@ -42,3 +42,15 @@
 //labels under sliders HELP HELP FIX FIX
 .MuiSlider-markLabel {
 }
+
+.labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: small;
+  margin-top: -1em;
+}
+
+.maturity {
+  display: flex;
+  justify-content: space-between;
+}
