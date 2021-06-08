@@ -5,6 +5,9 @@ import otherScripts from "../ChatBotScripts/otherScripts";
 import _ from "lodash";
 import BackBar from "./BackBar";
 
+//Styling
+import "../styles/chatView.scss";
+
 //helper function
 const chooseScript = function(scripts) {
   const randomIndex = _.random(0, scripts.length - 1);

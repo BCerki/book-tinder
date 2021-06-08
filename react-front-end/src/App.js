@@ -21,16 +21,18 @@ export default function AppRouter() {
           </Route>
           <Route path="/middle">
             <BooksView />
+            <Footer />
           </Route>
           <Route path="/profile">
             <ProfileView />
+            <Footer />
           </Route>
           <Route path="/">
             <SwipeView />
+            <Footer />
           </Route>
         </Switch>
       </main>
-      <Footer />
     </Router>
   );
 }
