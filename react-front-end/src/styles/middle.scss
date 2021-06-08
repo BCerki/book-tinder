@@ -5,6 +5,10 @@
   justify-content: flex-start;
   margin: $spacing1 0;
 }
+//why is this not working?
+a {
+  color: none;
+}
 
 .title-author {
   margin: 0 $spacing1;
@@ -55,4 +59,16 @@ section.toggle {
 section.search-bar {
   display: flex;
   justify-content: center;
+}
+
+//chatbot styles
+//height of message window
+.rsc {
+  height: 93vh;
+}
+
+.rsc-footer {
+  position: fixed;
+  border: solid pink 10px;
+  visibility: hidden; //since it's all predefined entry for now
 }

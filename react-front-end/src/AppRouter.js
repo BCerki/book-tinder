@@ -4,7 +4,7 @@ import ProfileView from "./Components/ProfileView";
 import classNames from "classnames";
 
 import SwipeView from "./Components/SwipeView";
-import NavBar from "./Components/NavBar";
+import ChatView from "./Components/ChatView";
 import MiddleView from "./Components/MiddleView";
 import Footer from "./Components/Footer";
 
@@ -27,6 +27,9 @@ export default function AppRouter() {
     <Router>
       <main>
         <Switch>
+          <Route path="/middle/:book">
+            <ChatView />
+          </Route>
           <Route path="/middle">
             <MiddleView />
           </Route>

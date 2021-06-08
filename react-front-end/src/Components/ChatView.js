@@ -18,8 +18,9 @@ export default function ChatView(props) {
   return (
     <ChatBot
       steps={chooseScript(scripts)}
-      // hideBotAvatar={true}
-      // hideUserAvatar={true}
+      hideBotAvatar={true}
+      hideUserAvatar={true}
+      hideHeader={true}
       headerTitle={"this will be from the state"}
       botAvatar={"from state"}
       userAvatar={"from user api, hardcode in"}
