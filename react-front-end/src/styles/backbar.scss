@@ -5,10 +5,16 @@
 .backBar {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  // background-color: white;
-  width: 100vw;
+  justify-content: space-between;
+  // width: 100vw;
   height: 10vh;
+  padding: 0 1em;
+  background-color: #f5f8fb;
 
   // box-shadow: 0px 2px 1px -1px, 0px 1px 1px 0px, 0px 1px 3px 0px;
+}
+
+.hidden {
+  //ugly way to get the avatar centred
+  visibility: hidden;
 }
