@@ -43,7 +43,13 @@ App.post("api/conversations", (req, res) => {});
 App.post("api/messages", (req, res) => {});
 
 //Update user's genre prefs
-App.put("api/genres/:id", (req, res) => {});
+App.put("api/genres/:id", (req, res) => {
+  const id = pareInt(req.params.id);
+
+  const updateUserGenres = `UPDATE genre_user SET users_id = $1, genres_id = $2 WHERE id = $3`
+
+  
+});
 
 //Update user in users table
 App.put("/api/user/:id", (req, res) => {
