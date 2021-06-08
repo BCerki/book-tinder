@@ -8,6 +8,7 @@ import FormGroup from "@material-ui/core/FormGroup";
 import Switch from "@material-ui/core/Switch";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import { Link } from "react-router-dom";
 
 //Styling
 import "../styles/middle.scss";
@@ -45,6 +46,7 @@ export default function MiddleView(props) {
           latestMessage={book.latestMessage}
           toggle={toggle}
         />
+        <Link to="" />
       </article>
     );
   });

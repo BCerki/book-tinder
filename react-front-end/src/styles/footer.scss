@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900");
+
+@import "./variables.scss";
+
+.footer {
+  display: flex;
+  padding: $spacinghalf;
+  justify-content: space-around;
+  background-color: white;
+  border-top: grey 1px solid;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: 7vh;
+}

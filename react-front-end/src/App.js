@@ -1,5 +1,7 @@
 import React, { useState, Component } from "react";
 import axios from "axios";
+import { BrowserRouter as Router, Switch, Route } from "react-dom";
+import Footer from "./Components/Footer";
 // import "./App.css";
 // import SimpleForm from "./components/chatbot/SimpleForm";
 
@@ -55,13 +57,11 @@ import { values } from "./dummyData/dummyBookData";
 import classNames from "classnames";
 
 export default function App(props) {
-  //State and handlers for the nav bar
+  // State and handlers for the nav bar
   const [value, setValue] = useState(0);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   //Styling
   let mainClass = classNames(
     { swipe: value === 0 },
@@ -80,6 +80,32 @@ export default function App(props) {
       </footer>
     </>
   );
+
+  //   return (
+  //     <Router>
+  //       <Switch>
+  //         <Route path="/chat/:book">
+  //           <Header backButton="chat" />
+  //           <ChatView />
+  //         </Route>
+
+  //         <Route path="/chat">
+  //           <Header backButton="/" />
+  //           <ChatView />
+  //         </Route>
+
+  //         <Route path="/">
+  //           <Header />
+  //           <MiddleView />
+  //         </Route>
+
+  //         <Route path="/profile">
+  //           <Header />
+  //           <ProfileView />
+  //         </Route>
+  //       </Switch>
+  //     </Router>
+  //   );
 }
 
 // fetchData = () => {
