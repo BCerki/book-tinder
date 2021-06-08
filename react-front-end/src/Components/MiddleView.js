@@ -31,24 +31,22 @@ export default function MiddleView(props) {
   //Create the cards for info
   const bookCards = bookData.map((book) => {
     return (
-      <article>
-        <Link to={`/middle/${book.id}`} className="bookCard">
-          <BookCard
-            id={book.id}
-            onClick={handleClick}
-            title={book.title}
-            author={book.author}
-            coverImage={book.coverImage}
-            description={book.description}
-            isbn={book.isbn}
-            pageCount={book.pageCount}
-            price={book.price}
-            age={book.age}
-            latestMessage={book.latestMessage}
-            toggle={toggle}
-          />
-        </Link>
-      </article>
+      <Link to={`/middle/${book.id}`} className="bookCardLink">
+        <BookCard
+          id={book.id}
+          onClick={handleClick}
+          title={book.title}
+          author={book.author}
+          coverImage={book.coverImage}
+          description={book.description}
+          isbn={book.isbn}
+          pageCount={book.pageCount}
+          price={book.price}
+          age={book.age}
+          latestMessage={book.latestMessage}
+          toggle={toggle}
+        />
+      </Link>
     );
   });
 

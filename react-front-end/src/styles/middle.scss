@@ -4,10 +4,10 @@
 .card-skeleton {
   display: flex;
   justify-content: flex-start;
-  margin: $spacing1 0;
+  margin: $spacing1;
 }
 
-a.bookCard {
+a.bookCardLink {
   color: black;
   text-decoration: none;
 }
