@@ -36,20 +36,56 @@ App.get("/api/test", (req, res) => {
   });
 });
 
-//New convo in convo table
-App.post("api/conversations", (req, res) => {});
 
-//New message in messages table
-App.post("api/messages", (req, res) => {});
+
+//New convo in convo table
+App.post("api/conversations", (req, res) => {
+
+  const newMatch = `INSERT INTO conversations VALUES ($1, $2)`;
+
+  const values = [
+    req.body.user_id,
+    req.body.book_id
+  ];
+  
+  return pool.query(newMatch, values)
+    .then((result) => {
+      return result.rows;
+    })
+    .catch((err) => {
+      console.log(err.message)
+    });
+});
+
+
 
 //Update user's genre prefs
 App.put("api/genres/:id", (req, res) => {
-  const id = pareInt(req.params.id);
+  const id = parseInt(req.params.id);
+  const genreId = 0;
 
-  const updateUserGenres = `UPDATE genre_user SET users_id = $1, genres_id = $2 WHERE id = $3`
+  for (let obj of req.body.genres) {
+    genreId = obj.id;
+  };
 
-  
+  const updateUserGenres = `UPDATE genre_user SET genres_id = $1 WHERE users_id = $2`;
+
+  const values = [
+    genreId,
+    id
+  ];
+
+  return pool.query(updateUserGenres, values)
+  .then((result) => {
+    console.log(result);
+    return result;
+  })
+  .catch((err) =>{
+    console.log(err.message)
+  });
 });
+
+
 
 //Update user in users table
 App.put("/api/user/:id", (req, res) => {
@@ -79,6 +115,8 @@ App.put("/api/user/:id", (req, res) => {
     console.log(err.message)
   });
 });
+
+
 
 App.listen(PORT, () => {
   // eslint-disable-next-line no-console
