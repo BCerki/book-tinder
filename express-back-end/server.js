@@ -35,6 +35,19 @@ App.get("/api/test", (req, res) => {
   });
 });
 
+
+//Update convo table
+App.post("api/conversations", (req, res) => {
+
+});
+
+//Upddate messages table
+App.post("api/messages", (req, res) => {
+
+});
+
+
+
 App.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(
