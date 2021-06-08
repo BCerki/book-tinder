@@ -5,11 +5,14 @@ INSERT INTO block_user (users_id, books_id)
 VALUES (1, 1);
 
 INSERT INTO genres (name)
-VALUES ('Romance'),
-('Mystery'),
+VALUES('Mystery'),
+('Romance'),
 ('Young Adult'),
 ('Biography'),
-('Historical Fiction');
+('Historical Fiction'),
+('Classics'),
+('Fiction'),
+('Science Fiction');
 
 INSERT INTO genre_user (users_id, genres_id)
 VALUES (1, 1),

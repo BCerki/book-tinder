@@ -22,12 +22,20 @@
 //genres
 .genre-box {
   margin-top: $spacinghalf;
+  display: flex;
+  flex-wrap: wrap;
 }
 .selected {
-  background-color: pink;
+  .MuiChip-clickable {
+    background-color: lightseagreen !important;
+    margin-right: $spacinghalf;
+  }
 }
 .deselected {
-  background-color: grey;
+  .MuiChip-clickable {
+    opacity: 0.5 !important;
+    margin-right: $spacinghalf;
+  }
 }
 
 //labels under sliders HELP HELP FIX FIX

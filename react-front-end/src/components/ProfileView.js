@@ -4,6 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
+
 import Switch from "@material-ui/core/Switch";
 import genreData from "../dummyData/dummyGenreData";
 import classNames from "classnames";
@@ -108,17 +109,12 @@ export default function ProfileView() {
   //genre
 
   //Chip functions
-  const handleDelete = () => {
-    console.info("You clicked the delete icon.");
-  };
 
-  const handleClick = () => {
-    console.info("You clicked the Chip.");
-  };
   //onClick
   const [chips, setChips] = useState({
     mystery: false,
     romance: false,
+    adventure: false,
   });
   const chipsHandler = (chipName) => {
     console.log("you clicked the chip:", chipName.target.innerHTML);
@@ -127,12 +123,18 @@ export default function ProfileView() {
       [chipName.target.innerHTML]: !chips[chipName.target.innerHTML],
     }));
     console.log("chips is:", chips);
+    // const chipClass = chips[chipName.target.innerHTML];
+    // console.log("chip class is", chipClass);
   };
 
-  const chipClass = classNames({ selected: true }, { deselected: false });
   const genreChips = genreData.map((genre) => {
     return (
-      <span className={chipClass}>
+      <span
+        className={classNames(
+          { selected: chips[genre.name] },
+          { deselected: !chips[genre.name] }
+        )}
+      >
         <Chip
           // icon={<FaceIcon />}
           id={genre.id}
@@ -140,6 +142,7 @@ export default function ProfileView() {
           name={genre.name}
           onClick={chipsHandler}
           // onDelete={handleDelete}
+          variant="outlined"
         />
       </span>
     );
