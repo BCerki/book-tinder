@@ -7,6 +7,7 @@ const books = require("./routes/books");
 const PORT = 8080;
 const { Pool } = require("pg");
 require("dotenv").config();
+const getUserData = require("./routes/user");
 
 // Express Configuration
 App.use(BodyParser.urlencoded({ extended: false }));
@@ -33,6 +34,14 @@ App.get("/api/test", (req, res) => {
   return pool.query(`SELECT * FROM books`).then(function (result) {
     console.log("LOG: server: query books: result:", result);
     res.send(result.rows);
+  });
+});
+
+// Users GET route
+App.get("/api/users", (req, res) => {
+  getUserData().then(function (result) {
+    console.log("LOG: server: getUserData: result:", result);
+    res.send(result);
   });
 });
 

@@ -1,31 +1,4 @@
 const { Pool } = require("pg");
-const {
-  db_user,
-  db_password,
-  db_host,
-  db_database,
-} = require("/vagrant/book-tinder/express-back-end/.secrets.js");
-
-/* Desired Object Shape
-[
-  {id:
-  name:
-  radius_pref:
-  pages_max_pref:
-  pages_min_pref:
-  maturity_pref:
-  age_max_pref:
-  age_min_pref:
-  price_max_pref:
-  genres: [
-     {id:
-     name:},
-     {id:
-     name:}
-   ]
-  }
-]
-*/
 
 const pool = new Pool({
   user: "vagrant",
@@ -34,15 +7,35 @@ const pool = new Pool({
   database: "booktinder",
 });
 
-const getUser = function () {
-  const queryUser = `SELECT users.name AS username, users.radius_pref, users.pages_max_pref, users.pages_min_pref, users.maturity_pref, users.age_max_pref, users.age_min_pref, users.price_max_pref, genres.id, genres.name AS genre_name
+const getUserData = function () {
+  const queryUser = `SELECT users.id, users.name AS username, users.radius_pref, users.pages_max_pref, users.pages_min_pref, users.maturity_pref, users.age_max_pref, users.age_min_pref, users.price_max_pref, genres.id AS genres_id, genres.name AS genres_name
   FROM users
   JOIN genre_user ON genre_user.users_id = users.id
   JOIN genres ON genres.id = genre_user.genres_id`;
 
   return pool.query(queryUser).then((result) => {
-    console.log(result.rows);
+    let resultRows = result.rows;
+    let userProfileArr = [];
+    let genreArr = [];
+    for (let i = 0; i < resultRows.length; i++) {
+      let userProfileObj = {};
+      let genreObj = {};
+      userProfileObj.name = resultRows[i].username;
+      userProfileObj.radius_pref = resultRows[i].radius_pref;
+      userProfileObj.pages_max_pref = resultRows[i].pages_max_pref;
+      userProfileObj.pages_min_pref = resultRows[i].pages_min_pref;
+      userProfileObj.maturity_pref = resultRows[i].maturity_pref;
+      userProfileObj.age_min_pref = resultRows[i].age_min_pref;
+      userProfileObj.price_max_pref = resultRows[i].price_max_pref;
+      genreObj.id = resultRows[i].genres_id;
+      genreObj.name = resultRows[i].genres_name;
+      userProfileArr.push(userProfileObj);
+      genreArr.push(genreObj);
+    }
+    userProfileArr[0].genres = genreArr;
+    console.log([userProfileArr[0]]);
+    return [userProfileArr[0]];
   });
 };
 
-console.log(getUser());
+module.exports = getUserData;
