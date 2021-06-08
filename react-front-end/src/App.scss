@@ -37,10 +37,11 @@
 main {
   // margin: $spacinghalf;
   margin: 0;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  overflow: hidden;
+  // display: flex;
+  // justify-content: space-between;
+  // flex-direction: column;
+  overflow: scroll;
+  height: $space-above-footer;
 }
 //Conditionally rendered styles depending on view--figure out how to next them with SASS, FIX FIX
 .swipe {
@@ -55,8 +56,7 @@ main {
   margin-bottom: $spacingnav;
 }
 
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100vw;
+//navbar -FIX FIX move later?
+.MuiTabs-root {
+  height: 7vh !important;
 }

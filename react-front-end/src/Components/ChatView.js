@@ -3,6 +3,10 @@ import ChatBot from "react-simple-chatbot";
 import booknetScripts from "../ChatBotScripts/booknetScripts";
 import otherScripts from "../ChatBotScripts/otherScripts";
 import _ from "lodash";
+import BackBar from "./BackBar";
+
+//Styling
+import "../styles/chatView.scss";
 
 //helper function
 const chooseScript = function(scripts) {
@@ -16,13 +20,17 @@ export default function ChatView(props) {
   console.log("scripts is", scripts);
 
   return (
-    <ChatBot
-      steps={chooseScript(scripts)}
-      // hideBotAvatar={true}
-      // hideUserAvatar={true}
-      headerTitle={"this will be from the state"}
-      botAvatar={"from state"}
-      userAvatar={"from user api, hardcode in"}
-    />
+    <>
+      <BackBar className={"backBar"} />
+      <ChatBot
+        steps={chooseScript(scripts)}
+        hideBotAvatar={true}
+        hideUserAvatar={true}
+        hideHeader={true}
+        headerTitle={"this will be from the state"}
+        botAvatar={"from state"}
+        userAvatar={"from user api, hardcode in"}
+      />
+    </>
   );
 }

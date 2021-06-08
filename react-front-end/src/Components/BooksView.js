@@ -8,9 +8,10 @@ import FormGroup from "@material-ui/core/FormGroup";
 import Switch from "@material-ui/core/Switch";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import { Link } from "react-router-dom";
 
 //Styling
-import "../styles/middle.scss";
+import "../styles/booksView.scss";
 
 export default function MiddleView(props) {
   const handleClick = function() {};
@@ -30,7 +31,7 @@ export default function MiddleView(props) {
   //Create the cards for info
   const bookCards = bookData.map((book) => {
     return (
-      <article>
+      <Link to={`/books/${book.id}`} className="bookCardLink">
         <BookCard
           id={book.id}
           onClick={handleClick}
@@ -45,7 +46,7 @@ export default function MiddleView(props) {
           latestMessage={book.latestMessage}
           toggle={toggle}
         />
-      </article>
+      </Link>
     );
   });
 

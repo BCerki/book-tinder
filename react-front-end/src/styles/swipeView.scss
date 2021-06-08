@@ -1,0 +1,20 @@
+@import "./variables.scss";
+
+.card {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  height: $space-above-footer;
+  background-repeat: no-repeat;
+}
+
+.cardContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.swipe {
+  position: absolute;
+  width: 100vw;
+  height: $space-above-footer;
+}
