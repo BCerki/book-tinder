@@ -4,7 +4,6 @@ import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
-
 import Switch from "@material-ui/core/Switch";
 import genreData from "../dummyData/dummyGenreData";
 import classNames from "classnames";
@@ -21,6 +20,15 @@ const useStyles = makeStyles((theme) => ({
 export default function ProfileView() {
   //Material UI styling hook
   const classes = useStyles();
+
+  //Chip functions
+  const handleDelete = () => {
+    console.info("You clicked the delete icon.");
+  };
+
+  const handleClick = () => {
+    console.info("You clicked the Chip.");
+  };
 
   //Slider helpers
   function valuetext(value) {
@@ -51,6 +59,16 @@ export default function ProfileView() {
   const handleMaturityChange = (event) => {
     setMaturity(!maturity);
   };
+
+  //onClick
+  // const [state, setState] = useState({
+  //   sliderOne: false,
+  //   sliderTwo: false,
+  //   sliderThree: false,
+  // });
+  // const sliderHandler = (sliderName) => {
+  //   setState((prevState) => ({ ...prevState, sliderName: !sliderName }));
+  // };
 
   //age variables
   const thisYear = new Date().getFullYear();
@@ -108,41 +126,16 @@ export default function ProfileView() {
 
   //genre
 
-  //Chip functions
-
-  //onClick
-  const [chips, setChips] = useState({
-    mystery: false,
-    romance: false,
-    adventure: false,
-  });
-  const chipsHandler = (chipName) => {
-    console.log("you clicked the chip:", chipName.target.innerHTML);
-    setChips((prev) => ({
-      ...prev,
-      [chipName.target.innerHTML]: !chips[chipName.target.innerHTML],
-    }));
-    console.log("chips is:", chips);
-    // const chipClass = chips[chipName.target.innerHTML];
-    // console.log("chip class is", chipClass);
-  };
-
+  const chipClass = classNames({ selected: true }, { deselected: false });
   const genreChips = genreData.map((genre) => {
     return (
-      <span
-        className={classNames(
-          { selected: chips[genre.name] },
-          { deselected: !chips[genre.name] }
-        )}
-      >
+      <span className={chipClass}>
         <Chip
           // icon={<FaceIcon />}
           id={genre.id}
           label={genre.name}
-          name={genre.name}
-          onClick={chipsHandler}
-          // onDelete={handleDelete}
-          variant="outlined"
+          onClick={handleClick}
+          onDelete={handleDelete}
         />
       </span>
     );

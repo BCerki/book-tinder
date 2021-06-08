@@ -9,6 +9,7 @@ export default function Swipe(props) {
 
   useEffect(() => {
     axios
+      //FIX FIX use our real endpoint
       .get("/api/test")
       .then((response) => {
         console.log(response.data);
@@ -17,7 +18,11 @@ export default function Swipe(props) {
       .catch((err) => console.log("Error message:", err.message));
   }, []);
   return (
-    <img className="cover" src={currentBook.image} alt={currentBook.title} />
+    <img
+      className="cover"
+      src={currentBook.image}
+      alt={currentBook.title}
+    />
   );
 }
 
