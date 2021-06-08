@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import bookData from "../dummyData/dummyBookData";
 import _ from "lodash";
-import "../styles/swipe.scss";
+import "../styles/swipeView.scss";
 import TinderCard from "react-tinder-card";
 
 export default function Swipe(props) {

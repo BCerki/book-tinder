@@ -10,7 +10,7 @@ import genreData from "../dummyData/dummyGenreData";
 import classNames from "classnames";
 
 //Styling
-import "../styles/profile.scss";
+import "../styles/profileView.scss";
 const useStyles = makeStyles((theme) => ({
   large: {
     width: theme.spacing(10),

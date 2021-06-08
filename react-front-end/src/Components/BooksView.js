@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 
 //Styling
-import "../styles/middle.scss";
+import "../styles/booksView.scss";
 
 export default function MiddleView(props) {
   const handleClick = function() {};
