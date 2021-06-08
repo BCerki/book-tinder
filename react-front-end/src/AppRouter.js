@@ -8,7 +8,10 @@ import NavBar from "./Components/NavBar";
 import MiddleView from "./Components/MiddleView";
 import Footer from "./Components/Footer";
 
-export default function App() {
+//Styling
+import "./App.scss";
+
+export default function AppRouter() {
   // State and handlers for the nav bar
   // const [value, setValue] = useState(0);
   // const handleChange = (event, newValue) => {
@@ -22,23 +25,7 @@ export default function App() {
   // );
   return (
     <Router>
-      <div>
-        {/* <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/middle">Book</Link>
-            </li>
-            <li>
-              <Link to="/profile">Profile</Link>
-            </li>
-          </ul>
-        </nav> */}
-
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
+      <main>
         <Switch>
           <Route path="/middle">
             <MiddleView />
@@ -50,7 +37,8 @@ export default function App() {
             <SwipeView />
           </Route>
         </Switch>
-      </div>
+      </main>
+
       <Footer />
     </Router>
   );
