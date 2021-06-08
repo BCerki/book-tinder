@@ -1,18 +1,18 @@
-const { Pool } = require("pg");
+// const { Pool } = require("pg");
 
-const updateUser = function() {
-  const queryUser = `UPDATE users SET .....`;
+// const updateUser = function() {
+//   const queryUser = `UPDATE users SET .....`;
 
-  return pool
-  .query(queryUser)
-  .then((result) => {
-    console.log("results:", result)
-    return result;
-  })
-  .catch((err) => {
-    console.log("error:", err)
-  });
-};
+//   return pool
+//   .query(queryUser)
+//   .then((result) => {
+//     console.log("results:", result)
+//     return result;
+//   })
+//   .catch((err) => {
+//     console.log("error:", err)
+//   });
+// };
 
 //Do we want to only update changed values (and is the whole users obj being sent from front end on any change)?
 `UPDATE users SET name = $2, radius_pref = $3, pages_max_pref = $4, etc.

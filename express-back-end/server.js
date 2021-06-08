@@ -36,54 +36,43 @@ App.get("/api/test", (req, res) => {
   });
 });
 
-
 //New convo in convo table
-App.post("api/conversations", (req, res) => {
-
-});
+App.post("api/conversations", (req, res) => {});
 
 //New message in messages table
-App.post("api/messages", (req, res) => {
-
-});
-
-//New user's genre prefs
-App.post("api/genres/:id", (req, res) => {
-
-});
+App.post("api/messages", (req, res) => {});
 
 //Update user's genre prefs
-App.put("api/genres/:id", (req, res) => {
-
-});
+App.put("api/genres/:id", (req, res) => {});
 
 //Update user in users table
 App.put("/api/user/:id", (req, res) => {
   const id = parseInt(req.params.id);
-  const { values } = req.body;
+  
+  const updateUser = `UPDATE users SET name = $1, radius_pref =$2, pages_max_pref = $3, pages_min_pref = $4,
+  maturity_pref = $5, age_max_pref = $6, age_min_pref = $7, price_max_pref = $8 WHERE id = $9 `;
 
-  pool.query(`UPDATE users SET `, (error, result) => {
-    console.log(error, result);
+  const values = [
+    req.body.name,
+    req.body.radius_pref,
+    req.body.pages_max_pref,
+    req.body.pages_min_pref,
+    req.body.maturity_pref,
+    req.body.age_max_pref,
+    req.body.age_min_pref,
+    req.body.price_max_pref,
+    id,
+  ];
+
+  return pool.query(updateUser, values)
+  .then((result) => {
+    console.log(result);
+    return result;
   })
+  .catch((err) => {
+    console.log(err.message)
+  });
 });
-//EXAMPLE PUT FOR REFERENCE:
-// const updateUser = (request, response) => {
-//   const id = parseInt(request.params.id)
-//   const { name, email } = request.body
-
-//   pool.query(
-//     'UPDATE users SET name = $1, email = $2 WHERE id = $3',
-//     [name, email, id],
-//     (error, results) => {
-//       if (error) {
-//         throw error
-//       }
-//       response.status(200).send(`User modified with ID: ${id}`)
-//     }
-//   )
-// }
-
-
 
 App.listen(PORT, () => {
   // eslint-disable-next-line no-console
