@@ -6,6 +6,7 @@ const BodyParser = require("body-parser");
 const books = require("./routes/books");
 const PORT = 8080;
 const { Pool } = require("pg");
+const { response } = require("express");
 
 // Express Configuration
 App.use(BodyParser.urlencoded({ extended: false }));
@@ -36,15 +37,51 @@ App.get("/api/test", (req, res) => {
 });
 
 
-//Update convo table
+//New convo in convo table
 App.post("api/conversations", (req, res) => {
 
 });
 
-//Upddate messages table
+//New message in messages table
 App.post("api/messages", (req, res) => {
 
 });
+
+//New user's genre prefs
+App.post("api/genres/:id", (req, res) => {
+
+});
+
+//Update user's genre prefs
+App.put("api/genres/:id", (req, res) => {
+
+});
+
+//Update user in users table
+App.put("/api/user/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const { values } = req.body;
+
+  pool.query(`UPDATE users SET `, (error, result) => {
+    console.log(error, result);
+  })
+});
+//EXAMPLE PUT FOR REFERENCE:
+// const updateUser = (request, response) => {
+//   const id = parseInt(request.params.id)
+//   const { name, email } = request.body
+
+//   pool.query(
+//     'UPDATE users SET name = $1, email = $2 WHERE id = $3',
+//     [name, email, id],
+//     (error, results) => {
+//       if (error) {
+//         throw error
+//       }
+//       response.status(200).send(`User modified with ID: ${id}`)
+//     }
+//   )
+// }
 
 
 
