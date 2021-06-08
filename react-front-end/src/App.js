@@ -14,25 +14,23 @@ import "./App.scss";
 export default function AppRouter() {
   return (
     <Router>
-      <main>
-        <Switch>
-          <Route path="/books/:book">
-            <ChatView />
-          </Route>
-          <Route path="/books">
-            <BooksView />
-            <Footer />
-          </Route>
-          <Route path="/profile">
-            <ProfileView />
-            <Footer />
-          </Route>
-          <Route path="/">
-            <SwipeView />
-            <Footer />
-          </Route>
-        </Switch>
-      </main>
+      <Switch>
+        <Route path="/books/:book">
+          <ChatView />
+        </Route>
+        <Route path="/books">
+          <BooksView />
+          <Footer />
+        </Route>
+        <Route path="/profile">
+          <ProfileView />
+          <Footer />
+        </Route>
+        <Route path="/">
+          <SwipeView />
+          <Footer />
+        </Route>
+      </Switch>
     </Router>
   );
 }
