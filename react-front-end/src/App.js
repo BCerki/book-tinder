@@ -50,7 +50,7 @@ import "./App.scss";
 import ProfileView from "./Components/ProfileView";
 import SwipeView from "./Components/SwipeView";
 import NavBar from "./Components/NavBar";
-import MiddleView from "./Components/MiddleView";
+import BooksView from "./Components/BooksView";
 import ChatView from "./Components/ChatView";
 
 import { values } from "./dummyData/dummyBookData";
@@ -72,7 +72,7 @@ export default function App(props) {
     <>
       <main className={mainClass}>
         {value === 0 && <SwipeView />}
-        {value === 1 && <MiddleView />}
+        {value === 1 && <BooksView />}
         {value === 2 && <ProfileView />}
       </main>
       <footer>

@@ -5,7 +5,7 @@ import classNames from "classnames";
 
 import SwipeView from "./Components/SwipeView";
 import ChatView from "./Components/ChatView";
-import MiddleView from "./Components/MiddleView";
+import BooksView from "./Components/BooksView";
 import Footer from "./Components/Footer";
 
 //Styling
@@ -31,7 +31,7 @@ export default function AppRouter() {
             <ChatView />
           </Route>
           <Route path="/middle">
-            <MiddleView />
+            <BooksView />
           </Route>
           <Route path="/profile">
             <ProfileView />
