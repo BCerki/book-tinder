@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function BookCard(props) {
-  console.log("bookcard props", props);
+  // console.log("bookcard props", props);
   //styling hook
   const classes = useStyles();
   //this file is where you're doing the conditional rendering
