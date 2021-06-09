@@ -12,16 +12,21 @@ import Footer from "./Components/Footer";
 //Import styling
 
 import "./App.scss";
+import BookStateProvider from "./providers/BookStateProvider";
 
 export default function AppRouter() {
   return (
     <Router>
       <Switch>
         <Route path="/books/:book">
-          <ChatView />
+          <BookStateProvider>
+            <ChatView />
+          </BookStateProvider>
         </Route>
         <Route path="/books">
-          <BooksView />
+          <BookStateProvider>
+            <BooksView />
+          </BookStateProvider>
           <Footer />
           <Route path="/profile/:id">
             <UserStateProvider>
