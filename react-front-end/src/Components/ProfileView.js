@@ -130,7 +130,18 @@ export default function ProfileView(props) {
   });
 
   useEffect(() => {
-    sendToDB({ ...userState, genres: chips });
+    const selectedChips = function(chips) {
+      const result = [];
+      for (const genre in chips) {
+        if (chips[genre]) {
+          result.push(genre);
+        }
+      }
+      return result;
+    };
+    console.log("selectedchips", selectedChips(chips));
+
+    sendToDB({ ...userState, genres: selectedChips(chips) });
   }, [chips]);
 
   const chipsHandler = (chipName) => {
