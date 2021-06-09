@@ -79,7 +79,13 @@ App.get("/api/users", (req, res) => {
   });
 });
 
-//New blocked book **BookID is currently undefined from front-end
+//Do we need to send block table data to front-end??
+App.get("/api/blocked", (req, res) =>{
+
+});
+
+//New blocked book **WORKING**
+//BookID is currently undefined from front-end
 //Temporarily hard coded bookId value in axios function to confirm db update is working.
 App.post("/api/blocked/:id", (req, res) => {
   console.log(req.params)
@@ -116,33 +122,23 @@ App.post("/api/conversations", (req, res) => {
     });
 });
 
-//Update user's genre prefs
-// App.put("api/genres/:id", (req, res) => {
-//   const id = parseInt(req.params.id);
-//   const genreId = 0;
+//Delete book from convo table on block **WORKING**
+App.delete("/api/conversations/:id", (req, res) => {
+  const blockedConvo = `DELETE FROM conversations WHERE user_id = 1 AND book_id = $1`;
+  
+  const values = [req.params.id];
 
-//   for (let obj of req.body.genres) {
-//     genreId = obj.id;
-//   };
-
-//   const updateUserGenres = `UPDATE genre_user SET genres_id = $1 WHERE users_id = $2`;
-
-//   const values = [
-//     genreId,
-//     id
-//   ];
-
-//   return pool.query(updateUserGenres, values)
-//   .then((result) => {
-//     console.log(result);
-//     return result;
-//   })
-//   .catch((err) =>{
-//     console.log(err.message)
-//   });
-// });
+  return pool.query(blockedConvo, values)
+  .then((result) => {
+    return result;
+  })
+  .catch((err) => {
+    console.log(err.message);
+  })
+})
 
 //Update user in users table **NEEDS TO BE MODIFIED per new users table format**
+//Not receiving correct user obj from front
 App.put("/api/users/:id", (req, res) => {
   const id = parseInt(req.params.id);
   console.log(req.body);
