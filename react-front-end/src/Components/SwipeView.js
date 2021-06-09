@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import axios from "axios";
 import bookData from "../dummyData/dummyBookData";
 import _ from "lodash";
@@ -43,16 +44,21 @@ export default function Swipe(props) {
         //grab some new books--probably not necessary for demo
       }
     } else if (direction === "right") {
-      // alert("Match!");
-
       //sweet alert
       MySwal.fire({
         title: <p>Match!</p>,
-        // timer: 2000, //comment in and out if you need to look at it
-        showConfirmButton: false,
-        showClass: {
-          popup: "animate__animated animate__fadeInDown",
-        },
+        //using html
+        //Can I use react router with this? FIX FIX
+        confirmButtonText: '<a href="/books">Chat with this book</a>', //set up currentbook state so you can link to actual chat
+        showCancelButton: true,
+        cancelButtonText: "Keep looking",
+        // animations not working, FIX FIX
+        // showClass: {
+        //   popup: "animate__animated animate__fadeIn",
+        // },
+        // hideClass: {
+        //   popup: "animate__animated animate__fadeOut",
+        // },
       });
 
       //db update
