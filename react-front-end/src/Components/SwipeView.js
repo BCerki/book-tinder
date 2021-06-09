@@ -7,7 +7,7 @@ import TinderCard from "react-tinder-card";
 
 export default function Swipe(props) {
   const [retrievedBooks, setRetrievedBooks] = useState([]);
-  // const [currentBook, setCurrentBook] = useState({});
+  const [lastDirection, setLastDirection] = useState();
 
   useEffect(() => {
     axios
@@ -20,27 +20,61 @@ export default function Swipe(props) {
       .catch((err) => console.log("Error message:", err.message));
   }, []);
 
+  const swiped = (direction, bookSwipedId) => {
+    console.log("swiped book id is", bookSwipedId);
+    setLastDirection(direction);
+
+    console.log("direction is", direction);
+    //again, have to use direction, not lastDirection, because it's not set just yet
+    if (direction === "left") {
+      const foundIt = retrievedBooks.findIndex(
+        (book) => book.id === bookSwipedId
+      );
+      // console.log("foundit", foundIt);
+      retrievedBooks.splice(foundIt, 1);
+      // console.log("is foundit gone?", retrievedBooks);
+
+      if (retrievedBooks.length === 0) {
+        //grab some new books--probably not necessary for demo
+      }
+    } else if (direction === "right") {
+      axios
+        //is conversations correct? does Michelle just need the id? FIX FIX
+        .put(`/api/conversations/${bookSwipedId}`, bookSwipedId)
+        .then(() => {
+          console.log("all is well");
+        })
+        .catch((err) => {
+          console.log("Error:", err.message);
+        });
+    }
+  };
+
+  // const onCardLeftScreen = (bookId) => {
+  //   console.log(bookId + " left the screen");
+  //   console.log("lastDirection is", lastDirection);
+  // };
+
   return (
     <div className="cardContainer">
       {retrievedBooks.map((book) => {
         return (
-          <TinderCard
-            className={"swipe"}
-            key={book.id}
-            preventSwipe={["up", "down"]}
-          >
-            <div
-              className={"card"}
-              style={{ backgroundImage: `url(${book.image})` }}
-            ></div>
-          </TinderCard>
+          <>
+            <TinderCard
+              className={"swipe"}
+              key={book.id}
+              preventSwipe={["up", "down"]}
+              onSwipe={(dir) => swiped(dir, book.id)}
+              // onCardLeftScreen={() => onCardLeftScreen(`${book.id}`)}
+            >
+              <div
+                className={"card"}
+                style={{ backgroundImage: `url(${book.image})` }}
+              ></div>
+            </TinderCard>
+          </>
         );
       })}
     </div>
   );
 }
-
-// {
-/*  */
-// // }
-// <img className="cover" src={currentBook.image} alt={currentBook.title} />

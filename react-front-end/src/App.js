@@ -23,6 +23,12 @@ export default function AppRouter() {
         <Route path="/books">
           <BooksView />
           <Footer />
+          <Route path="/profile/:id">
+            <UserStateProvider>
+              <ProfileView />
+            </UserStateProvider>
+            <Footer />
+          </Route>
         </Route>
         <Route path="/profile">
           <UserStateProvider>
