@@ -3,26 +3,11 @@ import axios from "axios";
 import { result } from "lodash";
 
 export default function UserStateProvider(props) {
-  // const [age, setAge] = useState([20, 40]);
-  // const [pageCount, setPageCount] = useState([256, 512]);
-  // const [price, setPrice] = useState([10, 30]);
-  // const [maxDistance, setMaxDistance] = useState(80);
-  // const [maturity, setMaturity] = useState(false);
+  const [userState, setUserState] = useState({});
 
-  //WITH MENTOR
-  // const [location, setLocation] = useState(0);
-
-  // const setLocationParent = function(value) {
-  //   axios
-  //     .put("/api/users/1")
-  //     .then((result) => {
-  //       setLocation(value);
-  //     })
-  //     .catch((err) => console.log("Error message:", err.message));
-  // };
-  //FOR REAL
-  //hard coding in 1 since not doing login for demo
-  const [userState, setUserState] = useState({
+  //set these when the user makes the profile instead
+  const defaultState = {
+    //hard coding in name and id for demo
     id: 1,
     name: "Sandra Gardiner",
     age: [20, 40],
@@ -31,31 +16,36 @@ export default function UserStateProvider(props) {
     maxDistance: 80,
     maturity: false,
     genres: {},
-  });
+  };
+
+  // check if this is working! FIX FIX loading screen?
+  useEffect(() => {
+    axios
+      .get("/api/users")
+      .then((result) => {
+        setUserState(result.data);
+        console.log("i am in axios get for user, result.data is:", result.data);
+      })
+      .catch((err) => console.log("Error message:", err.message));
+  }, []);
 
   const sendToDB = function(userObject) {
     console.log("in parent user object", userObject);
     //need to send userObject, not userState, because it's not updated yet
     setUserState(userObject);
+    //MICHELLE
     axios
-      .put("/api/users/1", userObject)
+      .put(`/api/users/${userObject.id}`, userObject)
       .then((result) => {
         console.log("all is well");
       })
       .catch((err) => console.log("Error message:", err.message));
   };
 
-  //AFTER axios, update
-
   const providerData = {
     sendToDB,
     userState,
   };
-
-  //isloading state
-  // useEffect(() => {
-
-  // }, [axios]);
 
   return (
     <userStateContext.Provider value={providerData}>
@@ -64,15 +54,3 @@ export default function UserStateProvider(props) {
   );
 }
 export const userStateContext = createContext();
-
-// async function getBooks() {
-//   let data = await axios
-//     .get("/api/test")
-//     .then((result) => {
-//       console.log("response.data in userstateprovider", result.data);
-//       data = result.data;
-//       setRetrievedBooks(data);
-//     })
-//     .catch((err) => console.log("Error message:", err.message));
-//   return retrievedBooks;
-// }

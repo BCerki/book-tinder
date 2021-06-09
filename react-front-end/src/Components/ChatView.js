@@ -17,7 +17,7 @@ const chooseScript = function(scripts) {
 export default function ChatView(props) {
   //true is a stand-in for the book currently in state
   const scripts = true ? booknetScripts : otherScripts;
-  console.log("scripts is", scripts);
+  // console.log("scripts is", scripts);
 
   return (
     <>

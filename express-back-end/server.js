@@ -47,7 +47,7 @@ App.get("/api/test", (req, res) => {
 
 // Users GET route 2
 App.get("/api/users", (req, res) => {
-  const queryUser = `SELECT users.id, users.name AS username, users.radius_pref, users.pages_max_pref, 
+  const queryUser = `SELECT users.id, users.name AS username, users.radius_pref, users.pages_max_pref,
   users.pages_min_pref, users.maturity_pref, users.age_max_pref, users.age_min_pref, users.price_max_pref, genres.id AS genres_id, genres.name AS genres_name
   FROM users
   JOIN genre_user ON genre_user.users_id = users.id
@@ -79,37 +79,26 @@ App.get("/api/users", (req, res) => {
   });
 });
 
-
-
 //New blocked book **IN PROGRESS**
 App.post("api/block", (req, res) => {
-
-  const block = `INSERT INTO block_user VALUES ($1, $2)`
-
+  const block = `INSERT INTO block_user VALUES ($1, $2)`;
 });
-
-
 
 //New convo in convo table **IN PROGRESS**
 App.post("api/conversations", (req, res) => {
-
   const newMatch = `INSERT INTO conversations VALUES ($1, $2)`;
 
-  const values = [
-    req.body.user_id,
-    req.body.book_id
-  ];
-  
-  return pool.query(newMatch, values)
+  const values = [req.body.user_id, req.body.book_id];
+
+  return pool
+    .query(newMatch, values)
     .then((result) => {
       return result.rows;
     })
     .catch((err) => {
-      console.log(err.message)
+      console.log(err.message);
     });
 });
-
-
 
 //Update user's genre prefs
 // App.put("api/genres/:id", (req, res) => {
@@ -137,13 +126,15 @@ App.post("api/conversations", (req, res) => {
 //   });
 // });
 
-
-
 //Update user in users table **NEEDS TO BE MODIFIED per new users table format**
 App.put("/api/users/:id", (req, res) => {
   const id = parseInt(req.params.id);
+<<<<<<< HEAD
   console.log("what is this:", req.body);
   
+=======
+
+>>>>>>> 9a8b9b0eef56c5bf8faa9222831b713bbbd747b5
   const updateUser = `UPDATE users SET name = $1, radius_pref =$2, pages_max_pref = $3, pages_min_pref = $4,
   maturity_pref = $5, age_max_pref = $6, age_min_pref = $7, price_max_pref = $8 WHERE id = $9 `;
 
@@ -159,18 +150,19 @@ App.put("/api/users/:id", (req, res) => {
     id,
   ];
 
-  return pool.query(updateUser, values)
-  .then((result) => {
-    console.log(result);
-    return result;
-  })
-  .catch((err) => {
-    console.log(err.message)
-  });
+  return pool
+    .query(updateUser, values)
+    .then((result) => {
+      console.log(result);
+      return result;
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
 });
 
-
 //TESTING UserStateProvider for location change:
+<<<<<<< HEAD
 // App.put("/api/users/:id", (req, res) => {
 //   const id = parseInt(req.params.id);
 //   console.log("what is this:", req.body);
@@ -192,8 +184,27 @@ App.put("/api/users/:id", (req, res) => {
 //     console.log(err.message)
 //   });
 // });
+=======
+App.put("/api/users/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  console.log("what is this:", req.body);
+  console.log("And this:", req.params);
 
+  const updateUser = `UPDATE users SET radius_pref =$1 WHERE id = $2 `;
 
+  const values = [req.body.radius_pref, id];
+
+  return pool
+    .query(updateUser, values)
+    .then((result) => {
+      console.log(result);
+      return result;
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+});
+>>>>>>> 9a8b9b0eef56c5bf8faa9222831b713bbbd747b5
 
 App.listen(PORT, () => {
   // eslint-disable-next-line no-console

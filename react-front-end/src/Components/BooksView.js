@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { bookStateContext } from "../providers/BookStateProvider";
+
+//import components
 import BookCard from "./BookCard";
 import MessageCard from "./Message";
 
@@ -13,8 +16,13 @@ import { Link } from "react-router-dom";
 //Styling
 import "../styles/booksView.scss";
 
-export default function MiddleView(props) {
-  const handleClick = function() {};
+export default function BooksView(props) {
+  const { providerBook } = useContext(bookStateContext);
+
+  const handleClick = function(event, bookId) {
+    providerBook(bookId);
+    console.log("handle click fired, bookid is:", bookId);
+  };
 
   //functions for toggle
   const [toggle, setToggle] = useState(false);
@@ -26,7 +34,7 @@ export default function MiddleView(props) {
   const handleChange = (event) => {
     setToggle(!toggle);
   };
-  console.log("toggle in middle view", toggle);
+  // console.log("toggle in middle view", toggle);
 
   //Create the cards for info
   const bookCards = bookData.map((book) => {
@@ -34,7 +42,9 @@ export default function MiddleView(props) {
       <Link to={`/books/${book.id}`} className="bookCardLink">
         <BookCard
           id={book.id}
-          onClick={handleClick}
+          onClick={(event) => {
+            handleClick(event, book.id);
+          }}
           title={book.title}
           author={book.author}
           coverImage={book.coverImage}
