@@ -47,15 +47,12 @@ export default function Swipe(props) {
 
       //sweet alert
       MySwal.fire({
-        title: <p>Hello World</p>,
-        footer: "Copyright 2018",
-        didOpen: () => {
-          // `MySwal` is a subclass of `Swal`
-          //   with all the same instance & static methods
-          MySwal.clickConfirm();
+        title: <p>Match!</p>,
+        // timer: 2000, //comment in and out if you need to look at it
+        showConfirmButton: false,
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
         },
-      }).then(() => {
-        return MySwal.fire(<p>Shorthand works too</p>);
       });
 
       //db update
