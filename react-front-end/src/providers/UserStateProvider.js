@@ -19,22 +19,30 @@ export default function UserStateProvider(props) {
       })
       .catch((err) => console.log("Error message:", err.message));
   };
-  // const [userState, setUserState] = useState({
-  //   age: [20, 40],
-  //   pageCount: [256, 512],
-  //   price: [10, 30],
-  //   maxDistance: 80,
-  //   maturity: false,
-  // });
+  //FOR REALZ
+  const [userState, setUserState] = useState({
+    age: [20, 40],
+    pageCount: [256, 512],
+    price: [10, 30],
+    maxDistance: 80,
+    maturity: false,
+  });
+
+  const setParent = function(value) {
+    axios
+      .put("/api/users/1")
+      .then((result) => {
+        setLocation(value);
+      })
+      .catch((err) => console.log("Error message:", err.message));
+  };
 
   //AFTER axios, update
 
-  // const unicorn = function(value) {
-  //   setUserState(...(prev) => {});
-  // };
-
-  // const providerData = { userState, setUserState };
-  const providerData = { setLocationParent };
+  const providerData = {
+    setLocationParent,
+    setParent,
+  };
 
   //isloading state
   // useEffect(() => {

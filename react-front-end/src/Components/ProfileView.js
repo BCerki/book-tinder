@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ProfileView(props) {
-  const { setLocationParent } = useContext(userStateContext);
+  const { setLocationParent, setParent } = useContext(userStateContext);
 
   //Material UI styling hook
   const classes = useStyles();
@@ -30,7 +30,7 @@ export default function ProfileView(props) {
   function valuetext(value) {
     return `${value}`;
   }
-  const { retreivedBooks } = useContext(userStateContext);
+  // const { retreivedBooks } = useContext(userStateContext);
 
   //do one of these for each slider, mentor and talk to DB
   const [age, setAge] = useState([20, 40]);
@@ -56,6 +56,14 @@ export default function ProfileView(props) {
   };
   const handleMaturityChange = (event) => {
     setMaturity(!maturity);
+  };
+
+  const handleChange = (event, newValue) => {
+    setParent((prev) => ({
+      ...prev,
+      purpleUnicorn: newValue,
+    }));
+    console.log("i'm looking for purple unicorn");
   };
 
   //age variables
@@ -156,7 +164,6 @@ export default function ProfileView(props) {
 
   return (
     <main>
-      <div>Boooooks: {retreivedBooks}</div>
       <div className="profile-avatar">
         <Avatar className={classes.large} />
       </div>
@@ -167,7 +174,7 @@ export default function ProfileView(props) {
           value={age}
           marks={ageMarks}
           max={thisYear - 1970}
-          onChange={handleAgeChange}
+          onChange={handleChange}
           valueLabelDisplay="auto"
           aria-labelledby="range-slider"
           getAriaValueText={valuetext}
