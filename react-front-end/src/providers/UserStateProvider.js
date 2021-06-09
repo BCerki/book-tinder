@@ -13,7 +13,7 @@ export default function UserStateProvider(props) {
   const [location, setLocation] = useState(0);
   const setLocationParent = function(value) {
     axios
-      .put("/api/users")
+      .put("/api/users/1")
       .then((result) => {
         setLocation(value);
       })
