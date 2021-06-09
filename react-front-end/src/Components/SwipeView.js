@@ -38,6 +38,7 @@ export default function Swipe(props) {
         //grab some new books--probably not necessary for demo
       }
     } else if (direction === "right") {
+      alert("Match!");
       axios
         //is conversations correct? does Michelle just need the id? FIX FIX
         .put(`/api/conversations/${bookSwipedId}`, bookSwipedId)
