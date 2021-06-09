@@ -21,16 +21,23 @@ export default function ChatView(props) {
   const scripts = true ? booknetScripts : otherScripts;
   // console.log("scripts is", scripts);
 
-  const [conversation, setConversation] = useLocalStorage(
-    "rsc_cache",
-    window.localStorage.rsc_cache
-  );
+  //this ultimately needs to be currentBook.id
+  const cacheName = `rsc_cache_${1}`;
+
+  if (window.localStorage[cacheName]) {
+    const [conversation, setConversation] = useLocalStorage(
+      cacheName,
+      window.localStorage[cacheName]
+    );
+  }
 
   return (
     <>
       <BackBar className={"backBar"} />
       <ChatBot
-        steps={chooseScript(scripts)}
+        // steps={chooseScript(scripts)} //for random scripts
+        steps={booknetScripts[0]}
+        cacheName={cacheName}
         cache={true}
         hideBotAvatar={true}
         hideUserAvatar={true}
