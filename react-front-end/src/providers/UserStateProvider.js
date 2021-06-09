@@ -12,7 +12,12 @@ export default function UserStateProvider(props) {
   //WITH MENTOR
   const [location, setLocation] = useState(0);
   const setLocationParent = function(value) {
-    setLocation(value);
+    axios
+      .put("/api/users")
+      .then((result) => {
+        setLocation(value);
+      })
+      .catch((err) => console.log("Error message:", err.message));
   };
   // const [userState, setUserState] = useState({
   //   age: [20, 40],
@@ -33,13 +38,7 @@ export default function UserStateProvider(props) {
 
   //isloading state
   // useEffect(() => {
-  //   axios
-  //     .get("/api/test")
-  //     .then((response) => {
-  //       console.log("response.data in userstateprovider", response.data);
-  //       setRetrievedBooks(response.data);
-  //     })
-  //     .catch((err) => console.log("Error message:", err.message));
+
   // }, [axios]);
 
   return (
