@@ -3,27 +3,19 @@ import axios from "axios";
 import { result } from "lodash";
 
 export default function UserStateProvider(props) {
-  const getFromDB = function() {
+  // const [userState, setUserState] = useState(getFromDB());
+  const [userState, setUserState] = useState({});
+
+  useEffect(() => {
     axios
       .get("/api/users")
       .then((result) => {
-        setUserState(result.data);
+        //in real life, wouldn't be 0
+        setUserState(result.data[0]);
         console.log("i am in axios get for user, result.data is:", result.data);
       })
       .catch((err) => console.log("Error message:", err.message));
-  };
-
-  // const [userState, setUserState] = useState(getFromDB());
-  const [userState, setUserState] = useState({
-    id: 1,
-    name: "Sandra Gardiner",
-    age: [20, 40],
-    pageCount: [256, 512],
-    price: [10, 30],
-    maxDistance: 80,
-    maturity: false,
-    genres: [],
-  });
+  }, []);
 
   //set these when the user makes the profile instead
   // const defaultState = {
