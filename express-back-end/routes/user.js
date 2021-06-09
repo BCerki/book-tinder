@@ -20,6 +20,7 @@ const getUserData = function () {
     for (let i = 0; i < resultRows.length; i++) {
       let userProfileObj = {};
       let genreObj = {};
+      userProfileObj.id = resultRows[i].id;
       userProfileObj.name = resultRows[i].username;
       userProfileObj.radius_pref = resultRows[i].radius_pref;
       userProfileObj.pages_max_pref = resultRows[i].pages_max_pref;
@@ -37,5 +38,7 @@ const getUserData = function () {
     return [userProfileArr[0]];
   });
 };
+
+console.log(getUserData());
 
 module.exports = getUserData;
