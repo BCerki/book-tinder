@@ -47,7 +47,8 @@ App.get("/api/test", (req, res) => {
 
 // Users GET route 2
 App.get("/api/users", (req, res) => {
-  const queryUser = `SELECT users.id, users.name AS username, users.radius_pref, users.pages_max_pref, users.pages_min_pref, users.maturity_pref, users.age_max_pref, users.age_min_pref, users.price_max_pref, genres.id AS genres_id, genres.name AS genres_name
+  const queryUser = `SELECT users.id, users.name AS username, users.radius_pref, users.pages_max_pref, 
+  users.pages_min_pref, users.maturity_pref, users.age_max_pref, users.age_min_pref, users.price_max_pref, genres.id AS genres_id, genres.name AS genres_name
   FROM users
   JOIN genre_user ON genre_user.users_id = users.id
   JOIN genres ON genres.id = genre_user.genres_id`;
@@ -79,7 +80,16 @@ App.get("/api/users", (req, res) => {
 
 
 
-//New convo in convo table
+//New blocked book **IN PROGRESS**
+App.post("api/block", (req, res) => {
+
+  const block = `INSERT INTO block_user VALUES ($1, $2)`
+
+});
+
+
+
+//New convo in convo table **IN PROGRESS**
 App.post("api/conversations", (req, res) => {
 
   const newMatch = `INSERT INTO conversations VALUES ($1, $2)`;
@@ -101,34 +111,34 @@ App.post("api/conversations", (req, res) => {
 
 
 //Update user's genre prefs
-App.put("api/genres/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  const genreId = 0;
+// App.put("api/genres/:id", (req, res) => {
+//   const id = parseInt(req.params.id);
+//   const genreId = 0;
 
-  for (let obj of req.body.genres) {
-    genreId = obj.id;
-  };
+//   for (let obj of req.body.genres) {
+//     genreId = obj.id;
+//   };
 
-  const updateUserGenres = `UPDATE genre_user SET genres_id = $1 WHERE users_id = $2`;
+//   const updateUserGenres = `UPDATE genre_user SET genres_id = $1 WHERE users_id = $2`;
 
-  const values = [
-    genreId,
-    id
-  ];
+//   const values = [
+//     genreId,
+//     id
+//   ];
 
-  return pool.query(updateUserGenres, values)
-  .then((result) => {
-    console.log(result);
-    return result;
-  })
-  .catch((err) =>{
-    console.log(err.message)
-  });
-});
+//   return pool.query(updateUserGenres, values)
+//   .then((result) => {
+//     console.log(result);
+//     return result;
+//   })
+//   .catch((err) =>{
+//     console.log(err.message)
+//   });
+// });
 
 
 
-//Update user in users table
+//Update user in users table **NEEDS TO BE MODIFIED per new users table format**
 App.put("/api/user/:id", (req, res) => {
   const id = parseInt(req.params.id);
   
@@ -144,6 +154,30 @@ App.put("/api/user/:id", (req, res) => {
     req.body.age_max_pref,
     req.body.age_min_pref,
     req.body.price_max_pref,
+    id,
+  ];
+
+  return pool.query(updateUser, values)
+  .then((result) => {
+    console.log(result);
+    return result;
+  })
+  .catch((err) => {
+    console.log(err.message)
+  });
+});
+
+
+//TESTING UserStateProvider for location change:
+App.put("/api/users/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  console.log("what is this:", req.body);
+  console.log("And this:", req.params);
+  
+  const updateUser = `UPDATE users SET radius_pref =$1 WHERE id = $2 `;
+
+  const values = [
+    req.body.radius_pref,
     id,
   ];
 
