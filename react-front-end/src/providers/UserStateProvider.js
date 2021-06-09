@@ -34,7 +34,7 @@ export default function UserStateProvider(props) {
     //need to send userObject, not userState, because it's not updated yet
     setUserState(userObject);
     axios
-      .put("/api/users/1", userObject)
+      .put(`/api/users/${userObject.id}`, userObject)
       .then((result) => {
         console.log("all is well");
       })
