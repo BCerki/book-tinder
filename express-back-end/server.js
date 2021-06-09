@@ -6,8 +6,8 @@ const BodyParser = require("body-parser");
 const books = require("./routes/books");
 const PORT = 8080;
 const { Pool } = require("pg");
-require("dotenv").config();
 // const getUserData = require("./routes/user");
+const { response } = require("express");
 
 // Express Configuration
 App.use(BodyParser.urlencoded({ extended: false }));
@@ -76,6 +76,88 @@ App.get("/api/users", (req, res) => {
     res.send([userProfileArr[0]]);
   });
 });
+
+
+
+//New convo in convo table
+App.post("api/conversations", (req, res) => {
+
+  const newMatch = `INSERT INTO conversations VALUES ($1, $2)`;
+
+  const values = [
+    req.body.user_id,
+    req.body.book_id
+  ];
+  
+  return pool.query(newMatch, values)
+    .then((result) => {
+      return result.rows;
+    })
+    .catch((err) => {
+      console.log(err.message)
+    });
+});
+
+
+
+//Update user's genre prefs
+App.put("api/genres/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const genreId = 0;
+
+  for (let obj of req.body.genres) {
+    genreId = obj.id;
+  };
+
+  const updateUserGenres = `UPDATE genre_user SET genres_id = $1 WHERE users_id = $2`;
+
+  const values = [
+    genreId,
+    id
+  ];
+
+  return pool.query(updateUserGenres, values)
+  .then((result) => {
+    console.log(result);
+    return result;
+  })
+  .catch((err) =>{
+    console.log(err.message)
+  });
+});
+
+
+
+//Update user in users table
+App.put("/api/user/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  
+  const updateUser = `UPDATE users SET name = $1, radius_pref =$2, pages_max_pref = $3, pages_min_pref = $4,
+  maturity_pref = $5, age_max_pref = $6, age_min_pref = $7, price_max_pref = $8 WHERE id = $9 `;
+
+  const values = [
+    req.body.name,
+    req.body.radius_pref,
+    req.body.pages_max_pref,
+    req.body.pages_min_pref,
+    req.body.maturity_pref,
+    req.body.age_max_pref,
+    req.body.age_min_pref,
+    req.body.price_max_pref,
+    id,
+  ];
+
+  return pool.query(updateUser, values)
+  .then((result) => {
+    console.log(result);
+    return result;
+  })
+  .catch((err) => {
+    console.log(err.message)
+  });
+});
+
+
 
 App.listen(PORT, () => {
   // eslint-disable-next-line no-console

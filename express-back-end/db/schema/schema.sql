@@ -49,9 +49,6 @@ CREATE TABLE genre_user (
 );
 
 
-
-
-
 CREATE TABLE conversations (
 id SERIAL PRIMARY KEY NOT NULL,
 user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
@@ -60,7 +57,8 @@ book_id INTEGER  REFERENCES books(id) ON DELETE CASCADE
 
 CREATE TABLE messages (
 id SERIAL PRIMARY KEY NOT NULL,
-participant_id INTEGER REFERENCES conversations(id) ON DELETE CASCADE,
+participant_id INTEGER REFERENCES,
+conversations_id INTEGER REFERENCES conversations(id) ON DELETE CASCADE,
 body TEXT,
 timestamp TIMESTAMP
 );
