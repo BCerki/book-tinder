@@ -4,6 +4,8 @@ import booknetScripts from "../ChatBotScripts/booknetScripts";
 import otherScripts from "../ChatBotScripts/otherScripts";
 import _ from "lodash";
 import BackBar from "./BackBar";
+import ReactDOM from "react-dom";
+import useLocalStorage from "react-use-localstorage";
 
 //Styling
 import "../styles/chatView.scss";
@@ -18,6 +20,11 @@ export default function ChatView(props) {
   //true is a stand-in for the book currently in state
   const scripts = true ? booknetScripts : otherScripts;
   // console.log("scripts is", scripts);
+
+  const [conversation, setConversation] = useLocalStorage(
+    "rsc_cache",
+    window.localStorage.rsc_cache
+  );
 
   return (
     <>
