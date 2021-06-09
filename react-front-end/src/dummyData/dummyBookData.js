@@ -4,7 +4,7 @@ const bookData = [
     id: 1,
     title: "Flowers for Algeron",
     author: "Author",
-    coverImage:
+    image:
       "https://books.google.com/books/content?id=64tuPwAACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
     description: "describe",
     isbn: "1234567891234",
@@ -17,7 +17,7 @@ const bookData = [
     id: 2,
     title: "Another book",
     author: "author",
-    coverImage:
+    image:
       "http://books.google.com/books/content?id=ztmODQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
     description: "describe",
     isbn: "1234567891234",

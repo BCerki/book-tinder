@@ -7,6 +7,7 @@ import BackBar from "./BackBar";
 import ReactDOM from "react-dom";
 import useLocalStorage from "react-use-localstorage";
 import { bookStateContext } from "../providers/BookStateProvider";
+import Avatar from "@material-ui/core/Avatar";
 
 //Styling
 import "../styles/chatView.scss";

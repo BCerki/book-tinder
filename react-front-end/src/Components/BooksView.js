@@ -47,7 +47,7 @@ export default function BooksView(props) {
           }}
           title={book.title}
           author={book.author}
-          coverImage={book.coverImage}
+          coverImage={book.image}
           description={book.description}
           isbn={book.isbn}
           pageCount={book.pageCount}
