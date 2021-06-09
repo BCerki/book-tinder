@@ -170,6 +170,7 @@ export default function ProfileView(props) {
       <div className="profile-avatar">
         <Avatar className={classes.large} />
       </div>
+      <div className="user">{userState.name}</div>
       <div className="profile-preference">
         <span className="profile-label">Age range (publication date)</span>
 

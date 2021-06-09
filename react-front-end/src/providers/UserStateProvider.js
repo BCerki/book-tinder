@@ -21,7 +21,10 @@ export default function UserStateProvider(props) {
   //     .catch((err) => console.log("Error message:", err.message));
   // };
   //FOR REAL
+  //hard coding in 1 since not doing login for demo
   const [userState, setUserState] = useState({
+    id: 1,
+    name: "Sandra Gardiner",
     age: [20, 40],
     pageCount: [256, 512],
     price: [10, 30],
