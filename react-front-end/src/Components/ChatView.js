@@ -24,6 +24,7 @@ export default function ChatView(props) {
       <BackBar className={"backBar"} />
       <ChatBot
         steps={chooseScript(scripts)}
+        cache={true}
         hideBotAvatar={true}
         hideUserAvatar={true}
         hideHeader={true}

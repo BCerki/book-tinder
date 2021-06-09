@@ -19,11 +19,6 @@ import "../styles/booksView.scss";
 export default function BooksView(props) {
   const { providerBook } = useContext(bookStateContext);
 
-  const handleClick = function(event, bookId) {
-    providerBook(bookId);
-    console.log("handle click fired, bookid is:", bookId);
-  };
-
   //functions for toggle
   const [toggle, setToggle] = useState(false);
 
@@ -36,27 +31,32 @@ export default function BooksView(props) {
   };
   // console.log("toggle in middle view", toggle);
 
+  const handleClick = function(event, bookId) {
+    providerBook(bookId);
+    console.log("handle click fired, bookid is:", bookId);
+  };
+
   //Create the cards for info
   const bookCards = bookData.map((book) => {
     return (
-      <Link to={`/books/${book.id}`} className="bookCardLink">
-        <BookCard
-          id={book.id}
-          onClick={(event) => {
-            handleClick(event, book.id);
-          }}
-          title={book.title}
-          author={book.author}
-          coverImage={book.coverImage}
-          description={book.description}
-          isbn={book.isbn}
-          pageCount={book.pageCount}
-          price={book.price}
-          age={book.age}
-          latestMessage={book.latestMessage}
-          toggle={toggle}
-        />
-      </Link>
+      // <Link to={`/books/${book.id}`} className="bookCardLink">
+      <BookCard
+        id={book.id}
+        onClick={(event) => {
+          handleClick(event, book.id);
+        }}
+        title={book.title}
+        author={book.author}
+        coverImage={book.coverImage}
+        description={book.description}
+        isbn={book.isbn}
+        pageCount={book.pageCount}
+        price={book.price}
+        age={book.age}
+        latestMessage={book.latestMessage}
+        toggle={toggle}
+      />
+      // </Link>
     );
   });
 
