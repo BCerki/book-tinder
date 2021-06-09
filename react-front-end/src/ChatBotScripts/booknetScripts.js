@@ -9,7 +9,7 @@ const heeeeeyReader = [
     options: [
       {
         value: "y",
-        label: "Haven't heard that one before",
+        label: "You're puny",
         trigger: "yes-response",
       },
       { value: "n", label: "No", trigger: "no-response" },

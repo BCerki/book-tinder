@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import UserStateProvider from "./providers/UserStateProvider";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 //Import components
@@ -9,6 +10,7 @@ import BooksView from "./Components/BooksView";
 import Footer from "./Components/Footer";
 
 //Import styling
+
 import "./App.scss";
 
 export default function AppRouter() {
@@ -23,7 +25,9 @@ export default function AppRouter() {
           <Footer />
         </Route>
         <Route path="/profile">
-          <ProfileView />
+          <UserStateProvider>
+            <ProfileView />
+          </UserStateProvider>
           <Footer />
         </Route>
         <Route path="/">

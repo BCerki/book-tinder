@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { userStateContext } from "../providers/UserStateProvider";
+
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
@@ -18,7 +20,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProfileView() {
+export default function ProfileView(props) {
+  const { setLocationParent } = useContext(userStateContext);
+
   //Material UI styling hook
   const classes = useStyles();
 
@@ -26,6 +30,7 @@ export default function ProfileView() {
   function valuetext(value) {
     return `${value}`;
   }
+  const { retreivedBooks } = useContext(userStateContext);
 
   //do one of these for each slider, mentor and talk to DB
   const [age, setAge] = useState([20, 40]);
@@ -45,8 +50,9 @@ export default function ProfileView() {
     setPrice(newValue);
   };
   //FIX FIX this one doesn't have a change function?
-  const handleMaxDistanceChange = (event, newValue) => {
-    setMaxDistance(newValue);
+  const handleLocationChange = (event, newValue) => {
+    setLocationParent(newValue);
+    // setMaxDistance(newValue);
   };
   const handleMaturityChange = (event) => {
     setMaturity(!maturity);
@@ -150,6 +156,7 @@ export default function ProfileView() {
 
   return (
     <main>
+      <div>Boooooks: {retreivedBooks}</div>
       <div className="profile-avatar">
         <Avatar className={classes.large} />
       </div>
@@ -209,6 +216,7 @@ export default function ProfileView() {
           getAriaValueText={valuetext}
           aria-labelledby="discrete-slider-always"
           step={10}
+          onChange={handleLocationChange}
           marks={distanceMarks}
           max={maxDistanceMark}
           valueLabelDisplay="auto"
