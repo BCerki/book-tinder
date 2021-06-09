@@ -31,17 +31,27 @@ console.log("process.env.DB_USER", process.env.DB_USER);
 
 // BookTinder GET route
 App.get("/api/test", (req, res) => {
-  return pool.query(`SELECT * FROM books`).then(function (result) {
-    console.log("LOG: server: query books: result:", result);
-    res.send(result.rows);
-  });
+  return pool
+    .query(`SELECT * FROM books`)
+    .then(function (result) {
+      console.log("LOG: server: query books: result:", result);
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
 });
 
 // Users GET route
 App.get("/api/users", (req, res) => {
-  return pool.query(`SELECT * FROM users`).then((result) => {
-    res.send(result.rows);
-  });
+  return pool
+    .query(`SELECT * FROM users`)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
 });
 
 //New blocked book **IN PROGRESS**
