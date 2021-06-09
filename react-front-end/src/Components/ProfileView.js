@@ -21,9 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ProfileView(props) {
-  const { setLocationParent, setParent, userState } = useContext(
-    userStateContext
-  );
+  const { sendToDB, userState } = useContext(userStateContext);
 
   //Material UI styling hook
   const classes = useStyles();
@@ -42,28 +40,28 @@ export default function ProfileView(props) {
   const [maturity, setMaturity] = useState(false);
 
   //do one for each slider
-  const handleAgeChange = (event, newValue) => {
-    setAge(newValue);
-  };
-  const handlePageCountChange = (event, newValue) => {
-    setPageCount(newValue);
-  };
-  const handlePriceChange = (event, newValue) => {
-    setPrice(newValue);
-  };
-  //FIX FIX this one doesn't have a change function?
-  const handleLocationChange = (event, newValue) => {
-    setLocationParent(newValue);
-    // setMaxDistance(newValue);
-  };
-  const handleMaturityChange = (event) => {
-    setMaturity(!maturity);
-  };
+  // const handleAgeChange = (event, newValue) => {
+  //   setAge(newValue);
+  // };
+  // const handlePageCountChange = (event, newValue) => {
+  //   setPageCount(newValue);
+  // };
+  // const handlePriceChange = (event, newValue) => {
+  //   setPrice(newValue);
+  // };
+  // //FIX FIX this one doesn't have a change function?
+  // const handleLocationChange = (event, newValue) => {
+  //   setLocationParent(newValue);
+  //   // setMaxDistance(newValue);
+  // };
+  // const handleMaturityChange = (event) => {
+  //   setMaturity(!maturity);
+  // };
 
   const handleChange = (event, newValue, id) => {
     const newUserObject = { ...userState, [id]: newValue };
     console.log("newuserobject is:", newUserObject);
-    setParent(newUserObject);
+    sendToDB(newUserObject);
   };
 
   //age variables
@@ -132,7 +130,7 @@ export default function ProfileView(props) {
   });
 
   useEffect(() => {
-    setParent({ ...userState, genres: chips });
+    sendToDB({ ...userState, genres: chips });
   }, [chips]);
 
   const chipsHandler = (chipName) => {
@@ -199,7 +197,10 @@ export default function ProfileView(props) {
           value={pageCount}
           marks={pageCountMarks}
           max={maxPageCountMark}
-          onChange={handlePageCountChange}
+          onChange={(event, newValue) => {
+            setPageCount(newValue);
+            handleChange(event, newValue, "pageCount");
+          }}
           valueLabelDisplay="auto"
           aria-labelledby="range-slider"
           getAriaValueText={valuetext}
@@ -215,7 +216,10 @@ export default function ProfileView(props) {
           value={price}
           marks={priceMarks}
           max={maxPriceMark}
-          onChange={handlePriceChange}
+          onChange={(event, newValue) => {
+            setPrice(newValue);
+            handleChange(event, newValue, "price");
+          }}
           valueLabelDisplay="auto"
           aria-labelledby="range-slider"
           getAriaValueText={valuetext}
@@ -232,7 +236,10 @@ export default function ProfileView(props) {
           getAriaValueText={valuetext}
           aria-labelledby="discrete-slider-always"
           step={10}
-          onChange={handleLocationChange}
+          onChange={(event, newValue) => {
+            setMaxDistance(newValue);
+            handleChange(event, newValue, "maxDistance");
+          }}
           marks={distanceMarks}
           max={maxDistanceMark}
           valueLabelDisplay="auto"
@@ -249,7 +256,10 @@ export default function ProfileView(props) {
           </span>
           <Switch
             // checked={true}
-            onChange={handleMaturityChange}
+            onChange={(event, newValue) => {
+              setMaturity(newValue);
+              handleChange(event, newValue, "maturity");
+            }}
             color="primary"
             inputProps={{ "aria-label": "primary checkbox" }}
           />

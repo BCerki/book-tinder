@@ -10,16 +10,16 @@ export default function UserStateProvider(props) {
   // const [maturity, setMaturity] = useState(false);
 
   //WITH MENTOR
-  const [location, setLocation] = useState(0);
+  // const [location, setLocation] = useState(0);
 
-  const setLocationParent = function(value) {
-    axios
-      .put("/api/users/1")
-      .then((result) => {
-        setLocation(value);
-      })
-      .catch((err) => console.log("Error message:", err.message));
-  };
+  // const setLocationParent = function(value) {
+  //   axios
+  //     .put("/api/users/1")
+  //     .then((result) => {
+  //       setLocation(value);
+  //     })
+  //     .catch((err) => console.log("Error message:", err.message));
+  // };
   //FOR REAL
   const [userState, setUserState] = useState({
     age: [20, 40],
@@ -30,8 +30,9 @@ export default function UserStateProvider(props) {
     genres: {},
   });
 
-  const setParent = function(userObject) {
+  const sendToDB = function(userObject) {
     console.log("in parent user object", userObject);
+    //need to send userObject, not userState, because it's not updated yet
     setUserState(userObject);
     axios
       .put("/api/users/1", userObject)
@@ -44,8 +45,7 @@ export default function UserStateProvider(props) {
   //AFTER axios, update
 
   const providerData = {
-    setLocationParent,
-    setParent,
+    sendToDB,
     userState,
   };
 
