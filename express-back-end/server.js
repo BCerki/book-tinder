@@ -140,8 +140,9 @@ App.post("api/conversations", (req, res) => {
 
 
 //Update user in users table **NEEDS TO BE MODIFIED per new users table format**
-App.put("/api/user/:id", (req, res) => {
+App.put("/api/users/:id", (req, res) => {
   const id = parseInt(req.params.id);
+  console.log("what is this:", req.body);
   
   const updateUser = `UPDATE users SET name = $1, radius_pref =$2, pages_max_pref = $3, pages_min_pref = $4,
   maturity_pref = $5, age_max_pref = $6, age_min_pref = $7, price_max_pref = $8 WHERE id = $9 `;
@@ -170,27 +171,27 @@ App.put("/api/user/:id", (req, res) => {
 
 
 //TESTING UserStateProvider for location change:
-App.put("/api/users/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  console.log("what is this:", req.body);
-  console.log("And this:", req.params);
+// App.put("/api/users/:id", (req, res) => {
+//   const id = parseInt(req.params.id);
+//   console.log("what is this:", req.body);
+//   console.log("And this:", req.params);
   
-  const updateUser = `UPDATE users SET radius_pref =$1 WHERE id = $2 `;
+//   const updateUser = `UPDATE users SET radius_pref =$1 WHERE id = $2 `;
 
-  const values = [
-    req.body.radius_pref,
-    id,
-  ];
+//   const values = [
+//     req.body.radius_pref,
+//     id,
+//   ];
 
-  return pool.query(updateUser, values)
-  .then((result) => {
-    console.log(result);
-    return result;
-  })
-  .catch((err) => {
-    console.log(err.message)
-  });
-});
+//   return pool.query(updateUser, values)
+//   .then((result) => {
+//     console.log(result);
+//     return result;
+//   })
+//   .catch((err) => {
+//     console.log(err.message)
+//   });
+// });
 
 
 
