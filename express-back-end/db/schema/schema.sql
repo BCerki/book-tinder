@@ -9,13 +9,12 @@ DROP TABLE IF EXISTS messages CASCADE;
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
   name VARCHAR(255) NOT NULL,
-  radius_pref INTEGER NOT NULL,
-  pages_max_pref INTEGER NOT NULL,
-  pages_min_pref INTEGER NOT NULL,
-  maturity_pref BOOLEAN NOT NULL,
-  age_max_pref INTEGER NOT NULL,
-  age_min_pref INTEGER NOT NULL,
-  price_max_pref INTEGER NOT NULL
+  age INTEGER[] NOT NULL,
+  page_count INTEGER[] NOT NULL,
+  price INTEGER[] NOT NULL,
+  max_distance INTEGER NOT NULL,
+  maturity BOOLEAN,
+  genres TEXT[]
 );
 
 CREATE TABLE books (
@@ -49,9 +48,6 @@ CREATE TABLE genre_user (
 );
 
 
-
-
-
 CREATE TABLE conversations (
 id SERIAL PRIMARY KEY NOT NULL,
 user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
@@ -60,7 +56,8 @@ book_id INTEGER  REFERENCES books(id) ON DELETE CASCADE
 
 CREATE TABLE messages (
 id SERIAL PRIMARY KEY NOT NULL,
-participant_id INTEGER REFERENCES conversations(id) ON DELETE CASCADE,
+participant_id INTEGER REFERENCES,
+conversations_id INTEGER REFERENCES conversations(id) ON DELETE CASCADE,
 body TEXT,
 timestamp TIMESTAMP
 );
