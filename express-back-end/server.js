@@ -117,6 +117,7 @@ App.delete("/api/conversations/:id", (req, res) => {
 App.put("/api/users/:id", (req, res) => {
   const id = parseInt(req.params.id);
   console.log(req.body);
+  console.log(req.params.id);
 
   const updateUser = `UPDATE users SET name = $1, age = $2, page_count = $3, price = $4,
   max_distance = $5, maturity = $6, genres = $7, WHERE id = $8 `;
@@ -124,9 +125,9 @@ App.put("/api/users/:id", (req, res) => {
   const values = [
     req.body.name,
     req.body.age,
-    req.body.page_count,
+    req.body.pageCount,
     req.body.price,
-    req.body.max_distance,
+    req.body.maxDistance,
     req.body.maturity,
     req.body.genres,
     id,
@@ -142,27 +143,6 @@ App.put("/api/users/:id", (req, res) => {
       console.log(err.message);
     });
 });
-
-//TESTING UserStateProvider for location change:
-// App.put("/api/users/:id", (req, res) => {
-//   const id = parseInt(req.params.id);
-//   console.log("what is this:", req.body);
-//   console.log("And this:", req.params);
-
-//   const updateUser = `UPDATE users SET radius_pref =$1 WHERE id = $2 `;
-
-//   const values = [req.body.radius_pref, id];
-
-//   return pool
-//     .query(updateUser, values)
-//     .then((result) => {
-//       console.log(result);
-//       return result;
-//     })
-//     .catch((err) => {
-//       console.log(err.message);
-//     });
-// });
 
 App.listen(PORT, () => {
   // eslint-disable-next-line no-console
