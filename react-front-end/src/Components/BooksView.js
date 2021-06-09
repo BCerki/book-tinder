@@ -19,9 +19,9 @@ import "../styles/booksView.scss";
 export default function BooksView(props) {
   const { providerBook } = useContext(bookStateContext);
 
-  const handleClick = function(bookId) {
+  const handleClick = function(event, bookId) {
     providerBook(bookId);
-    console.log("handle click fired");
+    console.log("handle click fired, bookid is:", bookId);
   };
 
   //functions for toggle
@@ -42,8 +42,8 @@ export default function BooksView(props) {
       <Link to={`/books/${book.id}`} className="bookCardLink">
         <BookCard
           id={book.id}
-          onClick={() => {
-            handleClick(book.id);
+          onClick={(event) => {
+            handleClick(event, book.id);
           }}
           title={book.title}
           author={book.author}

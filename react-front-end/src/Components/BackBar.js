@@ -20,7 +20,7 @@ import axios from "axios";
 
 export default function BackBar(props) {
   const { currentBook, block } = useContext(bookStateContext);
-  console.log("currentBook.image in backbar", currentBook);
+  console.log("currentBook.image in backbar", currentBook.image);
 
   return (
     <div className="backBar">
