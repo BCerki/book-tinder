@@ -7,6 +7,7 @@ export default function BookStateProvider(props) {
   //need to somehow check if current book is blocked
 
   const block = function(bookId) {
+    console.log(bookId);
     axios
       //MICHELLE this should add the book to the blocked table
       .post(`/api/blocked/${bookId}`, bookId)

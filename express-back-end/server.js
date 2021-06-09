@@ -79,13 +79,29 @@ App.get("/api/users", (req, res) => {
   });
 });
 
-//New blocked book **IN PROGRESS**
-App.post("api/block", (req, res) => {
-  const block = `INSERT INTO block_user VALUES ($1, $2)`;
+//New blocked book **BookID is currently undefined from front-end
+//Temporarily hard coded bookId value in axios function to confirm db update is working.
+App.post("/api/blocked/:id", (req, res) => {
+  console.log(req.params)
+  const bookId = parseInt(req.params.id);
+  const userId = 1;
+
+  const blocked = `INSERT INTO block_user (users_id, books_id) VALUES ($1, $2)`;
+
+  const values = [userId, bookId];
+
+  return pool
+    .query(blocked, values)
+    .then((result) => {
+      return result.rows;
+    })
+    .catch((err) => {
+      console.log(err.message);
+    }); 
 });
 
 //New convo in convo table **IN PROGRESS**
-App.post("api/conversations", (req, res) => {
+App.post("/api/conversations", (req, res) => {
   const newMatch = `INSERT INTO conversations VALUES ($1, $2)`;
 
   const values = [req.body.user_id, req.body.book_id];
@@ -129,24 +145,19 @@ App.post("api/conversations", (req, res) => {
 //Update user in users table **NEEDS TO BE MODIFIED per new users table format**
 App.put("/api/users/:id", (req, res) => {
   const id = parseInt(req.params.id);
-<<<<<<< HEAD
-  console.log("what is this:", req.body);
-  
-=======
+  console.log(req.body);
 
->>>>>>> 9a8b9b0eef56c5bf8faa9222831b713bbbd747b5
-  const updateUser = `UPDATE users SET name = $1, radius_pref =$2, pages_max_pref = $3, pages_min_pref = $4,
-  maturity_pref = $5, age_max_pref = $6, age_min_pref = $7, price_max_pref = $8 WHERE id = $9 `;
+  const updateUser = `UPDATE users SET name = $1, age = $2, page_count = $3, price = $4,
+  max_distance = $5, maturity = $6, genres = $7, WHERE id = $8 `;
 
   const values = [
     req.body.name,
-    req.body.radius_pref,
-    req.body.pages_max_pref,
-    req.body.pages_min_pref,
-    req.body.maturity_pref,
-    req.body.age_max_pref,
-    req.body.age_min_pref,
-    req.body.price_max_pref,
+    req.body.age,
+    req.body.page_count,
+    req.body.price,
+    req.body.max_distance,
+    req.body.maturity,
+    req.body.genres,
     id,
   ];
 
@@ -154,7 +165,7 @@ App.put("/api/users/:id", (req, res) => {
     .query(updateUser, values)
     .then((result) => {
       console.log(result);
-      return result;
+      return result.rows;
     })
     .catch((err) => {
       console.log(err.message);
@@ -162,49 +173,25 @@ App.put("/api/users/:id", (req, res) => {
 });
 
 //TESTING UserStateProvider for location change:
-<<<<<<< HEAD
 // App.put("/api/users/:id", (req, res) => {
 //   const id = parseInt(req.params.id);
 //   console.log("what is this:", req.body);
 //   console.log("And this:", req.params);
-  
+
 //   const updateUser = `UPDATE users SET radius_pref =$1 WHERE id = $2 `;
 
-//   const values = [
-//     req.body.radius_pref,
-//     id,
-//   ];
+//   const values = [req.body.radius_pref, id];
 
-//   return pool.query(updateUser, values)
-//   .then((result) => {
-//     console.log(result);
-//     return result;
-//   })
-//   .catch((err) => {
-//     console.log(err.message)
-//   });
+//   return pool
+//     .query(updateUser, values)
+//     .then((result) => {
+//       console.log(result);
+//       return result;
+//     })
+//     .catch((err) => {
+//       console.log(err.message);
+//     });
 // });
-=======
-App.put("/api/users/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  console.log("what is this:", req.body);
-  console.log("And this:", req.params);
-
-  const updateUser = `UPDATE users SET radius_pref =$1 WHERE id = $2 `;
-
-  const values = [req.body.radius_pref, id];
-
-  return pool
-    .query(updateUser, values)
-    .then((result) => {
-      console.log(result);
-      return result;
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
-});
->>>>>>> 9a8b9b0eef56c5bf8faa9222831b713bbbd747b5
 
 App.listen(PORT, () => {
   // eslint-disable-next-line no-console
