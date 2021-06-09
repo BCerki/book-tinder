@@ -64,7 +64,8 @@ export default function Swipe(props) {
       //db update
       axios
         //is conversations correct? does Michelle just need the id? FIX FIX
-        .put(`/api/conversations/${bookSwipedId}`, bookSwipedId)
+        //change bookswipdedid to bookid
+        .post(`/api/conversations/${bookSwipedId}`, bookSwipedId)
         .then(() => {
           console.log("all is well");
         })

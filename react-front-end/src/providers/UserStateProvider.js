@@ -33,6 +33,7 @@ export default function UserStateProvider(props) {
     console.log("in parent user object", userObject);
     //need to send userObject, not userState, because it's not updated yet
     setUserState(userObject);
+    //MICHELLE
     axios
       .put(`/api/users/${userObject.id}`, userObject)
       .then((result) => {

@@ -8,8 +8,16 @@ export default function BookStateProvider(props) {
 
   const block = function(bookId) {
     axios
-      //this should remove book from conversations table
-      .put(`/api/blocked/${bookId}`)
+      //MICHELLE this should add the book to the blocked table
+      .post(`/api/blocked/${bookId}`, bookId)
+      .then((result) => {
+        console.log("all is well");
+      })
+      .catch((err) => console.log("Error message:", err.message));
+
+    axios
+      //MICHELLE this should delete the book from the conversations table
+      .delete(`/api/conversations/${bookId}`, bookId)
       .then((result) => {
         console.log("all is well");
       })
