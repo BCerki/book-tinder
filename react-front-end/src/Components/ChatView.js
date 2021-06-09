@@ -19,13 +19,13 @@ const chooseScript = function(scripts) {
 
 export default function ChatView(props) {
   const { currentBook } = useContext(bookStateContext);
-  console.log("current book is", currentBook);
+  console.log("in chat view current book is", currentBook);
   //true is a stand-in currentBook.booknet
   const scripts = true ? booknetScripts : otherScripts;
   // console.log("scripts is", scripts);
 
   //1 is a stand-in for currentBook.id
-  const cacheName = `rsc_cache_${1}`;
+  const cacheName = `rsc_cache_${currentBook.id}`;
 
   if (window.localStorage[cacheName]) {
     const [conversation, setConversation] = useLocalStorage(
