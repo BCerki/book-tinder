@@ -11,6 +11,7 @@ export default function UserStateProvider(props) {
 
   //WITH MENTOR
   const [location, setLocation] = useState(0);
+
   const setLocationParent = function(value) {
     axios
       .put("/api/users/1")
@@ -19,20 +20,22 @@ export default function UserStateProvider(props) {
       })
       .catch((err) => console.log("Error message:", err.message));
   };
-  //FOR REALZ
+  //FOR REAL
   const [userState, setUserState] = useState({
     age: [20, 40],
     pageCount: [256, 512],
     price: [10, 30],
     maxDistance: 80,
     maturity: false,
+    genres: [],
   });
 
-  const setParent = function(value) {
+  const setParent = function(userObject) {
+    setUserState(userObject);
     axios
-      .put("/api/users/1")
+      .put("/api/users/1", userObject)
       .then((result) => {
-        setLocation(value);
+        console.log("all is well");
       })
       .catch((err) => console.log("Error message:", err.message));
   };
@@ -42,6 +45,7 @@ export default function UserStateProvider(props) {
   const providerData = {
     setLocationParent,
     setParent,
+    userState,
   };
 
   //isloading state
