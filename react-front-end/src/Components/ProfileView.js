@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { userStateContext } from "../providers/UserStateProvider";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ProfileView(props) {
-  const { setLocationParent, setParent } = useContext(userStateContext);
+  const { sendToDB, userState } = useContext(userStateContext);
 
   //Material UI styling hook
   const classes = useStyles();
@@ -40,30 +40,28 @@ export default function ProfileView(props) {
   const [maturity, setMaturity] = useState(false);
 
   //do one for each slider
-  const handleAgeChange = (event, newValue) => {
-    setAge(newValue);
-  };
-  const handlePageCountChange = (event, newValue) => {
-    setPageCount(newValue);
-  };
-  const handlePriceChange = (event, newValue) => {
-    setPrice(newValue);
-  };
-  //FIX FIX this one doesn't have a change function?
-  const handleLocationChange = (event, newValue) => {
-    setLocationParent(newValue);
-    // setMaxDistance(newValue);
-  };
-  const handleMaturityChange = (event) => {
-    setMaturity(!maturity);
-  };
+  // const handleAgeChange = (event, newValue) => {
+  //   setAge(newValue);
+  // };
+  // const handlePageCountChange = (event, newValue) => {
+  //   setPageCount(newValue);
+  // };
+  // const handlePriceChange = (event, newValue) => {
+  //   setPrice(newValue);
+  // };
+  // //FIX FIX this one doesn't have a change function?
+  // const handleLocationChange = (event, newValue) => {
+  //   setLocationParent(newValue);
+  //   // setMaxDistance(newValue);
+  // };
+  // const handleMaturityChange = (event) => {
+  //   setMaturity(!maturity);
+  // };
 
-  const handleChange = (event, newValue) => {
-    setParent((prev) => ({
-      ...prev,
-      purpleUnicorn: newValue,
-    }));
-    console.log("i'm looking for purple unicorn");
+  const handleChange = (event, newValue, id) => {
+    const newUserObject = { ...userState, [id]: newValue };
+    console.log("newuserobject is:", newUserObject);
+    sendToDB(newUserObject);
   };
 
   //age variables
@@ -130,6 +128,11 @@ export default function ProfileView(props) {
     romance: false,
     adventure: false,
   });
+
+  useEffect(() => {
+    sendToDB({ ...userState, genres: chips });
+  }, [chips]);
+
   const chipsHandler = (chipName) => {
     console.log("you clicked the chip:", chipName.target.innerHTML);
     setChips((prev) => ({
@@ -167,14 +170,19 @@ export default function ProfileView(props) {
       <div className="profile-avatar">
         <Avatar className={classes.large} />
       </div>
+      <div className="user">{userState.name}</div>
       <div className="profile-preference">
         <span className="profile-label">Age range (publication date)</span>
 
         <Slider
+          id={"age"}
           value={age}
           marks={ageMarks}
           max={thisYear - 1970}
-          onChange={handleChange}
+          onChange={(event, newValue) => {
+            setAge(newValue);
+            handleChange(event, newValue, "age");
+          }}
           valueLabelDisplay="auto"
           aria-labelledby="range-slider"
           getAriaValueText={valuetext}
@@ -190,7 +198,10 @@ export default function ProfileView(props) {
           value={pageCount}
           marks={pageCountMarks}
           max={maxPageCountMark}
-          onChange={handlePageCountChange}
+          onChange={(event, newValue) => {
+            setPageCount(newValue);
+            handleChange(event, newValue, "pageCount");
+          }}
           valueLabelDisplay="auto"
           aria-labelledby="range-slider"
           getAriaValueText={valuetext}
@@ -206,7 +217,10 @@ export default function ProfileView(props) {
           value={price}
           marks={priceMarks}
           max={maxPriceMark}
-          onChange={handlePriceChange}
+          onChange={(event, newValue) => {
+            setPrice(newValue);
+            handleChange(event, newValue, "price");
+          }}
           valueLabelDisplay="auto"
           aria-labelledby="range-slider"
           getAriaValueText={valuetext}
@@ -223,7 +237,10 @@ export default function ProfileView(props) {
           getAriaValueText={valuetext}
           aria-labelledby="discrete-slider-always"
           step={10}
-          onChange={handleLocationChange}
+          onChange={(event, newValue) => {
+            setMaxDistance(newValue);
+            handleChange(event, newValue, "maxDistance");
+          }}
           marks={distanceMarks}
           max={maxDistanceMark}
           valueLabelDisplay="auto"
@@ -240,7 +257,10 @@ export default function ProfileView(props) {
           </span>
           <Switch
             // checked={true}
-            onChange={handleMaturityChange}
+            onChange={(event, newValue) => {
+              setMaturity(newValue);
+              handleChange(event, newValue, "maturity");
+            }}
             color="primary"
             inputProps={{ "aria-label": "primary checkbox" }}
           />
