@@ -56,7 +56,7 @@ book_id INTEGER  REFERENCES books(id) ON DELETE CASCADE
 
 CREATE TABLE messages (
 id SERIAL PRIMARY KEY NOT NULL,
-participant_id INTEGER REFERENCES,
+participant_id INTEGER,
 conversations_id INTEGER REFERENCES conversations(id) ON DELETE CASCADE,
 body TEXT,
 timestamp TIMESTAMP
