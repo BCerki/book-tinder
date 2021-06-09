@@ -27,10 +27,11 @@ export default function UserStateProvider(props) {
     price: [10, 30],
     maxDistance: 80,
     maturity: false,
-    genres: [],
+    genres: {},
   });
 
   const setParent = function(userObject) {
+    console.log("in parent user object", userObject);
     setUserState(userObject);
     axios
       .put("/api/users/1", userObject)

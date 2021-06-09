@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { userStateContext } from "../providers/UserStateProvider";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -130,6 +130,11 @@ export default function ProfileView(props) {
     romance: false,
     adventure: false,
   });
+
+  useEffect(() => {
+    setParent({ ...userState, genres: chips });
+  }, [chips]);
+
   const chipsHandler = (chipName) => {
     console.log("you clicked the chip:", chipName.target.innerHTML);
     setChips((prev) => ({
