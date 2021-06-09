@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import ChatBot from "react-simple-chatbot";
 import booknetScripts from "../ChatBotScripts/booknetScripts";
 import otherScripts from "../ChatBotScripts/otherScripts";
@@ -6,6 +6,7 @@ import _ from "lodash";
 import BackBar from "./BackBar";
 import ReactDOM from "react-dom";
 import useLocalStorage from "react-use-localstorage";
+import { bookStateContext } from "../providers/BookStateProvider";
 
 //Styling
 import "../styles/chatView.scss";
@@ -17,11 +18,13 @@ const chooseScript = function(scripts) {
 };
 
 export default function ChatView(props) {
-  //true is a stand-in for the book currently in state
+  const { currentBook } = useContext(bookStateContext);
+  console.log("current book is", currentBook);
+  //true is a stand-in currentBook.booknet
   const scripts = true ? booknetScripts : otherScripts;
   // console.log("scripts is", scripts);
 
-  //this ultimately needs to be currentBook.id
+  //1 is a stand-in for currentBook.id
   const cacheName = `rsc_cache_${1}`;
 
   if (window.localStorage[cacheName]) {
