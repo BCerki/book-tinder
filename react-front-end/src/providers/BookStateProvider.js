@@ -4,7 +4,7 @@ import axios from "axios";
 export default function BookStateProvider(props) {
   const [currentBook, setCurrentBook] = useState({});
 
-  //need to somehow check if current book is blocked
+  // need to somehow check if current book is blocked--or is this handled by Michelle already below?
 
   const block = function(bookId) {
     console.log(bookId);

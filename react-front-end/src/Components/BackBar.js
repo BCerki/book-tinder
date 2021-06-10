@@ -9,7 +9,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import MenuBookIcon from "@material-ui/icons/MenuBook";
 import ChatIcon from "@material-ui/icons/Chat";
-import Avatar from "@material-ui/icons/AccountBox";
+import Avatar from "@material-ui/core/Avatar";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import BlockIcon from "@material-ui/icons/Block";
@@ -20,14 +20,14 @@ import axios from "axios";
 
 export default function BackBar(props) {
   const { currentBook, block } = useContext(bookStateContext);
-  console.log("currentBook.image in backbar", currentBook.image);
+  console.log("in the back bar, currentBook.image is", currentBook.image);
 
   return (
     <div className="backBar">
       <Link to="/books">
         <ArrowBackIosIcon />
       </Link>
-      <Avatar className="chatAvatar" src={currentBook.image} />
+      <Avatar src={currentBook.image} alt={currentBook.title} />
       <div>
         <Link to="/books">
           <BlockIcon
