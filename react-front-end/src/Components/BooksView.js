@@ -4,7 +4,7 @@ import { bookStateContext } from "../providers/BookStateProvider";
 //import components
 import BookCard from "./BookCard";
 import MessageCard from "./Message";
-
+import bookData from "../dummyData/dummyBookData";
 import SearchBar from "./SearchBar";
 
 import FormGroup from "@material-ui/core/FormGroup";
@@ -39,9 +39,12 @@ export default function BooksView(props) {
 
   //Create the cards for info
   //if this gives async issues, get the conversations in a useEffect hook above instead
-  const bookCards = getConversations().map((book) => {
+
+  //use this once the conversations endpint is up and running
+  // const bookCards = getConversations().map((book) => {
+  const bookCards = bookData.map((book) => {
     return (
-      <Link to={`/books/${book.id}`} className="bookCardLink">
+      <Link to={`matches/${book.id}`} className="bookCardLink">
         <BookCard
           id={book.id}
           onClick={() => {

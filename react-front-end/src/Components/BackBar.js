@@ -25,12 +25,12 @@ export default function BackBar(props) {
 
   return (
     <div className="backBar">
-      <Link to="/books">
+      <Link to="/matches">
         <ArrowBackIosIcon />
       </Link>
       <Avatar src={currentBook.image} alt={currentBook.title} />
       <div>
-        <Link to="/books">
+        <Link to="/matches">
           <BlockIcon
             onClick={() => {
               block(currentBook.id);

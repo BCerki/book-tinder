@@ -15,12 +15,12 @@ export default function Footer(props) {
   return (
     <div className="footer">
       <div>
-        <Link to="/">
+        <Link to="/books">
           <MenuBookIcon />
         </Link>
       </div>
       <div>
-        <Link to="/books">
+        <Link to="/matches">
           <ForumIcon />
         </Link>
       </div>
