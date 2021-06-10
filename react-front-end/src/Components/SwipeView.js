@@ -17,7 +17,7 @@ export default function Swipe(props) {
 
   useEffect(() => {
     axios
-      .get("/api/test")
+      .get("/api/books")
       .then((response) => {
         console.log("response.data", response.data);
         // setCurrentBook(_.shuffle(response.data)[0]);
