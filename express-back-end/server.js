@@ -21,7 +21,7 @@ const pool = new Pool({
   host: process.env.DB_HOST,
   database: process.env.DB_DATABASE,
 });
-console.log("process.env.DB_USER", process.env.DB_USER);
+// console.log("process.env.DB_USER", process.env.DB_USER);
 // Sample GET route
 // App.get("/api/data", (req, res) =>
 //   res.json({
@@ -34,7 +34,8 @@ App.get("/api/test", (req, res) => {
   return pool
     .query(`SELECT * FROM books`)
     .then(function (result) {
-      console.log("LOG: server: query books: result:", result);
+      // console.log("LOG: server: query books: result:", result);
+      console.log("test", result.rows);
       res.send(result.rows);
     })
     .catch((err) => {
@@ -63,7 +64,7 @@ App.get("/api/blocked", (req, res) =>{
 //BookID is currently undefined from front-end
 //Temporarily hard coded bookId value in axios function to confirm db update is working.
 App.post("/api/blocked/:id", (req, res) => {
-  console.log(req.params)
+  // console.log(req.params)
   const bookId = parseInt(req.params.id);
   const userId = 1;
 
@@ -81,9 +82,10 @@ App.post("/api/blocked/:id", (req, res) => {
     }); 
 });
 
-//New convo in convo table **IN PROGRESS**
-App.post("/api/conversations", (req, res) => {
+//New match/convo in convo table **IN PROGRESS**
+App.post("/api/conversations/:id", (req, res) => {
   const newMatch = `INSERT INTO conversations VALUES ($1, $2)`;
+  console.log("params", req.params)
 
   const values = [req.body.user_id, req.body.book_id];
 
@@ -112,22 +114,21 @@ App.delete("/api/conversations/:id", (req, res) => {
   })
 })
 
-//Update user in users table **NEEDS TO BE MODIFIED per new users table format**
-//Not receiving correct user obj from front
+//Update user data in users table
+//Slow - will need refactoring but **WORKING**.
 App.put("/api/users/:id", (req, res) => {
   const id = parseInt(req.params.id);
-  console.log(req.body);
-  console.log(req.params.id);
+  console.log("body:", req.body);
 
   const updateUser = `UPDATE users SET name = $1, age = $2, page_count = $3, price = $4,
-  max_distance = $5, maturity = $6, genres = $7, WHERE id = $8 `;
+  max_distance = $5, maturity = $6, genres = $7 WHERE id = $8 `;
 
   const values = [
     req.body.name,
     req.body.age,
-    req.body.pageCount,
+    req.body.page_count,
     req.body.price,
-    req.body.maxDistance,
+    req.body.max_distance,
     req.body.maturity,
     req.body.genres,
     id,
@@ -136,11 +137,10 @@ App.put("/api/users/:id", (req, res) => {
   return pool
     .query(updateUser, values)
     .then((result) => {
-      console.log(result);
       return result.rows;
     })
     .catch((err) => {
-      console.log(err.message);
+      console.log("error:", err.message);
     });
 });
 
