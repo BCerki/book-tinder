@@ -87,3 +87,28 @@ STRETCH
 ## Misc to-do
 
 - Attribute Booknet
+
+## Routes
+
+/api
+
+/api/books --- all books in db
+
+/api/conversations --- all conversations in db
+
+/api/users --- all users in db
+
+/api/users/1/conversations --- query: grab all conversations for a particular user
+--- front-end uses this to populate info view
+
+CONVERSATIONS = MATCHES
+/api/users/1/conversations/1
+---front-end uses this to grab the book id
+
+/api/users/1/books --- query: grab from the all books table everything that isn't in the conversations for that use and that isn't blocked for that user
+--- front-end uses this to populate the swipe view
+
+api/users/1/profile --- DONE
+
+api/users/1/profile/1
+--- front-end uses this for the profile view
