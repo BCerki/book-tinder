@@ -30,7 +30,7 @@ const pool = new Pool({
 // );
 
 // BookTinder GET route
-App.get("/api/test", (req, res) => {
+App.get("/api/books", (req, res) => {
   return pool
     .query(`SELECT * FROM books`)
     .then(function (result) {
@@ -51,16 +51,12 @@ App.get("/api/users", (req, res) => {
       res.send(result.rows);
     })
     .catch((err) => {
-      console.log(err.message);
+      console.error(err);
+      res.status(500).send(err.message);
     });
 });
 
-//Do we need to send block table data to front-end??
-App.get("/api/blocked", (req, res) =>{
-
-});
-
-//New blocked book **WORKING**
+//Block book **WORKING**
 App.post("/api/blocked/:id", (req, res) => {
   const bookId = parseInt(req.params.id);
   const userId = 1;
@@ -72,14 +68,29 @@ App.post("/api/blocked/:id", (req, res) => {
   return pool
     .query(blocked, values)
     .then((result) => {
-      return result.rows;
+      res.send(result.rows);
     })
     .catch((err) => {
-      console.log(err.message);
+      console.error(err);
+      res.status(500).send(err.message);
     }); 
 });
 
-//New match/convo in convo table **WORKING**
+//Match/Convo GET route
+App.get("/api/conversations/", (req, res) => {
+  return pool
+    .query(`SELECT * FROM conversations WHERE user_id = 1`)
+    .then((result) => {
+      console.log("result:", result.rows);
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(err.message);
+    })
+});
+
+//New match/convo **WORKING**
 App.post("/api/conversations/:id", (req, res) => {
   const userId = 1;
 
@@ -93,7 +104,8 @@ App.post("/api/conversations/:id", (req, res) => {
       return result.rows;
     })
     .catch((err) => {
-      console.log(err.message);
+      console.error(err);
+      res.status(500).send(err.message);
     });
 });
 
@@ -105,15 +117,15 @@ App.delete("/api/conversations/:id", (req, res) => {
 
   return pool.query(blockedConvo, values)
   .then((result) => {
-    return result;
+    return result.rows;
   })
   .catch((err) => {
-    console.log(err.message);
-  })
-})
+    console.error(err);
+    res.status(500).send(err.message);
+  });
+});
 
-//Update user data in users table
-//Slow but **WORKING**.
+//Update user data in users table **WORKING**
 App.put("/api/users/:id", (req, res) => {
   const id = parseInt(req.params.id);
   console.log("body:", req.body);
@@ -135,10 +147,11 @@ App.put("/api/users/:id", (req, res) => {
   return pool
     .query(updateUser, values)
     .then((result) => {
-      return result.rows;
+      res.send(result.rows);
     })
     .catch((err) => {
-      console.log("error:", err.message);
+      console.error(err);
+      res.status(500).send(err.message);
     });
 });
 

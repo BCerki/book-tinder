@@ -18,9 +18,9 @@ export default function UserStateProvider(props) {
     id: 1,
     name: "Sandra Gardiner",
     age: [20, 40],
-    page_count: [256, 512],
+    pageCount: [256, 512],
     price: [10, 30],
-    max_distance: 80,
+    maxDistance: 80,
     maturity: false,
     genres: [],
   });
