@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import ChatBot from "react-simple-chatbot";
 import booknetScripts from "../ChatBotScripts/booknetScripts";
 import otherScripts from "../ChatBotScripts/otherScripts";
+import testingScript from "../ChatBotScripts/testingScript";
 import _ from "lodash";
 import BackBar from "./BackBar";
 import ReactDOM from "react-dom";
@@ -30,11 +31,9 @@ export default function ChatView(props) {
   }
   console.log("in chat view after if current book is", currentBook);
 
-  //true is a stand-in currentBook.booknet
-  const scripts = true ? booknetScripts : otherScripts;
+  const scripts = currentBook.booknet ? booknetScripts : otherScripts;
   // console.log("scripts is", scripts);
 
-  //1 is a stand-in for currentBook.id
   const cacheName = `rsc_cache_${currentBook.id}`;
 
   if (window.localStorage[cacheName]) {
@@ -49,7 +48,7 @@ export default function ChatView(props) {
       <BackBar className={"backBar"} />
       <ChatBot
         // steps={chooseScript(scripts)} //for random scripts
-        steps={booknetScripts[0]}
+        steps={testingScript}
         cacheName={cacheName}
         cache={true}
         hideBotAvatar={true}
