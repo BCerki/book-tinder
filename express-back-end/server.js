@@ -61,10 +61,7 @@ App.get("/api/blocked", (req, res) =>{
 });
 
 //New blocked book **WORKING**
-//BookID is currently undefined from front-end
-//Temporarily hard coded bookId value in axios function to confirm db update is working.
 App.post("/api/blocked/:id", (req, res) => {
-  // console.log(req.params)
   const bookId = parseInt(req.params.id);
   const userId = 1;
 
@@ -82,12 +79,13 @@ App.post("/api/blocked/:id", (req, res) => {
     }); 
 });
 
-//New match/convo in convo table **IN PROGRESS**
+//New match/convo in convo table **WORKING**
 App.post("/api/conversations/:id", (req, res) => {
-  const newMatch = `INSERT INTO conversations VALUES ($1, $2)`;
-  console.log("params", req.params)
+  const userId = 1;
 
-  const values = [req.body.user_id, req.body.book_id];
+  const newMatch = `INSERT INTO conversations (user_id, book_id) VALUES ($1, $2)`;
+
+  const values = [userId, req.params.id];
 
   return pool
     .query(newMatch, values)
@@ -115,7 +113,7 @@ App.delete("/api/conversations/:id", (req, res) => {
 })
 
 //Update user data in users table
-//Slow - will need refactoring but **WORKING**.
+//Slow but **WORKING**.
 App.put("/api/users/:id", (req, res) => {
   const id = parseInt(req.params.id);
   console.log("body:", req.body);
@@ -126,9 +124,9 @@ App.put("/api/users/:id", (req, res) => {
   const values = [
     req.body.name,
     req.body.age,
-    req.body.page_count,
+    req.body.pageCount,
     req.body.price,
-    req.body.max_distance,
+    req.body.maxDistance,
     req.body.maturity,
     req.body.genres,
     id,
