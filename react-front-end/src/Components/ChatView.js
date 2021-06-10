@@ -7,7 +7,7 @@ import BackBar from "./BackBar";
 import ReactDOM from "react-dom";
 import useLocalStorage from "react-use-localstorage";
 import { bookStateContext } from "../providers/BookStateProvider";
-import Avatar from "@material-ui/core/Avatar";
+import { useLocation } from "react-router-dom";
 
 //Styling
 import "../styles/chatView.scss";
@@ -19,8 +19,17 @@ const chooseScript = function(scripts) {
 };
 
 export default function ChatView(props) {
-  const { currentBook } = useContext(bookStateContext);
-  console.log("in chat view current book is", currentBook);
+  const { currentBook, providerBook } = useContext(bookStateContext);
+
+  console.log("in chat view before if current book is", currentBook);
+
+  const routeNumber = useLocation().pathname.replace("/books/", "");
+
+  if (!currentBook) {
+    providerBook(routeNumber);
+  }
+  console.log("in chat view after if current book is", currentBook);
+
   //true is a stand-in currentBook.booknet
   const scripts = true ? booknetScripts : otherScripts;
   // console.log("scripts is", scripts);
