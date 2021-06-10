@@ -11,7 +11,7 @@ export default function BookStateProvider(props) {
       //MICHELLE this should add the book to the blocked table
       .post(`/api/blocked/${bookId}`, bookId)
       .then((result) => {
-        console.log("all is well");
+        console.log("in post blocked conversations, bookid is,", bookId);
       })
       .catch((err) => console.log("Error message:", err.message));
 
@@ -19,7 +19,7 @@ export default function BookStateProvider(props) {
       //MICHELLE this should delete the book from the conversations table
       .delete(`/api/conversations/${bookId}`, bookId)
       .then((result) => {
-        console.log("all is well");
+        console.log("in delete conversations, bookid is,", bookId);
       })
       .catch((err) => console.log("Error message:", err.message));
   };
