@@ -16,36 +16,35 @@ import BookStateProvider from "./providers/BookStateProvider";
 
 export default function AppRouter() {
   return (
-    <Router>
-      <Switch>
-        <Route path="/books/:book">
-          <BookStateProvider>
-            <ChatView />
-          </BookStateProvider>
-        </Route>
-        <Route path="/books">
-          <BookStateProvider>
-            <BooksView />
-          </BookStateProvider>
-          <Footer />
-          <Route path="/profile/:id">
-            <UserStateProvider>
+    <UserStateProvider>
+      <Router>
+        <Switch>
+          <Route path="/matches/:id">
+            <BookStateProvider>
+              <ChatView />
+            </BookStateProvider>
+          </Route>
+          <Route path="/matches">
+            <BookStateProvider>
+              <BooksView />
+            </BookStateProvider>
+            <Footer />
+            <Route path="/profile/:id">
               <ProfileView />
-            </UserStateProvider>
+              <Footer />
+            </Route>
+          </Route>
+          <Route path="/profile">
+            <ProfileView />
+
             <Footer />
           </Route>
-        </Route>
-        <Route path="/profile">
-          <UserStateProvider>
-            <ProfileView />
-          </UserStateProvider>
-          <Footer />
-        </Route>
-        <Route path="/">
-          <SwipeView />
-          <Footer />
-        </Route>
-      </Switch>
-    </Router>
+          <Route path="/books">
+            <SwipeView />
+            <Footer />
+          </Route>
+        </Switch>
+      </Router>
+    </UserStateProvider>
   );
 }
