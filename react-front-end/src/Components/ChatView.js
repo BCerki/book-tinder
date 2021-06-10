@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ChatBot from "react-simple-chatbot";
 import booknetScripts from "../ChatBotScripts/booknetScripts";
 import otherScripts from "../ChatBotScripts/otherScripts";
@@ -12,6 +12,7 @@ import { useLocation } from "react-router-dom";
 
 //Styling
 import "../styles/chatView.scss";
+import axios from "axios";
 
 //helper function
 const chooseScript = function(scripts) {
@@ -20,21 +21,40 @@ const chooseScript = function(scripts) {
 };
 
 export default function ChatView(props) {
-  const { currentBook, providerBook } = useContext(bookStateContext);
+  // const { currentBook, providerBook } = useContext(bookStateContext);
 
-  console.log("in chat view before if current book is", currentBook);
+  const [currentBook, setCurrentBook] = useState();
 
-  const routeNumber = useLocation().pathname.replace("/books/", "");
+  const routeNumber = useLocation().pathname.replace("/matches/", "");
 
-  if (!currentBook) {
-    providerBook(routeNumber);
-  }
-  console.log("in chat view after if current book is", currentBook);
+  useEffect(() => {
+    axios
+      .get(`/api/books`)
+      .then((result) => {
+        //this would maybe be better to grab from books/1? MICHELLE
+        const allBooks = result.data;
+        console.log("allBooks is", allBooks);
+        const chattingBook = allBooks.find(
+          (element) => element.id === routeNumber
+        );
+        setCurrentBook(chattingBook);
+        const scripts = currentBook.booknet_available
+          ? booknetScripts
+          : otherScripts;
+        // console.log("scripts is", scripts);
+      })
+      .catch(() => {});
+  }, []);
+  // console.log("in chat view before if current book is", currentBook);
 
-  const scripts = currentBook.booknet ? booknetScripts : otherScripts;
-  // console.log("scripts is", scripts);
+  // const routeNumber = useLocation().pathname.replace("/books/", "");
 
-  const cacheName = `rsc_cache_${currentBook.id}`;
+  // if (!currentBook) {
+  //   providerBook(routeNumber);
+  // }
+  // console.log("in chat view after if current book is", currentBook);
+
+  const cacheName = `rsc_cache_${routeNumber}`;
 
   if (window.localStorage[cacheName]) {
     const [conversation, setConversation] = useLocalStorage(
