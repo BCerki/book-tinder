@@ -25,26 +25,35 @@ export default function ChatView(props) {
 
   const [currentBook, setCurrentBook] = useState();
 
-  const routeNumber = useLocation().pathname.replace("/matches/", "");
+  const bookId = Number(useLocation().pathname.replace("/matches/", ""));
+  console.log("bookId is", bookId);
 
   useEffect(() => {
-    axios
-      .get(`/api/books`)
-      .then((result) => {
-        //this would maybe be better to grab from books/1? MICHELLE
-        const allBooks = result.data;
-        console.log("allBooks is", allBooks);
-        const chattingBook = allBooks.find(
-          (element) => element.id === routeNumber
-        );
-        setCurrentBook(chattingBook);
-        const scripts = currentBook.booknet_available
-          ? booknetScripts
-          : otherScripts;
-        // console.log("scripts is", scripts);
-      })
-      .catch(() => {});
-  }, []);
+    if (bookId) {
+      axios
+        .get(`/api/books`)
+        .then((result) => {
+          console.log("bookId in useeffect is", bookId);
+          //this would maybe be better to grab from books/1? MICHELLE
+          const allBooks = result.data;
+          console.log("allBooks is", allBooks);
+          console.log("allBooks[0].id", allBooks[0].id);
+          const chattingBook = allBooks.find((book) => book.id === bookId);
+
+          console.log("chatting book is", chattingBook);
+
+          setCurrentBook(chattingBook);
+
+          //do i have to use chatting book
+          const scripts = currentBook.booknet_available
+            ? booknetScripts
+            : otherScripts;
+          // console.log("scripts is", scripts);
+        })
+        .catch(() => {});
+    }
+  }, [bookId]);
+
   // console.log("in chat view before if current book is", currentBook);
 
   // const routeNumber = useLocation().pathname.replace("/books/", "");
@@ -54,7 +63,7 @@ export default function ChatView(props) {
   // }
   // console.log("in chat view after if current book is", currentBook);
 
-  const cacheName = `rsc_cache_${routeNumber}`;
+  const cacheName = `rsc_cache_${bookId}`;
 
   if (window.localStorage[cacheName]) {
     const [conversation, setConversation] = useLocalStorage(
@@ -62,10 +71,13 @@ export default function ChatView(props) {
       window.localStorage[cacheName]
     );
   }
-
+  //Make a loading component for everything later FIXFIX
+  if (!currentBook) {
+    return <div>loading</div>;
+  }
   return (
     <>
-      <BackBar className={"backBar"} />
+      <BackBar className={"backBar"} image={currentBook.image} />
       <ChatBot
         // steps={chooseScript(scripts)} //for random scripts
         steps={testingScript}

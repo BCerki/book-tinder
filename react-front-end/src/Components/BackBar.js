@@ -28,7 +28,7 @@ export default function BackBar(props) {
       <Link to="/matches">
         <ArrowBackIosIcon />
       </Link>
-      <Avatar src={currentBook.image} alt={currentBook.title} />
+      <Avatar src={props.image} alt={currentBook.title} />
       <div>
         <Link to="/matches">
           <BlockIcon
