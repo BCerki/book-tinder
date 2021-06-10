@@ -17,6 +17,7 @@ export default function Swipe(props) {
 
   useEffect(() => {
     axios
+      //this route will change FIX FIX
       .get("/api/books")
       .then((response) => {
         console.log("response.data", response.data);
@@ -26,16 +27,15 @@ export default function Swipe(props) {
       .catch((err) => console.log("Error message:", err.message));
   }, []);
 
-  const swiped = (direction, bookSwipedId) => {
-    console.log("swiped book id is", bookSwipedId);
+  const swiped = (direction, book) => {
+    //gave swiped the entire book object
+    console.log("swiped book  is", book);
     setLastDirection(direction);
 
     console.log("direction is", direction);
     //again, have to use direction, not lastDirection, because it's not set just yet
     if (direction === "left") {
-      const foundIt = retrievedBooks.findIndex(
-        (book) => book.id === bookSwipedId
-      );
+      const foundIt = retrievedBooks.findIndex((input) => input.id === book.id);
       // console.log("foundit", foundIt);
       retrievedBooks.splice(foundIt, 1);
       // console.log("is foundit gone?", retrievedBooks);
@@ -43,13 +43,23 @@ export default function Swipe(props) {
       if (retrievedBooks.length === 0) {
         //grab some new books--probably not necessary for demo
       }
+
+      //db update
+      axios
+        .post(`/api/rejected/${book.id}`, book.id)
+        .then(() => {
+          console.log("all is well--left-swiped book sent to db");
+        })
+        .catch((err) => {
+          console.log("Error:", err.message);
+        });
     } else if (direction === "right") {
       //sweet alert
       MySwal.fire({
         title: "You're my type!",
         //using html
         //Can I use react router with this? FIX FIX
-        confirmButtonText: `<a href="/books/${bookSwipedId}">Chat with me</a>`, //set up currentbook state so you can link to actual chat
+        confirmButtonText: `<a href="/conversations/${book.id}">Chat with me</a>`, //set up currentbook state so you can link to actual chat
         showCancelButton: true,
         cancelButtonText: "Keep looking",
 
@@ -66,9 +76,9 @@ export default function Swipe(props) {
       axios
         //is conversations correct? does Michelle just need the id? FIX FIX
         //change bookswipdedid to bookid
-        .post(`/api/conversations/${bookSwipedId}`, bookSwipedId)
+        .post(`/api/conversations/${book.id}`, book.id)
         .then(() => {
-          console.log("all is well");
+          console.log("all is well--right-swiped book sent to db");
         })
         .catch((err) => {
           console.log("Error:", err.message);
@@ -90,7 +100,7 @@ export default function Swipe(props) {
               className={"swipe"}
               key={book.id}
               preventSwipe={["up", "down"]}
-              onSwipe={(dir) => swiped(dir, book.id)}
+              onSwipe={(dir) => swiped(dir, book)}
               // onCardLeftScreen={() => onCardLeftScreen(`${book.id}`)}
             >
               <div
