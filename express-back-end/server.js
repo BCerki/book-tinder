@@ -21,7 +21,7 @@ const pool = new Pool({
   host: process.env.DB_HOST,
   database: process.env.DB_DATABASE,
 });
-console.log("process.env.DB_USER", process.env.DB_USER);
+// console.log("process.env.DB_USER", process.env.DB_USER);
 // Sample GET route
 // App.get("/api/data", (req, res) =>
 //   res.json({
@@ -34,7 +34,8 @@ App.get("/api/test", (req, res) => {
   return pool
     .query(`SELECT * FROM books`)
     .then(function (result) {
-      console.log("LOG: server: query books: result:", result);
+      // console.log("LOG: server: query books: result:", result);
+      console.log("test", result.rows);
       res.send(result.rows);
     })
     .catch((err) => {
@@ -54,16 +55,37 @@ App.get("/api/users", (req, res) => {
     });
 });
 
-//New blocked book **IN PROGRESS**
-App.post("api/block", (req, res) => {
-  const block = `INSERT INTO block_user VALUES ($1, $2)`;
+//Do we need to send block table data to front-end??
+App.get("/api/blocked", (req, res) =>{
+
 });
 
-//New convo in convo table **IN PROGRESS**
-App.post("api/conversations", (req, res) => {
-  const newMatch = `INSERT INTO conversations VALUES ($1, $2)`;
+//New blocked book **WORKING**
+App.post("/api/blocked/:id", (req, res) => {
+  const bookId = parseInt(req.params.id);
+  const userId = 1;
 
-  const values = [req.body.user_id, req.body.book_id];
+  const blocked = `INSERT INTO block_user (users_id, books_id) VALUES ($1, $2)`;
+
+  const values = [userId, bookId];
+
+  return pool
+    .query(blocked, values)
+    .then((result) => {
+      return result.rows;
+    })
+    .catch((err) => {
+      console.log(err.message);
+    }); 
+});
+
+//New match/convo in convo table **WORKING**
+App.post("/api/conversations/:id", (req, res) => {
+  const userId = 1;
+
+  const newMatch = `INSERT INTO conversations (user_id, book_id) VALUES ($1, $2)`;
+
+  const values = [userId, req.params.id];
 
   return pool
     .query(newMatch, values)
@@ -75,80 +97,48 @@ App.post("api/conversations", (req, res) => {
     });
 });
 
-//Update user's genre prefs
-// App.put("api/genres/:id", (req, res) => {
-//   const id = parseInt(req.params.id);
-//   const genreId = 0;
+//Delete book from convo table on block **WORKING**
+App.delete("/api/conversations/:id", (req, res) => {
+  const blockedConvo = `DELETE FROM conversations WHERE user_id = 1 AND book_id = $1`;
+  
+  const values = [req.params.id];
 
-//   for (let obj of req.body.genres) {
-//     genreId = obj.id;
-//   };
+  return pool.query(blockedConvo, values)
+  .then((result) => {
+    return result;
+  })
+  .catch((err) => {
+    console.log(err.message);
+  })
+})
 
-//   const updateUserGenres = `UPDATE genre_user SET genres_id = $1 WHERE users_id = $2`;
-
-//   const values = [
-//     genreId,
-//     id
-//   ];
-
-//   return pool.query(updateUserGenres, values)
-//   .then((result) => {
-//     console.log(result);
-//     return result;
-//   })
-//   .catch((err) =>{
-//     console.log(err.message)
-//   });
-// });
-
-//Update user in users table **NEEDS TO BE MODIFIED per new users table format**
-App.put("/api/user/:id", (req, res) => {
+//Update user data in users table
+//Slow but **WORKING**.
+App.put("/api/users/:id", (req, res) => {
   const id = parseInt(req.params.id);
+  console.log("body:", req.body);
 
-  const updateUser = `UPDATE users SET name = $1, radius_pref =$2, pages_max_pref = $3, pages_min_pref = $4,
-  maturity_pref = $5, age_max_pref = $6, age_min_pref = $7, price_max_pref = $8 WHERE id = $9 `;
+  const updateUser = `UPDATE users SET name = $1, age = $2, page_count = $3, price = $4,
+  max_distance = $5, maturity = $6, genres = $7 WHERE id = $8 `;
 
   const values = [
     req.body.name,
-    req.body.radius_pref,
-    req.body.pages_max_pref,
-    req.body.pages_min_pref,
-    req.body.maturity_pref,
-    req.body.age_max_pref,
-    req.body.age_min_pref,
-    req.body.price_max_pref,
+    req.body.age,
+    req.body.pageCount,
+    req.body.price,
+    req.body.maxDistance,
+    req.body.maturity,
+    req.body.genres,
     id,
   ];
 
   return pool
     .query(updateUser, values)
     .then((result) => {
-      console.log(result);
-      return result;
+      return result.rows;
     })
     .catch((err) => {
-      console.log(err.message);
-    });
-});
-
-//TESTING UserStateProvider for location change:
-App.put("/api/users/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  console.log("what is this:", req.body);
-  console.log("And this:", req.params);
-
-  const updateUser = `UPDATE users SET radius_pref =$1 WHERE id = $2 `;
-
-  const values = [req.body.radius_pref, id];
-
-  return pool
-    .query(updateUser, values)
-    .then((result) => {
-      console.log(result);
-      return result;
-    })
-    .catch((err) => {
-      console.log(err.message);
+      console.log("error:", err.message);
     });
 });
 

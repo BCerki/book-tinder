@@ -9,9 +9,9 @@ DROP TABLE IF EXISTS messages CASCADE;
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
   name VARCHAR(255) NOT NULL,
-  age INTEGER[] NOT NULL,
-  page_count INTEGER[] NOT NULL,
-  price INTEGER[] NOT NULL,
+  age TEXT[] NOT NULL,
+  page_count TEXT[] NOT NULL,
+  price TEXT[] NOT NULL,
   max_distance INTEGER NOT NULL,
   maturity BOOLEAN,
   genres TEXT[]
