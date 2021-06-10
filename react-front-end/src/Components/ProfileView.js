@@ -175,7 +175,9 @@ export default function ProfileView(props) {
       </span>
     );
   });
-
+  if (!userState) {
+    return <div>loading</div>;
+  }
   return (
     <main>
       <div className="profile-avatar">

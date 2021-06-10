@@ -13,17 +13,17 @@ export default function UserStateProvider(props) {
       .catch((err) => console.log("Error message:", err.message));
   };
 
-  // const [userState, setUserState] = useState(getFromDB());
-  const [userState, setUserState] = useState({
-    id: 1,
-    name: "Sandra Gardiner",
-    age: [20, 40],
-    pageCount: [256, 512],
-    price: [10, 30],
-    maxDistance: 80,
-    maturity: false,
-    genres: [],
-  });
+  const [userState, setUserState] = useState(getFromDB());
+  // const [userState, setUserState] = useState({
+  //   id: 1,
+  //   name: "Sandra Gardiner",
+  //   age: [20, 40],
+  //   pageCount: [256, 512],
+  //   price: [10, 30],
+  //   maxDistance: 80,
+  //   maturity: false,
+  //   genres: [],
+  // });
 
   //set these when the user makes the profile instead
   // const defaultState = {
