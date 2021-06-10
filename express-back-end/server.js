@@ -30,7 +30,7 @@ const pool = new Pool({
 // );
 
 // BookTinder GET route
-App.get("/api/test", (req, res) => {
+App.get("/api/books", (req, res) => {
   return pool
     .query(`SELECT * FROM books`)
     .then(function (result) {
@@ -56,9 +56,7 @@ App.get("/api/users", (req, res) => {
 });
 
 //Do we need to send block table data to front-end??
-App.get("/api/blocked", (req, res) =>{
-
-});
+App.get("/api/blocked", (req, res) => {});
 
 //New blocked book **WORKING**
 App.post("/api/blocked/:id", (req, res) => {
@@ -76,7 +74,7 @@ App.post("/api/blocked/:id", (req, res) => {
     })
     .catch((err) => {
       console.log(err.message);
-    }); 
+    });
 });
 
 //New match/convo in convo table **WORKING**
@@ -100,17 +98,18 @@ App.post("/api/conversations/:id", (req, res) => {
 //Delete book from convo table on block **WORKING**
 App.delete("/api/conversations/:id", (req, res) => {
   const blockedConvo = `DELETE FROM conversations WHERE user_id = 1 AND book_id = $1`;
-  
+
   const values = [req.params.id];
 
-  return pool.query(blockedConvo, values)
-  .then((result) => {
-    return result;
-  })
-  .catch((err) => {
-    console.log(err.message);
-  })
-})
+  return pool
+    .query(blockedConvo, values)
+    .then((result) => {
+      return result;
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+});
 
 //Update user data in users table
 //Slow but **WORKING**.
