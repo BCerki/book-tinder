@@ -49,7 +49,7 @@ export default function Swipe(props) {
         title: <p>You're my type!</p>,
         //using html
         //Can I use react router with this? FIX FIX
-        confirmButtonText: '<a href="/books">Chat with me</a>', //set up currentbook state so you can link to actual chat
+        confirmButtonText: `<a href="/books/${bookSwipedId}">Chat with me</a>`, //set up currentbook state so you can link to actual chat
         showCancelButton: true,
         cancelButtonText: "Keep looking",
         // animations not working, FIX FIX
