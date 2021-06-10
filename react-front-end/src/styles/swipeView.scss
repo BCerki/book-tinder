@@ -24,15 +24,24 @@
 }
 
 .swal2-confirm {
-  background-color: pink !important;
+  background-color: white !important;
 }
 .swal2-cancel {
 }
 
 //match box
 .swal2-popup {
-  //put the just-swiped book as the container background image
+  background: none !important;
 }
 
 //match container
-// swal2-container swal2-center swal2-backdrop-show
+.swal2-container {
+  // background-color: black !important;
+  background-image: url("https://images.unsplash.com/photo-1587538939413-9f19e9e5afb6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80") !important;
+  background-size: cover !important;
+}
+
+//match text
+.swal2-title {
+  color: white !important;
+}

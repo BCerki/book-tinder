@@ -2,7 +2,7 @@
 //chatbot styles
 //height of message window
 .rsc {
-  height: 90vh;
+  height: $space-for-conversation;
 }
 
 .rsc-footer {
@@ -13,5 +13,9 @@
 }
 //turn off shadow otherwise there's a line between the header and the rest of the chat
 .rsc-container {
-  box-shadow: none;
+  box-shadow: none !important;
+}
+.cLqDkO {
+  width: 100vw !important;
+  height: $space-for-conversation !important;
 }

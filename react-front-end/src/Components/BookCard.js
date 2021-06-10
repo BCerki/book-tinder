@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 import TitleAuthorDisplay from "./TitleAuthorDisplay";
@@ -6,6 +6,9 @@ import Info from "./Info";
 import Message from "./Message";
 import Grid from "@material-ui/core/Grid";
 //styling
+
+import axios from "axios";
+
 const useStyles = makeStyles((theme) => ({
   large: {
     width: theme.spacing(7),
@@ -19,11 +22,12 @@ export default function BookCard(props) {
   const classes = useStyles();
   //this file is where you're doing the conditional rendering
   //check if doing info or messages
+
   const checkToggle = function(toggle) {
     if (!toggle) {
       return (
         <Info
-          coverImage={props.coverImage}
+          coverImage={props.image}
           description={props.description}
           isbn={props.isbn}
           pageCount={props.pageCount}

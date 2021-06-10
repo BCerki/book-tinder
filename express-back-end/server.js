@@ -77,7 +77,7 @@ App.post("/api/blocked/:id", (req, res) => {
     .catch((err) => {
       console.error(err);
       res.status(500).send(err.message);
-    }); 
+    });
 });
 
 //Match/Convo GET route "/api/users/1/conversations/:id"
@@ -91,7 +91,7 @@ App.get("/api/conversations", (req, res) => {
     .catch((err) => {
       console.error(err);
       res.status(500).send(err.message);
-    })
+    });
 });
 
 //New match/convo **WORKING**
@@ -116,17 +116,18 @@ App.post("/api/conversations/:id", (req, res) => {
 //Delete book from convo table on block **WORKING**
 App.delete("/api/conversations/:id", (req, res) => {
   const blockedConvo = `DELETE FROM conversations WHERE user_id = 1 AND book_id = $1`;
-  
+
   const values = [req.params.id];
 
-  return pool.query(blockedConvo, values)
-  .then((result) => {
-    return result.rows;
-  })
-  .catch((err) => {
-    console.error(err);
-    res.status(500).send(err.message);
-  });
+  return pool
+    .query(blockedConvo, values)
+    .then((result) => {
+      return result.rows;
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(err.message);
+    });
 });
 
 //Update user data in users table **WORKING**

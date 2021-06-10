@@ -1,7 +1,10 @@
+const sayhi = function() {
+  return "i work";
+};
 const heeeeeyReader = [
   {
     id: 1,
-    message: "Heeeeey reader, ever had a novel encouter? 😉",
+    message: "Heeeeey reader, ever had a novel encouter?",
     trigger: "2",
   },
   {

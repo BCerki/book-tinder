@@ -4,9 +4,9 @@ import { bookStateContext } from "../providers/BookStateProvider";
 //import components
 import BookCard from "./BookCard";
 import MessageCard from "./Message";
-
-import SearchBar from "./SearchBar";
 import bookData from "../dummyData/dummyBookData";
+import SearchBar from "./SearchBar";
+
 import FormGroup from "@material-ui/core/FormGroup";
 import Switch from "@material-ui/core/Switch";
 import Grid from "@material-ui/core/Grid";
@@ -17,7 +17,8 @@ import { Link } from "react-router-dom";
 import "../styles/booksView.scss";
 
 export default function BooksView(props) {
-  const { providerBook } = useContext(bookStateContext);
+  //functions for book state
+  const { providerBook, getConversations } = useContext(bookStateContext);
 
   //functions for toggle
   const [toggle, setToggle] = useState(false);
@@ -45,6 +46,10 @@ export default function BooksView(props) {
   };
 
   //Create the cards for info
+  //if this gives async issues, get the conversations in a useEffect hook above instead
+
+  //use this once the conversations endpint is up and running
+  // const bookCards = getConversations().map((book) => {
   const bookCards = bookData.map((book) => {
     console.log("book data", bookData[0].title);
     for (const book of bookData) {
@@ -52,7 +57,7 @@ export default function BooksView(props) {
     }
       console.log("two", book.title);
     return (
-      <Link to={`/books/${book.id}`} className="bookCardLink">
+      <Link to={`matches/${book.id}`} className="bookCardLink">
         <BookCard
           id={book.id}
           onClick={() => {

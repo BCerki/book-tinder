@@ -20,23 +20,41 @@ import axios from "axios";
 
 export default function BackBar(props) {
   const { currentBook, block } = useContext(bookStateContext);
+
+  //Material UI styling
+  const useStyles = makeStyles((theme) => ({
+    large: {
+      width: theme.spacing(7),
+      height: theme.spacing(7),
+    },
+  }));
+  const classes = useStyles();
+
   console.log("in the back bar, currentBook.image is", currentBook.image);
+  console.log("in the back bar, currentBook.image is", currentBook.id);
 
   return (
     <div className="backBar">
-      <Link to="/books">
-        <ArrowBackIosIcon />
+      <Link to="/matches">
+        <div className={"backBarIcon"}>
+          <ArrowBackIosIcon />
+        </div>
       </Link>
-      <Avatar src={currentBook.image} alt={currentBook.title} />
-      <div>
-        <Link to="/books">
+      <Avatar
+        src={props.image}
+        alt={currentBook.title}
+        className={classes.large}
+      />
+
+      <Link to="/matches">
+        <div className={"backBarIcon"}>
           <BlockIcon
             onClick={() => {
               block(currentBook.id);
             }}
           />
-        </Link>
-      </div>
+        </div>
+      </Link>
     </div>
   );
 }

@@ -1,10 +1,20 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
 
 export default function BookStateProvider(props) {
   const [currentBook, setCurrentBook] = useState({});
 
   // need to somehow check if current book is blocked--or is this handled by Michelle already below?
+
+  const getConversations = function() {
+    axios
+      .get("/api/conversations")
+      .then((result) => {
+        const conversations = result.data;
+        console.log("conversations from book state provider is", conversations);
+      })
+      .catch((err) => console.log("Error message:", err.message));
+  };
 
   const block = function(bookId) {
     console.log(bookId);
@@ -31,7 +41,13 @@ export default function BookStateProvider(props) {
   };
 
   // authContext will expose these items
-  const bookData = { currentBook, setCurrentBook, block, providerBook };
+  const bookData = {
+    currentBook,
+    setCurrentBook,
+    block,
+    providerBook,
+    getConversations,
+  };
 
   // We can use this component to wrap any content we want to share this context
   return (
