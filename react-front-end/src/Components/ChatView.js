@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import ChatBot from "react-simple-chatbot";
 import booknetScripts from "../ChatBotScripts/booknetScripts";
 import otherScripts from "../ChatBotScripts/otherScripts";
 import _ from "lodash";
 import BackBar from "./BackBar";
+import ReactDOM from "react-dom";
+import useLocalStorage from "react-use-localstorage";
+import { bookStateContext } from "../providers/BookStateProvider";
+import Avatar from "@material-ui/core/Avatar";
 
 //Styling
 import "../styles/chatView.scss";
@@ -15,15 +19,29 @@ const chooseScript = function(scripts) {
 };
 
 export default function ChatView(props) {
-  //true is a stand-in for the book currently in state
+  const { currentBook } = useContext(bookStateContext);
+  console.log("in chat view current book is", currentBook);
+  //true is a stand-in currentBook.booknet
   const scripts = true ? booknetScripts : otherScripts;
   // console.log("scripts is", scripts);
+
+  //1 is a stand-in for currentBook.id
+  const cacheName = `rsc_cache_${currentBook.id}`;
+
+  if (window.localStorage[cacheName]) {
+    const [conversation, setConversation] = useLocalStorage(
+      cacheName,
+      window.localStorage[cacheName]
+    );
+  }
 
   return (
     <>
       <BackBar className={"backBar"} />
       <ChatBot
-        steps={chooseScript(scripts)}
+        // steps={chooseScript(scripts)} //for random scripts
+        steps={booknetScripts[0]}
+        cacheName={cacheName}
         cache={true}
         hideBotAvatar={true}
         hideUserAvatar={true}

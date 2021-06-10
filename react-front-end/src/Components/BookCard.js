@@ -36,7 +36,7 @@ export default function BookCard(props) {
   };
 
   return (
-    <article className="card-skeleton">
+    <article className="card-skeleton" onClick={props.onClick}>
       <div className="avatar-middle">
         <Avatar
           src={props.coverImage}

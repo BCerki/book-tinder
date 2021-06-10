@@ -46,10 +46,10 @@ export default function Swipe(props) {
     } else if (direction === "right") {
       //sweet alert
       MySwal.fire({
-        title: <p>Match!</p>,
+        title: <p>You're my type!</p>,
         //using html
         //Can I use react router with this? FIX FIX
-        confirmButtonText: '<a href="/books">Chat with this book</a>', //set up currentbook state so you can link to actual chat
+        confirmButtonText: '<a href="/books">Chat with me</a>', //set up currentbook state so you can link to actual chat
         showCancelButton: true,
         cancelButtonText: "Keep looking",
         // animations not working, FIX FIX
