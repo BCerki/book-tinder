@@ -239,7 +239,7 @@ export default function ProfileView(props) {
       <div className="profile-preference">
         <span class="profile-label">Commitment level (page count)</span>
         <Slider
-          value={pageCount}
+          // value={[userState.pageCount[0], userState.pageCount[1]]}
           marks={pageCountMarks}
           max={maxPageCountMark}
           onChange={(event, newValue) => {
