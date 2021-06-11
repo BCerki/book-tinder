@@ -21,7 +21,7 @@ const testingScript = [
     id: "3",
     component: (
       <ChatBookStateProvider>
-        <ChatbotSentPic />
+        <ChatbotSentPic className={"sc-gKAaRy gUoBaw rsc-ts-bubble"} />
       </ChatBookStateProvider>
     ),
     trigger: "4",
