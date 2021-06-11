@@ -3,17 +3,31 @@ import axios from "axios";
 import { result } from "lodash";
 
 export default function UserStateProvider(props) {
-  const getFromDB = function() {
+  // const getFromDB = function() {
+  //   axios
+  //     //update route if doing multiple users
+  //     .get("/api/users/1")
+  //     .then((result) => {
+  //       setUserState(result.data);
+  //       console.log("i am in axios get for user, result.data is:", result.data);
+  //     })
+  //     .catch((err) => console.log("Error message:", err.message));
+  // };
+
+  // const [userState, setUserState] = useState({});
+
+  useEffect(() => {
     axios
-      .get("/api/users")
+      //update route if doing multiple users
+      .get("/api/users/1")
       .then((result) => {
         setUserState(result.data);
         console.log("i am in axios get for user, result.data is:", result.data);
       })
       .catch((err) => console.log("Error message:", err.message));
-  };
+  }, []);
 
-  // const [userState, setUserState] = useState(getFromDB());
+  //FIX FIX how to set the initial state
   const [userState, setUserState] = useState({
     id: 1,
     name: "Sandra Gardiner",
@@ -50,12 +64,14 @@ export default function UserStateProvider(props) {
   // }, []);
 
   const sendToDB = function(userObject) {
-    console.log("in parent user object", userObject);
+    console.log("send to DB is firing with userObject:", userObject);
     //need to send userObject, not userState, because it's not updated yet
+    console.log("userobject.id is", userObject);
+    console.log("userstate.id is", userState.id);
     setUserState(userObject);
     //MICHELLE
     axios
-      .put(`/api/users/${userObject.id}`, userObject)
+      .put(`/api/users/${userState.id}`, userObject)
       .then((result) => {
         console.log("all is well");
       })

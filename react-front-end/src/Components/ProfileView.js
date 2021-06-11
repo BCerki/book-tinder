@@ -59,6 +59,7 @@ export default function ProfileView(props) {
   // };
 
   const handleChange = (event, newValue, id) => {
+    console.log("handleChange is firing");
     const newUserObject = { ...userState, [id]: newValue };
     console.log("newuserobject is:", newUserObject);
     sendToDB(newUserObject);
