@@ -43,6 +43,6 @@ const getSample = function (isbn) {
 };
 
 // Test code
-getSample(9781770415034);
+// getSample(9781770415034);
 
 module.exports = getSample;
