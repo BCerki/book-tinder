@@ -64,12 +64,13 @@ export default function BooksView(props) {
 
   //get the conversation data
   // const
-  const [matches, setMatches] = useState({});
+  const [matches, setMatches] = useState([]);
 
   useEffect(() => {
     axios
       .get("/api/users/:id/conversations")
       .then((result) => {
+        console.log("result.data is", result.data);
         setMatches(result.data);
       })
       .catch((err) => {
@@ -77,13 +78,9 @@ export default function BooksView(props) {
       });
   }, []);
 
-  //use this once the conversations endpint is up and running
-  // const bookCards = getConversations().map((book) => {
+  console.log("matches is", matches);
+
   const bookCards = matches.map((book) => {
-    // console.log("book data", bookData[0].title);
-    // for (const book of bookData) {
-    // }
-    // console.log("two", book.title);
     return (
       <Link to={`matches/${book.id}`} className="bookCardLink">
         <BookCard
