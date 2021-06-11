@@ -5,9 +5,10 @@ import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
+import Checkbox from "@material-ui/core/Checkbox";
 
 import Switch from "@material-ui/core/Switch";
-import genreData from "../dummyData/dummyGenreData";
+// import genreData from "../dummyData/dummyGenreData";
 import Loading from "./Loading";
 import classNames from "classnames";
 import axios from "axios";
@@ -72,6 +73,7 @@ export default function ProfileView(props) {
           "i am in axios get for user, result.data[0] is:",
           result.data[0]
         );
+        setChips(result.data[0].genres);
       })
       .catch((err) => console.log("Error message:", err.message));
   }, []);
@@ -158,64 +160,82 @@ export default function ProfileView(props) {
   //Chip functions
 
   //onClick FIX FIX use incoming state
-  const [chips, setChips] = useState({
-    mystery: false,
-    romance: false,
-    adventure: false,
-    literary: false,
-    "non-fiction": false,
-    "biography/memoir": false,
-    humour: false,
-    art: false,
-    history: false,
-    cooking: false,
-    "children's": false,
-    poetry: false,
-    science: false,
-    "sci-fi/fantasy": false,
-    "self-help": false,
-  });
+  // const [chips, setChips] = useState({
+  //   mystery: false,
+  //   romance: false,
+  //   adventure: false,
+  //   literary: false,
+  //   "non-fiction": false,
+  //   "biography/memoir": false,
+  //   humour: false,
+  //   art: false,
+  //   history: false,
+  //   cooking: false,
+  //   "children's": false,
+  //   poetry: false,
+  //   science: false,
+  //   "sci-fi/fantasy": false,
+  //   "self-help": false,
+  // });
 
-  const selectedChips = function(chips) {
-    const result = [];
-    for (const key in chips) {
-      if (chips[key]) {
-        result.push(key);
-      }
+  const [chips, setChips] = useState([]);
+
+  // const selectedChips = function(chips) {
+  //   const result = [];
+  //   for (const key in chips) {
+  //     if (chips[key]) {
+  //       result.push(key);
+  //     }
+  //   }
+  //   return result;
+  // };
+
+  // const chipsHandler = (chipName) => {
+  //   setChips((prev) => ({
+  //     ...prev,
+  //     [chipName.target.innerHTML]: !chips[chipName.target.innerHTML],
+  //   }));
+  //   console.log("in chips handler, chips is", chips);
+  //   // console.log("selectedChips(chips)", selectedChips(chips));
+  //   const newUserObject = { ...userState, genres: chips };
+  //   sendToDB(newUserObject);
+  // };
+
+  //checkbox checked array.includes value
+  //taraget.value of genre .includes(genre)
+
+  const handleCheck = function(event, genre) {
+    if (chips.includes(genre)) {
+      //pop is wrong, need to grab specific one
+      setChips((prev) => {
+        [...prev].pop(genre);
+      });
+    } else {
+      setChips((prev) => {
+        [...prev].push(genre);
+      });
     }
-    return result;
-  };
-
-  const chipsHandler = (chipName) => {
-    setChips((prev) => ({
-      ...prev,
-      [chipName.target.innerHTML]: !chips[chipName.target.innerHTML],
-    }));
-    console.log("in chips handler, chips is", chips);
-    console.log("selectedChips(chips)", selectedChips(chips));
-    const newUserObject = { ...userState, genres: selectedChips(chips) };
-    sendToDB(newUserObject);
   };
 
   //create the chips
+  //genreData could be the array of genres
+
+  const genreData = ["mystery", "romance", "adventure"];
   const genreChips = genreData.map((genre) => {
     return (
-      <span
-        className={classNames(
-          { selected: chips[genre.name] },
-          { deselected: !chips[genre.name] }
-        )}
-      >
-        <Chip
-          // icon={<FaceIcon />}
-          id={genre.id}
-          label={genre.name}
-          name={genre.name}
-          onClick={chipsHandler}
-          // onDelete={handleDelete}
-          variant="outlined"
-        />
-      </span>
+      // <span
+      //   className={classNames(
+      //     { selected: chips[genre.name] },
+      //     { deselected: !chips[genre.name] }
+      //   )}
+      // >
+      <Checkbox
+        id={genre}
+        label={genre}
+        onClick={handleCheck}
+        // onDelete={handleDelete}
+      />
+      // </span>
     );
   });
   if (!userState.id) {
@@ -251,7 +271,7 @@ export default function ProfileView(props) {
       <div className="profile-preference">
         <span class="profile-label">Commitment level (page count)</span>
         <Slider
-          // value={[userState.pageCount[0], userState.pageCount[1]]}
+          value={[userState.pageCount[0], userState.pageCount[1]]}
           marks={pageCountMarks}
           max={maxPageCountMark}
           onChange={(event, newValue) => {
