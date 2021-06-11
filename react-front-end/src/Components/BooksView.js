@@ -23,13 +23,6 @@ export default function BooksView(props) {
   //functions for toggle
   const [toggle, setToggle] = useState(false);
 
-  //Search Filter:
-  const [filter, setFilter] = useState('');
-  
-  const handleSearchChange = (event) => {
-    setFilter(event.target.value);
-  };
-
 
   // const handleChange = (event) => {
   //   setToggle({ ...state, [event.target.name]: event.target.checked });
@@ -81,12 +74,7 @@ export default function BooksView(props) {
   return (
     <>
       <section className="search-bar">
-        <TextField 
-        onChange={handleSearchChange}
-        label="Search"
-        variant="standard"
-        />
-        {/* <SearchBar /> */}
+        <SearchBar />
       </section>
       <section className="toggle">
         <span className="toggle-label">Info</span>

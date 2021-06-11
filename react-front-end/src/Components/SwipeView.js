@@ -18,7 +18,7 @@ export default function Swipe(props) {
   useEffect(() => {
     axios
       //this route will change FIX FIX
-      .get("/api/books")
+      .get("/api/users/:id/books")
       .then((response) => {
         console.log("response.data", response.data);
         // setCurrentBook(_.shuffle(response.data)[0]);
