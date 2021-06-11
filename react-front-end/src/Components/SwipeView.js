@@ -46,7 +46,7 @@ export default function Swipe(props) {
 
       //db update
       axios
-        .post(`/api/rejected/${book.id}`, book.id)
+        .post(`/api/users/:id/rejected/${book.id}`, book.id)
         .then(() => {
           console.log("all is well--left-swiped book sent to db");
         })
@@ -76,7 +76,7 @@ export default function Swipe(props) {
       axios
         //is conversations correct? does Michelle just need the id? FIX FIX
         //change bookswipdedid to bookid
-        .post(`/api/conversations/${book.id}`, book.id)
+        .post(`/api/users/:id/conversations/${book.id}`, book.id)
         .then(() => {
           console.log("all is well--right-swiped book sent to db");
         })
