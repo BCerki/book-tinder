@@ -173,6 +173,7 @@ App.get("/api/users/:id", (req, res) => {
       const transformed = [];
       for (const val of result.rows) {
         const user = {
+          "id": val.id,
           "name": val.name,
           "age": val.age,
           "pageCount": val.page_count,
