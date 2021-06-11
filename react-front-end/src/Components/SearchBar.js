@@ -12,6 +12,8 @@ export default function SearchBar() {
         id="free-solo-demo"
         freeSolo
         options={bookData.map((option) => option.title)}
+        // onChange={(event, value) => console.log(value)}
+        getOptionSelected={(option, value) => option.name === value.name}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -24,3 +26,5 @@ export default function SearchBar() {
     </div>
   );
 }
+
+
