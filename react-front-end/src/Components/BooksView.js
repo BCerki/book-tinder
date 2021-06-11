@@ -20,7 +20,7 @@ import "../styles/booksView.scss";
 
 export default function BooksView(props) {
   //functions for book state
-  const { providerBook, getConversations } = useContext(bookStateContext);
+  // const { providerBook, getConversations } = useContext(bookStateContext);
 
   //functions for toggle
   const [toggle, setToggle] = useState(false);
@@ -41,10 +41,10 @@ export default function BooksView(props) {
   };
   // console.log("toggle in middle view", toggle);
 
-  const handleClick = function(bookObject) {
-    providerBook(bookObject);
-    // console.log("handle click fired, bookObject is:", bookObject);
-  };
+  // const handleClick = function(bookObject) {
+  //   providerBook(bookObject);
+  //   // console.log("handle click fired, bookObject is:", bookObject);
+  // };
 
   //Create the cards for info
   //if this gives async issues, get the conversations in a useEffect hook above instead
@@ -64,29 +64,33 @@ export default function BooksView(props) {
 
   //get the conversation data
   // const
+  const [matches, setMatches] = useState({});
 
-  // useEffect(() => {
-  //   axios.get("/api/users/:id/conversations")
-  //   .then((result)=>{
-
-  //   })
-  //   .catch()
-  // }, []);
+  useEffect(() => {
+    axios
+      .get("/api/users/:id/conversations")
+      .then((result) => {
+        setMatches(result.data);
+      })
+      .catch((err) => {
+        console.log("Error:", err.message);
+      });
+  }, []);
 
   //use this once the conversations endpint is up and running
   // const bookCards = getConversations().map((book) => {
-  const bookCards = bookData.map((book) => {
-    console.log("book data", bookData[0].title);
-    for (const book of bookData) {
-    }
-    console.log("two", book.title);
+  const bookCards = matches.map((book) => {
+    // console.log("book data", bookData[0].title);
+    // for (const book of bookData) {
+    // }
+    // console.log("two", book.title);
     return (
       <Link to={`matches/${book.id}`} className="bookCardLink">
         <BookCard
           id={book.id}
-          onClick={() => {
-            handleClick(book);
-          }}
+          // onClick={() => {
+          //   handleClick(book);
+          // }}
           title={book.title}
           author={book.author}
           coverImage={book.image}
@@ -95,13 +99,15 @@ export default function BooksView(props) {
           pageCount={book.pageCount}
           price={book.price}
           age={book.age}
-          latestMessage={book.latestMessage}
           toggle={toggle}
         />
       </Link>
     );
   });
 
+  if (!matches) {
+    return <div>loading</div>;
+  }
   return (
     <>
       <section className="search-bar">
