@@ -29,8 +29,8 @@ const pool = new Pool({
 //   })
 // );
 
-// BookTinder GET route /api/users/1/books/:id
-App.get("/api/books", (req, res) => {
+// BookTinder GET route
+App.get("/api/users/:id/books", (req, res) => {
   return pool
     .query(`SELECT * FROM books WHERE NOT EXISTS 
     (SELECT * FROM conversations WHERE books.id = conversations.book_id) 
@@ -61,7 +61,7 @@ App.get("/api/users", (req, res) => {
 });
 
 //Block book **WORKING**
-App.post("/api/blocked/:id", (req, res) => {
+App.post("/api/users/:id/blocked/:id", (req, res) => {
   const bookId = parseInt(req.params.id);
   const userId = 1;
 
@@ -81,7 +81,7 @@ App.post("/api/blocked/:id", (req, res) => {
 });
 
 //Match/Convo GET route "/api/users/1/conversations/:id"
-App.get("/api/conversations", (req, res) => {
+App.get("/api/users/:id/conversations", (req, res) => {
   return pool
     .query(`SELECT * FROM conversations WHERE user_id = 1`)
     .then((result) => {
@@ -95,7 +95,7 @@ App.get("/api/conversations", (req, res) => {
 });
 
 //New match/convo **WORKING**
-App.post("/api/conversations/:id", (req, res) => {
+App.post("/api/users/:id/conversations/:id", (req, res) => {
   const userId = 1;
 
   const newMatch = `INSERT INTO conversations (user_id, book_id) VALUES ($1, $2)`;
@@ -114,7 +114,7 @@ App.post("/api/conversations/:id", (req, res) => {
 });
 
 //Delete book from convo table on block **WORKING**
-App.delete("/api/conversations/:id", (req, res) => {
+App.delete("/api/users/:id/conversations/:id", (req, res) => {
   const blockedConvo = `DELETE FROM conversations WHERE user_id = 1 AND book_id = $1`;
 
   const values = [req.params.id];
