@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { chatBookStateContext } from "../providers/ChatBookStateProvider";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import BOOK_TOKEN from "../../src/.secrets";
 
 // console.log("bookId is", bookId);
 
@@ -24,11 +25,9 @@ export default function ChatbotSentPic(props) {
 
           //query booknet with the isbn
           axios
-            .get(
-              `https://www.googleapis.com/books/v1/volumes?q=${chattingBook.isbn}&key=${process.env.GOOGLE_BOOK_KEY}`
-            )
+            .get()
             .then((result) => {
-              console.log("from api is", result.data.items[0].id);
+              console.log("result is:", result);
               setInteriorImage(result.data.items[0].id);
             })
             .catch(() => {
@@ -48,7 +47,10 @@ export default function ChatbotSentPic(props) {
   return (
     <div>
       <span>{interiorImage}</span>
-      <img src={currentBook.image} alt={currentBook.title} />
+      <img
+        src={`https://www.biblioshare.org/bncServices/BNCServices.asmx/DetailImages?token=${BOOK_TOKEN}&san=&ean=9781098373269&thumbnail=No&Perspective=back&filenumber=&maxWidth=200&maxHeight=`}
+        alt={currentBook.title}
+      />
     </div>
   );
 }

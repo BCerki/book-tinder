@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 
 import ChatbotSentPic from "../Components/ChatbotSentPic";
-// import ChatbotSentQuote from "../Components/ChatbotSentQuote";
+import ChatbotSentQuote from "../Components/ChatbotSentQuote";
 import ChatBookStateProvider from "../providers/ChatBookStateProvider";
 // import { chatBookStateContext } from "../providers/ChatBookStateProvider";
 
@@ -33,8 +33,8 @@ const testingScript = [
   },
   {
     id: "6",
-    // component: <ChatbotSentQuote />,
-    message: "just kidding, not ready yet",
+    component: <ChatbotSentQuote />,
+    // message: "just kidding, not ready yet",
   },
 ];
 export default testingScript;
