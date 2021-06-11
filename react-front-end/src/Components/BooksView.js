@@ -1,5 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { bookStateContext } from "../providers/BookStateProvider";
+
+import axios from "axios";
 
 //import components
 import BookCard from "./BookCard";
@@ -46,6 +48,30 @@ export default function BooksView(props) {
 
   //Create the cards for info
   //if this gives async issues, get the conversations in a useEffect hook above instead
+
+  // const [currentBookObject, setCurrentBookObject] = useState();
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`/api/users/:id/books`)
+  //     .then((result) => {
+  //       const allBooks = result.data;
+  //       const bookObjectFromId = allBooks.find((book) => book.id === bookId);
+  //       setCurrentBookObject(bookObjectFromId);
+  //     })
+  //     .catch(() => {});
+  // }, []);
+
+  //get the conversation data
+  // const
+
+  // useEffect(() => {
+  //   axios.get("/api/users/:id/conversations")
+  //   .then((result)=>{
+
+  //   })
+  //   .catch()
+  // }, []);
 
   //use this once the conversations endpint is up and running
   // const bookCards = getConversations().map((book) => {
