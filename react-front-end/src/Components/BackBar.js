@@ -30,8 +30,8 @@ export default function BackBar(props) {
   }));
   const classes = useStyles();
 
-  console.log("in the back bar, currentBook.image is", currentBook.image);
-  console.log("in the back bar, currentBook.image is", currentBook.id);
+  // console.log("in the back bar, currentBook.image is", currentBook.image);
+  // console.log("in the back bar, currentBook.image is", currentBook.id);
 
   return (
     <div className="backBar">

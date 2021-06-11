@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { bookStateContext } from "../providers/BookStateProvider";
+import { chatBookStateContext } from "../providers/ChatBookStateProvider";
 
 export default function ChatbotSentPic(props) {
-  const { currentBook } = useContext(bookStateContext);
+  const { currentChatBook, chatContext } = useContext(chatBookStateContext);
   return (
     <span>
-      <img src={currentBook.img} alt={currentBook.title} />
+      <img src={currentChatBook.img} alt={currentChatBook.title} />
     </span>
   );
 }

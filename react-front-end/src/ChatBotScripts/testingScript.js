@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import ChatbotSentPic from "../Components/ChatbotSentPic";
+import ChatBookStateProvider from "../providers/ChatBookStateProvider";
+// import { chatBookStateContext } from "../providers/ChatBookStateProvider";
+
+// const { currentChatBook, chatContext } = useContext(chatBookStateContext);
 
 const testingScript = [
   {
     id: "1",
-    component: <ChatbotSentPic />,
+    component: (
+      <ChatBookStateProvider>
+        <ChatbotSentPic />
+      </ChatBookStateProvider>
+    ),
     message: "What number I am thinking?",
     trigger: "2",
   },
