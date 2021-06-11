@@ -153,26 +153,25 @@ export default function ProfileView(props) {
     adventure: false,
   });
 
-  // useEffect(() => {
-  //   const selectedChips = function(chips) {
-  //     const result = [];
-  //     for (const genre in chips) {
-  //       if (chips[genre]) {
-  //         result.push(genre);
-  //       }
-  //     }
-  //     return result;
-  //   };
-
-  //   sendToDB({ ...userState, genres: selectedChips(chips) });
-  // }, [chips]);
+  const selectedChips = function(chips) {
+    const result = [];
+    for (const key in chips) {
+      if (chips[key]) {
+        result.push(key);
+      }
+    }
+    return result;
+  };
 
   const chipsHandler = (chipName) => {
     setChips((prev) => ({
       ...prev,
       [chipName.target.innerHTML]: !chips[chipName.target.innerHTML],
     }));
-    console.log("chips is:", chips);
+    console.log("in chips handler, chips is", chips);
+    console.log("selectedChips(chips)", selectedChips(chips));
+    const newUserObject = { ...userState, genres: selectedChips(chips) };
+    sendToDB(newUserObject);
   };
 
   //create the chips
@@ -201,6 +200,7 @@ export default function ProfileView(props) {
   }
   return (
     <main>
+      <div>{userState.id}</div>
       <div className="profile-avatar">
         <Avatar className={classes.large} />
       </div>
