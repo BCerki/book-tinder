@@ -217,9 +217,9 @@ App.put("/api/users/:id", (req, res) => {
   const values = [
     req.body.name,
     req.body.age,
-    req.body.page_count,
+    req.body.pageCount,
     req.body.price,
-    req.body.max_distance,
+    req.body.maxDistance,
     req.body.maturity,
     req.body.genres,
     id,
