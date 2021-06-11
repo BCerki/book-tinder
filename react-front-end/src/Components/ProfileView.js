@@ -50,15 +50,16 @@ export default function ProfileView(props) {
     genres: [],
   });
 
+  // const [userState, setUserState] = useState({});
   // useEffect(() => {
   //   axios
   //     //update route if doing multiple users
   //     .get("/api/users/1")
   //     .then((result) => {
-  //       setUserState(result.data);
+  //       setUserState(result.data[0]);
   //       console.log(
   //         "i am in axios get for user, result.data[0] is:",
-  //         result.data
+  //         result.data[0]
   //       );
   //     })
   //     .catch((err) => console.log("Error message:", err.message));
