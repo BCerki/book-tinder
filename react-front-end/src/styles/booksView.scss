@@ -4,8 +4,9 @@
 .card-skeleton {
   display: flex;
   justify-content: flex-start;
+  // align-items: center;
   margin: $spacing1;
-  height: 4rem;
+  height: auto;
 }
 
 a.bookCardLink {

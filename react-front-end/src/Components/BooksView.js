@@ -80,6 +80,11 @@ export default function BooksView(props) {
 
   console.log("matches is", matches);
 
+  const parseAge = function(date) {
+    const thisYear = new Date().getFullYear();
+    return thisYear - Number(date.substring(0, 4));
+  };
+
   const bookCards = matches.map((book) => {
     return (
       <Link to={`matches/${book.id}`} className="bookCardLink">
@@ -93,9 +98,9 @@ export default function BooksView(props) {
           coverImage={book.image}
           description={book.description}
           isbn={book.isbn}
-          pageCount={book.pageCount}
+          pageCount={book.page_count}
           price={book.price}
-          age={book.age}
+          age={parseAge(book.publish_date)}
           toggle={toggle}
         />
       </Link>
