@@ -211,7 +211,6 @@ export default function ProfileView(props) {
   }
   return (
     <main>
-      <div>{userState.id}</div>
       <div className="profile-avatar">
         <Avatar className={classes.large} />
       </div>
