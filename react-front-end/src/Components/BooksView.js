@@ -24,12 +24,11 @@ export default function BooksView(props) {
   const [toggle, setToggle] = useState(false);
 
   //Search Filter:
-  const [filter, setFilter] = useState('');
-  
+  const [filter, setFilter] = useState("");
+
   const handleSearchChange = (event) => {
     setFilter(event.target.value);
   };
-
 
   // const handleChange = (event) => {
   //   setToggle({ ...state, [event.target.name]: event.target.checked });
@@ -53,9 +52,8 @@ export default function BooksView(props) {
   const bookCards = bookData.map((book) => {
     console.log("book data", bookData[0].title);
     for (const book of bookData) {
-
     }
-      console.log("two", book.title);
+    console.log("two", book.title);
     return (
       <Link to={`matches/${book.id}`} className="bookCardLink">
         <BookCard
@@ -81,11 +79,11 @@ export default function BooksView(props) {
   return (
     <>
       <section className="search-bar">
-        <TextField 
+        {/* <TextField
         onChange={handleSearchChange}
         label="Search"
         variant="standard"
-        />
+        /> */}
         {/* <SearchBar /> */}
       </section>
       <section className="toggle">
