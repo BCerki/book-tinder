@@ -170,7 +170,20 @@ App.get("/api/users/:id", (req, res) => {
   return pool
     .query(queryUser, values)
     .then((result) => {
-      res.send(result.rows);
+      const transformed = [];
+      for (const val of result.rows) {
+        const user = {
+          "name": val.name,
+          "age": val.age,
+          "pageCount": val.page_count,
+          "price": val.price,
+          "maxDistance": val.max_distance,
+          "maturity": val.maturity,
+          "genres": val.genres
+          }
+          transformed.push(user);
+      }
+      res.send(transformed);
     })
     .catch((err) => {
       console.error(err);
