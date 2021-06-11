@@ -39,31 +39,41 @@ export default function ProfileView(props) {
   //set user state--ultimately get starting state from hook
 
   //should it be an object, not an array, from DB?
+  // const [userState, setUserState] = useState({
+  //   id: 1,
+  //   name: "Sandra Gardiner",
+  //   age: [20, 40],
+  //   pageCount: [256, 512],
+  //   price: [10, 30],
+  //   maxDistance: 80,
+  //   maturity: false,
+  //   genres: [],
+  // });
+
   const [userState, setUserState] = useState({
-    id: 1,
-    name: "Sandra Gardiner",
-    age: [20, 40],
-    pageCount: [256, 512],
-    price: [10, 30],
-    maxDistance: 80,
-    maturity: false,
+    id: null,
+    name: "",
+    age: [],
+    pageCount: [],
+    price: [],
+    maxDistance: null,
+    maturity: null,
     genres: [],
   });
-
-  // const [userState, setUserState] = useState({});
-  // useEffect(() => {
-  //   axios
-  //     //update route if doing multiple users
-  //     .get("/api/users/1")
-  //     .then((result) => {
-  //       setUserState(result.data[0]);
-  //       console.log(
-  //         "i am in axios get for user, result.data[0] is:",
-  //         result.data[0]
-  //       );
-  //     })
-  //     .catch((err) => console.log("Error message:", err.message));
-  // }, []);
+  //set them all to blank
+  useEffect(() => {
+    axios
+      //update route if doing multiple users
+      .get("/api/users/1")
+      .then((result) => {
+        setUserState(result.data[0]);
+        console.log(
+          "i am in axios get for user, result.data[0] is:",
+          result.data[0]
+        );
+      })
+      .catch((err) => console.log("Error message:", err.message));
+  }, []);
 
   //send to db
   const sendToDB = function(userObject) {
@@ -146,11 +156,11 @@ export default function ProfileView(props) {
 
   //Chip functions
 
-  //onClick FIX FIX
+  //onClick FIX FIX use incoming state
   const [chips, setChips] = useState({
-    mystery: false,
-    romance: false,
-    adventure: false,
+    mystery: true,
+    romance: true,
+    adventure: true,
   });
 
   const selectedChips = function(chips) {
@@ -195,7 +205,7 @@ export default function ProfileView(props) {
       </span>
     );
   });
-  if (!userState) {
+  if (!userState.id) {
     return <div>loading</div>;
   }
   return (
@@ -210,7 +220,7 @@ export default function ProfileView(props) {
 
         <Slider
           id={"age"}
-          value={age}
+          value={[age[0], userState.age[1]]}
           marks={ageMarks}
           max={thisYear - 1970}
           onChange={(event, newValue) => {
