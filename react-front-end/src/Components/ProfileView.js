@@ -159,9 +159,21 @@ export default function ProfileView(props) {
 
   //onClick FIX FIX use incoming state
   const [chips, setChips] = useState({
-    mystery: true,
-    romance: true,
-    adventure: true,
+    mystery: false,
+    romance: false,
+    adventure: false,
+    literary: false,
+    "non-fiction": false,
+    "biography/memoir": false,
+    humour: false,
+    art: false,
+    history: false,
+    cooking: false,
+    "children's": false,
+    poetry: false,
+    science: false,
+    "sci-fi/fantasy": false,
+    "self-help": false,
   });
 
   const selectedChips = function(chips) {
