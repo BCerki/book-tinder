@@ -301,7 +301,7 @@ export default function ProfileView(props) {
             Adventurous? (include mature content)
           </span>
           <Switch
-            // checked={true}
+            checked={userState.maturity}
             onChange={(event, newValue) => {
               setMaturity(newValue);
               handleChange(event, newValue, "maturity");
