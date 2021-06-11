@@ -87,7 +87,7 @@ export default function BooksView(props) {
 
   const bookCards = matches.map((book) => {
     return (
-      <Link to={`matches/${book.id}`} className="bookCardLink">
+      <Link to={`/matches/${book.id}`} className="bookCardLink">
         <BookCard
           id={book.id}
           // onClick={() => {
