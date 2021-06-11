@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 
 import ChatbotSentPic from "../Components/ChatbotSentPic";
+// import ChatbotSentQuote from "../Components/ChatbotSentQuote";
 import ChatBookStateProvider from "../providers/ChatBookStateProvider";
 // import { chatBookStateContext } from "../providers/ChatBookStateProvider";
 
@@ -9,17 +10,12 @@ import ChatBookStateProvider from "../providers/ChatBookStateProvider";
 const testingScript = [
   {
     id: "1",
-    message: "What number am I thinking?",
-
+    message: "Click yes for a photo",
     trigger: "2",
   },
   {
     id: "2",
-    options: [
-      { value: 1, label: "Number 1", trigger: "4" },
-      { value: 2, label: "Number 2", trigger: "3" },
-      { value: 3, label: "Number 3", trigger: "3" },
-    ],
+    options: [{ value: 1, label: "yes", trigger: "3" }],
   },
   {
     id: "3",
@@ -28,12 +24,17 @@ const testingScript = [
         <ChatbotSentPic />
       </ChatBookStateProvider>
     ),
-    trigger: "2",
+    trigger: "4",
+  },
+  { id: "4", message: "Click yes for a quote", trigger: "5" },
+  {
+    id: "5",
+    options: [{ value: 1, label: "yes", trigger: "6" }],
   },
   {
-    id: "4",
-    message: "Awesome! You are a telepath!",
-    end: true,
+    id: "6",
+    // component: <ChatbotSentQuote />,
+    message: "just kidding, not ready yet",
   },
 ];
 export default testingScript;
