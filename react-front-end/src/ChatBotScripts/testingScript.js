@@ -9,12 +9,8 @@ import ChatBookStateProvider from "../providers/ChatBookStateProvider";
 const testingScript = [
   {
     id: "1",
-    component: (
-      <ChatBookStateProvider>
-        <ChatbotSentPic />
-      </ChatBookStateProvider>
-    ),
-    message: "What number I am thinking?",
+    message: "What number am I thinking?",
+
     trigger: "2",
   },
   {
@@ -28,9 +24,9 @@ const testingScript = [
   {
     id: "3",
     component: (
-      <div className="rsc-ts rsc-ts-bot">
-        <img src="https://books.google.com/books/content?id=64tuPwAACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api" />
-      </div>
+      <ChatBookStateProvider>
+        <ChatbotSentPic />
+      </ChatBookStateProvider>
     ),
     trigger: "2",
   },
