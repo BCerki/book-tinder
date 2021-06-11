@@ -32,19 +32,19 @@ const pool = new Pool({
 // );
 
 App.get("/api/sample/:isbn", (req, res) => {
-  console.log("req.params", req.params);
+  console.log("req.params", req.params.isbn);
 
-  return new Promise((resolve, reject) => {
-    getSample(req.params)
-      .then((response) => {
-        resolve(res.send(response));
-        console.log("response is", response);
-      })
-      .catch((err) => {
-        reject(err.message);
-        res.status(500).send(err.message);
-      });
-  });
+  // return new Promise((resolve, reject) => {
+  getSample(req.params.isbn)
+    .then((response) => {
+      res.json(response);
+      console.log("response is", response);
+    })
+    .catch((err) => {
+      // reject(err.message);
+      res.status(500).send(err.message);
+    });
+  // });
 });
 
 // BookTinder GET route **WORKING**
