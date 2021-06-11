@@ -32,10 +32,12 @@ const pool = new Pool({
 // BookTinder GET route **WORKING**
 App.get("/api/users/:id/books", (req, res) => {
   return pool
-    .query(`SELECT * FROM books WHERE NOT EXISTS 
+    .query(
+      `SELECT * FROM books WHERE NOT EXISTS 
     (SELECT * FROM conversations WHERE books.id = conversations.book_id) 
     AND NOT EXISTS (SELECT * FROM block_user WHERE books.id = block_user.books_id)
-    AND NOT EXISTS (SELECT * FROM rejected WHERE books.id = rejected.book_id)`)
+    AND NOT EXISTS (SELECT * FROM rejected WHERE books.id = rejected.book_id)`
+    )
     .then(function (result) {
       // console.log("LOG: server: query books: result:", result);
       console.log("test", result.rows);
@@ -77,14 +79,14 @@ App.post("/api/users/:id/rejected/:id", (req, res) => {
   const values = [userId, bookId];
 
   return pool
-  .query(rejected, values)
-  .then((result) => {
-    res.send(result.rows);
-  })
-  .catch((err) => {
-    console.error(err);
-    res.status(500).send(err.message);
-  });
+    .query(rejected, values)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(err.message);
+    });
 });
 
 //Match/Convo GET route "/api/users/1/conversations/:id" **IN PROGRESS**
@@ -156,8 +158,33 @@ App.get("/api/users/:id", (req, res) => {
     });
 });
 
-//New user
+//New user **IN PROGRESS**
+App.post("/api/users/:id", (req, res) => {
+  // const id = parseInt(req.params.id);
 
+  const newUser = `INSERT INTO users (name, age, page_count, price, max_distance, maturity, genres)
+  VALUES ($1, $2, $3, $4, $5, $6, $7)`;
+
+  const values = [
+    req.body.name,
+    req.body.age,
+    req.body.pageCount,
+    req.body.price,
+    req.body.maxDistance,
+    req.body.maturity,
+    req.body.genres,
+  ];
+
+  return pool
+    .query(newUser, values)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(err.message);
+    });
+});
 
 //Update user data in users table **WORKING**
 App.put("/api/users/:id", (req, res) => {
