@@ -277,7 +277,8 @@ export default function ProfileView(props) {
       <div className="profile-preference">
         <span class="profile-label">Maximum distance (to a bookstore)</span>
         <Slider
-          defaultValue={maxDistance}
+          value={userState.max_distance}
+          // defaultValue={maxDistance}
           getAriaValueText={valuetext}
           aria-labelledby="discrete-slider-always"
           step={10}
