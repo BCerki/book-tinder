@@ -34,12 +34,12 @@ export default function ChatView(props) {
   useEffect(() => {
     if (bookId) {
       axios
-        .get(`/api/users/:id/books`)
+        .get(`/api/users/:id/conversations`)
         .then((result) => {
           // console.log("bookId in useeffect is", bookId);
           //this would maybe be better to grab from books/1? MICHELLE
           const allBooks = result.data;
-          // console.log("allBooks is", allBooks);
+          console.log("allBooks is", allBooks);
           // console.log("allBooks[0].id", allBooks[0].id);
           const chattingBook = allBooks.find((book) => book.id === bookId);
 
