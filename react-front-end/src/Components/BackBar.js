@@ -19,7 +19,25 @@ import "../styles/backbar.scss";
 import axios from "axios";
 
 export default function BackBar(props) {
-  const { currentBook, block } = useContext(bookStateContext);
+  // const { currentBook, block } = useContext(bookStateContext);
+
+  const block = function(bookId) {
+    axios
+      //MICHELLE this should add the book to the blocked table
+      .post(`/api/users/:id/blocked/${bookId}`, bookId)
+      .then((result) => {
+        console.log("in post blocked conversations, bookid is,", bookId);
+      })
+      .catch((err) => console.log("Error message:", err.message));
+
+    axios
+      //MICHELLE this should delete the book from the conversations table
+      .delete(`/api/users/:id/conversations/${bookId}`, bookId)
+      .then((result) => {
+        console.log("in delete conversations, bookid is,", bookId);
+      })
+      .catch((err) => console.log("Error message:", err.message));
+  };
 
   //Material UI styling
   const useStyles = makeStyles((theme) => ({
@@ -30,8 +48,8 @@ export default function BackBar(props) {
   }));
   const classes = useStyles();
 
-  console.log("in the back bar, currentBook.image is", currentBook.image);
-  console.log("in the back bar, currentBook.image is", currentBook.id);
+  console.log("in the back bar, currentBook.image is", props.image);
+  console.log("in the back bar, currentBook.image is", props.id);
 
   return (
     <div className="backBar">
@@ -40,17 +58,13 @@ export default function BackBar(props) {
           <ArrowBackIosIcon />
         </div>
       </Link>
-      <Avatar
-        src={props.image}
-        alt={currentBook.title}
-        className={classes.large}
-      />
+      <Avatar src={props.image} alt={props.title} className={classes.large} />
 
       <Link to="/matches">
         <div className={"backBarIcon"}>
           <BlockIcon
             onClick={() => {
-              block(currentBook.id);
+              block(props.id);
             }}
           />
         </div>

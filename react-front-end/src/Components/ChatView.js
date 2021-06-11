@@ -77,7 +77,12 @@ export default function ChatView(props) {
   }
   return (
     <>
-      <BackBar className={"backBar"} image={currentBook.image} />
+      <BackBar
+        className={"backBar"}
+        image={currentBook.image}
+        id={currentBook.id}
+        title={currentBook.title}
+      />
       <ChatBot
         // steps={chooseScript(scripts)} //for random scripts
         steps={testingScript}
