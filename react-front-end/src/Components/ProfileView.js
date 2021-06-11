@@ -152,19 +152,19 @@ export default function ProfileView(props) {
     adventure: false,
   });
 
-  useEffect(() => {
-    const selectedChips = function(chips) {
-      const result = [];
-      for (const genre in chips) {
-        if (chips[genre]) {
-          result.push(genre);
-        }
-      }
-      return result;
-    };
+  // useEffect(() => {
+  //   const selectedChips = function(chips) {
+  //     const result = [];
+  //     for (const genre in chips) {
+  //       if (chips[genre]) {
+  //         result.push(genre);
+  //       }
+  //     }
+  //     return result;
+  //   };
 
-    sendToDB({ ...userState, genres: selectedChips(chips) });
-  }, [chips]);
+  //   sendToDB({ ...userState, genres: selectedChips(chips) });
+  // }, [chips]);
 
   const chipsHandler = (chipName) => {
     setChips((prev) => ({
