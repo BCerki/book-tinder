@@ -1,35 +1,40 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import ChatbotSentPic from "../Components/ChatbotSentPic";
+import ChatbotSentQuote from "../Components/ChatbotSentQuote";
+import ChatBookStateProvider from "../providers/ChatBookStateProvider";
+// import { chatBookStateContext } from "../providers/ChatBookStateProvider";
+
+// const { currentChatBook, chatContext } = useContext(chatBookStateContext);
 
 const testingScript = [
   {
     id: "1",
-    component: <ChatbotSentPic />,
-    message: "What number I am thinking?",
+    message: "Click yes for a photo",
     trigger: "2",
   },
   {
     id: "2",
-    options: [
-      { value: 1, label: "Number 1", trigger: "4" },
-      { value: 2, label: "Number 2", trigger: "3" },
-      { value: 3, label: "Number 3", trigger: "3" },
-    ],
+    options: [{ value: 1, label: "yes", trigger: "3" }],
   },
   {
     id: "3",
     component: (
-      <div className="rsc-ts rsc-ts-bot">
-        <img src="https://books.google.com/books/content?id=64tuPwAACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api" />
-      </div>
+      <ChatBookStateProvider>
+        <ChatbotSentPic />
+      </ChatBookStateProvider>
     ),
-    trigger: "2",
+    trigger: "4",
+  },
+  { id: "4", message: "Click yes for a quote", trigger: "5" },
+  {
+    id: "5",
+    options: [{ value: 1, label: "yes", trigger: "6" }],
   },
   {
-    id: "4",
-    message: "Awesome! You are a telepath!",
-    end: true,
+    id: "6",
+    component: <ChatbotSentQuote />,
+    // message: "just kidding, not ready yet",
   },
 ];
 export default testingScript;

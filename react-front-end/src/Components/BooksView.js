@@ -20,31 +20,20 @@ import "../styles/booksView.scss";
 
 export default function BooksView(props) {
   //functions for book state
-  const { providerBook, getConversations } = useContext(bookStateContext);
+  // const { providerBook, getConversations } = useContext(bookStateContext);
 
   //functions for toggle
   const [toggle, setToggle] = useState(false);
-
-  // //Search Filter:
-  // const [filter, setFilter] = useState("");
-
-  // const handleSearchChange = (event) => {
-  //   setFilter(event.target.value);
-  // };
-
-  // const handleChange = (event) => {
-  //   setToggle({ ...state, [event.target.name]: event.target.checked });
-  // };
 
   const handleChange = (event) => {
     setToggle(!toggle);
   };
   // console.log("toggle in middle view", toggle);
 
-  const handleClick = function(bookObject) {
-    providerBook(bookObject);
-    // console.log("handle click fired, bookObject is:", bookObject);
-  };
+  // const handleClick = function(bookObject) {
+  //   providerBook(bookObject);
+  //   // console.log("handle click fired, bookObject is:", bookObject);
+  // };
 
   //Create the cards for info
   //if this gives async issues, get the conversations in a useEffect hook above instead
@@ -64,48 +53,55 @@ export default function BooksView(props) {
 
   //get the conversation data
   // const
+  const [matches, setMatches] = useState([]);
 
-  // useEffect(() => {
-  //   axios.get("/api/users/:id/conversations")
-  //   .then((result)=>{
+  useEffect(() => {
+    axios
+      .get("/api/users/:id/conversations")
+      .then((result) => {
+        console.log("result.data is", result.data);
+        setMatches(result.data);
+      })
+      .catch((err) => {
+        console.log("Error:", err.message);
+      });
+  }, []);
 
-  //   })
-  //   .catch()
-  // }, []);
+  console.log("matches is", matches);
 
-  //use this once the conversations endpint is up and running
-  // const bookCards = getConversations().map((book) => {
-  const bookCards = bookData.map((book) => {
+  const parseAge = function(date) {
+    const thisYear = new Date().getFullYear();
+    return thisYear - Number(date.substring(0, 4));
+  };
+
+  const bookCards = matches.map((book) => {
     return (
-      <Link to={`matches/${book.id}`} className="bookCardLink">
+      <Link to={`/matches/${book.id}`} className="bookCardLink">
         <BookCard
           id={book.id}
-          onClick={() => {
-            handleClick(book);
-          }}
+          // onClick={() => {
+          //   handleClick(book);
+          // }}
           title={book.title}
           author={book.author}
           coverImage={book.image}
           description={book.description}
           isbn={book.isbn}
-          pageCount={book.pageCount}
+          pageCount={book.page_count}
           price={book.price}
-          age={book.age}
-          latestMessage={book.latestMessage}
+          age={parseAge(book.publish_date)}
           toggle={toggle}
         />
       </Link>
     );
   });
 
+  if (!matches) {
+    return <div>loading</div>;
+  }
   return (
     <>
       <section className="search-bar">
-        {/* <TextField
-        onChange={handleSearchChange}
-        label="Search"
-        variant="standard"
-        /> */}
         <SearchBar />
       </section>
       <section className="toggle">

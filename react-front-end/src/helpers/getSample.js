@@ -31,7 +31,7 @@ const getSample = function (isbn) {
         // Shuffle array
         const randomLine = _.shuffle(allLinesArr)[0];
         // Console log result
-        console.log(`Random line from ISBN ${isbn}: ${randomLine}`, randomLine);
+        console.log(`Random line from ISBN ${isbn}: ${randomLine}`);
         // Return single random line
         resolve(randomLine);
       })

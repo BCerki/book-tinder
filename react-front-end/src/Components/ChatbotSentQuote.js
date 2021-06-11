@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { chatBookStateContext } from "../providers/ChatBookStateProvider";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import BOOK_TOKEN from "../../src/.secrets";
+// import getSample from "../helpers/getSample";
+// import getSample from "../../../express-back-end/helpers/getSample";
 
 // console.log("bookId is", bookId);
 
@@ -11,7 +12,7 @@ export default function ChatbotSentPic(props) {
 
   const [currentBook, setCurrentBook] = useState();
 
-  const [interiorImage, setInteriorImage] = useState();
+  const [quote, setQuote] = useState();
   // const { currentChatBook, chatContext } = useContext(chatBookStateContext);
 
   useEffect(() => {
@@ -22,21 +23,25 @@ export default function ChatbotSentPic(props) {
           //get the book isbn
           const allBooks = result.data;
           const chattingBook = allBooks.find((book) => book.id === bookId);
-
-          //query booknet with the isbn
-          axios
-            .get()
-            .then((result) => {
-              console.log("result is:", result);
-              setInteriorImage(result.data.items[0].id);
-            })
-            .catch(() => {
-              console.log("couldnt' get image");
-            });
-
           setCurrentBook(chattingBook);
+          console.log("chatting book is", chattingBook);
+          // setQuote(getSample(chattingBook.isbn));
+
+          //   axios
+          //     .put(`/api/sample/${chattingBook.isbn}`, chattingBook.isbn)
+          //     .then(() => console.log("successfully sent isbn to Adrian"))
+          //     .catch(() => console.log("failed to send to Adrian"));
+          //
         })
         .catch(() => {});
+
+      axios
+        .get(`/api/sample/9781770415034`)
+        .then((result) => {
+          console.log("this should be some quotes", result.data);
+          setQuote(result.data);
+        })
+        .catch((err) => console.log("Error:", err.message));
     }
   }, []);
 
@@ -46,11 +51,7 @@ export default function ChatbotSentPic(props) {
   }
   return (
     <div>
-      <span>{interiorImage}</span>
-      <img
-        src={`https://www.biblioshare.org/bncServices/BNCServices.asmx/DetailImages?token=${BOOK_TOKEN}&san=&ean=9781098373269&thumbnail=No&Perspective=back&filenumber=&maxWidth=200&maxHeight=`}
-        alt={currentBook.title}
-      />
+      <span>i am a quote: {quote}</span>
     </div>
   );
 }
