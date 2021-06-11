@@ -29,7 +29,7 @@ const pool = new Pool({
 //   })
 // );
 
-// BookTinder GET route
+// BookTinder GET route **WORKING**
 App.get("/api/users/:id/books", (req, res) => {
   return pool
     .query(`SELECT * FROM books WHERE NOT EXISTS 
@@ -87,7 +87,7 @@ App.post("/api/users/:id/rejected/:id", (req, res) => {
   });
 });
 
-//Match/Convo GET route "/api/users/1/conversations/:id"
+//Match/Convo GET route "/api/users/1/conversations/:id" **IN PROGRESS**
 App.get("/api/users/:id/conversations", (req, res) => {
   return pool
     .query(`SELECT * FROM conversations WHERE user_id = 1`)
@@ -137,12 +137,16 @@ App.delete("/api/users/:id/conversations/:id", (req, res) => {
     });
 });
 
-// Users GET route
+// Users GET route **IN PROGRESS**
 App.get("/api/users/:id", (req, res) => {
   const userId = parseInt(req.params.id);
 
+  const queryUser = `SELECT * FROM users WHERE id = $1`;
+
+  const values = [userId];
+
   return pool
-    .query()
+    .query(queryUser, values)
     .then((result) => {
       res.send(result.rows);
     })
@@ -151,6 +155,9 @@ App.get("/api/users/:id", (req, res) => {
       res.status(500).send(err.message);
     });
 });
+
+//New user
+
 
 //Update user data in users table **WORKING**
 App.put("/api/users/:id", (req, res) => {
