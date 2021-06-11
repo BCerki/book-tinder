@@ -87,7 +87,7 @@ export default function BooksView(props) {
           coverImage={book.image}
           description={book.description}
           isbn={book.isbn}
-          pageCount={book.page_count}
+          pageCount={book.pageCount}
           price={book.price}
           age={parseAge(book.publish_date)}
           toggle={toggle}
