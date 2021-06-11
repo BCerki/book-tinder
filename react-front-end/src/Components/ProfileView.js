@@ -8,6 +8,7 @@ import Chip from "@material-ui/core/Chip";
 
 import Switch from "@material-ui/core/Switch";
 import genreData from "../dummyData/dummyGenreData";
+import Loading from "./Loading";
 import classNames from "classnames";
 import axios from "axios";
 
@@ -206,7 +207,7 @@ export default function ProfileView(props) {
     );
   });
   if (!userState.id) {
-    return <div>loading</div>;
+    return <Loading />;
   }
   return (
     <main>

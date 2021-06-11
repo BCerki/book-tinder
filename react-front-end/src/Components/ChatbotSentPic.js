@@ -3,6 +3,7 @@ import { chatBookStateContext } from "../providers/ChatBookStateProvider";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import BOOK_TOKEN from "../../src/.secrets";
+import Loading from "./Loading";
 
 // console.log("bookId is", bookId);
 
@@ -42,7 +43,7 @@ export default function ChatbotSentPic(props) {
 
   // console.log("currentChatBook in chatbotsentpic is:", currentChatBook);
   if (!currentBook) {
-    return <div>loading</div>;
+    return <Loading />;
   }
   return (
     <div>

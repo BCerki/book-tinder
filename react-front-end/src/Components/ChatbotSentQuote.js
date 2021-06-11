@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { chatBookStateContext } from "../providers/ChatBookStateProvider";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import Loading from "./Loading";
 // import getSample from "../helpers/getSample";
 // import getSample from "../../../express-back-end/helpers/getSample";
 
@@ -47,7 +48,7 @@ export default function ChatbotSentPic(props) {
 
   // console.log("currentChatBook in chatbotsentpic is:", currentChatBook);
   if (!currentBook) {
-    return <div>loading</div>;
+    return <Loading />;
   }
   return (
     <div>
