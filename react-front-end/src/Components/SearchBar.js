@@ -5,6 +5,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import bookData from "../dummyData/dummyBookData";
 
 export default function SearchBar() {
+
   return (
     <div style={{ width: 300 }}>
       <Autocomplete

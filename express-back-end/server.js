@@ -29,10 +29,13 @@ const pool = new Pool({
 //   })
 // );
 
-// BookTinder GET route
+// BookTinder GET route /api/users/1/books/:id
 App.get("/api/books", (req, res) => {
   return pool
-    .query(`SELECT * FROM books`)
+    .query(`SELECT * FROM books WHERE NOT EXISTS 
+    (SELECT * FROM conversations WHERE books.id = conversations.book_id) 
+    AND NOT EXISTS (SELECT * FROM block_user WHERE books.id = block_user.books_id)
+    AND NOT EXISTS (SELECT * FROM rejected WHERE books.id = rejected.book_id)`)
     .then(function (result) {
       // console.log("LOG: server: query books: result:", result);
       console.log("test", result.rows);
@@ -40,6 +43,7 @@ App.get("/api/books", (req, res) => {
     })
     .catch((err) => {
       console.log(err.message);
+      res.status(500).send(err.message);
     });
 });
 
@@ -76,8 +80,8 @@ App.post("/api/blocked/:id", (req, res) => {
     });
 });
 
-//Match/Convo GET route
-App.get("/api/conversations/", (req, res) => {
+//Match/Convo GET route "/api/users/1/conversations/:id"
+App.get("/api/conversations", (req, res) => {
   return pool
     .query(`SELECT * FROM conversations WHERE user_id = 1`)
     .then((result) => {

@@ -22,9 +22,5 @@ VALUES (1, 1),
 (1, 4),
 (1, 5);
 
-INSERT INTO conversations (user_id, book_id)
-VALUES (1, 1),
-(1, 2),
-(1, 3),
-(1, 4);
+
 
