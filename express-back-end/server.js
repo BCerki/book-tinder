@@ -47,19 +47,6 @@ App.get("/api/users/:id/books", (req, res) => {
     });
 });
 
-// Users GET route
-App.get("/api/users", (req, res) => {
-  return pool
-    .query(`SELECT * FROM users`)
-    .then((result) => {
-      res.send(result.rows);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send(err.message);
-    });
-});
-
 //Block book **WORKING**
 App.post("/api/users/:id/blocked/:id", (req, res) => {
   const bookId = parseInt(req.params.id);
@@ -78,6 +65,26 @@ App.post("/api/users/:id/blocked/:id", (req, res) => {
       console.error(err);
       res.status(500).send(err.message);
     });
+});
+
+//Rejected Book (swipe left) **WORKING**
+App.post("/api/users/:id/rejected/:id", (req, res) => {
+  const bookId = parseInt(req.params.id);
+  const userId = 1;
+
+  const rejected = `INSERT INTO rejected (user_id, book_id) VALUES ($1, $2)`;
+
+  const values = [userId, bookId];
+
+  return pool
+  .query(rejected, values)
+  .then((result) => {
+    res.send(result.rows);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send(err.message);
+  });
 });
 
 //Match/Convo GET route "/api/users/1/conversations/:id"
@@ -123,6 +130,21 @@ App.delete("/api/users/:id/conversations/:id", (req, res) => {
     .query(blockedConvo, values)
     .then((result) => {
       return result.rows;
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(err.message);
+    });
+});
+
+// Users GET route
+App.get("/api/users/:id", (req, res) => {
+  const userId = parseInt(req.params.id);
+
+  return pool
+    .query()
+    .then((result) => {
+      res.send(result.rows);
     })
     .catch((err) => {
       console.error(err);
