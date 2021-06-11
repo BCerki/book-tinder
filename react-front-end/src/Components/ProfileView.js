@@ -82,7 +82,7 @@ export default function ProfileView(props) {
     console.log("userobject.id is", userObject.id);
     console.log("userstate.id is", userState.id);
     setUserState(userObject);
-    //MICHELLE
+
     axios
       .put(`/api/users/${userState.id}`, userObject)
       .then((result) => {
@@ -220,7 +220,7 @@ export default function ProfileView(props) {
 
         <Slider
           id={"age"}
-          value={[age[0], userState.age[1]]}
+          value={[userState.age[0], userState.age[1]]}
           marks={ageMarks}
           max={thisYear - 1970}
           onChange={(event, newValue) => {
@@ -258,7 +258,7 @@ export default function ProfileView(props) {
       <div className="profile-preference">
         <span class="profile-label">Date cost (price range)</span>
         <Slider
-          value={price}
+          value={[userState.price[0], userState.price[1]]}
           marks={priceMarks}
           max={maxPriceMark}
           onChange={(event, newValue) => {
