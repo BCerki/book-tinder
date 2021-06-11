@@ -49,7 +49,7 @@ export default function ChatbotSentPic(props) {
     <div>
       <span>{interiorImage}</span>
       <img
-        src={`https://www.biblioshare.org/bncServices/BNCServices.asmx/DetailImages?token=${BOOK_TOKEN}&san=&ean=9781098373269&thumbnail=No&Perspective=back&filenumber=&maxWidth=200&maxHeight=`}
+        src={`https://www.biblioshare.org/bncServices/BNCServices.asmx/DetailImages?token=${BOOK_TOKEN}&san=&ean=${currentBook.isbn}&thumbnail=No&Perspective=back&filenumber=&maxWidth=200&maxHeight=`}
         alt={currentBook.title}
       />
     </div>

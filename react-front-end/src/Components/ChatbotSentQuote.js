@@ -52,7 +52,7 @@ export default function ChatbotSentPic(props) {
   }
   return (
     <div>
-      <span>i am a quote: {quote}</span>
+      <span>{quote}</span>
     </div>
   );
 }
