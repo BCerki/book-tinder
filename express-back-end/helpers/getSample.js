@@ -33,7 +33,7 @@ const getSample = function (isbn) {
         // Console log result
         console.log(`Random line from ISBN ${isbn}: ${randomLine}`);
         // Return single random line
-        resolve(randomLine);
+        resolve("hello");
       })
       // Error handling
       .catch((err) => {
@@ -43,6 +43,6 @@ const getSample = function (isbn) {
 };
 
 // Test code
-// getSample(9781770415034);
+getSample(9781770415034);
 
 module.exports = getSample;

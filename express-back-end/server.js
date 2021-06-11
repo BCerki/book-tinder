@@ -1,4 +1,5 @@
 require("dotenv").config();
+require("./helpers/getSample");
 
 const Express = require("express");
 const App = Express();
@@ -8,6 +9,7 @@ const PORT = 8080;
 const { Pool } = require("pg");
 // const getUserData = require("./routes/user");
 const { response } = require("express");
+const getSample = require("../react-front-end/src/helpers/getSample");
 
 // Express Configuration
 App.use(BodyParser.urlencoded({ extended: false }));
@@ -29,12 +31,28 @@ const pool = new Pool({
 //   })
 // );
 
+App.get("/api/sample/:isbn", (req, res) => {
+  console.log("req.params", req.params);
+
+  return new Promise((resolve, reject) => {
+    getSample(req.params)
+      .then((response) => {
+        resolve(res.send(response));
+        console.log("response is", response);
+      })
+      .catch((err) => {
+        reject(err.message);
+        res.status(500).send(err.message);
+      });
+  });
+});
+
 // BookTinder GET route **WORKING**
 App.get("/api/users/:id/books", (req, res) => {
   return pool
     .query(
-      `SELECT * FROM books WHERE NOT EXISTS 
-    (SELECT * FROM conversations WHERE books.id = conversations.book_id) 
+      `SELECT * FROM books WHERE NOT EXISTS
+    (SELECT * FROM conversations WHERE books.id = conversations.book_id)
     AND NOT EXISTS (SELECT * FROM block_user WHERE books.id = block_user.books_id)
     AND NOT EXISTS (SELECT * FROM rejected WHERE books.id = rejected.book_id)`
     )
@@ -92,7 +110,9 @@ App.post("/api/users/:id/rejected/:id", (req, res) => {
 //Match/Convo GET route **WORKING**
 App.get("/api/users/:id/conversations", (req, res) => {
   return pool
-    .query(`SELECT * FROM books WHERE EXISTS (SELECT * FROM conversations WHERE books.id = conversations.book_id)`)
+    .query(
+      `SELECT * FROM books WHERE EXISTS (SELECT * FROM conversations WHERE books.id = conversations.book_id)`
+    )
     .then((result) => {
       console.log("result:", result.rows);
       res.send(result.rows);
