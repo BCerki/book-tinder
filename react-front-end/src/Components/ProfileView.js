@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from "react";
-import { userStateContext } from "../providers/UserStateProvider";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -10,6 +9,7 @@ import Chip from "@material-ui/core/Chip";
 import Switch from "@material-ui/core/Switch";
 import genreData from "../dummyData/dummyGenreData";
 import classNames from "classnames";
+import axios from "axios";
 
 //Styling
 import "../styles/profileView.scss";
@@ -21,8 +21,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ProfileView(props) {
-  const { sendToDB, userState } = useContext(userStateContext);
-
   //Material UI styling hook
   const classes = useStyles();
 
@@ -30,33 +28,57 @@ export default function ProfileView(props) {
   function valuetext(value) {
     return `${value}`;
   }
-  // const { retreivedBooks } = useContext(userStateContext);
 
-  //do one of these for each slider, mentor and talk to DB
+  //set individual states
   const [age, setAge] = useState([20, 40]);
   const [pageCount, setPageCount] = useState([256, 512]);
   const [price, setPrice] = useState([10, 30]);
   const [maxDistance, setMaxDistance] = useState(80);
   const [maturity, setMaturity] = useState(false);
 
-  //do one for each slider
-  // const handleAgeChange = (event, newValue) => {
-  //   setAge(newValue);
-  // };
-  // const handlePageCountChange = (event, newValue) => {
-  //   setPageCount(newValue);
-  // };
-  // const handlePriceChange = (event, newValue) => {
-  //   setPrice(newValue);
-  // };
-  // //FIX FIX this one doesn't have a change function?
-  // const handleLocationChange = (event, newValue) => {
-  //   setLocationParent(newValue);
-  //   // setMaxDistance(newValue);
-  // };
-  // const handleMaturityChange = (event) => {
-  //   setMaturity(!maturity);
-  // };
+  //set user state--ultimately get starting state from hook
+
+  //should it be an object, not an array, from DB?
+  const [userState, setUserState] = useState({
+    id: 1,
+    name: "Sandra Gardiner",
+    age: [20, 40],
+    pageCount: [256, 512],
+    price: [10, 30],
+    maxDistance: 80,
+    maturity: false,
+    genres: [],
+  });
+
+  // useEffect(() => {
+  //   axios
+  //     //update route if doing multiple users
+  //     .get("/api/users/1")
+  //     .then((result) => {
+  //       setUserState(result.data);
+  //       console.log(
+  //         "i am in axios get for user, result.data[0] is:",
+  //         result.data
+  //       );
+  //     })
+  //     .catch((err) => console.log("Error message:", err.message));
+  // }, []);
+
+  //send to db
+  const sendToDB = function(userObject) {
+    console.log("send to DB is firing with userObject:", userObject);
+    //need to send userObject, not userState, because it's not updated yet
+    console.log("userobject.id is", userObject.id);
+    console.log("userstate.id is", userState.id);
+    setUserState(userObject);
+    //MICHELLE
+    axios
+      .put(`/api/users/${userState.id}`, userObject)
+      .then((result) => {
+        console.log("all is well");
+      })
+      .catch((err) => console.log("Error message:", err.message));
+  };
 
   const handleChange = (event, newValue, id) => {
     console.log("handleChange is firing");
@@ -123,7 +145,7 @@ export default function ProfileView(props) {
 
   //Chip functions
 
-  //onClick
+  //onClick FIX FIX
   const [chips, setChips] = useState({
     mystery: false,
     romance: false,
@@ -140,22 +162,19 @@ export default function ProfileView(props) {
       }
       return result;
     };
-    console.log("selectedchips", selectedChips(chips));
 
     sendToDB({ ...userState, genres: selectedChips(chips) });
   }, [chips]);
 
   const chipsHandler = (chipName) => {
-    console.log("you clicked the chip:", chipName.target.innerHTML);
     setChips((prev) => ({
       ...prev,
       [chipName.target.innerHTML]: !chips[chipName.target.innerHTML],
     }));
     console.log("chips is:", chips);
-    // const chipClass = chips[chipName.target.innerHTML];
-    // console.log("chip class is", chipClass);
   };
 
+  //create the chips
   const genreChips = genreData.map((genre) => {
     return (
       <span

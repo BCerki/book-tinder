@@ -16,16 +16,16 @@ export default function UserStateProvider(props) {
 
   // const [userState, setUserState] = useState({});
 
-  useEffect(() => {
-    axios
-      //update route if doing multiple users
-      .get("/api/users/1")
-      .then((result) => {
-        setUserState(result.data);
-        console.log("i am in axios get for user, result.data is:", result.data);
-      })
-      .catch((err) => console.log("Error message:", err.message));
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     //update route if doing multiple users
+  //     .get("/api/users/1")
+  //     .then((result) => {
+  //       setUserState(result.data);
+  //       console.log("i am in axios get for user, result.data is:", result.data);
+  //     })
+  //     .catch((err) => console.log("Error message:", err.message));
+  // }, []);
 
   //FIX FIX how to set the initial state
   const [userState, setUserState] = useState({
