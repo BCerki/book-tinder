@@ -89,10 +89,10 @@ App.post("/api/users/:id/rejected/:id", (req, res) => {
     });
 });
 
-//Match/Convo GET route "/api/users/1/conversations/:id" **IN PROGRESS**
+//Match/Convo GET route **WORKING**
 App.get("/api/users/:id/conversations", (req, res) => {
   return pool
-    .query(`SELECT * FROM conversations WHERE user_id = 1`)
+    .query(`SELECT * FROM books WHERE EXISTS (SELECT * FROM conversations WHERE books.id = conversations.book_id)`)
     .then((result) => {
       console.log("result:", result.rows);
       res.send(result.rows);
