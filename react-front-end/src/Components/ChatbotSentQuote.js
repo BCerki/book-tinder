@@ -34,15 +34,16 @@ export default function ChatbotSentPic(props) {
           //     .catch(() => console.log("failed to send to Adrian"));
           //
         })
-        .catch(() => {});
-
-      axios
-        .get(`/api/sample/9781770415034`)
-        .then((result) => {
-          console.log("this should be some quotes", result.data);
-          setQuote(result.data);
+        .then(() => {
+          axios
+            .get(`/api/sample/${currentBook.isbn}`)
+            .then((result) => {
+              console.log("this should be some quotes", result.data);
+              setQuote(result.data);
+            })
+            .catch((err) => console.log("Error:", err.message));
         })
-        .catch((err) => console.log("Error:", err.message));
+        .catch(() => {});
     }
   }, []);
 
