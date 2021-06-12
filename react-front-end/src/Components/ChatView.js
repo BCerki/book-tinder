@@ -42,11 +42,12 @@ export default function ChatView(props) {
       axios
         .get(`/api/users/:id/conversations`)
         .then((result) => {
-          //set currentBook state
+          //set conversation state
           const allConversations = result.data;
           const thisConversation = allConversations.find(
             (conversation) => conversation.id === conversationId
           );
+          setCurrentConversation(thisConversation);
 
           const cacheName = `rsc_cache_${conversationId}`;
 
