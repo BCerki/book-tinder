@@ -202,7 +202,8 @@ App.get("/api/users/:id", (req, res) => {
           "price": val.price,
           "maxDistance": val.max_distance,
           "maturity": val.maturity,
-          "genres": val.genres
+          "genres": val.genres,
+          "postalCode": val.postal_code
           }
           transformed.push(user);
       }
@@ -218,8 +219,8 @@ App.get("/api/users/:id", (req, res) => {
 App.post("/api/users/:id", (req, res) => {
   // const id = parseInt(req.params.id);
 
-  const newUser = `INSERT INTO users (name, age, page_count, price, max_distance, maturity, genres)
-  VALUES ($1, $2, $3, $4, $5, $6, $7)`;
+  const newUser = `INSERT INTO users (name, age, page_count, price, max_distance, maturity, genres, postal_code)
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`;
 
   const values = [
     req.body.name,
@@ -229,6 +230,7 @@ App.post("/api/users/:id", (req, res) => {
     req.body.maxDistance,
     req.body.maturity,
     req.body.genres,
+    req.body.postalCode
   ];
 
   return pool
@@ -248,7 +250,7 @@ App.put("/api/users/:id", (req, res) => {
   console.log("body:", req.body);
 
   const updateUser = `UPDATE users SET name = $1, age = $2, page_count = $3, price = $4,
-  max_distance = $5, maturity = $6, genres = $7 WHERE id = $8 `;
+  max_distance = $5, maturity = $6, genres = $7, postal_code = $8 WHERE id = $9 `;
 
   const values = [
     req.body.name,
@@ -258,6 +260,7 @@ App.put("/api/users/:id", (req, res) => {
     req.body.maxDistance,
     req.body.maturity,
     req.body.genres,
+    req.body.postalCode,
     id,
   ];
 
