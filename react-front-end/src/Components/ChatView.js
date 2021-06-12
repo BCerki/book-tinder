@@ -40,17 +40,17 @@ export default function ChatView(props) {
           //set currentBook state
           const allBooks = result.data;
           const chattingBook = allBooks.find((book) => book.id === bookId);
+          //does this even matter? I don't think I care about state except for messages
           setCurrentBook(chattingBook);
 
           const cacheName = `rsc_cache_${bookId}`;
 
-          if (currentBook.message) {
+          if (chattingBook.message) {
             //first arg is key, second is value (local storage stores using key-value pairs)
-            useLocalStorage(cacheName, currentBook.message);
+            useLocalStorage(cacheName, chattingBook.message);
           }
 
-          //do i have to use chatting book
-          const scripts = currentBook.booknet_available
+          const scripts = chattingBook.booknet_available
             ? booknetScripts
             : otherScripts;
           // console.log("scripts is", scripts);
@@ -77,19 +77,25 @@ export default function ChatView(props) {
   //   );
   // }
 
-  //what is the change handler for the chatbot?
-  // axios
-  //   //do I need to JSON parse this? Maybe only on the way back
-  //   .put(
-  //     `/api/users/:id/conversations/${currentBook.id}`,
-  //     window.localStorage.getItem(cacheName)
-  //   )
-  //   .then(() => {
-  //     console.log("successfully sent local storage to db");
-  //   })
-  //   .catch((err) => {
-  //     console.log("Error", err.message);
-  //   });
+  //what is the change handler for the chatbot? this is currently only firing on the first render
+  useEffect(() => {
+    console.log(
+      "sending this to db:",
+      window.localStorage.getItem(`rsc_cache_${bookId}`)
+    );
+    axios
+      //do I need to JSON parse this?
+      .put(
+        `/api/users/:id/conversations/${bookId}`,
+        window.localStorage.getItem(`rsc_cache_${bookId}`)
+      )
+      .then(() => {
+        console.log("successfully sent local storage to db");
+      })
+      .catch((err) => {
+        console.log("Error", err.message);
+      });
+  }, []);
 
   if (!currentBook) {
     return <Loading />;
@@ -110,7 +116,6 @@ export default function ChatView(props) {
         hideBotAvatar={true}
         hideUserAvatar={true}
         hideHeader={true}
-        headerTitle={"this will be from the state"}
         botAvatar={"from state"}
         userAvatar={"from user api, hardcode in"}
       />
