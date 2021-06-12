@@ -2,14 +2,15 @@ const crawler = require("crawler-request");
 const _ = require("lodash");
 
 // Calls BiblioShare API, requests PDF sample, peforms conversions, returns single random sentence
-const getSample = function (isbn) {
+const getSample = (isbn) => {
+  console.log("getSample function called...");
   return new Promise((resolve, reject) => {
     // Calls API, converts PDF to rough text
     crawler(
       `https://www.biblioshare.ca/BNCServices/BNCServices.asmx/Samples?token=3e58phfbom2hx2z7&ean=${isbn}&san=&perspective=Sample&filenumber=`
     )
       // Handle response
-      .then(function (response) {
+      .then((response) => {
         // Store result of rough PDF to text conversion
         const convertedText = response.text;
         // Encode convertedText into URI
@@ -37,7 +38,7 @@ const getSample = function (isbn) {
       })
       // Error handling
       .catch((err) => {
-        reject(err.message);
+        reject("getSample Error:", err.message);
       });
   });
 };

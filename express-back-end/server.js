@@ -8,6 +8,7 @@ const PORT = 8080;
 const { Pool } = require("pg");
 // const getUserData = require("./routes/user");
 const { response } = require("express");
+const getLocation = require("./helpers/getLocation");
 
 // Express Configuration
 App.use(BodyParser.urlencoded({ extended: false }));
@@ -32,10 +33,12 @@ const pool = new Pool({
 // BookTinder GET route /api/users/1/books/:id
 App.get("/api/books", (req, res) => {
   return pool
-    .query(`SELECT * FROM books WHERE NOT EXISTS 
+    .query(
+      `SELECT * FROM books WHERE NOT EXISTS 
     (SELECT * FROM conversations WHERE books.id = conversations.book_id) 
     AND NOT EXISTS (SELECT * FROM block_user WHERE books.id = block_user.books_id)
-    AND NOT EXISTS (SELECT * FROM rejected WHERE books.id = rejected.book_id)`)
+    AND NOT EXISTS (SELECT * FROM rejected WHERE books.id = rejected.book_id)`
+    )
     .then(function (result) {
       // console.log("LOG: server: query books: result:", result);
       console.log("test", result.rows);
@@ -59,6 +62,17 @@ App.get("/api/users", (req, res) => {
       res.status(500).send(err.message);
     });
 });
+
+// App.get("/api/location", (req, res) => {
+//   getLocation()
+//     .then(() => {
+//       res.status(200).send("ok from location");
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       res.status(500).send(err.message);
+//     });
+// });
 
 //Block book **WORKING**
 App.post("/api/blocked/:id", (req, res) => {
