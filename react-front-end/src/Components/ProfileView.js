@@ -206,29 +206,26 @@ export default function ProfileView(props) {
   //taraget.value of genre .includes(genre)
 
   const handleClick = function(genre) {
-    console.log("i am handling click and chips is", chips);
-    console.log("chips.includes", genre, "is", chips.includes(genre));
+    console.log("I am click handler and userState.genres is", userState.genres);
+    const newGenres = [...userState.genres];
+    // console.log(
+    //   "userState.genres.includes",
+    //   genre,
+    //   "is",
+    //   userState.genres.includes(genre)
+    // );
 
-    if (chips.includes(genre)) {
-      const index = chips.findIndex((element) => element === genre);
-
-      setChips((prev) => {
-        [...prev].splice(index, 1);
-      });
-
-      console.log("i am removing the genre and chips is now", chips);
+    if (userState.genres.includes(genre)) {
+      const index = userState.genres.findIndex((element) => element === genre);
+      newGenres.splice(index, 1);
+      console.log("i am removing", genre, "and new genres is", newGenres);
     } else {
-      console.log("at top of else block, chips is:", chips);
-      setChips((prev) => [...prev, genre]);
-      console.log(
-        "i should add ",
-        genre,
-        "and it should appear in this array:",
-        chips
-      );
-      const newUserObject = { ...userState, genres: chips };
-      sendToDB(newUserObject);
+      newGenres.push(genre);
+      console.log("i am adding", genre, "and new genres is", newGenres);
     }
+    const newUserObject = { ...userState, genres: newGenres };
+    sendToDB(newUserObject);
+    setChips(newGenres);
   };
 
   //create the chips
@@ -253,7 +250,7 @@ export default function ProfileView(props) {
         onClick={() => {
           handleClick(genre);
         }}
-        // selected={chips.includes(genre) ? true : false}
+        selected={chips.includes(genre) ? true : false}
         // onDelete={handleDelete}
       />
     );
