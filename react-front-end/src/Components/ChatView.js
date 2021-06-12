@@ -37,18 +37,17 @@ export default function ChatView(props) {
       axios
         .get(`/api/users/:id/conversations`)
         .then((result) => {
-          // console.log("bookId in useeffect is", bookId);
-          //this would maybe be better to grab from books/1? MICHELLE
+          //set currentBook state
           const allBooks = result.data;
-          // console.log("allBooks is", allBooks);
-          // console.log("allBooks[0].id", allBooks[0].id);
           const chattingBook = allBooks.find((book) => book.id === bookId);
-
-          // console.log("chatting book in chatview is", chattingBook);
-
           setCurrentBook(chattingBook);
 
-          chatContext(chattingBook);
+          const cacheName = `rsc_cache_${bookId}`;
+
+          if (currentBook.message) {
+            //first arg is key, second is value (local storage stores using key-value pairs)
+            useLocalStorage(cacheName, currentBook.message);
+          }
 
           //do i have to use chatting book
           const scripts = currentBook.booknet_available
@@ -69,15 +68,29 @@ export default function ChatView(props) {
   // }
   // console.log("in chat view after if current book is", currentBook);
 
-  const cacheName = `rsc_cache_${bookId}`;
+  //COMMENT THESE IN AND OUT IF DB DOWN
 
-  if (window.localStorage[cacheName]) {
-    const [conversation, setConversation] = useLocalStorage(
-      cacheName,
-      window.localStorage[cacheName]
-    );
-  }
-  //Make a loading component for everything later FIXFIX
+  // if (window.localStorage[cacheName]) {
+  //   const [conversation, setConversation] = useLocalStorage(
+  //     cacheName,
+  //     window.localStorage[cacheName]
+  //   );
+  // }
+
+  //what is the change handler for the chatbot?
+  // axios
+  //   //do I need to JSON parse this? Maybe only on the way back
+  //   .put(
+  //     `/api/users/:id/conversations/${currentBook.id}`,
+  //     window.localStorage.getItem(cacheName)
+  //   )
+  //   .then(() => {
+  //     console.log("successfully sent local storage to db");
+  //   })
+  //   .catch((err) => {
+  //     console.log("Error", err.message);
+  //   });
+
   if (!currentBook) {
     return <Loading />;
   }
@@ -92,7 +105,7 @@ export default function ChatView(props) {
       <ChatBot
         // steps={chooseScript(scripts)} //for random scripts
         steps={testingScript}
-        cacheName={cacheName}
+        cacheName={`rsc_cache_${currentBook.id}`}
         cache={true}
         hideBotAvatar={true}
         hideUserAvatar={true}
