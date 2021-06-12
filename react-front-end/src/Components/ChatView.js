@@ -27,6 +27,15 @@ export default function ChatView(props) {
 
   const [currentConversation, setCurrentConversation] = useState();
 
+  const [state, setState] = useState();
+
+  const hackyFunction = function() {
+    console.log("i am in hacky function");
+    setState(state + 1);
+  };
+
+  window.onclick = hackyFunction;
+
   const conversationId = Number(
     useLocation().pathname.replace("/matches/", "")
   );
@@ -81,7 +90,7 @@ export default function ChatView(props) {
       .catch((err) => {
         console.log("Error", err.message);
       });
-  }, []);
+  }, [state]);
 
   if (!currentConversation) {
     return <Loading />;
