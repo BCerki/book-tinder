@@ -38,6 +38,7 @@ export default function ProfileView(props) {
   const [price, setPrice] = useState([10, 30]);
   const [maxDistance, setMaxDistance] = useState(80);
   const [maturity, setMaturity] = useState(false);
+  const [chips, setChips] = useState([]);
 
   //set user state--ultimately get starting state from hook
 
@@ -180,8 +181,6 @@ export default function ProfileView(props) {
   //   "self-help": false,
   // });
 
-  const [chips, setChips] = useState([]);
-
   // const selectedChips = function(chips) {
   //   const result = [];
   //   for (const key in chips) {
@@ -208,17 +207,25 @@ export default function ProfileView(props) {
 
   const handleClick = function(genre) {
     console.log("i am handling click and chips is", chips);
-    console.log("chips.includes(genre) is", chips.includes(genre));
+    console.log("chips.includes", genre, "is", chips.includes(genre));
+
     if (chips.includes(genre)) {
-      //pop is wrong, need to grab specific one
+      const index = chips.findIndex((element) => element === genre);
+
       setChips((prev) => {
-        // [...prev].pop(genre);
-        console.log("i should remove the genre");
+        [...prev].splice(index, 1);
       });
+
+      console.log("i am removing the genre and chips is now", chips);
     } else {
-      setChips((prev) => {
-        [...prev].push(genre);
-      });
+      console.log("at top of else block, chips is:", chips);
+      setChips((prev) => [...prev, genre]);
+      console.log(
+        "i should add ",
+        genre,
+        "and it should appear in this array:",
+        chips
+      );
       const newUserObject = { ...userState, genres: chips };
       sendToDB(newUserObject);
     }
@@ -246,7 +253,7 @@ export default function ProfileView(props) {
         onClick={() => {
           handleClick(genre);
         }}
-        selected={chips.includes(genre) ? true : false}
+        // selected={chips.includes(genre) ? true : false}
         // onDelete={handleDelete}
       />
     );
