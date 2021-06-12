@@ -10,6 +10,7 @@ const { Pool } = require("pg");
 // const getUserData = require("./routes/user");
 const { response } = require("express");
 const getSample = require("../react-front-end/src/helpers/getSample");
+const { result } = require("lodash");
 
 // Express Configuration
 App.use(BodyParser.urlencoded({ extended: false }));
@@ -99,6 +100,7 @@ App.post("/api/users/:id/rejected/:id", (req, res) => {
   return pool
     .query(rejected, values)
     .then((result) => {
+      console.log("what is this:", result)
       res.send(result.rows);
     })
     .catch((err) => {
@@ -115,7 +117,6 @@ App.get("/api/users/:id/conversations", (req, res) => {
   return pool
     .query(bookQuery)
     .then((result) => {
-      
       res.send(result.rows);
     })
     .catch((err) => {
@@ -135,7 +136,7 @@ App.post("/api/users/:id/conversations/:id", (req, res) => {
   return pool
     .query(newMatch, values)
     .then((result) => {
-      return result.rows;
+      res.send(result.rows);
     })
     .catch((err) => {
       console.error(err);
@@ -159,7 +160,8 @@ App.put("/api/users/:id/conversations/:id", (req, res) => {
   return pool
     .query(newMessage, values)
     .then((result) => {
-      return result.rows;
+      console.log(result)
+      res.send(result.rows);
     })
     .catch((err) => {
       console.error(err);
@@ -176,7 +178,7 @@ App.delete("/api/users/:id/conversations/:id", (req, res) => {
   return pool
     .query(blockedConvo, values)
     .then((result) => {
-      return result.rows;
+      res.send(result.rows);
     })
     .catch((err) => {
       console.error(err);
