@@ -8,24 +8,24 @@ import Loading from "./Loading";
 
 // console.log("bookId is", bookId);
 
-export default function ChatbotSentPic(props) {
-  const bookId = Number(useLocation().pathname.replace("/matches/", ""));
+export default function BooknetQuote(props) {
+  const matchId = Number(useLocation().pathname.replace("/matches/", ""));
 
-  const [currentBook, setCurrentBook] = useState();
+  const [match, setMatch] = useState();
 
   const [quote, setQuote] = useState();
   // const { currentChatBook, chatContext } = useContext(chatBookStateContext);
 
   useEffect(() => {
-    if (bookId) {
+    if (matchId) {
       axios
         .get(`/api/users/:id/conversations`)
         .then((result) => {
           //get the book isbn
-          const allBooks = result.data;
-          const chattingBook = allBooks.find((book) => book.id === bookId);
-          setCurrentBook(chattingBook);
-          console.log("chatting book is", chattingBook);
+          const allMatches = result.data;
+          const thisMatch = allMatches.find((book) => book.id === matchId);
+          setMatch(thisMatch);
+          console.log("chatting book is", thisMatch);
           // setQuote(getSample(chattingBook.isbn));
 
           //   axios
@@ -36,7 +36,7 @@ export default function ChatbotSentPic(props) {
         })
         .then(() => {
           axios
-            .get(`/api/sample/${currentBook.isbn}`)
+            .get(`/api/sample/${match.isbn}`)
             .then((result) => {
               console.log("this should be some quotes", result.data);
               setQuote(result.data);
@@ -48,7 +48,7 @@ export default function ChatbotSentPic(props) {
   }, []);
 
   // console.log("currentChatBook in chatbotsentpic is:", currentChatBook);
-  if (!currentBook) {
+  if (!match) {
     return <Loading />;
   }
   return (
