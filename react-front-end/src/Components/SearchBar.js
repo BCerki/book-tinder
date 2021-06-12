@@ -1,26 +1,46 @@
 /* eslint-disable no-use-before-define */
 import React from "react";
-import TextField from "@material-ui/core/TextField";
-import Autocomplete from "@material-ui/lab/Autocomplete";
+// import TextField from "@material-ui/core/TextField";
+// import Autocomplete from "@material-ui/lab/Autocomplete";
 import bookData from "../dummyData/dummyBookData";
 
-export default function SearchBar() {
+// export default function SearchBar() {
 
+//   return (
+//     <div style={{ width: 300 }}>
+//       <Autocomplete
+//         id="free-solo-demo"
+//         freeSolo
+//         options={bookData.map((option) => option.title)}
+//         getOptionSelected={(option, value) => option.name === value.name}
+//         renderInput={(params) => (
+//           <TextField
+//             {...params}
+//             label="Search"
+//             margin="normal"
+//             variant="outlined"
+//           />
+//         )}
+//       />
+//     </div>
+//   );
+// }
+
+export default function SearchBar() {
+  
   return (
-    <div style={{ width: 300 }}>
-      <Autocomplete
-        id="free-solo-demo"
-        freeSolo
-        options={bookData.map((option) => option.title)}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Search"
-            margin="normal"
-            variant="outlined"
-          />
-        )}
-      />
+    <div className="search">
+      <form>
+        <input
+        type="search"
+        id="search-box"
+        placeholder="search book titles"
+        />
+        <button type="submit">Search</button>
+        <button className="clear-search">Return</button>
+      </form>
     </div>
   );
-}
+};
+
+

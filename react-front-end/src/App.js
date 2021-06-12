@@ -1,5 +1,7 @@
 import React, { useState, useContext } from "react";
 import UserStateProvider from "./providers/UserStateProvider";
+import ChatBookStateProvider from "./providers/ChatBookStateProvider";
+
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 //Import components
@@ -21,7 +23,9 @@ export default function AppRouter() {
         <Switch>
           <Route path="/matches/:id">
             <BookStateProvider>
-              <ChatView />
+              <ChatBookStateProvider>
+                <ChatView />
+              </ChatBookStateProvider>
             </BookStateProvider>
           </Route>
           <Route path="/matches">
@@ -40,6 +44,10 @@ export default function AppRouter() {
             <Footer />
           </Route>
           <Route path="/books">
+            <SwipeView />
+            <Footer />
+          </Route>
+          <Route path="/">
             <SwipeView />
             <Footer />
           </Route>

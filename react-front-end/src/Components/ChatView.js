@@ -5,10 +5,12 @@ import otherScripts from "../ChatBotScripts/otherScripts";
 import testingScript from "../ChatBotScripts/testingScript";
 import _ from "lodash";
 import BackBar from "./BackBar";
+import Loading from "./Loading";
 import ReactDOM from "react-dom";
 import useLocalStorage from "react-use-localstorage";
 import { bookStateContext } from "../providers/BookStateProvider";
 import { useLocation } from "react-router-dom";
+import { chatBookStateContext } from "../providers/ChatBookStateProvider";
 
 //Styling
 import "../styles/chatView.scss";
@@ -23,26 +25,30 @@ const chooseScript = function(scripts) {
 export default function ChatView(props) {
   // const { currentBook, providerBook } = useContext(bookStateContext);
 
+  const { currentChatBook, chatContext } = useContext(chatBookStateContext);
+
   const [currentBook, setCurrentBook] = useState();
 
   const bookId = Number(useLocation().pathname.replace("/matches/", ""));
-  console.log("bookId is", bookId);
+  // console.log("bookId is", bookId);
 
   useEffect(() => {
     if (bookId) {
       axios
-        .get(`/api/users/:id/books`)
+        .get(`/api/users/:id/conversations`)
         .then((result) => {
-          console.log("bookId in useeffect is", bookId);
+          // console.log("bookId in useeffect is", bookId);
           //this would maybe be better to grab from books/1? MICHELLE
           const allBooks = result.data;
-          console.log("allBooks is", allBooks);
-          console.log("allBooks[0].id", allBooks[0].id);
+          // console.log("allBooks is", allBooks);
+          // console.log("allBooks[0].id", allBooks[0].id);
           const chattingBook = allBooks.find((book) => book.id === bookId);
 
-          console.log("chatting book is", chattingBook);
+          // console.log("chatting book in chatview is", chattingBook);
 
           setCurrentBook(chattingBook);
+
+          chatContext(chattingBook);
 
           //do i have to use chatting book
           const scripts = currentBook.booknet_available
@@ -73,7 +79,7 @@ export default function ChatView(props) {
   }
   //Make a loading component for everything later FIXFIX
   if (!currentBook) {
-    return <div>loading</div>;
+    return <Loading />;
   }
   return (
     <>

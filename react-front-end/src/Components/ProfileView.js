@@ -1,15 +1,18 @@
 import React, { useState, useContext, useEffect } from "react";
-import { userStateContext } from "../providers/UserStateProvider";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
+import Checkbox from "@material-ui/core/Checkbox";
+import GenreChip from "./GenreChip";
 
 import Switch from "@material-ui/core/Switch";
-import genreData from "../dummyData/dummyGenreData";
+// import genreData from "../dummyData/dummyGenreData";
+import Loading from "./Loading";
 import classNames from "classnames";
+import axios from "axios";
 
 //Styling
 import "../styles/profileView.scss";
@@ -21,8 +24,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ProfileView(props) {
-  const { sendToDB, userState } = useContext(userStateContext);
-
   //Material UI styling hook
   const classes = useStyles();
 
@@ -30,35 +31,72 @@ export default function ProfileView(props) {
   function valuetext(value) {
     return `${value}`;
   }
-  // const { retreivedBooks } = useContext(userStateContext);
 
-  //do one of these for each slider, mentor and talk to DB
+  //set individual states
   const [age, setAge] = useState([20, 40]);
   const [pageCount, setPageCount] = useState([256, 512]);
   const [price, setPrice] = useState([10, 30]);
   const [maxDistance, setMaxDistance] = useState(80);
   const [maturity, setMaturity] = useState(false);
 
-  //do one for each slider
-  // const handleAgeChange = (event, newValue) => {
-  //   setAge(newValue);
-  // };
-  // const handlePageCountChange = (event, newValue) => {
-  //   setPageCount(newValue);
-  // };
-  // const handlePriceChange = (event, newValue) => {
-  //   setPrice(newValue);
-  // };
-  // //FIX FIX this one doesn't have a change function?
-  // const handleLocationChange = (event, newValue) => {
-  //   setLocationParent(newValue);
-  //   // setMaxDistance(newValue);
-  // };
-  // const handleMaturityChange = (event) => {
-  //   setMaturity(!maturity);
-  // };
+  //set user state--ultimately get starting state from hook
+
+  //should it be an object, not an array, from DB?
+  // const [userState, setUserState] = useState({
+  //   id: 1,
+  //   name: "Sandra Gardiner",
+  //   age: [20, 40],
+  //   pageCount: [256, 512],
+  //   price: [10, 30],
+  //   maxDistance: 80,
+  //   maturity: false,
+  //   genres: [],
+  // });
+
+  const [userState, setUserState] = useState({
+    id: null,
+    name: "",
+    age: [],
+    pageCount: [],
+    price: [],
+    maxDistance: null,
+    maturity: null,
+    genres: [],
+  });
+  //set them all to blank
+  useEffect(() => {
+    axios
+      //update route if doing multiple users
+      .get("/api/users/1")
+      .then((result) => {
+        setUserState(result.data[0]);
+        console.log(
+          "i am in axios get for user, result.data[0] is:",
+          result.data[0]
+        );
+        setChips(result.data[0].genres);
+      })
+      .catch((err) => console.log("Error message:", err.message));
+  }, []);
+
+  //send to db
+  const sendToDB = function(userObject) {
+    console.log("send to DB is firing with userObject:", userObject);
+    //need to send userObject, not userState, because it's not updated yet
+    console.log("userobject.id is", userObject.id);
+    console.log("userstate.id is", userState.id);
+    setUserState(userObject);
+
+    axios
+      .put(`/api/users/${userState.id}`, userObject)
+      .then((result) => {
+        console.log("all is well");
+      })
+      .catch((err) => console.log("Error message:", err.message));
+  };
 
   const handleChange = (event, newValue, id) => {
+    console.log("handleChange is firing");
     const newUserObject = { ...userState, [id]: newValue };
     console.log("newuserobject is:", newUserObject);
     sendToDB(newUserObject);
@@ -122,61 +160,98 @@ export default function ProfileView(props) {
 
   //Chip functions
 
-  //onClick
-  const [chips, setChips] = useState({
-    mystery: false,
-    romance: false,
-    adventure: false,
-  });
+  //onClick FIX FIX use incoming state
+  // const [chips, setChips] = useState({
+  //   mystery: false,
+  //   romance: false,
+  //   adventure: false,
+  //   literary: false,
+  //   "non-fiction": false,
+  //   "biography/memoir": false,
+  //   humour: false,
+  //   art: false,
+  //   history: false,
+  //   cooking: false,
+  //   "children's": false,
+  //   poetry: false,
+  //   science: false,
+  //   "sci-fi/fantasy": false,
+  //   "self-help": false,
+  // });
 
-  useEffect(() => {
-    const selectedChips = function(chips) {
-      const result = [];
-      for (const genre in chips) {
-        if (chips[genre]) {
-          result.push(genre);
-        }
-      }
-      return result;
-    };
-    console.log("selectedchips", selectedChips(chips));
+  const [chips, setChips] = useState([]);
 
-    sendToDB({ ...userState, genres: selectedChips(chips) });
-  }, [chips]);
+  // const selectedChips = function(chips) {
+  //   const result = [];
+  //   for (const key in chips) {
+  //     if (chips[key]) {
+  //       result.push(key);
+  //     }
+  //   }
+  //   return result;
+  // };
 
-  const chipsHandler = (chipName) => {
-    console.log("you clicked the chip:", chipName.target.innerHTML);
-    setChips((prev) => ({
-      ...prev,
-      [chipName.target.innerHTML]: !chips[chipName.target.innerHTML],
-    }));
-    console.log("chips is:", chips);
-    // const chipClass = chips[chipName.target.innerHTML];
-    // console.log("chip class is", chipClass);
+  // const chipsHandler = (chipName) => {
+  //   setChips((prev) => ({
+  //     ...prev,
+  //     [chipName.target.innerHTML]: !chips[chipName.target.innerHTML],
+  //   }));
+  //   console.log("in chips handler, chips is", chips);
+  //   // console.log("selectedChips(chips)", selectedChips(chips));
+  //   const newUserObject = { ...userState, genres: chips };
+  //   sendToDB(newUserObject);
+  // };
+
+  //checkbox checked array.includes value
+  //taraget.value of genre .includes(genre)
+
+  const handleClick = function(genre) {
+    console.log("i am handling click and chips is", chips);
+    console.log("chips.includes(genre) is", chips.includes(genre));
+    if (chips.includes(genre)) {
+      //pop is wrong, need to grab specific one
+      setChips((prev) => {
+        // [...prev].pop(genre);
+        console.log("i should remove the genre");
+      });
+    } else {
+      setChips((prev) => {
+        [...prev].push(genre);
+      });
+      const newUserObject = { ...userState, genres: chips };
+      sendToDB(newUserObject);
+    }
   };
 
+  //create the chips
+
+  //genreData could be the array of genres
+
+  const genreData = [
+    "Mystery",
+    "Romance",
+    "Young Adult",
+    "Fiction",
+    "Science Fiction",
+    "Biography",
+  ];
   const genreChips = genreData.map((genre) => {
+    // if (!chips) {
+    //   return <Loading />;
+    // }
     return (
-      <span
-        className={classNames(
-          { selected: chips[genre.name] },
-          { deselected: !chips[genre.name] }
-        )}
-      >
-        <Chip
-          // icon={<FaceIcon />}
-          id={genre.id}
-          label={genre.name}
-          name={genre.name}
-          onClick={chipsHandler}
-          // onDelete={handleDelete}
-          variant="outlined"
-        />
-      </span>
+      <GenreChip
+        id={genre}
+        onClick={() => {
+          handleClick(genre);
+        }}
+        selected={chips.includes(genre) ? true : false}
+        // onDelete={handleDelete}
+      />
     );
   });
-  if (!userState) {
-    return <div>loading</div>;
+  if (!userState.id) {
+    return <Loading />;
   }
   return (
     <main>
@@ -189,7 +264,7 @@ export default function ProfileView(props) {
 
         <Slider
           id={"age"}
-          value={age}
+          value={[userState.age[0], userState.age[1]]}
           marks={ageMarks}
           max={thisYear - 1970}
           onChange={(event, newValue) => {
@@ -208,7 +283,7 @@ export default function ProfileView(props) {
       <div className="profile-preference">
         <span class="profile-label">Commitment level (page count)</span>
         <Slider
-          value={pageCount}
+          value={[userState.pageCount[0], userState.pageCount[1]]}
           marks={pageCountMarks}
           max={maxPageCountMark}
           onChange={(event, newValue) => {
@@ -227,7 +302,7 @@ export default function ProfileView(props) {
       <div className="profile-preference">
         <span class="profile-label">Date cost (price range)</span>
         <Slider
-          value={price}
+          value={[userState.price[0], userState.price[1]]}
           marks={priceMarks}
           max={maxPriceMark}
           onChange={(event, newValue) => {
@@ -246,7 +321,8 @@ export default function ProfileView(props) {
       <div className="profile-preference">
         <span class="profile-label">Maximum distance (to a bookstore)</span>
         <Slider
-          defaultValue={maxDistance}
+          value={userState.maxDistance}
+          // defaultValue={maxDistance}
           getAriaValueText={valuetext}
           aria-labelledby="discrete-slider-always"
           step={10}
@@ -269,7 +345,7 @@ export default function ProfileView(props) {
             Adventurous? (include mature content)
           </span>
           <Switch
-            // checked={true}
+            checked={userState.maturity}
             onChange={(event, newValue) => {
               setMaturity(newValue);
               handleChange(event, newValue, "maturity");

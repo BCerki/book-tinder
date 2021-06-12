@@ -1,4 +1,5 @@
 require("dotenv").config();
+require("./helpers/getSample");
 
 const Express = require("express");
 const App = Express();
@@ -9,6 +10,7 @@ const { Pool } = require("pg");
 // const getUserData = require("./routes/user");
 const { response } = require("express");
 const getLocation = require("./helpers/getLocation");
+const getSample = require("../react-front-end/src/helpers/getSample");
 
 // Express Configuration
 App.use(BodyParser.urlencoded({ extended: false }));
@@ -30,12 +32,33 @@ const pool = new Pool({
 //   })
 // );
 
-// BookTinder GET route /api/users/1/books/:id
-App.get("/api/books", (req, res) => {
+App.get("/api/sample/:isbn", (req, res) => {
+  console.log("req.params", req.params.isbn);
+
+  // return new Promise((resolve, reject) => {
+  getSample(req.params.isbn)
+    .then((response) => {
+      res.json(response);
+      console.log("response is", response);
+    })
+    .catch((err) => {
+      // reject(err.message);
+      res.status(500).send(err.message);
+    });
+  // });
+});
+
+// BookTinder GET route **WORKING**
+App.get("/api/users/:id/books", (req, res) => {
   return pool
     .query(
+<<<<<<< HEAD
       `SELECT * FROM books WHERE NOT EXISTS 
     (SELECT * FROM conversations WHERE books.id = conversations.book_id) 
+=======
+      `SELECT * FROM books WHERE NOT EXISTS
+    (SELECT * FROM conversations WHERE books.id = conversations.book_id)
+>>>>>>> master
     AND NOT EXISTS (SELECT * FROM block_user WHERE books.id = block_user.books_id)
     AND NOT EXISTS (SELECT * FROM rejected WHERE books.id = rejected.book_id)`
     )
@@ -50,32 +73,8 @@ App.get("/api/books", (req, res) => {
     });
 });
 
-// Users GET route
-App.get("/api/users", (req, res) => {
-  return pool
-    .query(`SELECT * FROM users`)
-    .then((result) => {
-      res.send(result.rows);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send(err.message);
-    });
-});
-
-// App.get("/api/location", (req, res) => {
-//   getLocation()
-//     .then(() => {
-//       res.status(200).send("ok from location");
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       res.status(500).send(err.message);
-//     });
-// });
-
 //Block book **WORKING**
-App.post("/api/blocked/:id", (req, res) => {
+App.post("/api/users/:id/blocked/:id", (req, res) => {
   const bookId = parseInt(req.params.id);
   const userId = 1;
 
@@ -94,10 +93,48 @@ App.post("/api/blocked/:id", (req, res) => {
     });
 });
 
-//Match/Convo GET route "/api/users/1/conversations/:id"
-App.get("/api/conversations", (req, res) => {
+<<<<<<< HEAD
+// App.get("/api/location", (req, res) => {
+//   getLocation()
+//     .then(() => {
+//       res.status(200).send("ok from location");
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       res.status(500).send(err.message);
+//     });
+// });
+
+//Block book **WORKING**
+App.post("/api/blocked/:id", (req, res) => {
+=======
+//Rejected Book (swipe left) **WORKING**
+App.post("/api/users/:id/rejected/:id", (req, res) => {
+>>>>>>> master
+  const bookId = parseInt(req.params.id);
+  const userId = 1;
+
+  const rejected = `INSERT INTO rejected (user_id, book_id) VALUES ($1, $2)`;
+
+  const values = [userId, bookId];
+
   return pool
-    .query(`SELECT * FROM conversations WHERE user_id = 1`)
+    .query(rejected, values)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(err.message);
+    });
+});
+
+//Match/Convo GET route **WORKING**
+App.get("/api/users/:id/conversations", (req, res) => {
+  return pool
+    .query(
+      `SELECT * FROM books WHERE EXISTS (SELECT * FROM conversations WHERE books.id = conversations.book_id)`
+    )
     .then((result) => {
       console.log("result:", result.rows);
       res.send(result.rows);
@@ -109,7 +146,7 @@ App.get("/api/conversations", (req, res) => {
 });
 
 //New match/convo **WORKING**
-App.post("/api/conversations/:id", (req, res) => {
+App.post("/api/users/:id/conversations/:id", (req, res) => {
   const userId = 1;
 
   const newMatch = `INSERT INTO conversations (user_id, book_id) VALUES ($1, $2)`;
@@ -127,8 +164,30 @@ App.post("/api/conversations/:id", (req, res) => {
     });
 });
 
+//Add message string to convo table **IN PROGRESS**
+App.put("/api/users/:id/conversations/:id", (req, res) => {
+
+  const newMessage = `UPDATE conversations SET message = $1 WHERE user_id = $2 AND book_id = $3`;
+
+  const values = [
+    // req.body.?? <-- string value goes here,
+    // req.body.id?? <-- is user id in the body?
+    req.params.id
+  ];
+
+  return pool
+    .query(newMessage, values)
+    .then((result) => {
+      return result.rows;
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(err.message);
+    });
+});
+
 //Delete book from convo table on block **WORKING**
-App.delete("/api/conversations/:id", (req, res) => {
+App.delete("/api/users/:id/conversations/:id", (req, res) => {
   const blockedConvo = `DELETE FROM conversations WHERE user_id = 1 AND book_id = $1`;
 
   const values = [req.params.id];
@@ -144,13 +203,46 @@ App.delete("/api/conversations/:id", (req, res) => {
     });
 });
 
-//Update user data in users table **WORKING**
-App.put("/api/users/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  console.log("body:", req.body);
+// Users GET route **WORKING**
+App.get("/api/users/:id", (req, res) => {
+  const userId = parseInt(req.params.id);
 
-  const updateUser = `UPDATE users SET name = $1, age = $2, page_count = $3, price = $4,
-  max_distance = $5, maturity = $6, genres = $7 WHERE id = $8 `;
+  const queryUser = `SELECT * FROM users WHERE id = $1`;
+
+  const values = [userId];
+
+  return pool
+    .query(queryUser, values)
+    .then((result) => {
+      const transformed = [];
+      for (const val of result.rows) {
+        const user = {
+          "id": val.id,
+          "name": val.name,
+          "age": val.age,
+          "pageCount": val.page_count,
+          "price": val.price,
+          "maxDistance": val.max_distance,
+          "maturity": val.maturity,
+          "genres": val.genres,
+          "postalCode": val.postal_code
+          }
+          transformed.push(user);
+      }
+      res.send(transformed);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(err.message);
+    });
+});
+
+//New user **WORKING**
+App.post("/api/users/:id", (req, res) => {
+  // const id = parseInt(req.params.id);
+
+  const newUser = `INSERT INTO users (name, age, page_count, price, max_distance, maturity, genres, postal_code)
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`;
 
   const values = [
     req.body.name,
@@ -160,6 +252,37 @@ App.put("/api/users/:id", (req, res) => {
     req.body.maxDistance,
     req.body.maturity,
     req.body.genres,
+    req.body.postalCode
+  ];
+
+  return pool
+    .query(newUser, values)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(err.message);
+    });
+});
+
+//Update user data in users table **WORKING**
+App.put("/api/users/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  console.log("body:", req.body);
+
+  const updateUser = `UPDATE users SET name = $1, age = $2, page_count = $3, price = $4,
+  max_distance = $5, maturity = $6, genres = $7, postal_code = $8 WHERE id = $9 `;
+
+  const values = [
+    req.body.name,
+    req.body.age,
+    req.body.pageCount,
+    req.body.price,
+    req.body.maxDistance,
+    req.body.maturity,
+    req.body.genres,
+    req.body.postalCode,
     id,
   ];
 

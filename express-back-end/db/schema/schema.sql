@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS books CASCADE;
 DROP TABLE IF EXISTS block_user CASCADE;
 DROP TABLE IF EXISTS genres CASCADE;
 DROP TABLE IF EXISTS genre_user CASCADE;
+DROP TABLE IF EXISTS rejected CASCADE;
 DROP TABLE IF EXISTS conversations CASCADE;
 DROP TABLE IF EXISTS messages CASCADE;
 
@@ -14,7 +15,8 @@ CREATE TABLE users (
   price TEXT[] NOT NULL,
   max_distance INTEGER NOT NULL,
   maturity BOOLEAN,
-  genres TEXT[]
+  genres TEXT[],
+  postal_code VARCHAR(7)
 );
 
 CREATE TABLE books (
@@ -56,7 +58,8 @@ CREATE TABLE rejected (
 CREATE TABLE conversations (
 id SERIAL PRIMARY KEY NOT NULL,
 user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-book_id INTEGER  REFERENCES books(id) ON DELETE CASCADE
+book_id INTEGER  REFERENCES books(id) ON DELETE CASCADE,
+message VARCHAR(5000)
 );
 
 CREATE TABLE messages (
