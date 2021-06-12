@@ -109,10 +109,13 @@ App.post("/api/users/:id/rejected/:id", (req, res) => {
 
 //Match/Convo GET route **WORKING**
 App.get("/api/users/:id/conversations", (req, res) => {
+  console.log("params", req.params)
+  console.log("body", req.body)
+  
+  const bookQuery = `SELECT * FROM books, conversations WHERE books.id = conversations.book_id AND conversations.user_id = 1`;
+  
   return pool
-    .query(
-      `SELECT * FROM books WHERE EXISTS (SELECT * FROM conversations WHERE books.id = conversations.book_id)`
-    )
+    .query(bookQuery)
     .then((result) => {
       console.log("result:", result.rows);
       res.send(result.rows);
