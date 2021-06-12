@@ -27,37 +27,41 @@ export default function ChatView(props) {
 
   const { currentChatBook, chatContext } = useContext(chatBookStateContext);
 
-  const [currentBook, setCurrentBook] = useState();
+  const [currentConversation, setCurrentConversation] = useState();
 
-  const bookId = Number(useLocation().pathname.replace("/matches/", ""));
+  const conversationId = Number(
+    useLocation().pathname.replace("/matches/", "")
+  );
   // console.log("bookId is", bookId);
 
   useEffect(() => {
-    if (bookId) {
+    if (conversationId) {
       axios
         .get(`/api/users/:id/conversations`)
         .then((result) => {
           //set currentBook state
-          const allBooks = result.data;
-          const chattingBook = allBooks.find((book) => book.id === bookId);
+          const allConversations = result.data;
+          const thisConversation = allConversations.find(
+            (conversation) => conversation.id === conversationId
+          );
           //does this even matter? I don't think I care about state except for messages
-          setCurrentBook(chattingBook);
+          setCurrentConversation(thisConversation);
 
-          const cacheName = `rsc_cache_${bookId}`;
+          const cacheName = `rsc_cache_${conversationId}`;
 
-          if (chattingBook.message) {
+          if (thisConversation.message) {
             //first arg is key, second is value (local storage stores using key-value pairs)
-            useLocalStorage(cacheName, chattingBook.message);
+            useLocalStorage(cacheName, thisConversation.message);
           }
 
-          const scripts = chattingBook.booknet_available
+          const scripts = thisConversation.booknet_available
             ? booknetScripts
             : otherScripts;
           // console.log("scripts is", scripts);
         })
         .catch(() => {});
     }
-  }, [bookId]);
+  }, [conversationId]);
 
   // console.log("in chat view before if current book is", currentBook);
 
@@ -81,13 +85,17 @@ export default function ChatView(props) {
   useEffect(() => {
     console.log(
       "sending this to db:",
-      window.localStorage.getItem(`rsc_cache_${bookId}`)
+      window.localStorage.getItem(`rsc_cache_${conversationId}`)
+    );
+    console.log(
+      "typeof cache is",
+      typeof window.localStorage.getItem(`rsc_cache_${conversationId}`)
     );
     axios
       //do I need to JSON parse this?
       .put(
-        `/api/users/:id/conversations/${bookId}`,
-        window.localStorage.getItem(`rsc_cache_${bookId}`)
+        `/api/users/:id/conversations/${conversationId}`,
+        window.localStorage.getItem(`rsc_cache_${conversationId}`)
       )
       .then(() => {
         console.log("successfully sent local storage to db");
@@ -97,21 +105,21 @@ export default function ChatView(props) {
       });
   }, []);
 
-  if (!currentBook) {
+  if (!currentConversation) {
     return <Loading />;
   }
   return (
     <>
       <BackBar
         className={"backBar"}
-        image={currentBook.image}
-        id={currentBook.id}
-        title={currentBook.title}
+        image={currentConversation.image}
+        id={currentConversation.id}
+        title={currentConversation.title}
       />
       <ChatBot
         // steps={chooseScript(scripts)} //for random scripts
         steps={testingScript}
-        cacheName={`rsc_cache_${currentBook.id}`}
+        cacheName={`rsc_cache_${currentConversation.id}`}
         cache={true}
         hideBotAvatar={true}
         hideUserAvatar={true}
