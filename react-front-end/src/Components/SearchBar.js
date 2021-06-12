@@ -26,18 +26,24 @@ import bookData from "../dummyData/dummyBookData";
 //   );
 // }
 
-export default function SearchBar() {
+export default function SearchBar({setSearchTitle, searchTitle}) {
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+  };
   
   return (
     <div className="search">
-      <form>
+      <form onSubmit = {handleSubmit}> 
         <input
         type="search"
         id="search-box"
         placeholder="search book titles"
+        value={searchTitle}
+        onChange = {(event) => setSearchTitle(event.target.value)}
         />
         <button type="submit">Search</button>
-        <button className="clear-search">Return</button>
+        <button className="clear-search" onClick={() => {setSearchTitle('')}}>Return</button>
       </form>
     </div>
   );
