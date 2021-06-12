@@ -1,5 +1,4 @@
 require("dotenv").config();
-require("./helpers/getSample");
 
 const Express = require("express");
 const App = Express();
@@ -9,8 +8,11 @@ const PORT = 8080;
 const { Pool } = require("pg");
 // const getUserData = require("./routes/user");
 const { response } = require("express");
-const getSample = require("../react-front-end/src/helpers/getSample");
 const { result } = require("lodash");
+
+// Helpers
+const getSample = require("./helpers/getSample");
+const getLocation = require("./helpers/getLocation");
 
 // Express Configuration
 App.use(BodyParser.urlencoded({ extended: false }));
@@ -32,20 +34,35 @@ const pool = new Pool({
 //   })
 // );
 
-App.get("/api/sample/:isbn", (req, res) => {
-  console.log("req.params", req.params.isbn);
-
-  // return new Promise((resolve, reject) => {
-  getSample(req.params.isbn)
+// getLocation helper
+App.get("/api/getlocation", (req, res) => {
+  console.log("LOG: server.js: /api/getLocation: At this route!");
+  const isbn = req.query.isbn;
+  const postal = req.query.postal;
+  const max_distance = req.query.max_distance;
+  getLocation(isbn, postal, max_distance)
     .then((response) => {
-      res.json(response);
-      console.log("response is", response);
+      console.log("LOG: server.js: /api/getLocation: response:", response);
+      res.status(200).send(response);
     })
     .catch((err) => {
-      // reject(err.message);
+      console.error(err);
       res.status(500).send(err.message);
     });
-  // });
+});
+
+// getSample helper
+App.get("/api/sample/:isbn", (req, res) => {
+  console.log("LOG: server.js: /api/sample/:isbn: At this route!");
+  getSample(req.params.isbn)
+    .then((response) => {
+      console.log("LOG: server.js: /api/sample: response:", response);
+      res.json(response);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(err.message);
+    });
 });
 
 // BookTinder GET route **WORKING**
@@ -100,7 +117,7 @@ App.post("/api/users/:id/rejected/:id", (req, res) => {
   return pool
     .query(rejected, values)
     .then((result) => {
-      console.log("what is this:", result)
+      console.log("what is this:", result);
       res.send(result.rows);
     })
     .catch((err) => {
@@ -111,9 +128,8 @@ App.post("/api/users/:id/rejected/:id", (req, res) => {
 
 //Match/Convo GET route **WORKING**
 App.get("/api/users/:id/conversations", (req, res) => {
-  
   const bookQuery = `SELECT * FROM books, conversations WHERE books.id = conversations.book_id AND conversations.user_id = 1`;
-  
+
   return pool
     .query(bookQuery)
     .then((result) => {
@@ -146,21 +162,18 @@ App.post("/api/users/:id/conversations/:id", (req, res) => {
 
 //Add message string to convo table **IN PROGRESS**
 App.put("/api/users/:id/conversations/:id", (req, res) => {
-  convoId = parseInt(req.params.id)
+  convoId = parseInt(req.params.id);
   console.log("params are:", req.params);
   console.log("body is:", req.body);
 
   const newMessage = `UPDATE conversations SET message = $1 WHERE id = $2`;
 
-  const values = [
-    req.body,
-    convoId
-  ];
+  const values = [req.body, convoId];
 
   return pool
     .query(newMessage, values)
     .then((result) => {
-      console.log(result)
+      console.log(result);
       res.send(result.rows);
     })
     .catch((err) => {
@@ -200,17 +213,17 @@ App.get("/api/users/:id", (req, res) => {
       const transformed = [];
       for (const val of result.rows) {
         const user = {
-          "id": val.id,
-          "name": val.name,
-          "age": val.age,
-          "pageCount": val.page_count,
-          "price": val.price,
-          "maxDistance": val.max_distance,
-          "maturity": val.maturity,
-          "genres": val.genres,
-          "postalCode": val.postal_code
-          }
-          transformed.push(user);
+          id: val.id,
+          name: val.name,
+          age: val.age,
+          pageCount: val.page_count,
+          price: val.price,
+          maxDistance: val.max_distance,
+          maturity: val.maturity,
+          genres: val.genres,
+          postalCode: val.postal_code,
+        };
+        transformed.push(user);
       }
       res.send(transformed);
     })
@@ -235,7 +248,7 @@ App.post("/api/users/:id", (req, res) => {
     req.body.maxDistance,
     req.body.maturity,
     req.body.genres,
-    req.body.postalCode
+    req.body.postalCode,
   ];
 
   return pool
