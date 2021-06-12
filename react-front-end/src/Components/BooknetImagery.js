@@ -42,10 +42,10 @@ export default function BooketImagery(props) {
     );
   }
   if (props.requestedInfo === "backCover") {
-    return <img src={} alt={match.title} />;
+    return <img src={"e"} alt={match.title} />;
   }
   if (props.requestedInfo === "authorPhoto") {
-    return <img src={} alt={match.title} />;
+    return <img src={"e"} alt={match.title} />;
   }
 
   return <div>Sorry, I'm shy</div>;
