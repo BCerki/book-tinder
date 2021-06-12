@@ -19,6 +19,8 @@ import { Link } from "react-router-dom";
 import "../styles/booksView.scss";
 
 export default function BooksView(props) {
+
+
   //functions for book state
   // const { providerBook, getConversations } = useContext(bookStateContext);
 
@@ -74,6 +76,19 @@ export default function BooksView(props) {
     return thisYear - Number(date.substring(0, 4));
   };
 
+  //FOR SEARCH BAR
+  const [searchTitle, setSearchTitle] = useState('');
+
+  const filterMatches = () => {
+    const filteredBooks = matches.filter(book => {
+      if (searchTitle === '') {
+        return book;
+      }
+      const newBook = book.title.toLowerCase().includes(searchTitle.toLowerCase());
+    });
+  };
+
+
   const bookCards = matches.map((book) => {
     return (
       <Link to={`/matches/${book.id}`} className="bookCardLink">
@@ -102,7 +117,10 @@ export default function BooksView(props) {
   return (
     <>
       <section className="search-bar">
-        <SearchBar />
+        <SearchBar 
+          setSearchTitle = {setSearchTitle}
+          searchTitle = {searchTitle}
+        />
       </section>
       <section className="toggle">
         <span className="toggle-label">Info</span>
