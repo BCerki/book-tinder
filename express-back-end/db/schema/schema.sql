@@ -3,9 +3,9 @@ DROP TABLE IF EXISTS books CASCADE;
 DROP TABLE IF EXISTS block_user CASCADE;
 DROP TABLE IF EXISTS genres CASCADE;
 DROP TABLE IF EXISTS genre_user CASCADE;
-DROP TABLE IF EXISTS rejected;
+DROP TABLE IF EXISTS rejected CASCADE;
 DROP TABLE IF EXISTS conversations CASCADE;
--- DROP TABLE IF EXISTS messages CASCADE;
+DROP TABLE IF EXISTS messages CASCADE;
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
@@ -27,7 +27,7 @@ author VARCHAR(255) NOT NULL,
 image VARCHAR,
 description VARCHAR,
 page_count INTEGER,
-publish_date DATE,DROP TABLE IF EXISTS messages CASCADE;
+publish_date DATE,
 price INTEGER,
 booknet_available BOOLEAN
 );
@@ -59,13 +59,13 @@ CREATE TABLE conversations (
 id SERIAL PRIMARY KEY NOT NULL,
 user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
 book_id INTEGER  REFERENCES books(id) ON DELETE CASCADE,
-message VARCHAR(MAX)
+message VARCHAR(5000)
 );
 
--- CREATE TABLE messages (
--- id SERIAL PRIMARY KEY NOT NULL,
--- participant_id INTEGER,
--- conversations_id INTEGER REFERENCES conversations(id) ON DELETE CASCADE,
--- body TEXT,
--- timestamp TIMESTAMP
--- );
+CREATE TABLE messages (
+id SERIAL PRIMARY KEY NOT NULL,
+participant_id INTEGER,
+conversations_id INTEGER REFERENCES conversations(id) ON DELETE CASCADE,
+body TEXT,
+timestamp TIMESTAMP
+);
