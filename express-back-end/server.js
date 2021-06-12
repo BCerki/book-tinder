@@ -142,6 +142,28 @@ App.post("/api/users/:id/conversations/:id", (req, res) => {
     });
 });
 
+//Add message string to convo table **IN PROGRESS**
+App.put("/api/users/:id/conversations/:id", (req, res) => {
+
+  const newMessage = `UPDATE conversations SET message = $1 WHERE user_id = $2 AND book_id = $3`;
+
+  const values = [
+    // req.body.?? <-- string value goes here,
+    // req.body.id?? <-- is user id in the body?
+    req.params.id
+  ];
+
+  return pool
+    .query(newMessage, values)
+    .then((result) => {
+      return result.rows;
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(err.message);
+    });
+});
+
 //Delete book from convo table on block **WORKING**
 App.delete("/api/users/:id/conversations/:id", (req, res) => {
   const blockedConvo = `DELETE FROM conversations WHERE user_id = 1 AND book_id = $1`;
