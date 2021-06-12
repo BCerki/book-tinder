@@ -27,20 +27,12 @@
   flex-wrap: wrap;
 }
 .selected {
-  .MuiChip-clickable {
-    background-color: lightseagreen !important;
-    margin-right: $spacinghalf;
-  }
+  background-color: lightseagreen !important;
+  margin-right: $spacinghalf;
 }
 .deselected {
-  .MuiChip-clickable {
-    opacity: 0.5 !important;
-    margin-right: $spacinghalf;
-  }
-}
-
-//labels under sliders HELP HELP FIX FIX
-.MuiSlider-markLabel {
+  opacity: 0.5 !important;
+  margin-right: $spacinghalf;
 }
 
 .labels {

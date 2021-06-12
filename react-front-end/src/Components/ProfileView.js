@@ -6,6 +6,7 @@ import Slider from "@material-ui/core/Slider";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
 import Checkbox from "@material-ui/core/Checkbox";
+import GenreChip from "./GenreChip";
 
 import Switch from "@material-ui/core/Switch";
 // import genreData from "../dummyData/dummyGenreData";
@@ -204,38 +205,49 @@ export default function ProfileView(props) {
   //checkbox checked array.includes value
   //taraget.value of genre .includes(genre)
 
-  const handleCheck = function(event, genre) {
+  const handleClick = function(genre) {
+    console.log("i am handling click and chips is", chips);
+    console.log("chips.includes(genre) is", chips.includes(genre));
     if (chips.includes(genre)) {
       //pop is wrong, need to grab specific one
       setChips((prev) => {
-        [...prev].pop(genre);
+        // [...prev].pop(genre);
+        console.log("i should remove the genre");
       });
     } else {
       setChips((prev) => {
         [...prev].push(genre);
       });
+      const newUserObject = { ...userState, genres: chips };
+      sendToDB(newUserObject);
     }
   };
 
   //create the chips
+
   //genreData could be the array of genres
 
-  const genreData = ["mystery", "romance", "adventure"];
+  const genreData = [
+    "Mystery",
+    "Romance",
+    "Young Adult",
+    "Fiction",
+    "Science Fiction",
+    "Biography",
+  ];
   const genreChips = genreData.map((genre) => {
+    // if (!chips) {
+    //   return <Loading />;
+    // }
     return (
-      // <span
-      //   className={classNames(
-      //     { selected: chips[genre.name] },
-      //     { deselected: !chips[genre.name] }
-      //   )}
-      // >
-      <Checkbox
+      <GenreChip
         id={genre}
-        label={genre}
-        onClick={handleCheck}
+        onClick={() => {
+          handleClick(genre);
+        }}
+        selected={chips.includes(genre) ? true : false}
         // onDelete={handleDelete}
       />
-      // </span>
     );
   });
   if (!userState.id) {
