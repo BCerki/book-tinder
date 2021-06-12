@@ -23,8 +23,6 @@ const chooseScript = function(scripts) {
 };
 
 export default function ChatView(props) {
-  // const { currentBook, providerBook } = useContext(bookStateContext);
-
   const { currentChatBook, chatContext } = useContext(chatBookStateContext);
 
   const [currentConversation, setCurrentConversation] = useState();
@@ -32,7 +30,6 @@ export default function ChatView(props) {
   const conversationId = Number(
     useLocation().pathname.replace("/matches/", "")
   );
-  // console.log("bookId is", bookId);
 
   useEffect(() => {
     if (conversationId) {
@@ -57,29 +54,10 @@ export default function ChatView(props) {
           const scripts = thisConversation.booknet_available
             ? booknetScripts
             : otherScripts;
-          // console.log("scripts is", scripts);
         })
         .catch(() => {});
     }
   }, [conversationId]);
-
-  // console.log("in chat view before if current book is", currentBook);
-
-  // const routeNumber = useLocation().pathname.replace("/books/", "");
-
-  // if (!currentBook) {
-  //   providerBook(routeNumber);
-  // }
-  // console.log("in chat view after if current book is", currentBook);
-
-  //COMMENT THESE IN AND OUT IF DB DOWN
-
-  // if (window.localStorage[cacheName]) {
-  //   const [conversation, setConversation] = useLocalStorage(
-  //     cacheName,
-  //     window.localStorage[cacheName]
-  //   );
-  // }
 
   //what is the change handler for the chatbot? this is currently only firing on the first render
   useEffect(() => {
