@@ -145,13 +145,15 @@ App.post("/api/users/:id/conversations/:id", (req, res) => {
 
 //Add message string to convo table **IN PROGRESS**
 App.put("/api/users/:id/conversations/:id", (req, res) => {
-  bookId = parseInt(req.params.id)
+  convoId = parseInt(req.params.id)
+  console.log("params are:", req.params);
+  console.log("body is:", req.body);
 
-  const newMessage = `UPDATE conversations SET message = $1 WHERE book_id = $2`;
+  const newMessage = `UPDATE conversations SET message = $1 WHERE id = $2`;
 
   const values = [
     req.body,
-    bookId
+    convoId
   ];
 
   return pool
