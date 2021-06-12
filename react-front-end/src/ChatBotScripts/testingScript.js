@@ -26,17 +26,17 @@ const testingScript = [
         requestedInfo={"interiorImage"}
       />
     ),
+    trigger: "4",
   },
-  // { id: "4", message: "Click yes for the materials" },
-  // {
-  //   id: "5",
-  //   options: [{ value: 1, label: "yes", trigger: "6"
-  // }],
-  // },
-  // {
-  //   id: "6",
-  //   component: <BooknetQuote />,
-  //   // message: "just kidding, not ready yet",
-  // },
+  { id: "4", message: "Click yes for a quote", trigger: "5" },
+  {
+    id: "5",
+    options: [{ value: 1, label: "yes", trigger: "6" }],
+  },
+  {
+    id: "6",
+    component: <BooknetQuote />,
+    // message: "just kidding, not ready yet",
+  },
 ];
 export default testingScript;

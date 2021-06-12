@@ -53,7 +53,7 @@ export default function BooknetQuote(props) {
   }
   return (
     <div>
-      <span>{quote}</span>
+      <span>i am a quote: {quote}</span>
     </div>
   );
 }
