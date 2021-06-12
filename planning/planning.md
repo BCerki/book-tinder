@@ -112,3 +112,15 @@ api/users/1/profile --- DONE
 
 api/users/1/profile/1
 --- front-end uses this for the profile view
+
+## Book flirts
+
+Tell me more--google api long description
+Send pictures--interior image
+What's your favourite quote? --book quote
+Can I see a photo of your behind? Would you like to see me from behind?--back cover
+Want to see what I look like under the covers?--interior image
+Want to see/join my table of conquests?--TOC
+Want to see if I come from good stock? Here are my parents--author photo
+Maybe when you pick me up and bring me back to your place, I could teach you a thing or two?--teacher's guide
+Maybe we could end the night between my endsheets?
