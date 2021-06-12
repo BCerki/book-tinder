@@ -27,7 +27,7 @@ author VARCHAR(255) NOT NULL,
 image VARCHAR,
 description VARCHAR,
 page_count INTEGER,
-publish_date DATE,
+publish_date DATE,DROP TABLE IF EXISTS messages CASCADE;
 price INTEGER,
 booknet_available BOOLEAN
 );
