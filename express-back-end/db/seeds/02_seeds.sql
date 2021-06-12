@@ -1,5 +1,5 @@
 INSERT INTO users (name, age, page_count, price, max_distance, maturity, genres, postal_code)
-VALUES ('Sandra Gardiner', ARRAY[20, 40], ARRAY[256, 512], ARRAY[10, 30], 80, false, ARRAY['Mystery', 'Romance', 'Young Adult', 'Fiction', 'Science Fiction'], 'V6B 5A1');
+VALUES ('Sandra Gardiner', ARRAY[20, 40], ARRAY[256, 512], ARRAY[10, 30], 80, false, ARRAY['Mystery', 'Romance', 'Young Adult', 'Fiction', 'Science Fiction'], 'V6B5A1');
 
 
 INSERT INTO block_user (users_id, books_id)
