@@ -109,15 +109,13 @@ App.post("/api/users/:id/rejected/:id", (req, res) => {
 
 //Match/Convo GET route **WORKING**
 App.get("/api/users/:id/conversations", (req, res) => {
-  console.log("params", req.params)
-  console.log("body", req.body)
   
   const bookQuery = `SELECT * FROM books, conversations WHERE books.id = conversations.book_id AND conversations.user_id = 1`;
   
   return pool
     .query(bookQuery)
     .then((result) => {
-      console.log("result:", result.rows);
+      
       res.send(result.rows);
     })
     .catch((err) => {
@@ -147,13 +145,13 @@ App.post("/api/users/:id/conversations/:id", (req, res) => {
 
 //Add message string to convo table **IN PROGRESS**
 App.put("/api/users/:id/conversations/:id", (req, res) => {
+  bookId = parseInt(req.params.id)
 
-  const newMessage = `UPDATE conversations SET message = $1 WHERE user_id = $2 AND book_id = $3`;
+  const newMessage = `UPDATE conversations SET message = $1 WHERE book_id = $2`;
 
   const values = [
-    // req.body.?? <-- string value goes here,
-    // req.body.id?? <-- is user id in the body?
-    req.params.id
+    req.boody,
+    bookId
   ];
 
   return pool
