@@ -150,7 +150,7 @@ App.put("/api/users/:id/conversations/:id", (req, res) => {
   const newMessage = `UPDATE conversations SET message = $1 WHERE book_id = $2`;
 
   const values = [
-    req.boody,
+    req.body,
     bookId
   ];
 
