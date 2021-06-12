@@ -159,7 +159,7 @@ App.delete("/api/users/:id/conversations/:id", (req, res) => {
     });
 });
 
-// Users GET route **IN PROGRESS**
+// Users GET route **WORKING**
 App.get("/api/users/:id", (req, res) => {
   const userId = parseInt(req.params.id);
 
@@ -192,7 +192,7 @@ App.get("/api/users/:id", (req, res) => {
     });
 });
 
-//New user **IN PROGRESS**
+//New user **WORKING**
 App.post("/api/users/:id", (req, res) => {
   // const id = parseInt(req.params.id);
 
