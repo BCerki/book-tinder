@@ -5,6 +5,7 @@ import otherScripts from "../ChatBotScripts/otherScripts";
 import testingScript from "../ChatBotScripts/testingScript";
 import _ from "lodash";
 import BackBar from "./BackBar";
+import Loading from "./Loading";
 import ReactDOM from "react-dom";
 import useLocalStorage from "react-use-localstorage";
 import { bookStateContext } from "../providers/BookStateProvider";
@@ -78,7 +79,7 @@ export default function ChatView(props) {
   }
   //Make a loading component for everything later FIXFIX
   if (!currentBook) {
-    return <div>loading</div>;
+    return <Loading />;
   }
   return (
     <>

@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { bookStateContext } from "../providers/BookStateProvider";
-
+import Loading from "./Loading";
 import axios from "axios";
 
 //import components
@@ -87,7 +87,7 @@ export default function BooksView(props) {
           coverImage={book.image}
           description={book.description}
           isbn={book.isbn}
-          pageCount={book.page_count}
+          pageCount={book.pageCount}
           price={book.price}
           age={parseAge(book.publish_date)}
           toggle={toggle}
@@ -97,7 +97,7 @@ export default function BooksView(props) {
   });
 
   if (!matches) {
-    return <div>loading</div>;
+    return <Loading />;
   }
   return (
     <>

@@ -5,9 +5,11 @@ import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
+import Checkbox from "@material-ui/core/Checkbox";
 
 import Switch from "@material-ui/core/Switch";
-import genreData from "../dummyData/dummyGenreData";
+// import genreData from "../dummyData/dummyGenreData";
+import Loading from "./Loading";
 import classNames from "classnames";
 import axios from "axios";
 
@@ -39,31 +41,42 @@ export default function ProfileView(props) {
   //set user state--ultimately get starting state from hook
 
   //should it be an object, not an array, from DB?
+  // const [userState, setUserState] = useState({
+  //   id: 1,
+  //   name: "Sandra Gardiner",
+  //   age: [20, 40],
+  //   pageCount: [256, 512],
+  //   price: [10, 30],
+  //   maxDistance: 80,
+  //   maturity: false,
+  //   genres: [],
+  // });
+
   const [userState, setUserState] = useState({
-    id: 1,
-    name: "Sandra Gardiner",
-    age: [20, 40],
-    pageCount: [256, 512],
-    price: [10, 30],
-    maxDistance: 80,
-    maturity: false,
+    id: null,
+    name: "",
+    age: [],
+    pageCount: [],
+    price: [],
+    maxDistance: null,
+    maturity: null,
     genres: [],
   });
-
-  // const [userState, setUserState] = useState({});
-  // useEffect(() => {
-  //   axios
-  //     //update route if doing multiple users
-  //     .get("/api/users/1")
-  //     .then((result) => {
-  //       setUserState(result.data[0]);
-  //       console.log(
-  //         "i am in axios get for user, result.data[0] is:",
-  //         result.data[0]
-  //       );
-  //     })
-  //     .catch((err) => console.log("Error message:", err.message));
-  // }, []);
+  //set them all to blank
+  useEffect(() => {
+    axios
+      //update route if doing multiple users
+      .get("/api/users/1")
+      .then((result) => {
+        setUserState(result.data[0]);
+        console.log(
+          "i am in axios get for user, result.data[0] is:",
+          result.data[0]
+        );
+        setChips(result.data[0].genres);
+      })
+      .catch((err) => console.log("Error message:", err.message));
+  }, []);
 
   //send to db
   const sendToDB = function(userObject) {
@@ -72,7 +85,7 @@ export default function ProfileView(props) {
     console.log("userobject.id is", userObject.id);
     console.log("userstate.id is", userState.id);
     setUserState(userObject);
-    //MICHELLE
+
     axios
       .put(`/api/users/${userState.id}`, userObject)
       .then((result) => {
@@ -146,61 +159,90 @@ export default function ProfileView(props) {
 
   //Chip functions
 
-  //onClick FIX FIX
-  const [chips, setChips] = useState({
-    mystery: false,
-    romance: false,
-    adventure: false,
-  });
+  //onClick FIX FIX use incoming state
+  // const [chips, setChips] = useState({
+  //   mystery: false,
+  //   romance: false,
+  //   adventure: false,
+  //   literary: false,
+  //   "non-fiction": false,
+  //   "biography/memoir": false,
+  //   humour: false,
+  //   art: false,
+  //   history: false,
+  //   cooking: false,
+  //   "children's": false,
+  //   poetry: false,
+  //   science: false,
+  //   "sci-fi/fantasy": false,
+  //   "self-help": false,
+  // });
 
-  const selectedChips = function(chips) {
-    const result = [];
-    for (const key in chips) {
-      if (chips[key]) {
-        result.push(key);
-      }
+  const [chips, setChips] = useState([]);
+
+  // const selectedChips = function(chips) {
+  //   const result = [];
+  //   for (const key in chips) {
+  //     if (chips[key]) {
+  //       result.push(key);
+  //     }
+  //   }
+  //   return result;
+  // };
+
+  // const chipsHandler = (chipName) => {
+  //   setChips((prev) => ({
+  //     ...prev,
+  //     [chipName.target.innerHTML]: !chips[chipName.target.innerHTML],
+  //   }));
+  //   console.log("in chips handler, chips is", chips);
+  //   // console.log("selectedChips(chips)", selectedChips(chips));
+  //   const newUserObject = { ...userState, genres: chips };
+  //   sendToDB(newUserObject);
+  // };
+
+  //checkbox checked array.includes value
+  //taraget.value of genre .includes(genre)
+
+  const handleCheck = function(event, genre) {
+    if (chips.includes(genre)) {
+      //pop is wrong, need to grab specific one
+      setChips((prev) => {
+        [...prev].pop(genre);
+      });
+    } else {
+      setChips((prev) => {
+        [...prev].push(genre);
+      });
     }
-    return result;
-  };
-
-  const chipsHandler = (chipName) => {
-    setChips((prev) => ({
-      ...prev,
-      [chipName.target.innerHTML]: !chips[chipName.target.innerHTML],
-    }));
-    console.log("in chips handler, chips is", chips);
-    console.log("selectedChips(chips)", selectedChips(chips));
-    const newUserObject = { ...userState, genres: selectedChips(chips) };
-    sendToDB(newUserObject);
   };
 
   //create the chips
+  //genreData could be the array of genres
+
+  const genreData = ["mystery", "romance", "adventure"];
   const genreChips = genreData.map((genre) => {
     return (
-      <span
-        className={classNames(
-          { selected: chips[genre.name] },
-          { deselected: !chips[genre.name] }
-        )}
-      >
-        <Chip
-          // icon={<FaceIcon />}
-          id={genre.id}
-          label={genre.name}
-          name={genre.name}
-          onClick={chipsHandler}
-          // onDelete={handleDelete}
-          variant="outlined"
-        />
-      </span>
+      // <span
+      //   className={classNames(
+      //     { selected: chips[genre.name] },
+      //     { deselected: !chips[genre.name] }
+      //   )}
+      // >
+      <Checkbox
+        id={genre}
+        label={genre}
+        onClick={handleCheck}
+        // onDelete={handleDelete}
+      />
+      // </span>
     );
   });
-  if (!userState) {
-    return <div>loading</div>;
+  if (!userState.id) {
+    return <Loading />;
   }
   return (
     <main>
-      <div>{userState.id}</div>
       <div className="profile-avatar">
         <Avatar className={classes.large} />
       </div>
@@ -210,7 +252,7 @@ export default function ProfileView(props) {
 
         <Slider
           id={"age"}
-          value={age}
+          value={[userState.age[0], userState.age[1]]}
           marks={ageMarks}
           max={thisYear - 1970}
           onChange={(event, newValue) => {
@@ -229,7 +271,7 @@ export default function ProfileView(props) {
       <div className="profile-preference">
         <span class="profile-label">Commitment level (page count)</span>
         <Slider
-          value={pageCount}
+          value={[userState.pageCount[0], userState.pageCount[1]]}
           marks={pageCountMarks}
           max={maxPageCountMark}
           onChange={(event, newValue) => {
@@ -248,7 +290,7 @@ export default function ProfileView(props) {
       <div className="profile-preference">
         <span class="profile-label">Date cost (price range)</span>
         <Slider
-          value={price}
+          value={[userState.price[0], userState.price[1]]}
           marks={priceMarks}
           max={maxPriceMark}
           onChange={(event, newValue) => {
@@ -267,7 +309,8 @@ export default function ProfileView(props) {
       <div className="profile-preference">
         <span class="profile-label">Maximum distance (to a bookstore)</span>
         <Slider
-          defaultValue={maxDistance}
+          value={userState.maxDistance}
+          // defaultValue={maxDistance}
           getAriaValueText={valuetext}
           aria-labelledby="discrete-slider-always"
           step={10}
@@ -290,7 +333,7 @@ export default function ProfileView(props) {
             Adventurous? (include mature content)
           </span>
           <Switch
-            // checked={true}
+            checked={userState.maturity}
             onChange={(event, newValue) => {
               setMaturity(newValue);
               handleChange(event, newValue, "maturity");

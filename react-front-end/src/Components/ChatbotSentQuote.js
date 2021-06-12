@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { chatBookStateContext } from "../providers/ChatBookStateProvider";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import Loading from "./Loading";
 // import getSample from "../helpers/getSample";
 // import getSample from "../../../express-back-end/helpers/getSample";
 
@@ -33,25 +34,26 @@ export default function ChatbotSentPic(props) {
           //     .catch(() => console.log("failed to send to Adrian"));
           //
         })
-        .catch(() => {});
-
-      axios
-        .get(`/api/sample/9781770415034`)
-        .then((result) => {
-          console.log("this should be some quotes", result.data);
-          setQuote(result.data);
+        .then(() => {
+          axios
+            .get(`/api/sample/${currentBook.isbn}`)
+            .then((result) => {
+              console.log("this should be some quotes", result.data);
+              setQuote(result.data);
+            })
+            .catch((err) => console.log("Error:", err.message));
         })
-        .catch((err) => console.log("Error:", err.message));
+        .catch(() => {});
     }
   }, []);
 
   // console.log("currentChatBook in chatbotsentpic is:", currentChatBook);
   if (!currentBook) {
-    return <div>loading</div>;
+    return <Loading />;
   }
   return (
     <div>
-      <span>i am a quote: {quote}</span>
+      <span>{quote}</span>
     </div>
   );
 }

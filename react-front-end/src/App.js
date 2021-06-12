@@ -47,6 +47,10 @@ export default function AppRouter() {
             <SwipeView />
             <Footer />
           </Route>
+          <Route path="/">
+            <SwipeView />
+            <Footer />
+          </Route>
         </Switch>
       </Router>
     </UserStateProvider>
