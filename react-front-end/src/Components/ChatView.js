@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ChatBot from "react-simple-chatbot";
 import booknetScripts from "../ChatBotScripts/booknetScripts";
 import otherScripts from "../ChatBotScripts/otherScripts";
@@ -6,11 +6,10 @@ import testingScript from "../ChatBotScripts/testingScript";
 import _ from "lodash";
 import BackBar from "./BackBar";
 import Loading from "./Loading";
-import ReactDOM from "react-dom";
+
 import useLocalStorage from "react-use-localstorage";
-import { bookStateContext } from "../providers/BookStateProvider";
+
 import { useLocation } from "react-router-dom";
-import { chatBookStateContext } from "../providers/ChatBookStateProvider";
 
 //Styling
 import "../styles/chatView.scss";
@@ -23,14 +22,12 @@ const chooseScript = function(scripts) {
 };
 
 export default function ChatView(props) {
-  const { currentChatBook, chatContext } = useContext(chatBookStateContext);
-
   const [currentConversation, setCurrentConversation] = useState();
 
   const [state, setState] = useState();
 
+  //Function to change state every time a user clicks (stand-in for every time the conversation changes; the chatbot manages its own state, so I can't hook into it. If the user's going to type, we'll have to adjust)
   const hackyFunction = function() {
-    console.log("i am in hacky function");
     setState(state + 1);
   };
 
@@ -50,8 +47,6 @@ export default function ChatView(props) {
           const thisConversation = allConversations.find(
             (conversation) => conversation.id === conversationId
           );
-          //does this even matter? I don't think I care about state except for messages
-          setCurrentConversation(thisConversation);
 
           const cacheName = `rsc_cache_${conversationId}`;
 
@@ -68,7 +63,7 @@ export default function ChatView(props) {
     }
   }, [conversationId]);
 
-  //what is the change handler for the chatbot? this is currently only firing on the first render
+  //Send to DB every time the user clicks
   useEffect(() => {
     console.log(
       "sending this to db:",
@@ -79,7 +74,7 @@ export default function ChatView(props) {
       typeof window.localStorage.getItem(`rsc_cache_${conversationId}`)
     );
     axios
-      //do I need to JSON parse this?
+
       .put(
         `/api/users/:id/conversations/${conversationId}`,
         window.localStorage.getItem(`rsc_cache_${conversationId}`)
