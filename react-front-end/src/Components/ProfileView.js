@@ -58,6 +58,7 @@ export default function ProfileView(props) {
     name: "",
     age: [],
     pageCount: [],
+    postalCode: null,
     price: [],
     maxDistance: null,
     maturity: null,
@@ -259,6 +260,7 @@ export default function ProfileView(props) {
         <Avatar className={classes.large} />
       </div>
       <div className="user">{userState.name}</div>
+      <div>{userState.postalCode}</div>
       <div className="profile-preference">
         <span className="profile-label">Age range (publication date)</span>
 

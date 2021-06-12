@@ -25,14 +25,37 @@
   margin-top: $spacinghalf;
   display: flex;
   flex-wrap: wrap;
+  gap: $spacinghalf;
 }
 .selected {
-  background-color: lightseagreen !important;
-  margin-right: $spacinghalf;
+  background-color: lightseagreen;
+  // margin-right: $spacinghalf;
+  border: 2px lightgrey solid;
+  border-radius: 16px;
+  padding: 0.25em 0.5em;
+  height: 1em;
+  display: flex;
+  align-items: center;
+  .chipText {
+    font-size: 0.75em;
+    color: lightgrey;
+  }
 }
 .deselected {
-  opacity: 0.5 !important;
-  margin-right: $spacinghalf;
+  border: 2px lightgrey solid;
+  border-radius: 16px;
+  padding: 0.25em 0.5em;
+  height: 1em;
+  display: flex;
+  align-items: center;
+  .chipText {
+    font-size: 0.75em;
+    color: black;
+  }
+}
+
+.chipText {
+  font-size: 0.75em;
 }
 
 .labels {
