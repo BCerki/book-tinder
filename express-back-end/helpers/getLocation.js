@@ -3,8 +3,10 @@ const fetch = require("node-fetch");
 // require("dotenv").config({ path: `../.env.` });
 // require("dotenv").config({ path: __dirname + `/../.env` });
 // const { BOOKMANAGER_API_KEY } = require(".env");
+// require("dotenv").config();
+const BOOKMANAGER_API_KEY = process.env.BOOKMANAGER_API_KEY;
 
-const { BOOKMANAGER_API_KEY } = require("../.secrets");
+// const { BOOKMANAGER_API_KEY } = require("../.secrets");
 
 const getLocation = async (isbn, postal, distance) => {
   console.log("getLocation function called...");

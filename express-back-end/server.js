@@ -52,13 +52,8 @@ App.get("/api/sample/:isbn", (req, res) => {
 App.get("/api/users/:id/books", (req, res) => {
   return pool
     .query(
-<<<<<<< HEAD
-      `SELECT * FROM books WHERE NOT EXISTS 
-    (SELECT * FROM conversations WHERE books.id = conversations.book_id) 
-=======
       `SELECT * FROM books WHERE NOT EXISTS
     (SELECT * FROM conversations WHERE books.id = conversations.book_id)
->>>>>>> master
     AND NOT EXISTS (SELECT * FROM block_user WHERE books.id = block_user.books_id)
     AND NOT EXISTS (SELECT * FROM rejected WHERE books.id = rejected.book_id)`
     )
@@ -93,7 +88,6 @@ App.post("/api/users/:id/blocked/:id", (req, res) => {
     });
 });
 
-<<<<<<< HEAD
 // App.get("/api/location", (req, res) => {
 //   getLocation()
 //     .then(() => {
@@ -107,10 +101,8 @@ App.post("/api/users/:id/blocked/:id", (req, res) => {
 
 //Block book **WORKING**
 App.post("/api/blocked/:id", (req, res) => {
-=======
 //Rejected Book (swipe left) **WORKING**
 App.post("/api/users/:id/rejected/:id", (req, res) => {
->>>>>>> master
   const bookId = parseInt(req.params.id);
   const userId = 1;
 
