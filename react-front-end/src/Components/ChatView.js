@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import ChatBot from "react-simple-chatbot";
 import booknetScripts from "../ChatBotScripts/booknetScripts";
 import otherScripts from "../ChatBotScripts/otherScripts";
@@ -14,6 +14,9 @@ import { useLocation } from "react-router-dom";
 //Styling
 import "../styles/chatView.scss";
 import axios from "axios";
+
+//bookmanager
+import BookManagerLocation from "./BookManagerLocation";
 
 //helper function
 const chooseScript = function(scripts) {
@@ -101,7 +104,21 @@ export default function ChatView(props) {
       />
       <ChatBot
         // steps={chooseScript(scripts)} //for random scripts
-        steps={testingScript}
+        steps={[
+          {
+            id: "1",
+            message: "Click yes for the date",
+            trigger: "2",
+          },
+          {
+            id: "2",
+            options: [{ value: 1, label: "yes", trigger: "3" }],
+          },
+          {
+            id: "3",
+            component: <BookManagerLocation />,
+          },
+        ]}
         cacheName={`rsc_cache_${currentConversation.id}`}
         cache={true}
         hideBotAvatar={true}
