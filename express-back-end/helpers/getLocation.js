@@ -17,7 +17,7 @@ const getLocation = async (isbn, postal, max_distance) => {
     fetch("https://api.bookmanager.com/tbm/nearbyStores/get", {
       method: "POST",
       body: formData,
-      headers: { origin: "http://localhost:8080" },
+      headers: { origin: "http://localhost:3000" },
     })
       // Handle response
       .then((response) => {
