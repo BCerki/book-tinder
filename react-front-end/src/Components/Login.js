@@ -1,12 +1,11 @@
 import React from "react";
 import { useState, useContext } from "react";
-import { authContext } from "../providers/AuthProvider";
+
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 export default function UserLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useContext(authContext);
 
   const onEmailChange = function(event) {
     setEmail(event.target.value);
@@ -18,7 +17,6 @@ export default function UserLogin() {
 
   const onSubmit = function(event) {
     event.preventDefault();
-    if (email) login(email, password);
   };
 
   return (
