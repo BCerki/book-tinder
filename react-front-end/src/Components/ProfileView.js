@@ -4,9 +4,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import Avatar from "@material-ui/core/Avatar";
+import TextField from "@material-ui/core/TextField";
 import Chip from "@material-ui/core/Chip";
 import Checkbox from "@material-ui/core/Checkbox";
 import GenreChip from "./GenreChip";
+import PostalCode from "./PostalCode";
 
 import Switch from "@material-ui/core/Switch";
 // import genreData from "../dummyData/dummyGenreData";
@@ -63,6 +65,7 @@ export default function ProfileView(props) {
           result.data[0]
         );
         setChips(result.data[0].genres);
+        setPostalCode(result.data[0].postalCode);
       })
       .catch((err) => console.log("Error message:", err.message));
   }, []);
@@ -183,7 +186,21 @@ export default function ProfileView(props) {
       />
     );
   });
+  const [isEditing, setIsEditing] = useState(false);
+  const [postalCode, setPostalCode] = useState("");
 
+  console.log("postalCode state is", postalCode);
+  //PostalCode
+  const handleEditing = function(event) {
+    setIsEditing(true);
+  };
+  const handleBlur = function(event) {
+    console.log("event.target.value", event.target.value);
+    setIsEditing(false);
+    setPostalCode(event.target.value);
+  };
+
+  console.log("isediting is", isEditing);
   //Return statements components
   if (!userState.id) {
     return <Loading />;
@@ -194,7 +211,15 @@ export default function ProfileView(props) {
         <Avatar className={classes.large} />
       </div>
       <div className="user">{userState.name}</div>
-      <div>{userState.postalCode}</div>
+
+      <div>
+        <PostalCode
+          onClick={handleEditing}
+          isEditing={isEditing}
+          postalCode={postalCode}
+          onBlur={handleBlur}
+        />
+      </div>
       <div className="profile-preference">
         <span className="profile-label">Age range (publication date)</span>
 
