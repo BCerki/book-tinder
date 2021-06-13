@@ -36,17 +36,56 @@ export default function BooketImagery(props) {
   if (props.requestedInfo === "interiorImage") {
     return (
       <img
-        src={`https://www.biblioshare.org/bncServices/BNCServices.asmx/DetailImages?token=${BOOK_TOKEN}&san=&ean=${match.isbn}&thumbnail=No&Perspective=back&filenumber=&maxWidth=200&maxHeight=`}
+        src={`https://www.biblioshare.org/bncServices/BNCServices.asmx/DetailImages?token=${BOOK_TOKEN}&san=&ean=${match.isbn}&thumbnail=false&Perspective=interior&FileNumber=&maxWidth=300&maxHeight=`}
         alt={match.title}
       />
     );
   }
   if (props.requestedInfo === "backCover") {
-    return <img src={"e"} alt={match.title} />;
+    return (
+      <img
+        src={`https://www.biblioshare.org/bncServices/BNCServices.asmx/DetailImages?token=${BOOK_TOKEN}&san=&ean=${match.isbn}&thumbnail=no&Perspective=back&filenumber=&maxWidth=300&maxHeight=`}
+        alt={match.title}
+      />
+    );
   }
+  // In Postman author photo "resource cannot be found" - might be permanent error
   if (props.requestedInfo === "authorPhoto") {
-    return <img src={"e"} alt={match.title} />;
+    return (
+      <img
+        src={`https://www.biblioshare.org/bncServics/BNCServices.asmx/DetailImages?Token=${BOOK_TOKEN}&EAN=${match.isbn}=&Thumbnail=false&Perspective=author&FileNumber=&maxWidth=&maxHeight=300`}
+        alt={match.title}
+      />
+    );
   }
+  // Note: Requesting teachers guide will return a PDF (if one exists)
+  if (props.requestedInfo === "teachersGuide") {
+    return (
+      <img
+        src={`https://www.biblioshare.ca/BNCServices/BNCServices.asmx/Samples?token=${BOOK_TOKEN}&ean={match.isbn}&san=&perspective=teachersguide&filenumber=`}
+        alt={match.title}
+      />
+    );
+  }
+  // Note: Requesting table of contents will return a PDF (if one exists)
+  if (props.requestedInfo === "toc") {
+    return (
+      <img
+        src={`https://www.biblioshare.ca/BNCServices/BNCServices.asmx/Samples?token=${BOOK_TOKEN}&ean=${match.isbn}&san=&perspective=toc&filenumber=`}
+        alt={match.title}
+      />
+    );
+  }
+
+  // This is here as a backup alternate cover photo source. Note: In Postman could get max width parameter to accept
+  // if (props.requestedInfo === "coverPhoto") {
+  //   return (
+  //     <img
+  //       src={`https://www.biblioshare.org/BNCServices/BNCServices.asmx/Images?Token=${BOOK_TOKEN}&EAN=${match.isbn}&SAN=&Thumbnail=false`}
+  //       alt={match.title}
+  //     />
+  //   );
+  // }
 
   return <div>Sorry, I'm shy</div>;
 }
