@@ -29,11 +29,13 @@ export default function BookManagerLocation(props) {
         const maxDistance = result.data[0].maxDistance;
         axios
           .get(
-            `api/getlocation?isbn=${thisConversation.isbn}postal=${postalCode}&max_distance=${maxDistance}`
+            `/api/getlocation?isbn=${thisConversation.isbn}&postal=${postalCode}&max_distance=${maxDistance}`
           )
           .then((result) => {
-            setDate(result);
-          });
+            setDate(result.data);
+            console.log("result.data is", result.data);
+          })
+          .catch((err) => console.log(err));
       });
     });
   }, []);

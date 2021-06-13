@@ -29,16 +29,15 @@ export default function ChatView(props) {
 
   const [state, setState] = useState();
 
+  const conversationId = Number(
+    useLocation().pathname.replace("/matches/", "")
+  );
   //Function to change state every time a user clicks (stand-in for every time the conversation changes; the chatbot manages its own state, so I can't hook into it. If the user's going to type, we'll have to adjust)
   const hackyFunction = function() {
     setState(state + 1);
   };
 
   window.onclick = hackyFunction;
-
-  const conversationId = Number(
-    useLocation().pathname.replace("/matches/", "")
-  );
 
   useEffect(() => {
     if (conversationId) {
@@ -73,10 +72,17 @@ export default function ChatView(props) {
       "sending this to db:",
       window.localStorage.getItem(`rsc_cache_${conversationId}`)
     );
-    console.log(
-      "typeof cache is",
-      typeof window.localStorage.getItem(`rsc_cache_${conversationId}`)
-    );
+    //on first conversation, these will all be null
+    // const parsedLocalStorage = JSON.parse(
+    //   window.localStorage.getItem(`rsc_cache_${conversationId}`)
+    // );
+
+    // console.log(parsedLocalStorage);
+
+    // const mostRecentIndex = parsedLocalStorage[2].label;
+    // const mostRecentMessage = parsedLocalStorage[mostRecentIndex];
+    // console.log(mostRecentMessage);
+
     axios
 
       .put(
