@@ -32,27 +32,13 @@ export default function ProfileView(props) {
     return `${value}`;
   }
 
-  //set individual states
+  //set individual states and user state
   const [age, setAge] = useState([20, 40]);
   const [pageCount, setPageCount] = useState([256, 512]);
   const [price, setPrice] = useState([10, 30]);
   const [maxDistance, setMaxDistance] = useState(80);
   const [maturity, setMaturity] = useState(false);
   const [chips, setChips] = useState([]);
-
-  //set user state--ultimately get starting state from hook
-
-  //should it be an object, not an array, from DB?
-  // const [userState, setUserState] = useState({
-  //   id: 1,
-  //   name: "Sandra Gardiner",
-  //   age: [20, 40],
-  //   pageCount: [256, 512],
-  //   price: [10, 30],
-  //   maxDistance: 80,
-  //   maturity: false,
-  //   genres: [],
-  // });
 
   const [userState, setUserState] = useState({
     id: null,
@@ -65,8 +51,8 @@ export default function ProfileView(props) {
     maturity: null,
     genres: [],
   });
-  //set them all to blank
   useEffect(() => {
+    //get the user info that's currently in the db
     axios
       //update route if doing multiple users
       .get("/api/users/1")
@@ -81,14 +67,14 @@ export default function ProfileView(props) {
       .catch((err) => console.log("Error message:", err.message));
   }, []);
 
-  //send to db
   const sendToDB = function(userObject) {
     console.log("send to DB is firing with userObject:", userObject);
     //need to send userObject, not userState, because it's not updated yet
     console.log("userobject.id is", userObject.id);
     console.log("userstate.id is", userState.id);
+    //set state with new info
     setUserState(userObject);
-
+    //send to db
     axios
       .put(`/api/users/${userState.id}`, userObject)
       .then((result) => {
@@ -158,62 +144,20 @@ export default function ProfileView(props) {
     },
   ];
 
-  //genre
+  //genre variables
+  const genreData = [
+    "Mystery",
+    "Romance",
+    "Young Adult",
+    "Fiction",
+    "Science Fiction",
+    "Biography",
+  ];
 
-  //Chip functions
-
-  //onClick FIX FIX use incoming state
-  // const [chips, setChips] = useState({
-  //   mystery: false,
-  //   romance: false,
-  //   adventure: false,
-  //   literary: false,
-  //   "non-fiction": false,
-  //   "biography/memoir": false,
-  //   humour: false,
-  //   art: false,
-  //   history: false,
-  //   cooking: false,
-  //   "children's": false,
-  //   poetry: false,
-  //   science: false,
-  //   "sci-fi/fantasy": false,
-  //   "self-help": false,
-  // });
-
-  // const selectedChips = function(chips) {
-  //   const result = [];
-  //   for (const key in chips) {
-  //     if (chips[key]) {
-  //       result.push(key);
-  //     }
-  //   }
-  //   return result;
-  // };
-
-  // const chipsHandler = (chipName) => {
-  //   setChips((prev) => ({
-  //     ...prev,
-  //     [chipName.target.innerHTML]: !chips[chipName.target.innerHTML],
-  //   }));
-  //   console.log("in chips handler, chips is", chips);
-  //   // console.log("selectedChips(chips)", selectedChips(chips));
-  //   const newUserObject = { ...userState, genres: chips };
-  //   sendToDB(newUserObject);
-  // };
-
-  //checkbox checked array.includes value
-  //taraget.value of genre .includes(genre)
-
+  //Genres
   const handleClick = function(genre) {
     console.log("I am click handler and userState.genres is", userState.genres);
     const newGenres = [...userState.genres];
-    // console.log(
-    //   "userState.genres.includes",
-    //   genre,
-    //   "is",
-    //   userState.genres.includes(genre)
-    // );
 
     if (userState.genres.includes(genre)) {
       const index = userState.genres.findIndex((element) => element === genre);
@@ -228,22 +172,7 @@ export default function ProfileView(props) {
     setChips(newGenres);
   };
 
-  //create the chips
-
-  //genreData could be the array of genres
-
-  const genreData = [
-    "Mystery",
-    "Romance",
-    "Young Adult",
-    "Fiction",
-    "Science Fiction",
-    "Biography",
-  ];
   const genreChips = genreData.map((genre) => {
-    // if (!chips) {
-    //   return <Loading />;
-    // }
     return (
       <GenreChip
         id={genre}
@@ -251,10 +180,11 @@ export default function ProfileView(props) {
           handleClick(genre);
         }}
         selected={chips.includes(genre) ? true : false}
-        // onDelete={handleDelete}
       />
     );
   });
+
+  //Return statements components
   if (!userState.id) {
     return <Loading />;
   }
