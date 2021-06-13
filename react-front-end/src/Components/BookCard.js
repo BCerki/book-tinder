@@ -36,7 +36,7 @@ export default function BookCard(props) {
         />
       );
     }
-    return <Message latestMessage={props.latestMessage} />;
+    return <Message id={props.id} />;
   };
 
   return (
