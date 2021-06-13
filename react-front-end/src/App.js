@@ -10,6 +10,7 @@ import SwipeView from "./Components/SwipeView";
 import ChatView from "./Components/ChatView";
 import BooksView from "./Components/BooksView";
 import Footer from "./Components/Footer";
+import Login from "./Components/Login";
 
 //Import styling
 
@@ -18,41 +19,33 @@ import BookStateProvider from "./providers/BookStateProvider";
 
 export default function AppRouter() {
   return (
-    <UserStateProvider>
-      <Router>
-        <Switch>
-          <Route path="/matches/:id">
-            <BookStateProvider>
-              <ChatBookStateProvider>
-                <ChatView />
-              </ChatBookStateProvider>
-            </BookStateProvider>
-          </Route>
-          <Route path="/matches">
-            <BookStateProvider>
-              <BooksView />
-            </BookStateProvider>
-            <Footer />
-            <Route path="/profile/:id">
-              <ProfileView />
-              <Footer />
-            </Route>
-          </Route>
-          <Route path="/profile">
-            <ProfileView />
+    <Router>
+      <Switch>
+        <Route path="/matches/:id">
+          <ChatView />
+        </Route>
+        <Route path="/matches">
+          <BooksView />
 
+          <Footer />
+          <Route path="/profile/:id">
+            <ProfileView />
             <Footer />
           </Route>
-          <Route path="/books">
-            <SwipeView />
-            <Footer />
-          </Route>
-          <Route path="/">
-            <SwipeView />
-            <Footer />
-          </Route>
-        </Switch>
-      </Router>
-    </UserStateProvider>
+        </Route>
+        <Route path="/profile">
+          <ProfileView />
+
+          <Footer />
+        </Route>
+        <Route path="/books">
+          <SwipeView />
+          <Footer />
+        </Route>
+        <Route path="/">
+          <Login />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
