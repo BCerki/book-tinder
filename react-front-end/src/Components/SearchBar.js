@@ -26,10 +26,12 @@ import bookData from "../dummyData/dummyBookData";
 //   );
 // }
 
-export default function SearchBar({setSearchTitle, searchTitle}) {
+export default function SearchBar({setSearchTitle, searchTitle, filterMatches}) {
 
   const handleSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
+    setSearchTitle(searchTitle);
+    filterMatches();
   };
   
   return (

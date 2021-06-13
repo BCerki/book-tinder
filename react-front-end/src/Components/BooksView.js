@@ -19,6 +19,8 @@ import { Link } from "react-router-dom";
 import "../styles/booksView.scss";
 
 export default function BooksView(props) {
+
+
   //functions for book state
   // const { providerBook, getConversations } = useContext(bookStateContext);
 
@@ -54,6 +56,7 @@ export default function BooksView(props) {
   //get the conversation data
   // const
   const [matches, setMatches] = useState([]);
+  const [searchTitle, setSearchTitle] = useState('');
 
   useEffect(() => {
     axios
@@ -75,21 +78,24 @@ export default function BooksView(props) {
   };
 
   //FOR SEARCH BAR
-  const [searchTitle, setSearchTitle] = useState("");
-
   const filterMatches = () => {
-    const filteredBooks = matches.filter((book) => {
-      if (searchTitle === "") {
+    console.log("searchTitle", searchTitle)
+    const filteredBooks = matches.filter(book => {
+      if (searchTitle === '') {
         return book;
       }
-      const newBook = book.title
-        .toLowerCase()
-        .includes(searchTitle.toLowerCase());
+
+      const inputVal = searchTitle.toLowerCase();
+      
+      const newBook = (book.title).toString().toLowerCase().includes(inputVal);
+      return newBook
     });
+    console.log("filtered", filteredBooks);
+    return filteredBooks;
   };
 
-  const bookCards = matches.map((book) => {
-    console.log("book is", book);
+
+  const bookCards = filterMatches().map((book) => {
     return (
       <Link to={`/matches/${book.id}`} className="bookCardLink">
         <BookCard
@@ -102,7 +108,7 @@ export default function BooksView(props) {
           coverImage={book.image}
           description={book.description}
           isbn={book.isbn}
-          pageCount={book.page_count}
+          pageCount={book.pageCount}
           price={book.price}
           age={parseAge(book.publish_date)}
           toggle={toggle}
@@ -114,10 +120,16 @@ export default function BooksView(props) {
   if (!matches) {
     return <Loading />;
   }
+
+
   return (
     <>
       <section className="search-bar">
-        <SearchBar setSearchTitle={setSearchTitle} searchTitle={searchTitle} />
+        <SearchBar 
+          setSearchTitle = {setSearchTitle}
+          searchTitle = {searchTitle}
+          filterMatches = {filterMatches}
+        />
       </section>
       <section className="toggle">
         <span className="toggle-label">Info</span>
