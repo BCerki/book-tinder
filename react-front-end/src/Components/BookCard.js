@@ -36,7 +36,7 @@ export default function BookCard(props) {
         />
       );
     }
-    return <Message id={props.id} />;
+    return <Message message={props.message} />;
   };
 
   return (

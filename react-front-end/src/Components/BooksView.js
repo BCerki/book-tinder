@@ -19,8 +19,6 @@ import { Link } from "react-router-dom";
 import "../styles/booksView.scss";
 
 export default function BooksView(props) {
-
-
   //functions for book state
   // const { providerBook, getConversations } = useContext(bookStateContext);
 
@@ -56,7 +54,7 @@ export default function BooksView(props) {
   //get the conversation data
   // const
   const [matches, setMatches] = useState([]);
-  const [searchTitle, setSearchTitle] = useState('');
+  const [searchTitle, setSearchTitle] = useState("");
 
   useEffect(() => {
     axios
@@ -70,8 +68,6 @@ export default function BooksView(props) {
       });
   }, []);
 
-  console.log("matches is", matches);
-
   const parseAge = function(date) {
     const thisYear = new Date().getFullYear();
     return thisYear - Number(date.substring(0, 4));
@@ -79,23 +75,26 @@ export default function BooksView(props) {
 
   //FOR SEARCH BAR
   const filterMatches = () => {
-    console.log("searchTitle", searchTitle)
-    const filteredBooks = matches.filter(book => {
-      if (searchTitle === '') {
+    console.log("searchTitle", searchTitle);
+    const filteredBooks = matches.filter((book) => {
+      if (searchTitle === "") {
         return book;
       }
 
       const inputVal = searchTitle.toLowerCase();
-      
-      const newBook = (book.title).toString().toLowerCase().includes(inputVal);
-      return newBook
+
+      const newBook = book.title
+        .toString()
+        .toLowerCase()
+        .includes(inputVal);
+      return newBook;
     });
     console.log("filtered", filteredBooks);
     return filteredBooks;
   };
 
-
   const bookCards = filterMatches().map((book) => {
+    console.log("book is", book);
     return (
       <Link to={`/matches/${book.id}`} className="bookCardLink">
         <BookCard
@@ -112,6 +111,7 @@ export default function BooksView(props) {
           price={book.price}
           age={parseAge(book.publish_date)}
           toggle={toggle}
+          message={book.message}
         />
       </Link>
     );
@@ -121,14 +121,13 @@ export default function BooksView(props) {
     return <Loading />;
   }
 
-
   return (
     <>
       <section className="search-bar">
-        <SearchBar 
-          setSearchTitle = {setSearchTitle}
-          searchTitle = {searchTitle}
-          filterMatches = {filterMatches}
+        <SearchBar
+          setSearchTitle={setSearchTitle}
+          searchTitle={searchTitle}
+          filterMatches={filterMatches}
         />
       </section>
       <section className="toggle">
