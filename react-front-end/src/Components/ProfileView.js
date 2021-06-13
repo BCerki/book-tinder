@@ -9,6 +9,7 @@ import Chip from "@material-ui/core/Chip";
 import Checkbox from "@material-ui/core/Checkbox";
 import GenreChip from "./GenreChip";
 import PostalCode from "./PostalCode";
+import UserName from "./UserName";
 
 import Switch from "@material-ui/core/Switch";
 // import genreData from "../dummyData/dummyGenreData";
@@ -66,6 +67,7 @@ export default function ProfileView(props) {
         );
         setChips(result.data[0].genres);
         setPostalCode(result.data[0].postalCode);
+        setName(result.data[0].name);
       })
       .catch((err) => console.log("Error message:", err.message));
   }, []);
@@ -187,18 +189,34 @@ export default function ProfileView(props) {
     );
   });
   const [isEditing, setIsEditing] = useState(false);
+  const [isEditingName, setIsEditingName] = useState(false);
   const [postalCode, setPostalCode] = useState("");
+  const [name, setName] = useState("");
 
   console.log("postalCode state is", postalCode);
   //PostalCode
   const handleEditing = function(event) {
     setIsEditing(true);
   };
+
+  const handleNameEditing = function(event) {
+    setIsEditingName(true);
+  };
+
   const handleBlur = function(event) {
     setIsEditing(false);
     setPostalCode(event.target.value);
 
     const newUserObject = { ...userState, postalCode: event.target.value };
+
+    sendToDB(newUserObject);
+  };
+
+  const handleBlurName = function(event) {
+    setIsEditingName(false);
+    setName(event.target.value);
+
+    const newUserObject = { ...userState, name: event.target.value };
 
     sendToDB(newUserObject);
   };
@@ -213,7 +231,14 @@ export default function ProfileView(props) {
       <div className="profile-avatar">
         <Avatar className={classes.large} />
       </div>
-      <div className="user">{userState.name}</div>
+      <div>
+        <UserName
+          onClick={handleNameEditing}
+          isEditing={isEditingName}
+          name={name}
+          onBlur={handleBlurName}
+        />
+      </div>
 
       <div>
         <PostalCode
