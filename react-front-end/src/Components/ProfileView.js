@@ -195,9 +195,12 @@ export default function ProfileView(props) {
     setIsEditing(true);
   };
   const handleBlur = function(event) {
-    console.log("event.target.value", event.target.value);
     setIsEditing(false);
     setPostalCode(event.target.value);
+
+    const newUserObject = { ...userState, postalCode: event.target.value };
+
+    sendToDB(newUserObject);
   };
 
   console.log("isediting is", isEditing);
