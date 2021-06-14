@@ -1,0 +1,25 @@
+@import "./variables.scss";
+
+@import url("https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+div.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100vh;
+}
+
+.logo {
+  width: 60vw;
+}
+
+.formFields {
+  margin: 7em 0;
+}
+
+.appName {
+  font-family: "Courier Prime", monospace;
+  font-size: 5em;
+  font-weight: 700;
+}
