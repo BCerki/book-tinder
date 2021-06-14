@@ -23,7 +23,8 @@ import BookManagerLocation from "./BookManagerLocation";
 const { outOfTheAttic, theForestCityKiller, allTheLeavings } = demoScripts;
 
 export default function ChatView(props) {
-  const [currentMatch, setCurrentMatch] = useState({});
+  const [match, setMatch] = useState({});
+  //state for the hacky function
   const [state, setState] = useState();
 
   //Function to change state every time a user clicks (stand-in for every time the conversation changes; the chatbot manages its own state, so I can't hook into it. If the user's going to type, we'll have to adjust)
@@ -45,7 +46,7 @@ export default function ChatView(props) {
           //set match state (conversations are proxy for matches)
           const allMatches = result.data;
           const thisMatch = allMatches.find((match) => match.id === matchId);
-          setCurrentMatch(thisMatch);
+          setMatch(thisMatch);
 
           //AFTER PRESENTATION--choose a script based on whether it has any resources available in booknet
           const scripts = thisMatch.booknet_available
@@ -98,16 +99,16 @@ export default function ChatView(props) {
       });
   }, [state]);
 
-  if (!currentMatch) {
+  if (!match) {
     return <Loading />;
   }
   return (
     <>
       <BackBar
         className={"backBar"}
-        image={currentMatch.image}
-        id={currentMatch.id}
-        title={currentMatch.title}
+        image={match.image}
+        id={match.id}
+        title={match.title}
       />
       <ChatBot
         // AFTER DEMO FOR RANDOM SCRIPTS
