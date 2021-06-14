@@ -1,7 +1,11 @@
 import React from "react";
 import { useState, useContext } from "react";
+import bookupLogo from "./bookupLogo.png";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
+//Styling
+import "../styles/login.scss";
 
 export default function UserLogin() {
   const [email, setEmail] = useState("");
@@ -20,32 +24,36 @@ export default function UserLogin() {
   };
 
   return (
-    <div className="login">
-      <form onSubmit={onSubmit}>
-        <p>
-          <input
-            type="text"
-            name="login"
-            value={email}
-            placeholder="Username"
-            onChange={onEmailChange}
-          />
-        </p>
-        <p>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            placeholder="Password"
-            onChange={onPasswordChange}
-          />
-        </p>
-        <p className="submit">
-          <Link to="/books">
-            <input type="submit" name="commit" value="Login" />
-          </Link>
-        </p>
-      </form>
+    <div className={"login"}>
+      <div className={"appName"}>bookUp</div>
+      <img className={"logo"} src={bookupLogo} alt="bookUp logo" />
+      <div className={"formFields"}>
+        <form onSubmit={onSubmit}>
+          <div>
+            <input
+              type="text"
+              name="login"
+              value={email}
+              placeholder="Username"
+              onChange={onEmailChange}
+            />
+          </div>
+          <div>
+            <input
+              type="password"
+              name="password"
+              value={password}
+              placeholder="Password"
+              onChange={onPasswordChange}
+            />
+          </div>
+          <div className="submit">
+            <Link to="/books">
+              <input type="submit" name="commit" value="Login" />
+            </Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
