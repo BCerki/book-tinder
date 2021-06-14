@@ -168,13 +168,13 @@ App.put("/api/users/:id/conversations/:id", (req, res) => {
 
   const newMessage = `UPDATE conversations SET message = $1 WHERE id = $2`;
 
-  const values = [req.body, convoId];
+  const values = [JSON.stringify(req.body), convoId];
 
   return pool
     .query(newMessage, values)
     .then((result) => {
       console.log(result);
-      res.send(result.rows);
+      res.json(result.rows);
     })
     .catch((err) => {
       console.error(err);

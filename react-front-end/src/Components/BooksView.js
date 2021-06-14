@@ -93,8 +93,38 @@ export default function BooksView(props) {
     return filteredBooks;
   };
 
+  const retrieveLatestMessage = function(conversation) {
+    console.log("retireve message function conversation is", conversation);
+    const parseConversation = JSON.parse(conversation);
+    console.log("parse conversation is", parseConversation);
+
+    // //what is the actual key on this??
+    // let actualData = null;
+    // for (const element in parseConversation) {
+    //   actualData = element;
+    // }
+
+    // const parsedActualData = JSON.parse(actualData);
+
+    // console.log("parsedActualData", parsedActualData);
+    // if (!parsedActualData) {
+    //   return;
+    // }
+    let index = null;
+    for (const element of parseConversation) {
+      // console.log("element is", element);
+      if (element.message) {
+        index = Number(element.message);
+        console.log("element is", element);
+      }
+    }
+    console.log("index is", index);
+    const latestMessage = parseConversation[index];
+    console.log("latest message is", latestMessage);
+    return latestMessage;
+  };
+
   const bookCards = filterMatches().map((book) => {
-    console.log("book is", book);
     return (
       <Link to={`/matches/${book.id}`} className="bookCardLink">
         <BookCard
@@ -111,7 +141,11 @@ export default function BooksView(props) {
           price={book.price}
           age={parseAge(book.publish_date)}
           toggle={toggle}
-          message={book.message}
+          message={
+            book.message
+              ? retrieveLatestMessage(book.message)
+              : "Start chatting"
+          }
         />
       </Link>
     );

@@ -23,6 +23,7 @@ export default function BooknetQuote(props) {
         .then((result) => {
           //get the book isbn
           const allMatches = result.data;
+          console.log("all matches", allMatches);
           const thisMatch = allMatches.find((book) => book.id === matchId);
           setMatch(thisMatch);
           console.log("chatting book is", thisMatch);
