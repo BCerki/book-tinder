@@ -53,7 +53,7 @@ export default function BooketImagery(props) {
   if (props.requestedInfo === "authorPhoto") {
     return (
       <img
-        src={`https://www.biblioshare.org/bncServics/BNCServices.asmx/DetailImages?Token=${BOOK_TOKEN}&EAN=${match.isbn}=&Thumbnail=false&Perspective=author&FileNumber=&maxWidth=&maxHeight=300`}
+        src={`https://www.biblioshare.org/bncServices/BNCServices.asmx/DetailImages?Token=${BOOK_TOKEN}&EAN=${match.isbn}&SAN=&Thumbnail=false&Perspective=author&FileNumber=&maxWidth=300&maxHeight=`}
         alt={match.title}
       />
     );

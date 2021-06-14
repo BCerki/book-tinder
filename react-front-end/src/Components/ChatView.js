@@ -86,10 +86,10 @@ export default function ChatView(props) {
 
   //Send to DB every time the user clicks
   useEffect(() => {
-    console.log(
-      "sending this to db:",
-      window.localStorage.getItem(`rsc_cache_${matchId}`)
-    );
+    // console.log(
+    //   "sending this to db:",
+    //   window.localStorage.getItem(`rsc_cache_${matchId}`)
+    // );
 
     axios
 
@@ -98,7 +98,7 @@ export default function ChatView(props) {
         JSON.parse(window.localStorage.getItem(`rsc_cache_${matchId}`))
       )
       .then(() => {
-        console.log("successfully sent local storage to db");
+        // console.log("successfully sent local storage to db");
       })
       .catch((err) => {
         console.log("Error", err.message);
@@ -145,113 +145,112 @@ export default function ChatView(props) {
         //       "What do you think of my paperback? I've been working out ",
         //   },
         // ]}
-        // steps={[
-        //   {
-        //     id: "1",
-        //     message: "Hi 😏",
-        //     trigger: "2",
-        //   },
-        //   {
-        //     id: "2",
-        //     options: [
-        //       { value: 1, label: "Tell me about yourself", trigger: "tell" },
-        //       { value: 2, label: "Hi 😏", trigger: "tell" },
-        //       { value: 3, label: "Send pix", trigger: "tell" },
-        //     ],
-        //   },
-        //   {
-        //     id: "tell",
-        //     message: getLongDescription(),
-        //     trigger: "4",
-        //   },
-        //   {
-        //     id: "4",
-        //     message: "Are you intrigued? 😉",
-        //     trigger: "5",
-        //   },
-        //   {
-        //     id: "5",
-        //     options: [
-        //       { value: 1, label: "Yes, tell me more", trigger: "6" },
-        //       { value: 2, label: "No...it's not me, it's you", trigger: "6" },
-        //     ],
-        //   },
-        //   {
-        //     id: "6",
-        //     component: <BooknetQuote />,
-        //     trigger: "7",
-        //   },
-        //   {
-        //     id: "7",
-        //     message: "Here's one of my favourite quotes 😈",
-        //   },
-        // ]}
-
         steps={[
           {
             id: "1",
-            message:
-              "Hehe, would  you’d like to get to know me a little better on the inside?",
+            message: "Hi 😏",
             trigger: "2",
           },
           {
             id: "2",
-            options: [{ value: 1, label: "Yes", trigger: "3" }],
+            options: [
+              { value: 1, label: "Tell me about yourself", trigger: "tell" },
+              { value: 2, label: "Hi 😏", trigger: "tell" },
+              { value: 3, label: "Send pix", trigger: "tell" },
+            ],
           },
-          { id: "3", message: "TOC", trigger: "4" },
+          {
+            id: "tell",
+            message: getLongDescription(),
+            trigger: "4",
+          },
           {
             id: "4",
-            message: "Here's a sample of my table of conquests",
+            message: "Are you intrigued? 😉",
             trigger: "5",
           },
           {
             id: "5",
-            message: "errrr... *contents",
-            trigger: "6a",
-          },
-          {
-            id: "6a",
             options: [
-              {
-                value: 1,
-                label:
-                  "That's not a very long list... are you sure you're at my reading level?",
-                trigger: "6b",
-              },
+              { value: 1, label: "Yes, tell me more", trigger: "6" },
+              { value: 2, label: "No...it's not me, it's you", trigger: "6" },
             ],
           },
           {
-            id: "6b",
-            message:
-              "That's just page 1 😏. I come from good stock. Would you like to see a photo of my author?",
+            id: "6",
+            component: <BooknetQuote />,
             trigger: "7",
           },
-          { id: "7", options: [{ value: 1, label: "Yes", trigger: "8a" }] },
           {
-            id: "8a",
-            component: <BooknetImagery requestedInfo={"authorPhoto"} />,
-            trigger: "8b",
-          },
-          {
-            id: "8b",
-            message:
-              "Do you like what you've read and seen so far? Wy don’t you pick me up and we can 🤭 ... bookup?",
-            trigger: "9",
-          },
-          {
-            id: "9",
-            options: [
-              { value: 1, label: "😍", trigger: "10" },
-              { value: 2, label: "😰", trigger: "10" },
-            ],
-          },
-          { id: "10", component: <BookManagerLocation />, trigger: "11" },
-          {
-            id: "11",
-            message:
-              "You can pick me up here. Looking forward to feeling your bookmark between my pages. Just don’t read me too hard, or you might crack my spine 📖💋😘",
+            id: "7",
+            message: "Here's one of my favourite quotes 😈",
           },
         ]}
+        // steps={[
+        //   {
+        //     id: "1",
+        //     message:
+        //       "Hehe, would  you’d like to get to know me a little better on the inside?",
+        //     trigger: "2",
+        //   },
+        //   {
+        //     id: "2",
+        //     options: [{ value: 1, label: "Yes", trigger: "3" }],
+        //   },
+        //   { id: "3", message: "TOC", trigger: "4" },
+        //   {
+        //     id: "4",
+        //     message: "Here's a sample of my table of conquests",
+        //     trigger: "5",
+        //   },
+        //   {
+        //     id: "5",
+        //     message: "errrr... *contents",
+        //     trigger: "6a",
+        //   },
+        //   {
+        //     id: "6a",
+        //     options: [
+        //       {
+        //         value: 1,
+        //         label:
+        //           "That's not a very long list... are you sure you're at my reading level?",
+        //         trigger: "6b",
+        //       },
+        //     ],
+        //   },
+        //   {
+        //     id: "6b",
+        //     message:
+        //       "That's just page 1 😏. I come from good stock. Would you like to see a photo of my author?",
+        //     trigger: "7",
+        //   },
+        //   { id: "7", options: [{ value: 1, label: "Yes", trigger: "8a" }] },
+        //   {
+        //     id: "8a",
+        //     component: <BooknetImagery requestedInfo={"authorPhoto"} />,
+        //     trigger: "8b",
+        //   },
+        //   {
+        //     id: "8b",
+        //     message:
+        //       "Do you like what you've read and seen so far? Wy don’t you pick me up and we can 🤭 ... bookup?",
+        //     trigger: "9",
+        //   },
+        //   {
+        //     id: "9",
+        //     options: [
+        //       { value: 1, label: "😍", trigger: "10" },
+        //       { value: 2, label: "😰", trigger: "10" },
+        //     ],
+        //   },
+        //   { id: "10", component: <BookManagerLocation />, trigger: "11" },
+        //   {
+        //     id: "11",
+        //     message:
+        //       "You can pick me up here. Looking forward to feeling your bookmark between my pages. Just don’t read me too hard, or you might crack my spine 📖💋😘",
+        //   },
+        // ]}
         cacheName={`rsc_cache_${matchId}`}
         cache={true}
         hideBotAvatar={true}

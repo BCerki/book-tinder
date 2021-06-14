@@ -34,17 +34,19 @@ export default function BooknetQuote(props) {
           //     .then(() => console.log("successfully sent isbn to Adrian"))
           //     .catch(() => console.log("failed to send to Adrian"));
           //
-        })
-        .then(() => {
+          // })
+          // .then(() => {
           axios
-            .get(`/api/sample/${match.isbn}`)
+            .get(`/api/sample/${thisMatch.isbn}`)
             .then((result) => {
-              console.log("this should be some quotes", result.data);
+              console.log("this should be some quotes:", result.data);
               setQuote(result.data);
             })
             .catch((err) => console.log("Error:", err.message));
         })
-        .catch(() => {});
+        .catch((err) => {
+          console.log(err.message);
+        });
     }
   }, []);
 
