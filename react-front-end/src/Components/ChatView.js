@@ -133,6 +133,11 @@ export default function ChatView(props) {
           {
             id: "3",
             component: <BookManagerLocation />,
+            trigger: "4",
+          },
+          {
+            id: "4",
+            message: "Find MEEEEEE",
           },
         ]}
         cacheName={`rsc_cache_${conversationId}`}

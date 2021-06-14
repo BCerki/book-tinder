@@ -94,40 +94,27 @@ export default function BooksView(props) {
   };
 
   const retrieveLatestMessage = function(conversation) {
-    console.log("Object.keys(conversation)", Object.keys(conversation).length);
-    if (Object.keys(conversation).length <= 2) {
+    if (!conversation || Object.keys(conversation).length <= 2) {
       return "You're my type!";
     }
+    // console.log("Object.keys(conversation)", Object.keys(conversation).length);
 
-    console.log("retireve message function conversation is", conversation);
+    // console.log("retireve message function conversation is", conversation);
     const parseConversation = JSON.parse(conversation);
-    console.log("parse conversation is", parseConversation);
-    if (!parseConversation) {
-      return;
-    }
-    // //what is the actual key on this??
-    // let actualData = null;
-    // for (const element in parseConversation) {
-    //   actualData = element;
-    // }
+    // console.log("parse conversation is", parseConversation);
 
-    // const parsedActualData = JSON.parse(actualData);
-
-    // console.log("parsedActualData", parsedActualData);
-    // if (!parsedActualData) {
-    //   return;
-    // }
     let index = null;
     for (const element of parseConversation) {
       // console.log("element is", element);
       if (element.message) {
         index = Number(element.message);
         console.log("element is", element);
+        break;
       }
     }
-    console.log("index is", index);
+    // console.log("index is", index);
     const latestMessage = parseConversation[index];
-    console.log("latest message is", latestMessage);
+    // console.log("latest message is", latestMessage);
     return latestMessage;
   };
 
