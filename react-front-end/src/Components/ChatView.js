@@ -25,13 +25,20 @@ const chooseScript = function(scripts) {
 };
 
 export default function ChatView(props) {
-  const [currentConversation, setCurrentConversation] = useState();
+  let location = useLocation();
+  const conversationId = Number(location.pathname.replace("/matches/", ""));
+  console.log("conversationId", conversationId);
+
+  // const [currentConversation, setCurrentConversation] = useLocalStorage(
+  //   `rsc_cache_${conversationId}`,
+  //   null
+  // );
+  const [currentMatch, setCurrentMatch] = useState({});
+
+  // const [localStorage, setLocalStorage] = useLocalStorage(null, null);
 
   const [state, setState] = useState();
 
-  const conversationId = Number(
-    useLocation().pathname.replace("/matches/", "")
-  );
   //Function to change state every time a user clicks (stand-in for every time the conversation changes; the chatbot manages its own state, so I can't hook into it. If the user's going to type, we'll have to adjust)
   const hackyFunction = function() {
     setState(state + 1);
@@ -42,21 +49,21 @@ export default function ChatView(props) {
   useEffect(() => {
     if (conversationId) {
       axios
-        .get(`/api/users/:id/conversations`)
+        .get(`/api/users/1/conversations`)
         .then((result) => {
           //set conversation state
           const allConversations = result.data;
           const thisConversation = allConversations.find(
             (conversation) => conversation.id === conversationId
           );
-          setCurrentConversation(thisConversation);
+          setCurrentMatch(thisConversation);
 
-          const cacheName = `rsc_cache_${conversationId}`;
+          // const cacheName = `rsc_cache_${conversationId}`;
 
-          if (thisConversation.message) {
-            //first arg is key, second is value (local storage stores using key-value pairs)
-            useLocalStorage(cacheName, thisConversation.message);
-          }
+          // if (thisConversation.message) {
+          //   //first arg is key, second is value (local storage stores using key-value pairs)
+          //   setCurrentConversation(thisConversation.message);
+          // }
 
           const scripts = thisConversation.booknet_available
             ? booknetScripts
@@ -83,11 +90,14 @@ export default function ChatView(props) {
     // const mostRecentMessage = parsedLocalStorage[mostRecentIndex];
     // console.log(mostRecentMessage);
 
+    console.log("window.localStorage.getItem(`rsc_cache_${conversationId}`", {
+      payload: window.localStorage.getItem(`rsc_cache_${conversationId}`),
+    });
     axios
 
       .put(
-        `/api/users/:id/conversations/${conversationId}`,
-        window.localStorage.getItem(`rsc_cache_${conversationId}`)
+        `/api/users/1/conversations/${conversationId}`,
+        JSON.parse(window.localStorage.getItem(`rsc_cache_${conversationId}`))
       )
       .then(() => {
         console.log("successfully sent local storage to db");
@@ -97,16 +107,16 @@ export default function ChatView(props) {
       });
   }, [state]);
 
-  if (!currentConversation) {
+  if (!currentMatch) {
     return <Loading />;
   }
   return (
     <>
       <BackBar
         className={"backBar"}
-        image={currentConversation.image}
-        id={currentConversation.id}
-        title={currentConversation.title}
+        image={currentMatch.image}
+        id={currentMatch.id}
+        title={currentMatch.title}
       />
       <ChatBot
         // steps={chooseScript(scripts)} //for random scripts
@@ -123,9 +133,14 @@ export default function ChatView(props) {
           {
             id: "3",
             component: <BookManagerLocation />,
+            trigger: "4",
+          },
+          {
+            id: "4",
+            message: "Find MEEEEEE",
           },
         ]}
-        cacheName={`rsc_cache_${currentConversation.id}`}
+        cacheName={`rsc_cache_${conversationId}`}
         cache={true}
         hideBotAvatar={true}
         hideUserAvatar={true}
