@@ -30,8 +30,11 @@ const getSample = (isbn) => {
         // Split cleaned up whole text (no line breaks) by ".", store as array
         const allLinesArr = joinedStr.split(".");
         // Choose random number based on ISBN
-        const randomNum = isbn.toString().split("")[5];
-        const randomLine = allLinesArr[randomNum];
+        const randomNum =
+          Number(isbn.toString().split("")[7]) *
+          Number(isbn.toString().split("")[9]);
+        console.log("randomNum", randomNum);
+        const randomLine = `${allLinesArr[randomNum]}.`;
 
         // Optional: Get random line based on shuffled array
         // const randomLine = _.shuffle(allLinesArr)[0];
