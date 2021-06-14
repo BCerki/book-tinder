@@ -94,10 +94,17 @@ export default function BooksView(props) {
   };
 
   const retrieveLatestMessage = function(conversation) {
+    console.log("Object.keys(conversation)", Object.keys(conversation).length);
+    if (Object.keys(conversation).length <= 2) {
+      return "You're my type!";
+    }
+
     console.log("retireve message function conversation is", conversation);
     const parseConversation = JSON.parse(conversation);
     console.log("parse conversation is", parseConversation);
-
+    if (!parseConversation) {
+      return;
+    }
     // //what is the actual key on this??
     // let actualData = null;
     // for (const element in parseConversation) {
@@ -141,11 +148,7 @@ export default function BooksView(props) {
           price={book.price}
           age={parseAge(book.publish_date)}
           toggle={toggle}
-          message={
-            book.message
-              ? retrieveLatestMessage(book.message)
-              : "Start chatting"
-          }
+          message={retrieveLatestMessage(book.message)}
         />
       </Link>
     );
