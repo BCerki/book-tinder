@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import ChatBot from "react-simple-chatbot";
 import booknetScripts from "../ChatBotScripts/booknetScripts";
 import otherScripts from "../ChatBotScripts/otherScripts";
+import demoScripts from "../ChatBotScripts/demoScripts";
 import testingScript from "../ChatBotScripts/testingScript";
 import _ from "lodash";
 import BackBar from "./BackBar";
@@ -18,25 +19,11 @@ import axios from "axios";
 //bookmanager
 import BookManagerLocation from "./BookManagerLocation";
 
-//helper function
-const chooseScript = function(scripts) {
-  const randomIndex = _.random(0, scripts.length - 1);
-  return scripts[randomIndex];
-};
+//destructure demo scripts
+const { outOfTheAttic, theForestCityKiller, allTheLeavings } = demoScripts;
 
 export default function ChatView(props) {
-  let location = useLocation();
-  const conversationId = Number(location.pathname.replace("/matches/", ""));
-  console.log("conversationId", conversationId);
-
-  // const [currentConversation, setCurrentConversation] = useLocalStorage(
-  //   `rsc_cache_${conversationId}`,
-  //   null
-  // );
   const [currentMatch, setCurrentMatch] = useState({});
-
-  // const [localStorage, setLocalStorage] = useLocalStorage(null, null);
-
   const [state, setState] = useState();
 
   //Function to change state every time a user clicks (stand-in for every time the conversation changes; the chatbot manages its own state, so I can't hook into it. If the user's going to type, we'll have to adjust)
@@ -45,6 +32,11 @@ export default function ChatView(props) {
   };
 
   window.onclick = hackyFunction;
+
+  //get the conversationId
+  let location = useLocation();
+  const conversationId = Number(location.pathname.replace("/matches/", ""));
+  console.log("conversationId", conversationId);
 
   useEffect(() => {
     if (conversationId) {
@@ -58,13 +50,7 @@ export default function ChatView(props) {
           );
           setCurrentMatch(thisConversation);
 
-          // const cacheName = `rsc_cache_${conversationId}`;
-
-          // if (thisConversation.message) {
-          //   //first arg is key, second is value (local storage stores using key-value pairs)
-          //   setCurrentConversation(thisConversation.message);
-          // }
-
+          //AFTER PRESENTATION--choose a script based on whether it has any resources available in booknet
           const scripts = thisConversation.booknet_available
             ? booknetScripts
             : otherScripts;
@@ -73,26 +59,34 @@ export default function ChatView(props) {
     }
   }, [conversationId]);
 
+  //choose a random script
+  const chooseScript = function(scripts) {
+    const randomIndex = _.random(0, scripts.length - 1);
+    return scripts[randomIndex];
+  };
+
+  //choose the appropriate demo script
+  const chooseDemoScript = function(title) {
+    let script = [];
+    if (title === "Out of the Attic") {
+      script = outOfTheAttic;
+    }
+    if (title === " The Forest City Killer") {
+      script = theForestCityKiller;
+    }
+    if (title === "All the Leavings") {
+      script = allTheLeavings;
+    }
+    return script;
+  };
+
   //Send to DB every time the user clicks
   useEffect(() => {
     console.log(
       "sending this to db:",
       window.localStorage.getItem(`rsc_cache_${conversationId}`)
     );
-    //on first conversation, these will all be null
-    // const parsedLocalStorage = JSON.parse(
-    //   window.localStorage.getItem(`rsc_cache_${conversationId}`)
-    // );
 
-    // console.log(parsedLocalStorage);
-
-    // const mostRecentIndex = parsedLocalStorage[2].label;
-    // const mostRecentMessage = parsedLocalStorage[mostRecentIndex];
-    // console.log(mostRecentMessage);
-
-    console.log("window.localStorage.getItem(`rsc_cache_${conversationId}`", {
-      payload: window.localStorage.getItem(`rsc_cache_${conversationId}`),
-    });
     axios
 
       .put(
@@ -119,7 +113,11 @@ export default function ChatView(props) {
         title={currentMatch.title}
       />
       <ChatBot
-        // steps={chooseScript(scripts)} //for random scripts
+        // AFTER DEMO FOR RANDOM SCRIPTS
+        // steps={chooseScript(scripts)}
+        //FOR DEMO
+        //steps={chooseDemoScript(currentMatch.title)}
+        //Testing steps
         steps={[
           {
             id: "1",
