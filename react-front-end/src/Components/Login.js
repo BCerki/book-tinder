@@ -48,7 +48,7 @@ export default function UserLogin() {
             />
           </div>
           <div className="submit">
-            <Link to="/books">
+            <Link to="/credits">
               <input type="submit" name="commit" value="Login" />
             </Link>
           </div>

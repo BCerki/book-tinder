@@ -11,6 +11,7 @@ import ChatView from "./Components/ChatView";
 import MatchesView from "./Components/MatchesView";
 import Footer from "./Components/Footer";
 import Login from "./Components/Login";
+import Tagline from "./Components/Tagline";
 
 //Import styling
 
@@ -41,6 +42,9 @@ export default function AppRouter() {
         <Route path="/books">
           <SwipeView />
           <Footer />
+        </Route>
+        <Route path="/credits">
+          <Tagline />
         </Route>
         <Route path="/">
           <Login />
