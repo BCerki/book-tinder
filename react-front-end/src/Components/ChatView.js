@@ -33,31 +33,28 @@ export default function ChatView(props) {
 
   window.onclick = hackyFunction;
 
-  //get the conversationId
+  //get the match id
   let location = useLocation();
-  const conversationId = Number(location.pathname.replace("/matches/", ""));
-  console.log("conversationId", conversationId);
+  const matchId = Number(location.pathname.replace("/matches/", ""));
 
   useEffect(() => {
-    if (conversationId) {
+    if (matchId) {
       axios
         .get(`/api/users/1/conversations`)
         .then((result) => {
-          //set conversation state
-          const allConversations = result.data;
-          const thisConversation = allConversations.find(
-            (conversation) => conversation.id === conversationId
-          );
-          setCurrentMatch(thisConversation);
+          //set match state (conversations are proxy for matches)
+          const allMatches = result.data;
+          const thisMatch = allMatches.find((match) => match.id === matchId);
+          setCurrentMatch(thisMatch);
 
           //AFTER PRESENTATION--choose a script based on whether it has any resources available in booknet
-          const scripts = thisConversation.booknet_available
+          const scripts = thisMatch.booknet_available
             ? booknetScripts
             : otherScripts;
         })
         .catch(() => {});
     }
-  }, [conversationId]);
+  }, [matchId]);
 
   //choose a random script
   const chooseScript = function(scripts) {
@@ -84,14 +81,14 @@ export default function ChatView(props) {
   useEffect(() => {
     console.log(
       "sending this to db:",
-      window.localStorage.getItem(`rsc_cache_${conversationId}`)
+      window.localStorage.getItem(`rsc_cache_${matchId}`)
     );
 
     axios
 
       .put(
-        `/api/users/1/conversations/${conversationId}`,
-        JSON.parse(window.localStorage.getItem(`rsc_cache_${conversationId}`))
+        `/api/users/1/conversations/${matchId}`,
+        JSON.parse(window.localStorage.getItem(`rsc_cache_${matchId}`))
       )
       .then(() => {
         console.log("successfully sent local storage to db");
@@ -138,7 +135,7 @@ export default function ChatView(props) {
             message: "Find MEEEEEE",
           },
         ]}
-        cacheName={`rsc_cache_${conversationId}`}
+        cacheName={`rsc_cache_${matchId}`}
         cache={true}
         hideBotAvatar={true}
         hideUserAvatar={true}
