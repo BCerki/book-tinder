@@ -19,7 +19,7 @@ export default function BooknetQuote(props) {
   useEffect(() => {
     if (matchId) {
       axios
-        .get(`/api/users/:id/conversations`)
+        .get(`/api/users/1/conversations`)
         .then((result) => {
           //get the book isbn
           const allMatches = result.data;

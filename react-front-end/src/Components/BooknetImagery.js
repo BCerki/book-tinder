@@ -19,7 +19,7 @@ export default function BooketImagery(props) {
   useEffect(() => {
     if (matchId) {
       axios
-        .get(`/api/users/:id/conversations`)
+        .get(`/api/users/1/conversations`)
         .then((result) => {
           //set the match
           const allMatches = result.data;

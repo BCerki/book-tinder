@@ -20,7 +20,7 @@ export default function BookStateProvider(props) {
     console.log(bookId);
     axios
       //MICHELLE this should add the book to the blocked table
-      .post(`/api/users/:id/blocked/${bookId}`, bookId)
+      .post(`/api/users/1/blocked/${bookId}`, bookId)
       .then((result) => {
         console.log("in post blocked conversations, bookid is,", bookId);
       })

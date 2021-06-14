@@ -14,7 +14,7 @@ export default function BookManagerLocation(props) {
   console.log("userId is", userId);
 
   useEffect(() => {
-    axios.get(`/api/users/:id/conversations`).then((result) => {
+    axios.get(`/api/users/1/conversations`).then((result) => {
       //set conversation state
       const allConversations = result.data;
       const thisConversation = allConversations.find(

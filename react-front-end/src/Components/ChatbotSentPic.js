@@ -18,7 +18,7 @@ export default function ChatbotSentPic(props) {
   useEffect(() => {
     if (bookId) {
       axios
-        .get(`/api/users/:id/conversations`)
+        .get(`/api/users/1/conversations`)
         .then((result) => {
           //get the book isbn
           const allBooks = result.data;

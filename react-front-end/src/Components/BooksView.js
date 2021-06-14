@@ -42,7 +42,7 @@ export default function BooksView(props) {
 
   // useEffect(() => {
   //   axios
-  //     .get(`/api/users/:id/books`)
+  //     .get(`/api/users/1/books`)
   //     .then((result) => {
   //       const allBooks = result.data;
   //       const bookObjectFromId = allBooks.find((book) => book.id === bookId);
@@ -58,7 +58,7 @@ export default function BooksView(props) {
 
   useEffect(() => {
     axios
-      .get("/api/users/:id/conversations")
+      .get("/api/users/1/conversations")
       .then((result) => {
         console.log("result.data is", result.data);
         setMatches(result.data);
