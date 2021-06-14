@@ -44,7 +44,7 @@ export default function BooketImagery(props) {
   if (props.requestedInfo === "backCover") {
     return (
       <img
-        src={`https://www.biblioshare.org/bncServices/BNCServices.asmx/DetailImages?token=${BOOK_TOKEN}&san=&ean=${match.isbn}&thumbnail=no&Perspective=back&filenumber=&maxWidth=300&maxHeight=`}
+        src={`https://www.biblioshare.org/bncServices/BNCServices.asmx/DetailImages?token=${BOOK_TOKEN}&san=&ean=${match.isbn}&thumbnail=no&Perspective=back&filenumber=&maxWidth=200&maxHeight=`}
         alt={match.title}
       />
     );

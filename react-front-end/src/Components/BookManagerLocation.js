@@ -40,5 +40,5 @@ export default function BookManagerLocation(props) {
     });
   }, []);
 
-  return <div>Here is the BookManager response: {date}</div>;
+  return <div>{date}</div>;
 }
