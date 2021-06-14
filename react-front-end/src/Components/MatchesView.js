@@ -131,7 +131,7 @@ export default function MatchesView(props) {
           coverImage={book.image}
           description={book.description}
           isbn={book.isbn}
-          pageCount={book.pageCount}
+          pageCount={book.page_count}
           price={book.price}
           age={parseAge(book.publish_date)}
           toggle={toggle}
