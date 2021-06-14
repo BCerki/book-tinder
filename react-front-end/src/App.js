@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ProfileView from "./Components/ProfileView";
 import SwipeView from "./Components/SwipeView";
 import ChatView from "./Components/ChatView";
-import BooksView from "./Components/BooksView";
+import MatchesView from "./Components/MatchesView";
 import Footer from "./Components/Footer";
 import Login from "./Components/Login";
 
@@ -25,7 +25,7 @@ export default function AppRouter() {
           <ChatView />
         </Route>
         <Route path="/matches">
-          <BooksView />
+          <MatchesView />
 
           <Footer />
           <Route path="/profile/:id">

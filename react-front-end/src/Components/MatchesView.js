@@ -16,9 +16,9 @@ import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 
 //Styling
-import "../styles/booksView.scss";
+import "../styles/matchesView.scss";
 
-export default function BooksView(props) {
+export default function MatchesView(props) {
   //functions for book state
   // const { providerBook, getConversations } = useContext(bookStateContext);
 
