@@ -1,10 +1,13 @@
+import React from "react";
 import BooknetImagery from "../Components/BooknetImagery";
 import BooknetQuote from "../Components/BooknetQuote";
-import React from "react";
+import BookManagerLocation from "../Components/BookManagerLocation";
+import GoogleDescription from "../Components/GoogleDescription";
 
-const getLongDescription = function() {
-  return "placeholder";
-};
+import axios from "axios";
+import secrets from "../.secrets";
+
+const { BOOK_TOKEN, GOOGLE_BOOK_KEY } = secrets;
 
 const outOfTheAttic = [
   {
@@ -17,7 +20,7 @@ const outOfTheAttic = [
     id: "2",
     options: [
       { value: 1, label: "Yes", trigger: "backCover" },
-      { value: 2, label: "No", trigger: "no" },
+      { value: 2, label: "No", trigger: "backCover" },
     ],
   },
   {
@@ -30,6 +33,7 @@ const outOfTheAttic = [
     message: "What do you think of my paperback? I've been working out ",
   },
 ];
+
 const theForestCityKiller = [
   {
     id: "1",
@@ -40,13 +44,13 @@ const theForestCityKiller = [
     id: "2",
     options: [
       { value: 1, label: "Tell me about yourself", trigger: "tell" },
-      { value: 2, label: "Hi 😏", trigger: "hi" },
-      { value: 3, label: "Send pix", trigger: "pix" },
+      { value: 2, label: "Hi 😏", trigger: "tell" },
+      { value: 3, label: "Send pix", trigger: "tell" },
     ],
   },
   {
     id: "tell",
-    message: getLongDescription(),
+    component: <GoogleDescription />,
     trigger: "4",
   },
   {
@@ -57,10 +61,9 @@ const theForestCityKiller = [
   {
     id: "5",
     options: [
-      { value: 1, label: "yes, tell me more", trigger: "more" },
-      { value: 2, label: "It's not me, it's you", trigger: "" },
+      { value: 1, label: "Yes, tell me more", trigger: "6" },
+      { value: 2, label: "No...it's not me, it's you", trigger: "6" },
     ],
-    trigger: "6",
   },
   {
     id: "6",
@@ -70,53 +73,74 @@ const theForestCityKiller = [
   {
     id: "7",
     message: "Here's one of my favourite quotes 😈",
-    trigger: "8",
   },
 ];
-const allTheLeavings = [
+
+const raisingRoyalty = [
   {
     id: "1",
-    message: "Hi 😏",
+    message:
+      "Hehe, would  you’d like to get to know me a little better on the inside?",
     trigger: "2",
   },
   {
     id: "2",
-    options: [
-      { value: 1, label: "Tell me about yourself", trigger: "tell" },
-      { value: 2, label: "Hi 😏", trigger: "hi" },
-      { value: 3, label: "Send pix", trigger: "pix" },
-    ],
+    options: [{ value: 1, label: "Yes", trigger: "3" }],
   },
-  {
-    id: "tell",
-    message: getLongDescription(),
-    trigger: "4",
-  },
+  { id: "3", message: "TOC", trigger: "4" },
   {
     id: "4",
-    message: "Are you intrigued? 😉",
+    message: "Here's a sample of my table of conquests",
     trigger: "5",
   },
   {
     id: "5",
-    options: [
-      { value: 1, label: "yes, tell me more", trigger: "more" },
-      { value: 2, label: "It's not me, it's you", trigger: "" },
-    ],
-    trigger: "6",
+    message: "errrr... *contents",
+    trigger: "6a",
   },
   {
-    id: "6",
-    component: <BooknetQuote />,
+    id: "6a",
+    options: [
+      {
+        value: 1,
+        label:
+          "That's not a very long list... are you sure you're at my reading level?",
+        trigger: "6b",
+      },
+    ],
+  },
+  {
+    id: "6b",
+    message:
+      "That's just page 1 😏. I come from good stock. Would you like to see a photo of my author?",
     trigger: "7",
   },
+  { id: "7", options: [{ value: 1, label: "Yes", trigger: "8a" }] },
   {
-    id: "7",
-    message: "Here's one of my favourite quotes 😈",
-    trigger: "8",
+    id: "8a",
+    component: <BooknetImagery requestedInfo={"authorPhoto"} />,
+    trigger: "8b",
+  },
+  {
+    id: "8b",
+    message:
+      "Do you like what you've read and seen so far? Wy don’t you pick me up and we can 🤭 ... bookup?",
+    trigger: "9",
+  },
+  {
+    id: "9",
+    options: [
+      { value: 1, label: "😍", trigger: "10" },
+      { value: 2, label: "😰", trigger: "10" },
+    ],
+  },
+  { id: "10", component: <BookManagerLocation />, trigger: "11" },
+  {
+    id: "11",
+    message:
+      "You can pick me up here. Looking forward to feeling your bookmark between my pages. Just don’t read me too hard, or you might crack my spine 📖💋😘",
   },
 ];
 
-const demoScripts = { outOfTheAttic, theForestCityKiller, allTheLeavings };
-
+const demoScripts = { outOfTheAttic, theForestCityKiller, raisingRoyalty };
 export default demoScripts;
