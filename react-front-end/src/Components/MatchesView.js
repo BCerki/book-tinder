@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { bookStateContext } from "../providers/BookStateProvider";
+import { toggleStateContext } from "../providers/ToggleStateProvider";
 import Loading from "./Loading";
 import axios from "axios";
 
@@ -19,14 +19,14 @@ import { Link } from "react-router-dom";
 import "../styles/matchesView.scss";
 
 export default function MatchesView(props) {
-  //functions for book state
-  // const { providerBook, getConversations } = useContext(bookStateContext);
+  //toggle state
+  const { toggle, toggleContext } = useContext(toggleStateContext);
 
   //functions for toggle
-  const [toggle, setToggle] = useState(false);
+  // const [toggle, setToggle] = useState(false);
 
   const handleChange = (event) => {
-    setToggle(!toggle);
+    toggleContext(!toggle);
   };
   // console.log("toggle in middle view", toggle);
 
