@@ -40,5 +40,5 @@ export default function BookManagerLocation(props) {
     });
   }, []);
 
-  return <div>{date}</div>;
+  return <span className={"customText"}>{date}</span>;
 }

@@ -9,10 +9,10 @@
   // width: 100vw;
   height: 15vh;
   padding: 0 1em;
-  background-color: #f5f8fb;
+  background-color: $chatBubbleColour;
 
   // box-shadow: 0px 2px 1px -1px, 0px 1px 1px 0px, 0px 1px 3px 0px;
 }
-.backBarIcon {
+cd .backBarIcon {
   align-self: flex-start; //this doesn't work but maybe looks nicer this way anyway
 }

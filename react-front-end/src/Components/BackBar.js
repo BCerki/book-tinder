@@ -42,8 +42,8 @@ export default function BackBar(props) {
   //Material UI styling
   const useStyles = makeStyles((theme) => ({
     large: {
-      width: theme.spacing(7),
-      height: theme.spacing(7),
+      width: theme.spacing(10),
+      height: theme.spacing(10),
     },
   }));
   const classes = useStyles();

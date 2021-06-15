@@ -33,13 +33,13 @@ import secrets from "../.secrets";
 const theme = {
   background: "#f5f8fb",
   fontFamily: "Courier Prime",
-  headerBgColor: "#EF6C00",
-  headerFontColor: "#fff",
-  headerFontSize: "15px",
-  botBubbleColor: "#cd3827",
+  // headerBgColor: "#EF6C00",
+  // headerFontColor: "#fff",
+  // headerFontSize: "15px",
+  botBubbleColor: "#24408f",
   botFontColor: "#fff",
   userBubbleColor: "#fff",
-  // userFontColor: "#4a4a4a",
+  userFontColor: "#4a4a4a",
 };
 const { outOfTheAttic, theForestCityKiller, raisingRoyalty } = demoScripts;
 const { BOOKNET_TOKEN, GOOGLE_BOOK_KEY } = secrets;
