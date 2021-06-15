@@ -10,6 +10,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import GenreChip from "./GenreChip";
 import PostalCode from "./PostalCode";
 import UserName from "./UserName";
+import AvatarUpload from "./AvatarUpload";
 
 import Switch from "@material-ui/core/Switch";
 // import genreData from "../dummyData/dummyGenreData";
@@ -42,6 +43,7 @@ export default function ProfileView(props) {
   const [maxDistance, setMaxDistance] = useState(80);
   const [maturity, setMaturity] = useState(false);
   const [chips, setChips] = useState([]);
+  const [avatar, setAvatar] = useState("");
 
   const [userState, setUserState] = useState({
     id: null,
@@ -53,7 +55,10 @@ export default function ProfileView(props) {
     maxDistance: null,
     maturity: null,
     genres: [],
+    avatar: "",
   });
+  //AVATAR: add avatar to user state above??
+
   useEffect(() => {
     //get the user info that's currently in the db
     axios
@@ -68,6 +73,8 @@ export default function ProfileView(props) {
         setChips(result.data[0].genres);
         setPostalCode(result.data[0].postalCode);
         setName(result.data[0].name);
+        setAvatar(result.data[0].avatar);
+        console.log("WHAT IS THIS", result.data[0].avatar)
       })
       .catch((err) => console.log("Error message:", err.message));
   }, []);
@@ -192,6 +199,7 @@ export default function ProfileView(props) {
   const [isEditingName, setIsEditingName] = useState(false);
   const [postalCode, setPostalCode] = useState("");
   const [name, setName] = useState("");
+  const [isEditingAvatar, setIsEditingAvatar] = useState(false);
 
   console.log("postalCode state is", postalCode);
   //PostalCode
@@ -221,6 +229,30 @@ export default function ProfileView(props) {
     sendToDB(newUserObject);
   };
 
+  //AVATAR
+  const handleAvatarChange = (event) => {
+    event.preventDefault();
+    if (event.target.files) {
+    //  setAvatar(event.target.files[0]);
+     setAvatar(URL.createObjectURL(event.target.files[0]));
+    }
+    const newUserObject = { ...userState, avatar: URL.createObjectURL(event.target.files[0])};
+
+    sendToDB(newUserObject);
+
+    setIsEditingAvatar(false);
+  };
+
+  const handleAvatarClick = function() {
+    setIsEditingAvatar(true);
+  }
+
+  
+
+
+  console.log("avatar is:", avatar);
+  console.log("setAvatar is:", setAvatar);
+
   console.log("isediting is", isEditing);
   //Return statements components
   if (!userState.id) {
@@ -228,8 +260,17 @@ export default function ProfileView(props) {
   }
   return (
     <main>
-      <div className="profile-avatar">
-        <Avatar className={classes.large} />
+      {/* <div className="profile-avatar">
+        <Avatar className={classes.large}
+        src={avatar}/>
+      </div> */}
+      <div>
+        <AvatarUpload
+        onChange={handleAvatarChange}
+        avatar={avatar}
+        isEditingAvatar={isEditingAvatar}
+        onClick={handleAvatarClick}
+        />
       </div>
       <div>
         <UserName
