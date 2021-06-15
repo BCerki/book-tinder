@@ -91,7 +91,7 @@ export default function MatchesView(props) {
     return (
       <Link to={`/matches/${book.id}`} className="bookCardLink">
         <BookCard
-          id={book.id}
+          key={book.id}
           title={book.title}
           author={book.author}
           coverImage={book.image}

@@ -105,7 +105,6 @@ export default function Swipe(props) {
       {retrievedBooks.map((book) => {
         return (
           <TinderCard
-            id={book.id}
             className={"swipe"}
             key={book.id}
             preventSwipe={["up", "down"]}

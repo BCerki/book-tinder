@@ -28,7 +28,7 @@ export default function BookCard(props) {
     if (!toggle) {
       return (
         <Info
-          id={props.id}
+          key={props.id}
           coverImage={props.image}
           description={props.description}
           isbn={props.isbn}
@@ -38,14 +38,14 @@ export default function BookCard(props) {
         />
       );
     }
-    return <Message id={props.id} message={props.message} />;
+    return <Message key={props.id} message={props.message} />;
   };
 
   return (
     <article className="card-skeleton" onClick={props.onClick}>
       <div className="avatar-middle">
         <Avatar
-          id={props.id}
+          key={props.id}
           src={props.coverImage}
           alt={props.title}
           className={classes.large}
@@ -57,7 +57,7 @@ export default function BookCard(props) {
       >
         <div className="title-author">
           <TitleAuthorDisplay
-            id={props.id}
+            key={props.id}
             title={props.title}
             author={props.author}
           />
