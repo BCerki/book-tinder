@@ -2,4 +2,3 @@ node_modules/
 .env
 adrian_ignore/
 03_seeds.sql
-getSample2.js

@@ -1,13 +1,15 @@
+require("dotenv").config({ path: `../.env` });
+const BOOKNET_API_KEY = process.env.BOOKNET_API_KEY;
 const crawler = require("crawler-request");
 const _ = require("lodash");
 
 // Calls BiblioShare API, requests PDF sample, peforms conversions, returns single random sentence
-const getSample = (isbn) => {
+const getSample = (isbn, userNum) => {
   console.log("LOG: getSample.js: function called...");
   return new Promise((resolve, reject) => {
     // Calls API, converts PDF to rough text
     crawler(
-      `https://www.biblioshare.ca/BNCServices/BNCServices.asmx/Samples?token=3e58phfbom2hx2z7&ean=${isbn}&san=&perspective=Sample&filenumber=`
+      `https://www.biblioshare.ca/BNCServices/BNCServices.asmx/Samples?token=${BOOKNET_API_KEY}&ean=${isbn}&san=&perspective=Sample&filenumber=`
     )
       // Handle response
       .then((response) => {
@@ -29,15 +31,19 @@ const getSample = (isbn) => {
         const joinedStr = filteredArr.join("").replace(/\s\s+/g, " ");
         // Split cleaned up whole text (no line breaks) by ".", store as array
         const allLinesArr = joinedStr.split(".");
-        // Choose random number based on ISBN
-        const randomNum =
-          Number(isbn.toString().split("")[7]) *
-          Number(isbn.toString().split("")[9]);
-        console.log("randomNum", randomNum);
-        const randomLine = `${allLinesArr[randomNum]}.`;
 
-        // Optional: Get random line based on shuffled array
+        // Line/quote selection methods
+
+        // Get random number based on ISBN
+        // const randomNum =
+        //   Number(isbn.toString().split("")[7]) *
+        //   Number(isbn.toString().split("")[9]);
+
+        // Get random line based on shuffled array
         // const randomLine = _.shuffle(allLinesArr)[0];
+
+        // Get random line based on userNum function parameter
+        const randomLine = `${allLinesArr[userNum]}.`;
 
         // Console log result
         console.log("LOG: getSample.js: randomLine", randomLine);
@@ -52,6 +58,6 @@ const getSample = (isbn) => {
 };
 
 // Test code
-// getSample(9781770415034);
+// getSample(9781770415034, 19);
 
 module.exports = getSample;

@@ -52,9 +52,11 @@ App.get("/api/getlocation", (req, res) => {
 });
 
 // getSample helper
-App.get("/api/sample/:isbn", (req, res) => {
-  console.log("LOG: server.js: /api/sample/:isbn: At this route!");
-  getSample(req.params.isbn)
+App.get("/api/sample", (req, res) => {
+  console.log("LOG: server.js: /api/sample At this route!");
+  const isbn = req.query.isbn;
+  const randomNum = req.query.randomNum;
+  getSample(isbn, randomNum)
     .then((response) => {
       console.log("LOG: server.js: /api/sample: response:", response);
       res.json(response);
