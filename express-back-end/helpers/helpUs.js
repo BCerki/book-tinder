@@ -10682,7 +10682,30 @@ const toc = [
   9782898090875,
 ];
 
-let arrays = [back, samples];
+// SORT BY MOST COMMON ELEMENT FUNC
+
+// const fullArr = [...back, ...author, ...samples, ...toc, ...teachersguide];
+// const listNum = 10;
+
+// const topKFrequent = (nums, k) => {
+//   let hash = {};
+
+//   for (let num of nums) {
+//     if (!hash[num]) hash[num] = 0;
+//     hash[num]++;
+//   }
+
+//   const hashToArray = Object.entries(hash);
+//   const sortedArray = hashToArray.sort((a, b) => b[1] - a[1]);
+//   const sortedElements = sortedArray.map((num) => parseInt(num[0]));
+//   return sortedElements.slice(0, k);
+// };
+
+// console.log(topKFrequent(fullArr, listNum));
+
+// GET ALL COMMON ELEMENTS FUNC
+
+let arrays = [samples, author];
 
 function getCommonElements(arrays) {
   //Assumes that we are dealing with an array of arrays of integers
@@ -10702,11 +10725,13 @@ function getCommonElements(arrays) {
     currentValues = commonValues;
     commonValues = {};
   }
-  return Object.keys(currentValues).map(function(value) {
+  return Object.keys(currentValues).map(function (value) {
     return parseInt(value);
   });
 }
-console.log(getCommonElements(arrays)); //Prints [9,44]
+console.log(getCommonElements(arrays));
+
+// BRIANNA FUNC
 
 // const arrayA = [1,2,3,4,5];
 // const arrayB = [3,4,5,6,7,8,9];
