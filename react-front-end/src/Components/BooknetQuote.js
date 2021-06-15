@@ -31,7 +31,7 @@ export default function BooknetQuote(props) {
           //ask the back-end to retrieve a sample
           axios
             .get(
-              `/api/sample/sample?isbn=${thisMatch.isbn}&randomNum=${props.randomNum}`
+              `/api/sample/?isbn=${thisMatch.isbn}&randomNum=${props.randomNum}`
             )
             .then((result) => {
               console.log("this should be some quotes:", result.data);
@@ -51,7 +51,7 @@ export default function BooknetQuote(props) {
   }
   return (
     <div>
-      <span>{quote}</span>
+      <span>{quote} —Me</span>
     </div>
   );
 }
