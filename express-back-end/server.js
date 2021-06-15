@@ -9,6 +9,21 @@ const { Pool } = require("pg");
 // const getUserData = require("./routes/user");
 const { response } = require("express");
 const { result } = require("lodash");
+// const multer  = require('multer')
+
+// //Set storage
+// const storage = multer.diskStorage({
+//   destination: './uploads/',
+//   filename: function(req, file, cb){
+//     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+
+//   }
+// });
+
+// //Upload
+// const upload = multer({
+//   storage: storage
+// });
 
 // Helpers
 const getSample = require("./helpers/getSample");
@@ -210,6 +225,7 @@ App.get("/api/users/:id", (req, res) => {
   return pool
     .query(queryUser, values)
     .then((result) => {
+      console.log("GET ROUTE:", result.rows);
       const transformed = [];
       for (const val of result.rows) {
         const user = {
@@ -222,6 +238,7 @@ App.get("/api/users/:id", (req, res) => {
           maturity: val.maturity,
           genres: val.genres,
           postalCode: val.postal_code,
+          avatar: val.avatar
         };
         transformed.push(user);
       }
@@ -238,7 +255,7 @@ App.post("/api/users/:id", (req, res) => {
   // const id = parseInt(req.params.id);
 
   const newUser = `INSERT INTO users (name, age, page_count, price, max_distance, maturity, genres, postal_code)
-  VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`;
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`;
 
   const values = [
     req.body.name,
@@ -249,6 +266,7 @@ App.post("/api/users/:id", (req, res) => {
     req.body.maturity,
     req.body.genres,
     req.body.postalCode,
+    req.body.avatar
   ];
 
   return pool
@@ -264,11 +282,13 @@ App.post("/api/users/:id", (req, res) => {
 
 //Update user data in users table **WORKING**
 App.put("/api/users/:id", (req, res) => {
+  console.log("POST BODY:", req.body);
+  console.log("IMG FILE:", req.file);
+  
   const id = parseInt(req.params.id);
-  console.log("body:", req.body);
-
+  
   const updateUser = `UPDATE users SET name = $1, age = $2, page_count = $3, price = $4,
-  max_distance = $5, maturity = $6, genres = $7, postal_code = $8 WHERE id = $9 `;
+  max_distance = $5, maturity = $6, genres = $7, postal_code = $8, avatar = $9 WHERE id = $10 `;
 
   const values = [
     req.body.name,
@@ -279,6 +299,7 @@ App.put("/api/users/:id", (req, res) => {
     req.body.maturity,
     req.body.genres,
     req.body.postalCode,
+    req.body.avatar,
     id,
   ];
 
