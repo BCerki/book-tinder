@@ -16,6 +16,59 @@ const sendPix = function() {
   return resultsArray;
 };
 
-const otherScripts = [sendPix()];
+const heeeeeeyreader = [{ id: "1", message: "Heeeeeeeeeeey, bookworm 😘" }];
+
+const endsheets = [
+  {
+    id: "1",
+    message: "Maybe we could end the night between my endsheets? 📖💓📖",
+  },
+];
+const library = [
+  {
+    id: "1",
+    message:
+      "Tired of borrowing books at the library? Want to check out something fresh and novel?",
+  },
+];
+const chapter = [
+  {
+    id: "1",
+    message: "Hey reader, interested in starting a new chapter together?",
+  },
+];
+const covers = [
+  {
+    id: "1",
+    message:
+      "Well hello bibliophile, want to join me between my covers? 📕💞📕",
+  },
+];
+const romancingTheTome = [
+  {
+    id: "1",
+    message: "How would you feel about romancing the tome with me?",
+  },
+];
+const allBooks = [{ id: "1", message: "I bet you say that to all the books" }];
+
+const store = [
+  {
+    id: "1",
+    message: "I bet you think there's probably plenty of books in the store",
+  },
+];
+
+const otherScripts = [
+  sendPix(),
+  heeeeeeyreader,
+  endsheets,
+  library,
+  chapter,
+  covers,
+  romancingTheTome,
+  allBooks,
+  store,
+];
 
 export default otherScripts;
