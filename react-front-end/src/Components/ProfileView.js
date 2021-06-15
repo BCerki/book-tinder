@@ -276,7 +276,7 @@ export default function ProfileView(props) {
         </div>
       </div>
       <div className="profile-preference">
-        <span class="profile-label">Commitment level (page count)</span>
+        <span className={"profile-label"}>Commitment level (page count)</span>
         <Slider
           value={[userState.pageCount[0], userState.pageCount[1]]}
           marks={pageCountMarks}
@@ -295,7 +295,7 @@ export default function ProfileView(props) {
         </div>
       </div>
       <div className="profile-preference">
-        <span class="profile-label">Date cost (price range)</span>
+        <span className={"profile-label"}>Date cost (price range)</span>
         <Slider
           value={[userState.price[0], userState.price[1]]}
           marks={priceMarks}
@@ -314,7 +314,9 @@ export default function ProfileView(props) {
         </div>
       </div>
       <div className="profile-preference">
-        <span class="profile-label">Maximum distance (to a bookstore)</span>
+        <span className={"profile-label"}>
+          Maximum distance (to a bookstore)
+        </span>
         <Slider
           value={userState.maxDistance}
           // defaultValue={maxDistance}
@@ -336,7 +338,7 @@ export default function ProfileView(props) {
       </div>
       <div className="profile-preference">
         <div className="maturity">
-          <span class="profile-label">
+          <span className={"profile-label"}>
             Adventurous? (include mature content)
           </span>
           <Switch
@@ -351,8 +353,8 @@ export default function ProfileView(props) {
         </div>
       </div>
       <div className="profile-preference">
-        <span class="profile-label">Genres</span>
-        <div class="genre-box">{genreChips}</div>
+        <span className={"profile-label"}>Genres</span>
+        <div className={"genre-box"}>{genreChips}</div>
       </div>
     </main>
   );
