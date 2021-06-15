@@ -61,7 +61,7 @@ export default function MatchesView(props) {
       .get("/api/users/1/conversations")
       .then((result) => {
         console.log("result.data is", result.data);
-        setMatches(result.data);
+        setMatches(result.data.reverse());
       })
       .catch((err) => {
         console.log("Error:", err.message);
