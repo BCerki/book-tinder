@@ -134,7 +134,7 @@ const raisingRoyalty = [
   {
     id: "8b",
     message:
-      "Do you like what you've read and seen so far? Wy don’t you pick me up and we can 🤭 ... bookup?",
+      "Do you like what you've read and seen so far? Why don’t you pick me up and we can 🤭 ... bookup?",
     trigger: "9",
   },
   {
