@@ -9,21 +9,8 @@ const { Pool } = require("pg");
 // const getUserData = require("./routes/user");
 const { response } = require("express");
 const { result } = require("lodash");
-// const multer  = require('multer')
+// const {cloudinary} = require('./cloudinary');
 
-// //Set storage
-// const storage = multer.diskStorage({
-//   destination: './uploads/',
-//   filename: function(req, file, cb){
-//     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-
-//   }
-// });
-
-// //Upload
-// const upload = multer({
-//   storage: storage
-// });
 
 // Helpers
 const getSample = require("./helpers/getSample");
@@ -242,6 +229,7 @@ App.get("/api/users/:id", (req, res) => {
         };
         transformed.push(user);
       }
+      console.log("Transformed", transformed)
       res.send(transformed);
     })
     .catch((err) => {
@@ -282,8 +270,7 @@ App.post("/api/users/:id", (req, res) => {
 
 //Update user data in users table **WORKING**
 App.put("/api/users/:id", (req, res) => {
-  console.log("POST BODY:", req.body);
-  console.log("IMG FILE:", req.file);
+  // console.log("POST BODY:", req.body);
   
   const id = parseInt(req.params.id);
   
@@ -313,6 +300,33 @@ App.put("/api/users/:id", (req, res) => {
       res.status(500).send(err.message);
     });
 });
+
+
+//AVATAR UPLOAD TO CLOUD STORAGE (Cloudinary):
+// App.post("/api/upload", (req, res) => {
+//   console.log("POST BODY:", req.body);
+//   const fileString = req.body;
+//   return cloudinary.uploader.upload(fileString)
+//   .then((result) => {
+//     res.send(result);
+//   })
+//   .catch((err) => {
+//     res.status(500).send(err.message);
+//   });
+// });
+
+// try {
+//   const fileString = JSON.parse(JSON.stringify(req.body));
+//   const uploadedResponse = await cloudinary.uploader.upload(fileString, {
+//     upload_preset: "book-tinder",
+//   });
+//   console.log(uploadedResponse);
+//   res.json("Upload Successful!");
+// } catch (error) {
+//   console.error(error);
+//   res.status(500).json({ err: "upload unsuccessful" });
+// }
+
 
 App.listen(PORT, () => {
   // eslint-disable-next-line no-console
