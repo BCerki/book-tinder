@@ -12,7 +12,7 @@ import ChatView from "./Components/ChatView";
 import MatchesView from "./Components/MatchesView";
 import Footer from "./Components/Footer";
 import Login from "./Components/Login";
-import Tagline from "./Components/Tagline";
+import Credits from "./Components/Credits";
 
 //Import styling
 
@@ -49,7 +49,7 @@ export default function AppRouter() {
                   <Footer />
                 </Route>
                 <Route path="/credits">
-                  <Tagline />
+                  <Credits />
                 </Route>
                 <Route path="/">
                   <Login />

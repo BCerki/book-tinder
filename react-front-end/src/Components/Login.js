@@ -11,7 +11,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import Tagline from "./Tagline";
+import Credits from "./Credits";
 
 //Styling
 import "../styles/login.scss";
@@ -85,5 +85,5 @@ export default function UserLogin() {
   if (finished) {
     return <Redirect to="/books" />;
   }
-  return <Tagline />;
+  return <Credits />;
 }

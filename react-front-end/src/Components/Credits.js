@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-export default function Tagline(props) {
+export default function Credits(props) {
   // console.log("props in info", props);
   return (
     <div className={"page"}>
