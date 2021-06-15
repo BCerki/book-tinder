@@ -153,10 +153,16 @@ export default function ProfileView(props) {
   const genreData = [
     "Mystery",
     "Romance",
-    "Young Adult",
-    "Fiction",
+    "Literary",
     "Science Fiction",
-    "Biography",
+    "Fantasy",
+    "Children's",
+    "Non-fiction",
+    "History",
+    "Biography/Memoir",
+    "Cooking",
+    "Humour",
+    "Self-help",
   ];
 
   //Genres
