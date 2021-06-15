@@ -232,20 +232,70 @@ export default function ProfileView(props) {
   //AVATAR
   const handleAvatarChange = (event) => {
     event.preventDefault();
-    if (event.target.files) {
-    //  setAvatar(event.target.files[0]);
-     setAvatar(URL.createObjectURL(event.target.files[0]));
+    
+    const reader = new FileReader();
+
+    reader.addEventListener(
+      "load",
+      function() {
+        // convert image file to base64 string
+        console.log("reader result:", reader.result);
+        
+        const newUserObject = { ...userState, avatar: reader.result };
+
+        sendToDB(newUserObject);
+        setAvatar(reader.result);
+        setIsEditingAvatar(false);
+      },
+      false
+    );
+
+    if (event.target.files[0]) {
+      reader.readAsDataURL(event.target.files[0]);
     }
-    const newUserObject = { ...userState, avatar: URL.createObjectURL(event.target.files[0])};
-
-    sendToDB(newUserObject);
-
-    setIsEditingAvatar(false);
   };
 
-  const handleAvatarClick = function() {
-    setIsEditingAvatar(true);
-  }
+  //CLOUDINARY IMPLEMENTATION
+  // const handleAvatarChange = (event) => {
+  //   const file = event.target.files[0];
+  //   const reader = new FileReader();
+  //   if (!file) return;
+  //   reader.readAsDataURL(file);
+  //   reader.onloadend = () => {
+  //     console.log("FILE IS:", reader.result);
+  //     uploadImage(reader.result);
+  //   };
+  //   reader.onerror = () => {
+  //     console.error("Did not work!");
+  //   };
+  // };
+
+  // const uploadImage = function(base64EncodedImage) {
+  //   console.log("Did I hit?");
+  //   setAvatar('');
+  //   axios
+  //   .post('/api/upload/', base64EncodedImage)
+  //   .then((result) => {
+  //     console.log("image post worked!");
+  //   })
+  //   .catch((err) => console.log("Error message:", err.message));
+  // };
+  
+    const handleAvatarClick = function() {
+      setIsEditingAvatar(true);
+    }
+
+  //   try {
+  //     await fetch ('/api/upload', {
+  //       method: 'POST',
+  //       body: JSON.stringify({data: base64EncodedImage}),
+  //       headers: {"Content-Type": "application/json"},
+  //     });
+  //     setAvatar("");
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
   
 
