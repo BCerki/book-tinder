@@ -44,8 +44,8 @@ export default function SearchBar({setSearchTitle, searchTitle, filterMatches}) 
         value={searchTitle}
         onChange = {(event) => setSearchTitle(event.target.value)}
         />
-        <button type="submit">Search</button>
-        <button className="clear-search" onClick={() => {setSearchTitle('')}}>Return</button>
+        {/* <button type="submit">Search</button>
+        <button className="clear-search" onClick={() => {setSearchTitle('')}}>Return</button> */}
       </form>
     </div>
   );
