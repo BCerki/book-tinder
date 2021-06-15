@@ -1,7 +1,5 @@
 @import "./variables.scss";
 
-@import url("https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap");
-
 div.login {
   display: flex;
   flex-direction: column;
@@ -23,7 +21,7 @@ div.login {
 }
 
 .appName {
-  font-family: "Courier Prime", monospace;
+  font-family: $typewriter-font;
   font-size: 5em;
   font-weight: 700;
 }

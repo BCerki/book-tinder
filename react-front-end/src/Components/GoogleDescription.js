@@ -37,5 +37,5 @@ export default function GoogleDescription(props) {
     }
   }, []);
 
-  return <div>{description}</div>;
+  return <span className={"customText"}>{description}</span>;
 }

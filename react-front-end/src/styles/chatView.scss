@@ -1,4 +1,10 @@
 @import "./variables.scss";
+
+//style booknet images
+img.booknet {
+  width: 50vw;
+}
+
 //chatbot styles
 //height of message window
 .rsc {
@@ -31,15 +37,31 @@
   align-items: center !important;
 }
 //turn off shadow otherwise there's a line between the header and the rest of the chat
-.rsc-container {
-  box-shadow: none !important;
-  padding: none !important;
-}
-.cLqDkO {
-  width: 100vw !important;
-  height: $space-for-conversation !important;
-}
+// .rsc-container {
+//   box-shadow: none !important;
+//   padding: none !important;
+// }
+// .cLqDkO {
+//   width: 100vw !important;
+//   height: $space-for-conversation !important;
+// }
 
+//chatbot custom component styles. Other chatbot styling is done in the theming wrapper in Chatbot.js
 //chat bubble styles for custom component
 .sc-gKAaRy {
+}
+.bzPgCx {
+  background-color: $red;
+  border-radius: 18px 18px 18px 0;
+  max-width: 50%;
+}
+
+//font for custom component
+.customText {
+  color: #fff !important;
+}
+
+//chat user options
+.ebcVKS {
+  font-family: $typewriter-font;
 }

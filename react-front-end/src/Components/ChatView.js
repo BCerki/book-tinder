@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import ChatBot from "react-simple-chatbot";
+import { ThemeProvider } from "styled-components";
 import booknetScripts from "../ChatBotScripts/booknetScripts";
 import otherScripts from "../ChatBotScripts/otherScripts";
 import demoScripts from "../ChatBotScripts/demoScripts";
@@ -27,6 +28,19 @@ import axios from "axios";
 // import theForestCityKiller from "../ChatBotScripts/demoScripts";
 // import allTheLeavings from "../ChatBotScripts/demoScripts";
 import secrets from "../.secrets";
+
+// all available chatbot styling props
+const theme = {
+  background: "#f5f8fb",
+  fontFamily: "Courier Prime",
+  headerBgColor: "#EF6C00",
+  headerFontColor: "#fff",
+  headerFontSize: "15px",
+  botBubbleColor: "#cd3827",
+  botFontColor: "#fff",
+  userBubbleColor: "#fff",
+  // userFontColor: "#4a4a4a",
+};
 const { outOfTheAttic, theForestCityKiller, raisingRoyalty } = demoScripts;
 const { BOOKNET_TOKEN, GOOGLE_BOOK_KEY } = secrets;
 
@@ -125,20 +139,20 @@ export default function ChatView(props) {
         id={match.id}
         title={match.title}
       />
-      <ChatBot
-        steps={chooseTargetedScript(
-          match.isbn,
-          match.title,
-          match.booknet_available
-        )}
-        cacheName={`rsc_cache_${matchId}`}
-        cache={true}
-        hideBotAvatar={true}
-        hideUserAvatar={true}
-        hideHeader={true}
-        botAvatar={"from state"}
-        userAvatar={"from user api, hardcode in"}
-      />
+      <ThemeProvider theme={theme}>
+        <ChatBot
+          steps={chooseTargetedScript(
+            match.isbn,
+            match.title,
+            match.booknet_available
+          )}
+          cacheName={`rsc_cache_${matchId}`}
+          cache={true}
+          hideBotAvatar={true}
+          hideUserAvatar={true}
+          hideHeader={true}
+        />
+      </ThemeProvider>
     </>
   );
 }
