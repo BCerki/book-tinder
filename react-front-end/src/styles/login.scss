@@ -43,10 +43,24 @@ a {
     color: whitesmoke;
   }
 }
-
+//email and password
 .input {
   margin: 1em 0;
   width: 60vw;
+}
+
+.submit {
+  color: white;
+}
+
+//login button
+.loginButton {
+  background-color: $red;
+  padding: 0.5em 1em;
+  border: none;
+
+  width: 5em;
+  box-shadow: 0px 2px 1px -1px, 0px 1px 1px 0px, 0px 1px 3px 0px;
 }
 
 //animation

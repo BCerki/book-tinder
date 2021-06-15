@@ -28,24 +28,24 @@ export default function BookCard(props) {
     if (!toggle) {
       return (
         <Info
-          key={props.id}
+          key={props.isbn}
           coverImage={props.image}
           description={props.description}
-          isbn={props.isbn}
+          // isbn={props.isbn}
           pageCount={props.pageCount}
           price={props.price}
           age={props.age}
         />
       );
     }
-    return <Message key={props.id} message={props.message} />;
+    return <Message key={props.isbn} message={props.message} />;
   };
 
   return (
     <article className="card-skeleton" onClick={props.onClick}>
       <div className="avatar-middle">
         <Avatar
-          key={props.id}
+          key={props.isbn}
           src={props.coverImage}
           alt={props.title}
           className={classes.large}
@@ -57,7 +57,7 @@ export default function BookCard(props) {
       >
         <div className="title-author">
           <TitleAuthorDisplay
-            key={props.id}
+            key={props.isbn}
             title={props.title}
             author={props.author}
           />

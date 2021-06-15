@@ -88,6 +88,7 @@ export default function MatchesView(props) {
   };
 
   const bookCards = filterMatches().map((book) => {
+    // console.log("book.id is", book.id);
     return (
       <Link to={`/matches/${book.id}`} className="bookCardLink">
         <BookCard

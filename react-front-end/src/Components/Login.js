@@ -70,6 +70,7 @@ export default function UserLogin() {
             </div>
             <div className="submit">
               <input
+                className={"loginButton"}
                 type="submit"
                 name="commit"
                 value="Login"
