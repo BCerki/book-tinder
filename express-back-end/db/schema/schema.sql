@@ -17,7 +17,7 @@ CREATE TABLE users (
   maturity BOOLEAN,
   genres TEXT[],
   postal_code VARCHAR(7),
-  avatar VARCHAR(500)
+  avatar TEXT
 );
 
 CREATE TABLE books (
