@@ -21,39 +21,11 @@ import "../styles/matchesView.scss";
 export default function MatchesView(props) {
   //toggle state
   const { toggle, toggleContext } = useContext(toggleStateContext);
-  console.log("toggle is", toggle);
-
-  //functions for toggle
-  // const [toggle, setToggle] = useState(false);
 
   const handleChange = (event) => {
     toggleContext(!toggle);
   };
-  // console.log("toggle in middle view", toggle);
 
-  // const handleClick = function(bookObject) {
-  //   providerBook(bookObject);
-  //   // console.log("handle click fired, bookObject is:", bookObject);
-  // };
-
-  //Create the cards for info
-  //if this gives async issues, get the conversations in a useEffect hook above instead
-
-  // const [currentBookObject, setCurrentBookObject] = useState();
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`/api/users/1/books`)
-  //     .then((result) => {
-  //       const allBooks = result.data;
-  //       const bookObjectFromId = allBooks.find((book) => book.id === bookId);
-  //       setCurrentBookObject(bookObjectFromId);
-  //     })
-  //     .catch(() => {});
-  // }, []);
-
-  //get the conversation data
-  // const
   const [matches, setMatches] = useState([]);
   const [searchTitle, setSearchTitle] = useState("");
 
@@ -98,24 +70,20 @@ export default function MatchesView(props) {
     if (!conversation || Object.keys(conversation).length <= 2) {
       return "You're my type!";
     }
-    // console.log("Object.keys(conversation)", Object.keys(conversation).length);
 
-    // console.log("retireve message function conversation is", conversation);
     const parseConversation = JSON.parse(conversation);
-    // console.log("parse conversation is", parseConversation);
 
     let index = null;
     for (const element of parseConversation) {
-      // console.log("element is", element);
       if (element.message) {
         index = Number(element.message);
         console.log("element is", element);
         break;
       }
     }
-    // console.log("index is", index);
+
     const latestMessage = parseConversation[index];
-    // console.log("latest message is", latestMessage);
+
     return latestMessage;
   };
 
@@ -124,9 +92,6 @@ export default function MatchesView(props) {
       <Link to={`/matches/${book.id}`} className="bookCardLink">
         <BookCard
           id={book.id}
-          // onClick={() => {
-          //   handleClick(book);
-          // }}
           title={book.title}
           author={book.author}
           coverImage={book.image}
