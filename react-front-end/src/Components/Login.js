@@ -44,7 +44,7 @@ export default function UserLogin() {
   };
   if (!credits) {
     return (
-      <div className={"page"}>
+      <main>
         <div className={"login"}>
           <div className={"appName"}>bookUp</div>
           <img className={"logo"} src={bookupLogo} alt="bookUp logo" />
@@ -79,7 +79,7 @@ export default function UserLogin() {
             {/* </form> */}
           </div>
         </div>
-      </div>
+      </main>
     );
   }
   if (finished) {
