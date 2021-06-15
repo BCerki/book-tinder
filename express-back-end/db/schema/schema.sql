@@ -16,7 +16,8 @@ CREATE TABLE users (
   max_distance INTEGER NOT NULL,
   maturity BOOLEAN,
   genres TEXT[],
-  postal_code VARCHAR(7)
+  postal_code VARCHAR(7),
+  avatar VARCHAR(500)
 );
 
 CREATE TABLE books (
