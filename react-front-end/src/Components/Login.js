@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useContext } from "react";
 import bookupLogo from "./bookupLogo.png";
 import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 import {
   BrowserRouter as Router,
@@ -60,9 +61,13 @@ export default function UserLogin() {
               />
             </div>
             <div className="submit">
-              <Link to="/credits">
-                <input type="submit" name="commit" value="Login" />
-              </Link>
+              <Button variant="contained" color="primary" href="/credits">
+                Login
+              </Button>
+              {/* <Link to="/credits"> */}
+
+              {/* <input type="submit" name="commit" value="Login" /> */}
+              {/* </Link> */}
             </div>
             {/* </form> */}
           </div>
