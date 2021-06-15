@@ -10,7 +10,3 @@ VALUES(1,8,'[{"currentStep":"1","previousStep":"2","previousSteps":"3","rendered
 
 
 
-//Tired of borrowing books at the library? Want to check out something fresh and novel?
-No, YOU''RE spineless
-Reading me is riding a magic carpet--I''ll show you a whole new world
-When you're done reading me, I think we should write a new book together
