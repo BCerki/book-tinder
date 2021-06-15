@@ -146,7 +146,7 @@ export default function MatchesView(props) {
   }
 
   return (
-    <>
+    <main>
       <section className="search-bar">
         <SearchBar
           setSearchTitle={setSearchTitle}
@@ -160,6 +160,6 @@ export default function MatchesView(props) {
         <span className="toggle-label">Messages</span>
       </section>
       <section>{bookCards}</section>
-    </>
+    </main>
   );
 }
