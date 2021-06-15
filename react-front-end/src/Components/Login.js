@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState, useContext } from "react";
 import bookupLogo from "./bookupLogo.png";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 
 import {
   BrowserRouter as Router,
@@ -21,6 +20,15 @@ export default function UserLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [credits, showCredits] = useState(false);
+  const [finished, setFinished] = useState(false);
+
+  useEffect(() => {
+    if (credits) {
+      setTimeout(() => {
+        setFinished(true);
+      }, 3000);
+    }
+  }, [credits]);
 
   // const onEmailChange = function(event) {
   //   setEmail(event.target.value);
@@ -61,19 +69,21 @@ export default function UserLogin() {
               />
             </div>
             <div className="submit">
-              <Button variant="contained" color="primary" href="/credits">
-                Login
-              </Button>
-              {/* <Link to="/credits"> */}
-
-              {/* <input type="submit" name="commit" value="Login" /> */}
-              {/* </Link> */}
+              <input
+                type="submit"
+                name="commit"
+                value="Login"
+                onClick={onSubmit}
+              />
             </div>
             {/* </form> */}
           </div>
         </div>
       </div>
     );
+  }
+  if (finished) {
+    return <Redirect to="/books" />;
   }
   return <Tagline />;
 }
