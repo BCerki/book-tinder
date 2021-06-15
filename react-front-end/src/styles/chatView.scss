@@ -13,29 +13,29 @@ img.booknet {
 .bNIVFd {
   height: 75vh !important;
 }
-//type input
+// //type input
 .iZDkca {
   position: fixed !important; //tried to override their style, couldn't
   bottom: 0;
   width: 100vw;
   height: 10vw;
-  padding: 0 0.5em !important;
+  padding: 2em 1em !important;
   opacity: 1 !important;
   // visibility: hidden; //remove if we only do predefined entries
 }
-//arrow
-.htxcXr {
-}
+// //arrow
+// .htxcXr {
+// }
 
-.cqdlkl {
-  visibility: hidden; //hide it because the positioning is awkward
-}
+// .cqdlkl {
+//   visibility: hidden; //hide it because the positioning is awkward
+// }
 
-.rsc-footer {
-  display: flex;
-  justify-content: flex-end !important;
-  align-items: center !important;
-}
+// .rsc-footer {
+//   display: flex;
+//   justify-content: flex-end !important;
+//   align-items: center !important;
+// }
 //turn off shadow otherwise there's a line between the header and the rest of the chat
 // .rsc-container {
 //   box-shadow: none !important;
