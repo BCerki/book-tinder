@@ -67,13 +67,23 @@ const theForestCityKiller = [
   },
   {
     id: "6",
-    component: <BooknetQuote />,
+    component: <BooknetQuote randomNum={20} />,
     trigger: "7",
   },
   {
     id: "7",
     message: "Here's one of my favourite quotes 😈",
+    trigger: "8",
   },
+  {
+    id: "8",
+    options: [
+      { value: 1, label: "Tell me more", trigger: "9" },
+      { value: 2, label: "That's enough", trigger: "9" },
+    ],
+  },
+
+  { id: "9", component: <BooknetQuote randomNum={5} /> },
 ];
 
 const raisingRoyalty = [

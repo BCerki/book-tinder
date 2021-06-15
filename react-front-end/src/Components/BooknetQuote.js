@@ -9,6 +9,7 @@ import Loading from "./Loading";
 // console.log("bookId is", bookId);
 
 export default function BooknetQuote(props) {
+  console.log("props in booknet quote", props);
   const matchId = Number(useLocation().pathname.replace("/matches/", ""));
 
   const [match, setMatch] = useState();
@@ -27,17 +28,11 @@ export default function BooknetQuote(props) {
           const thisMatch = allMatches.find((book) => book.id === matchId);
           setMatch(thisMatch);
           console.log("chatting book is", thisMatch);
-          // setQuote(getSample(chattingBook.isbn));
-
-          //   axios
-          //     .put(`/api/sample/${chattingBook.isbn}`, chattingBook.isbn)
-          //     .then(() => console.log("successfully sent isbn to Adrian"))
-          //     .catch(() => console.log("failed to send to Adrian"));
-          //
-          // })
-          // .then(() => {
+          //ask the back-end to retrieve a sample
           axios
-            .get(`/api/sample/${thisMatch.isbn}`)
+            .get(
+              `/api/sample/sample?isbn=${thisMatch.isbn}&randomNum=${props.randomNum}`
+            )
             .then((result) => {
               console.log("this should be some quotes:", result.data);
               setQuote(result.data);
