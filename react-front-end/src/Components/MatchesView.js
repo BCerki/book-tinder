@@ -21,6 +21,7 @@ import "../styles/matchesView.scss";
 export default function MatchesView(props) {
   //toggle state
   const { toggle, toggleContext } = useContext(toggleStateContext);
+  console.log("toggle is", toggle);
 
   //functions for toggle
   // const [toggle, setToggle] = useState(false);

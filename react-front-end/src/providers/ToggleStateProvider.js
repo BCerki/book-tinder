@@ -1,12 +1,14 @@
 import React, { createContext, useEffect, useState } from "react";
 
 export default function ToggleStateProvider(props) {
-  const [toggle, setToggle] = useState({});
+  const [toggle, setToggle] = useState(false);
 
   const toggleContext = function(setting) {
     setToggle(setting);
     // console.log("i am in chatbookprovider and my object is", bookObject);
   };
+
+  console.log("toggle in provider is", toggle);
 
   // authContext will expose these items
   const chatData = { toggle, toggleContext };
