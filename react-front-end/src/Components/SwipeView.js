@@ -104,20 +104,19 @@ export default function Swipe(props) {
     <div className="cardContainer">
       {retrievedBooks.map((book) => {
         return (
-          <>
-            <TinderCard
-              className={"swipe"}
-              key={book.id}
-              preventSwipe={["up", "down"]}
-              onSwipe={(dir) => swiped(dir, book)}
-              // onCardLeftScreen={() => onCardLeftScreen(`${book.id}`)}
-            >
-              <div
-                className={"card"}
-                style={{ backgroundImage: `url(${book.image})` }}
-              ></div>
-            </TinderCard>
-          </>
+          <TinderCard
+            id={book.id}
+            className={"swipe"}
+            key={book.id}
+            preventSwipe={["up", "down"]}
+            onSwipe={(dir) => swiped(dir, book)}
+            // onCardLeftScreen={() => onCardLeftScreen(`${book.id}`)}
+          >
+            <div
+              className={"card"}
+              style={{ backgroundImage: `url(${book.image})` }}
+            ></div>
+          </TinderCard>
         );
       })}
     </div>
