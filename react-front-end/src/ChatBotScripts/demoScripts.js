@@ -7,7 +7,7 @@ import GoogleDescription from "../Components/GoogleDescription";
 import axios from "axios";
 import secrets from "../.secrets";
 
-const { BOOK_TOKEN, GOOGLE_BOOK_KEY } = secrets;
+const { BOOKNET_TOKEN, GOOGLE_BOOK_KEY } = secrets;
 
 const outOfTheAttic = [
   {

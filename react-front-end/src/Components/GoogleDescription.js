@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import secrets from "../.secrets";
-const { BOOK_TOKEN, GOOGLE_BOOK_KEY } = secrets;
+const { BOOKNET_TOKEN, GOOGLE_BOOK_KEY } = secrets;
 
 export default function GoogleDescription(props) {
   const matchId = Number(useLocation().pathname.replace("/matches/", ""));

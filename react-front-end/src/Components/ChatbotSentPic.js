@@ -2,8 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { chatBookStateContext } from "../providers/ChatBookStateProvider";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import BOOK_TOKEN from "../../src/.secrets";
+import secrets from "../.secrets";
 import Loading from "./Loading";
+const { BOOKNET_TOKEN, GOOGLE_BOOK_KEY } = secrets;
 
 // console.log("bookId is", bookId);
 
@@ -49,7 +50,7 @@ export default function ChatbotSentPic(props) {
     <div>
       <span>{interiorImage}</span>
       <img
-        src={`https://www.biblioshare.org/bncServices/BNCServices.asmx/DetailImages?token=${BOOK_TOKEN}&san=&ean=${currentBook.isbn}&thumbnail=No&Perspective=back&filenumber=&maxWidth=200&maxHeight=`}
+        src={`https://www.biblioshare.org/bncServices/BNCServices.asmx/DetailImages?token=${BOOKNET_TOKEN}&san=&ean=${currentBook.isbn}&thumbnail=No&Perspective=back&filenumber=&maxWidth=200&maxHeight=`}
         alt={currentBook.title}
       />
     </div>

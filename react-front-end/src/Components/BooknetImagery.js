@@ -2,13 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { chatBookStateContext } from "../providers/ChatBookStateProvider";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import BOOK_TOKEN from "../.secrets";
+import secrets from "../.secrets";
 import Loading from "./Loading";
+const { BOOKNET_TOKEN, GOOGLE_BOOK_KEY } = secrets;
 
 // console.log("bookId is", bookId);
 
 export default function BooketImagery(props) {
-  console.log("props in booknet are:", props);
+  console.log("BOOK_NET TOKEN is:", BOOKNET_TOKEN);
   const matchId = Number(useLocation().pathname.replace("/matches/", ""));
 
   const [match, setMatch] = useState();
@@ -36,7 +37,7 @@ export default function BooketImagery(props) {
   if (props.requestedInfo === "interiorImage") {
     return (
       <img
-        src={`https://www.biblioshare.org/bncServices/BNCServices.asmx/DetailImages?token=${BOOK_TOKEN}&san=&ean=${match.isbn}&thumbnail=false&Perspective=interior&FileNumber=&maxWidth=300&maxHeight=`}
+        src={`https://www.biblioshare.org/bncServices/BNCServices.asmx/DetailImages?token=${BOOKNET_TOKEN}&san=&ean=${match.isbn}&thumbnail=false&Perspective=interior&FileNumber=&maxWidth=300&maxHeight=`}
         alt={match.title}
       />
     );
@@ -44,7 +45,7 @@ export default function BooketImagery(props) {
   if (props.requestedInfo === "backCover") {
     return (
       <img
-        src={`https://www.biblioshare.org/bncServices/BNCServices.asmx/DetailImages?token=${BOOK_TOKEN}&san=&ean=${match.isbn}&thumbnail=no&Perspective=back&filenumber=&maxWidth=200&maxHeight=`}
+        src={`https://www.biblioshare.org/bncServices/BNCServices.asmx/DetailImages?token=${BOOKNET_TOKEN}&san=&ean=${match.isbn}&thumbnail=no&Perspective=back&filenumber=&maxWidth=200&maxHeight=`}
         alt={match.title}
       />
     );
@@ -53,7 +54,7 @@ export default function BooketImagery(props) {
   if (props.requestedInfo === "authorPhoto") {
     return (
       <img
-        src={`https://www.biblioshare.org/bncServices/BNCServices.asmx/DetailImages?Token=${BOOK_TOKEN}&EAN=${match.isbn}&SAN=&Thumbnail=false&Perspective=author&FileNumber=&maxWidth=300&maxHeight=`}
+        src={`https://www.biblioshare.org/bncServices/BNCServices.asmx/DetailImages?Token=${BOOKNET_TOKEN}&EAN=${match.isbn}&SAN=&Thumbnail=false&Perspective=author&FileNumber=&maxWidth=300&maxHeight=`}
         alt={match.title}
       />
     );
@@ -62,7 +63,7 @@ export default function BooketImagery(props) {
   if (props.requestedInfo === "teachersGuide") {
     return (
       <img
-        src={`https://www.biblioshare.ca/BNCServices/BNCServices.asmx/Samples?token=${BOOK_TOKEN}&ean={match.isbn}&san=&perspective=teachersguide&filenumber=`}
+        src={`https://www.biblioshare.ca/BNCServices/BNCServices.asmx/Samples?token=${BOOKNET_TOKEN}&ean={match.isbn}&san=&perspective=teachersguide&filenumber=`}
         alt={match.title}
       />
     );
@@ -71,7 +72,7 @@ export default function BooketImagery(props) {
   if (props.requestedInfo === "toc") {
     return (
       <img
-        src={`https://www.biblioshare.ca/BNCServices/BNCServices.asmx/Samples?token=${BOOK_TOKEN}&ean=${match.isbn}&san=&perspective=toc&filenumber=`}
+        src={`https://www.biblioshare.ca/BNCServices/BNCServices.asmx/Samples?token=${BOOKNET_TOKEN}&ean=${match.isbn}&san=&perspective=toc&filenumber=`}
         alt={match.title}
       />
     );
@@ -81,7 +82,7 @@ export default function BooketImagery(props) {
   // if (props.requestedInfo === "coverPhoto") {
   //   return (
   //     <img
-  //       src={`https://www.biblioshare.org/BNCServices/BNCServices.asmx/Images?Token=${BOOK_TOKEN}&EAN=${match.isbn}&SAN=&Thumbnail=false`}
+  //       src={`https://www.biblioshare.org/BNCServices/BNCServices.asmx/Images?Token=${BOOKNET_TOKEN}&EAN=${match.isbn}&SAN=&Thumbnail=false`}
   //       alt={match.title}
   //     />
   //   );

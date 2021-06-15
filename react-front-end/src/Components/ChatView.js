@@ -12,13 +12,12 @@ import BooknetQuote from "../Components/BooknetQuote";
 import BookManagerLocation from "../Components/BookManagerLocation";
 
 import useLocalStorage from "react-use-localstorage";
-import secrets from "../.secrets";
+
 import { useLocation } from "react-router-dom";
 
 //Styling
 import "../styles/chatView.scss";
 import axios from "axios";
-const { outOfTheAttic, theForestCityKiller, raisingRoyalty } = demoScripts;
 
 //bookmanager
 
@@ -27,7 +26,9 @@ const { outOfTheAttic, theForestCityKiller, raisingRoyalty } = demoScripts;
 // import outOfTheAttic from "../ChatBotScripts/demoScripts";
 // import theForestCityKiller from "../ChatBotScripts/demoScripts";
 // import allTheLeavings from "../ChatBotScripts/demoScripts";
-const { BOOK_TOKEN, GOOGLE_BOOK_KEY } = secrets;
+import secrets from "../.secrets";
+const { outOfTheAttic, theForestCityKiller, raisingRoyalty } = demoScripts;
+const { BOOKNET_TOKEN, GOOGLE_BOOK_KEY } = secrets;
 
 export default function ChatView(props) {
   const [match, setMatch] = useState({});
@@ -57,25 +58,25 @@ export default function ChatView(props) {
           setMatch(thisMatch);
 
           //AFTER PRESENTATION--choose a script based on whether it has any resources available in booknet
-          const scripts = thisMatch.booknet_available
-            ? booknetScripts
-            : otherScripts;
+          // const scripts = thisMatch.booknet_available
+          //   ? booknetScripts
+          //   : otherScripts;
         })
         .catch(() => {});
     }
   }, [matchId]);
 
   //choose a random script
-  const chooseScript = function(scripts) {
+  const chooseRandomScript = function(scripts) {
     const randomIndex = _.random(0, scripts.length - 1);
     return scripts[randomIndex];
   };
 
-  //choose the appropriate demo script
-  //doesn't grab the right script
-  const chooseDemoScript = function(isbn, title) {
+  //if it's one of our demo books, choose the appropriate script, otherwise choose a random one
+  const chooseTargetedScript = function(isbn, title, booknet_available) {
     console.log("isbn is", isbn);
     console.log("title is", title);
+    console.log("booknet_available is", booknet_available);
 
     if (isbn === "9781982114428") {
       return outOfTheAttic;
@@ -87,7 +88,9 @@ export default function ChatView(props) {
       return raisingRoyalty;
     }
 
-    return [{ id: "1", message: "hi" }];
+    return chooseRandomScript(
+      booknet_available ? booknetScripts : otherScripts
+    );
   };
 
   //Send to DB every time the user clicks
@@ -123,11 +126,11 @@ export default function ChatView(props) {
         title={match.title}
       />
       <ChatBot
-        // AFTER DEMO FOR RANDOM SCRIPTS
-        // steps={chooseScript(scripts)}
-        //FOR DEMO
-        steps={chooseDemoScript(match.isbn, match.title)}
-        // steps={[{ id: 1, message: "hi" }]}
+        steps={chooseTargetedScript(
+          match.isbn,
+          match.title,
+          match.booknet_available
+        )}
         cacheName={`rsc_cache_${matchId}`}
         cache={true}
         hideBotAvatar={true}
