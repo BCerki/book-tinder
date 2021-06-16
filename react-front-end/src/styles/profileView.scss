@@ -92,3 +92,19 @@
 .MuiSwitch-track {
   background-color: $red !important;
 }
+
+.username {
+  text-align: center;
+  font-family: $typewriter-font;
+  font-weight: 500;
+  font-size: 2em;
+}
+
+.postalCode {
+  margin-top: 0.35em;
+  margin-bottom: 0.5em;
+  text-align: center;
+  font-family: $typewriter-font;
+  font-weight: 500;
+  font-size: 1.5em;
+}

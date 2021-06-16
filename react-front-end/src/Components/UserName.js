@@ -29,5 +29,9 @@ export default function PostCode(props) {
     return <div onClick={props.onClick}>{props.name}</div>;
   };
 
-  return <div onBlur={props.onBlur}>{isEditing()}</div>;
+  return (
+    <div className={"username"} onBlur={props.onBlur}>
+      {isEditing()}
+    </div>
+  );
 }

@@ -29,5 +29,9 @@ export default function PostCode(props) {
     return <div onClick={props.onClick}>{props.postalCode}</div>;
   };
 
-  return <div onBlur={props.onBlur}>{isEditing()}</div>;
+  return (
+    <div className={"postalCode"} onBlur={props.onBlur}>
+      {isEditing()}
+    </div>
+  );
 }
