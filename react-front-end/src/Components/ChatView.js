@@ -8,6 +8,7 @@ import testingScript from "../ChatBotScripts/testingScript";
 import _ from "lodash";
 import BackBar from "./BackBar";
 import Loading from "./Loading";
+import Login from "./Login";
 import BooknetImagery from "../Components/BooknetImagery";
 import BooknetQuote from "../Components/BooknetQuote";
 import BookManagerLocation from "../Components/BookManagerLocation";
@@ -129,6 +130,9 @@ export default function ChatView(props) {
       });
   }, [state]);
 
+  if (!match) {
+    return <Login />;
+  }
   if (!match.title) {
     return <Loading />;
   }
