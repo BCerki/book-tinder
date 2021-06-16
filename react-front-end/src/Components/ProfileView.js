@@ -193,6 +193,7 @@ export default function ProfileView(props) {
   const genreChips = genreData.map((genre) => {
     return (
       <GenreChip
+        id={genre}
         key={genre}
         onClick={() => {
           handleClick(genre);
