@@ -53,15 +53,15 @@ export default function BackBar(props) {
 
   return (
     <div className="backBar">
-      <Link to="/matches">
-        <div className={"backBarIcon"}>
+      <Link to="/matches" className={"backBarIcon"}>
+        <div>
           <ArrowBackIosIcon />
         </div>
       </Link>
       <Avatar src={props.image} alt={props.title} className={classes.large} />
 
-      <Link to="/matches">
-        <div className={"backBarIcon"}>
+      <Link to="/matches" className={"backBarIcon"}>
+        <div>
           <BlockIcon
             onClick={() => {
               block(props.bookId);

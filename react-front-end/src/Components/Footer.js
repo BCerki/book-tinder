@@ -13,19 +13,19 @@ import "../styles/footer.scss";
 
 export default function Footer(props) {
   return (
-    <div className="footer">
-      <div>
-        <Link to="/books">
+    <div className={"footer"}>
+      <div className={"footerIcon"}>
+        <Link to="/books" className={"footerIcon"}>
           <MenuBookIcon />
         </Link>
       </div>
       <div>
-        <Link to="/matches">
+        <Link to="/matches" className={"footerIcon"}>
           <ForumIcon />
         </Link>
       </div>
       <div>
-        <Link to="/profile">
+        <Link to="/profile" className={"footerIcon"}>
           <AccountBoxIcon />
         </Link>
       </div>
