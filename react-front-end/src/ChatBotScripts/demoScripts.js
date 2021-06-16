@@ -34,58 +34,6 @@ const outOfTheAttic = [
   },
 ];
 
-const theForestCityKiller = [
-  {
-    id: "1",
-    message: "Hi 😏",
-    trigger: "2",
-  },
-  {
-    id: "2",
-    options: [
-      { value: 1, label: "Tell me about yourself", trigger: "tell" },
-      { value: 2, label: "Hi 😏", trigger: "tell" },
-      { value: 3, label: "Send pix", trigger: "tell" },
-    ],
-  },
-  {
-    id: "tell",
-    component: <GoogleDescription />,
-    trigger: "4",
-  },
-  {
-    id: "4",
-    message: "Are you intrigued? 😉",
-    trigger: "5",
-  },
-  {
-    id: "5",
-    options: [
-      { value: 1, label: "Yes, tell me more", trigger: "6" },
-      { value: 2, label: "No...it's not me, it's you", trigger: "6" },
-    ],
-  },
-  {
-    id: "6",
-    component: <BooknetQuote randomNum={20} />,
-    trigger: "7",
-  },
-  {
-    id: "7",
-    message: "Here's one of my favourite quotes 😈",
-    trigger: "8",
-  },
-  {
-    id: "8",
-    options: [
-      { value: 1, label: "Tell me more", trigger: "9" },
-      { value: 2, label: "That's enough", trigger: "9" },
-    ],
-  },
-
-  { id: "9", component: <BooknetQuote randomNum={5} /> },
-];
-
 const raisingRoyalty = [
   {
     id: "1",
@@ -97,32 +45,51 @@ const raisingRoyalty = [
     id: "2",
     options: [{ value: 1, label: "Yes", trigger: "3" }],
   },
-  { id: "3", message: "TOC", trigger: "4" },
+  {
+    id: "3",
+    message: "This is one of my favourite quotes:",
+    trigger: "4",
+  },
   {
     id: "4",
-    message: "Here's a sample of my table of conquests",
+    component: <BooknetQuote randomNum={20} />,
+    botDelay: 2000,
+    userDelay: 2000,
+    customDelay: 2000,
     trigger: "5",
   },
   {
     id: "5",
-    message: "errrr... *contents",
-    trigger: "6a",
-  },
-  {
-    id: "6a",
     options: [
-      {
-        value: 1,
-        label:
-          "That's not a very long list... are you sure you're at my reading level?",
-        trigger: "6b",
-      },
+      { value: 1, label: "Tell me more", trigger: "6b" },
+      { value: 1, label: "Um...", trigger: "6b" },
     ],
   },
+  // {
+  //   id: "4",
+  //   message: "Here's a sample of my table of conquests",
+  //   trigger: "5",
+  // },
+  // {
+  //   id: "5",
+  //   message: "errrr... *contents",
+  //   trigger: "6a",
+  // },
+  // {
+  //   id: "6a",
+  //   options: [
+  //     {
+  //       value: 1,
+  //       label:
+  //         "That's not a very long list... are you sure you're at my reading level?",
+  //       trigger: "6b",
+  //     },
+  //   ],
+  // },
   {
     id: "6b",
     message:
-      "That's just page 1 😏. I come from good stock. Would you like to see a photo of my author?",
+      "I come from good stock 😏 Would you like to see a photo of my author?",
     trigger: "7",
   },
   { id: "7", options: [{ value: 1, label: "Yes", trigger: "8a" }] },
@@ -152,5 +119,5 @@ const raisingRoyalty = [
   },
 ];
 
-const demoScripts = { outOfTheAttic, theForestCityKiller, raisingRoyalty };
+const demoScripts = { outOfTheAttic, raisingRoyalty };
 export default demoScripts;

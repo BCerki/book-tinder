@@ -49,5 +49,5 @@ export default function BooknetQuote(props) {
   if (!match) {
     return <Loading />;
   }
-  return <span className={"customText"}>{quote} —Me</span>;
+  return <span className={"customText"}>{quote}</span>;
 }
