@@ -38,7 +38,7 @@ const hi = [
   },
 ];
 
-const theForestCityKiller = [
+const TOC = [
   {
     id: "1",
     message: "Hi 😏",
@@ -89,6 +89,6 @@ const theForestCityKiller = [
 
   { id: "9", component: <BooknetQuote randomNum={5} /> },
 ];
-const booknetScripts = [heeeeeyReader, hi, theForestCityKiller];
+const booknetScripts = [heeeeeyReader, hi, TOC];
 
 export default booknetScripts;

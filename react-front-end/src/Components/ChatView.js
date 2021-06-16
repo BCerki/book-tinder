@@ -97,9 +97,9 @@ export default function ChatView(props) {
     if (isbn === "9781982114428") {
       return outOfTheAttic;
     }
-    if (isbn === "9781770415034") {
-      return theForestCityKiller;
-    }
+    // if (isbn === "9781770415034") {
+    //   return theForestCityKiller;
+    // }
     if (isbn === "9781459735699") {
       return raisingRoyalty;
     }
