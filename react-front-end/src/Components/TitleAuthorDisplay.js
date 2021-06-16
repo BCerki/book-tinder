@@ -3,7 +3,8 @@ import React from "react";
 export default function TitleAuthorDisplay(props) {
   return (
     <div>
-      {props.title} by {props.author}
+      {props.title}
+      <span className="author"> by {props.author}</span>
     </div>
   );
 }

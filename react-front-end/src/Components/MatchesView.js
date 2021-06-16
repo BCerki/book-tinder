@@ -104,6 +104,7 @@ export default function MatchesView(props) {
           toggle={toggle}
           message={retrieveLatestMessage(book.message)}
         />
+        {/* <hr class="solid"></hr> */}
       </Link>
     );
   });
