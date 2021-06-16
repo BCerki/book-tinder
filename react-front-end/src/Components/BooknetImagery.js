@@ -48,7 +48,7 @@ export default function BooketImagery(props) {
       <img
         className={"booknet"}
         src={`https://www.biblioshare.org/bncServices/BNCServices.asmx/DetailImages?token=${BOOKNET_TOKEN}&san=&ean=${match.isbn}&thumbnail=no&Perspective=back&filenumber=&maxWidth=200&maxHeight=`}
-        alt={match.title}
+        alt={"Actually, I change my mind, I'm shy"}
       />
     );
   }
@@ -58,7 +58,7 @@ export default function BooketImagery(props) {
       <img
         className={"booknet"}
         src={`https://www.biblioshare.org/bncServices/BNCServices.asmx/DetailImages?Token=${BOOKNET_TOKEN}&EAN=${match.isbn}&SAN=&Thumbnail=false&Perspective=author&FileNumber=&maxWidth=300&maxHeight=`}
-        alt={match.title}
+        alt={"Actually, I change my mind, I'm shy"}
       />
     );
   }
@@ -68,7 +68,7 @@ export default function BooketImagery(props) {
       <img
         className={"booknet"}
         src={`https://www.biblioshare.ca/BNCServices/BNCServices.asmx/Samples?token=${BOOKNET_TOKEN}&ean={match.isbn}&san=&perspective=teachersguide&filenumber=`}
-        alt={match.title}
+        alt={"Actually, I change my mind, I'm shy"}
       />
     );
   }
@@ -78,7 +78,7 @@ export default function BooketImagery(props) {
       <img
         className={"booknet"}
         src={`https://www.biblioshare.ca/BNCServices/BNCServices.asmx/Samples?token=${BOOKNET_TOKEN}&ean=${match.isbn}&san=&perspective=toc&filenumber=`}
-        alt={match.title}
+        alt={"Actually, I change my mind, I'm shy"}
       />
     );
   }
