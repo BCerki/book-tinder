@@ -35,13 +35,15 @@ div.login {
 }
 .credits {
   color: whitesmoke;
-  padding: 0.75em;
-}
-a {
-  text-decoration: none;
-  .creditsLink {
-    color: whitesmoke;
-  }
+  padding: 1em;
+  font-family: $roboto;
+  font-weight: 300;
+  // }
+  // a {
+  //   text-decoration: none;
+  //   .creditsLink {
+  //     color: whitesmoke;
+  //   }
 }
 //email and password
 .input {
@@ -63,6 +65,7 @@ a {
   // height: 3em;
   box-shadow: 0px 3px 1px -2px, 0px 2px 2px 0px, 0px 1px 5px 0px;
   font-family: $roboto;
+  font-weight: 500;
   font-size: 1em;
   border-radius: 4px;
   letter-spacing: 0.02857em;
@@ -90,4 +93,8 @@ a {
   100% {
     opacity: 0;
   }
+}
+a.creditsLink {
+  color: white;
+  text-decoration: none;
 }

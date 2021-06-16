@@ -27,7 +27,8 @@ export default function Credits(props) {
           >
             Laura Chouette
           </a>{" "}
-          (match page).
+          (match page). A big thank you to the instructors and mentors at
+          Lighthouse Labs!
         </div>
       </div>
     </div>

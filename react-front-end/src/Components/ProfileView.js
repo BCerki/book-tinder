@@ -74,7 +74,7 @@ export default function ProfileView(props) {
         setPostalCode(result.data[0].postalCode);
         setName(result.data[0].name);
         setAvatar(result.data[0].avatar);
-        console.log("WHAT IS THIS", result.data[0].avatar)
+        console.log("WHAT IS THIS", result.data[0].avatar);
       })
       .catch((err) => console.log("Error message:", err.message));
   }, []);
@@ -239,7 +239,7 @@ export default function ProfileView(props) {
   //AVATAR
   const handleAvatarChange = (event) => {
     event.preventDefault();
-    
+
     const reader = new FileReader();
 
     reader.addEventListener(
@@ -247,7 +247,7 @@ export default function ProfileView(props) {
       function() {
         // convert image file to base64 string
         console.log("reader result:", reader.result);
-        
+
         const newUserObject = { ...userState, avatar: reader.result };
 
         sendToDB(newUserObject);
@@ -287,10 +287,10 @@ export default function ProfileView(props) {
   //   })
   //   .catch((err) => console.log("Error message:", err.message));
   // };
-  
-    const handleAvatarClick = function() {
-      setIsEditingAvatar(true);
-    }
+
+  const handleAvatarClick = function() {
+    setIsEditingAvatar(true);
+  };
 
   //   try {
   //     await fetch ('/api/upload', {
@@ -303,9 +303,6 @@ export default function ProfileView(props) {
   //     console.error(err);
   //   }
   // };
-
-  
-
 
   console.log("avatar is:", avatar);
   console.log("setAvatar is:", setAvatar);
@@ -323,10 +320,10 @@ export default function ProfileView(props) {
       </div> */}
       <div>
         <AvatarUpload
-        onChange={handleAvatarChange}
-        avatar={avatar}
-        isEditingAvatar={isEditingAvatar}
-        onClick={handleAvatarClick}
+          onChange={handleAvatarChange}
+          avatar={avatar}
+          isEditingAvatar={isEditingAvatar}
+          onClick={handleAvatarClick}
         />
       </div>
       <div>
@@ -347,8 +344,8 @@ export default function ProfileView(props) {
         />
       </div>
       <div className="profile-preference">
-        <span className="profile-label">Age range (publication date)</span>
-
+        <span className="profile-label">Age range</span>{" "}
+        <span className={"explanation"}>(publication date)</span>
         <Slider
           id={"age"}
           value={[userState.age[0], userState.age[1]]}
@@ -368,7 +365,8 @@ export default function ProfileView(props) {
         </div>
       </div>
       <div className="profile-preference">
-        <span className={"profile-label"}>Commitment level (page count)</span>
+        <span className={"profile-label"}>Commitment level</span>{" "}
+        <span className={"explanation"}> (page count)</span>
         <Slider
           value={[userState.pageCount[0], userState.pageCount[1]]}
           marks={pageCountMarks}
@@ -387,7 +385,9 @@ export default function ProfileView(props) {
         </div>
       </div>
       <div className="profile-preference">
-        <span className={"profile-label"}>Date cost (price range)</span>
+        <span className={"profile-label"}>Date cost</span>{" "}
+        <span className={"explanation"}> (price range)</span>{" "}
+        <span className={"explanation"}></span>
         <Slider
           value={[userState.price[0], userState.price[1]]}
           marks={priceMarks}
@@ -406,9 +406,8 @@ export default function ProfileView(props) {
         </div>
       </div>
       <div className="profile-preference">
-        <span className={"profile-label"}>
-          Maximum distance (to a bookstore)
-        </span>
+        <span className={"profile-label"}>Maximum distance</span>{" "}
+        <span className={"explanation"}> (to a bookstore)</span>
         <Slider
           value={userState.maxDistance}
           // defaultValue={maxDistance}
@@ -430,9 +429,8 @@ export default function ProfileView(props) {
       </div>
       <div className="profile-preference">
         <div className="maturity">
-          <span className={"profile-label"}>
-            Adventurous? (include mature content)
-          </span>
+          <span className={"profile-label"}>Adventurous?</span>{" "}
+          <span className={"explanation"}> (include mature content)</span>
           <Switch
             checked={userState.maturity}
             onChange={(event, newValue) => {
@@ -445,7 +443,8 @@ export default function ProfileView(props) {
         </div>
       </div>
       <div className="profile-preference">
-        <span className={"profile-label"}>Genres</span>
+        <span className={"profile-label"}>Passions</span>{" "}
+        <span className={"explanation"}>(genres)</span>
         <div className={"genre-box"}>{genreChips}</div>
       </div>
     </main>
