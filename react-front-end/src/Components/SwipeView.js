@@ -74,7 +74,7 @@ export default function Swipe(props) {
                 title: "You're my type!",
                 //using html
                 //Can I use react router with this? FIX FIX
-                confirmButtonText: `<a href="/matches/${thisMatch.id}">Chat with me</a>`, //set up currentbook state so you can link to actual chat
+                confirmButtonText: `<a class="matchLink" href="/matches/${thisMatch.id}">Chat with me</a>`, //set up currentbook state so you can link to actual chat
                 showCancelButton: true,
                 cancelButtonText: "Keep looking",
 

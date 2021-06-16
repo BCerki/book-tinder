@@ -21,12 +21,25 @@
 
 //all buttons
 .swal2-styled {
+  // background-color: pink !important;
+}
+
+.matchLink {
+  text-decoration: none !important;
+  color: white !important;
 }
 
 .swal2-confirm {
-  background-color: white !important;
+  font-family: $roboto;
+  font-weight: 300 !important;
+  background-color: black !important;
 }
 .swal2-cancel {
+  font-family: $roboto;
+  font-weight: 100;
+  font-weight: 300 !important;
+  color: black !important;
+  background-color: white !important;
 }
 
 //match box
@@ -44,4 +57,5 @@
 //match text
 .swal2-title {
   color: white !important;
+  font-family: $typewriter-font;
 }
