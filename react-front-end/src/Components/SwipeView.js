@@ -18,7 +18,7 @@ export default function Swipe(props) {
 
   useEffect(() => {
     axios
-      .get("/api/users/:id/books")
+      .get("/api/users/1/books")
       .then((response) => {
         console.log("response.data", response.data);
         // setCurrentBook(_.shuffle(response.data)[0]);
@@ -46,7 +46,7 @@ export default function Swipe(props) {
 
       //db update
       axios
-        .post(`/api/users/:id/rejected/${book.id}`, book.id)
+        .post(`/api/users/1/rejected/${book.id}`, book.id)
         .then(() => {
           console.log("all is well--left-swiped book sent to db");
         })
@@ -56,12 +56,12 @@ export default function Swipe(props) {
     } else if (direction === "right") {
       //db update
       axios
-        .post(`/api/users/:id/conversations/${book.id}`, book.id)
+        .post(`/api/users/1/conversations/${book.id}`, book.id)
         .then(() => {
           console.log("all is well--right-swiped book sent to db");
 
           axios
-            .get(`/api/users/:id/conversations`)
+            .get(`/api/users/1/conversations`)
             .then((result) => {
               //set the match
               const allMatches = result.data;
@@ -104,20 +104,18 @@ export default function Swipe(props) {
     <div className="cardContainer">
       {retrievedBooks.map((book) => {
         return (
-          <>
-            <TinderCard
-              className={"swipe"}
-              key={book.id}
-              preventSwipe={["up", "down"]}
-              onSwipe={(dir) => swiped(dir, book)}
-              // onCardLeftScreen={() => onCardLeftScreen(`${book.id}`)}
-            >
-              <div
-                className={"card"}
-                style={{ backgroundImage: `url(${book.image})` }}
-              ></div>
-            </TinderCard>
-          </>
+          <TinderCard
+            className={"swipe"}
+            key={book.id}
+            preventSwipe={["up", "down"]}
+            onSwipe={(dir) => swiped(dir, book)}
+            // onCardLeftScreen={() => onCardLeftScreen(`${book.id}`)}
+          >
+            <div
+              className={"card"}
+              style={{ backgroundImage: `url(${book.image})` }}
+            ></div>
+          </TinderCard>
         );
       })}
     </div>

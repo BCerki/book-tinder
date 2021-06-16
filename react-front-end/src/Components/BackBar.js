@@ -24,7 +24,7 @@ export default function BackBar(props) {
   const block = function(bookId) {
     axios
       //MICHELLE this should add the book to the blocked table
-      .post(`/api/users/:id/blocked/${bookId}`, bookId)
+      .post(`/api/users/1/blocked/${bookId}`, bookId)
       .then((result) => {
         console.log("in post blocked conversations, bookid is,", bookId);
       })
@@ -32,7 +32,7 @@ export default function BackBar(props) {
 
     axios
       //MICHELLE this should delete the book from the conversations table
-      .delete(`/api/users/:id/conversations/${bookId}`, bookId)
+      .delete(`/api/users/1/conversations/${bookId}`, bookId)
       .then((result) => {
         console.log("in delete conversations, bookid is,", bookId);
       })
@@ -42,8 +42,8 @@ export default function BackBar(props) {
   //Material UI styling
   const useStyles = makeStyles((theme) => ({
     large: {
-      width: theme.spacing(7),
-      height: theme.spacing(7),
+      width: theme.spacing(10),
+      height: theme.spacing(10),
     },
   }));
   const classes = useStyles();

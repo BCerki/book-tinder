@@ -1,4 +1,10 @@
 @import "./variables.scss";
+
+//style booknet images
+img.booknet {
+  width: 50vw;
+}
+
 //chatbot styles
 //height of message window
 .rsc {
@@ -7,39 +13,54 @@
 .bNIVFd {
   height: 75vh !important;
 }
-//type input
+// //type input
 .iZDkca {
   position: fixed !important; //tried to override their style, couldn't
   bottom: 0;
   width: 100vw;
   height: 10vw;
-  padding: 0 0.5em !important;
+  padding: 2em 1em !important;
   opacity: 1 !important;
   // visibility: hidden; //remove if we only do predefined entries
 }
-//arrow
-.htxcXr {
-}
 
+//send arrow
 .cqdlkl {
-  visibility: hidden; //hide it because the positioning is awkward
+  padding: 24px !important;
 }
 
-.rsc-footer {
-  display: flex;
-  justify-content: flex-end !important;
-  align-items: center !important;
-}
+// .rsc-footer {
+//   display: flex;
+//   justify-content: flex-end !important;
+//   align-items: center !important;
+// }
 //turn off shadow otherwise there's a line between the header and the rest of the chat
-.rsc-container {
-  box-shadow: none !important;
-  padding: none !important;
-}
-.cLqDkO {
-  width: 100vw !important;
-  height: $space-for-conversation !important;
-}
+// .rsc-container {
+//   box-shadow: none !important;
+//   padding: none !important;
+// }
+// .cLqDkO {
+//   width: 100vw !important;
+//   height: $space-for-conversation !important;
+// }
 
+//chatbot custom component styles. Other chatbot styling is done in the theming wrapper in Chatbot.js
 //chat bubble styles for custom component
 .sc-gKAaRy {
+}
+.bzPgCx {
+  background-color: $chatBubbleColour;
+  border-radius: 18px 18px 18px 0;
+  max-width: 50%;
+}
+
+//font for custom component
+.customText {
+  color: #fff !important;
+  font-size: 14px;
+}
+
+//chat user options
+.ebcVKS {
+  font-family: $typewriter-font;
 }

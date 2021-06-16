@@ -24,25 +24,28 @@ export default function BookCard(props) {
   //check if doing info or messages
 
   const checkToggle = function(toggle) {
+    // console.log("props in book card", props);
     if (!toggle) {
       return (
         <Info
+          key={props.isbn}
           coverImage={props.image}
           description={props.description}
-          isbn={props.isbn}
+          // isbn={props.isbn}
           pageCount={props.pageCount}
           price={props.price}
           age={props.age}
         />
       );
     }
-    return <Message id={props.id} />;
+    return <Message key={props.isbn} message={props.message} />;
   };
 
   return (
     <article className="card-skeleton" onClick={props.onClick}>
       <div className="avatar-middle">
         <Avatar
+          key={props.isbn}
           src={props.coverImage}
           alt={props.title}
           className={classes.large}
@@ -53,9 +56,13 @@ export default function BookCard(props) {
       ns"
       >
         <div className="title-author">
-          <TitleAuthorDisplay title={props.title} author={props.author} />
+          <TitleAuthorDisplay
+            key={props.isbn}
+            title={props.title}
+            author={props.author}
+          />
         </div>
-        <div class>{checkToggle(props.toggle)}</div>
+        <div>{checkToggle(props.toggle)}</div>
       </div>
     </article>
   );

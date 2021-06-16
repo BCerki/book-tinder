@@ -1,11 +1,16 @@
 import React, { useEffect, useState, useContext } from "react";
 import ChatBot from "react-simple-chatbot";
+import { ThemeProvider } from "styled-components";
 import booknetScripts from "../ChatBotScripts/booknetScripts";
 import otherScripts from "../ChatBotScripts/otherScripts";
+import demoScripts from "../ChatBotScripts/demoScripts";
 import testingScript from "../ChatBotScripts/testingScript";
 import _ from "lodash";
 import BackBar from "./BackBar";
 import Loading from "./Loading";
+import BooknetImagery from "../Components/BooknetImagery";
+import BooknetQuote from "../Components/BooknetQuote";
+import BookManagerLocation from "../Components/BookManagerLocation";
 
 import useLocalStorage from "react-use-localstorage";
 
@@ -16,123 +21,138 @@ import "../styles/chatView.scss";
 import axios from "axios";
 
 //bookmanager
-import BookManagerLocation from "./BookManagerLocation";
 
-//helper function
-const chooseScript = function(scripts) {
-  const randomIndex = _.random(0, scripts.length - 1);
-  return scripts[randomIndex];
+//import demo scripts
+
+// import outOfTheAttic from "../ChatBotScripts/demoScripts";
+// import theForestCityKiller from "../ChatBotScripts/demoScripts";
+// import allTheLeavings from "../ChatBotScripts/demoScripts";
+import secrets from "../.secrets";
+
+// all available chatbot styling props
+const theme = {
+  background: "#f5f8fb",
+  fontFamily: "Courier Prime",
+  // headerBgColor: "#EF6C00",
+  // headerFontColor: "#fff",
+  // headerFontSize: "15px",
+  botBubbleColor: "#24408f",
+  botFontColor: "#fff",
+  userBubbleColor: "#fff",
+  userFontColor: "#4a4a4a",
 };
+const { outOfTheAttic, theForestCityKiller, raisingRoyalty } = demoScripts;
+const { BOOKNET_TOKEN, GOOGLE_BOOK_KEY } = secrets;
 
 export default function ChatView(props) {
-  const [currentConversation, setCurrentConversation] = useState();
-
+  const [match, setMatch] = useState({});
+  //state for the hacky function
   const [state, setState] = useState();
 
-  const conversationId = Number(
-    useLocation().pathname.replace("/matches/", "")
-  );
   //Function to change state every time a user clicks (stand-in for every time the conversation changes; the chatbot manages its own state, so I can't hook into it. If the user's going to type, we'll have to adjust)
   const hackyFunction = function() {
     setState(state + 1);
   };
+  //FIX FIX memory leak
 
   window.onclick = hackyFunction;
 
+  //get the match id
+  let location = useLocation();
+  const matchId = Number(location.pathname.replace("/matches/", ""));
+
   useEffect(() => {
-    if (conversationId) {
+    if (matchId) {
       axios
-        .get(`/api/users/:id/conversations`)
+        .get(`/api/users/1/conversations`)
         .then((result) => {
-          //set conversation state
-          const allConversations = result.data;
-          const thisConversation = allConversations.find(
-            (conversation) => conversation.id === conversationId
-          );
-          setCurrentConversation(thisConversation);
+          //set match state (conversations are proxy for matches)
+          const allMatches = result.data;
+          const thisMatch = allMatches.find((match) => match.id === matchId);
+          setMatch(thisMatch);
 
-          const cacheName = `rsc_cache_${conversationId}`;
-
-          if (thisConversation.message) {
-            //first arg is key, second is value (local storage stores using key-value pairs)
-            useLocalStorage(cacheName, thisConversation.message);
-          }
-
-          const scripts = thisConversation.booknet_available
-            ? booknetScripts
-            : otherScripts;
+          //AFTER PRESENTATION--choose a script based on whether it has any resources available in booknet
+          // const scripts = thisMatch.booknet_available
+          //   ? booknetScripts
+          //   : otherScripts;
         })
         .catch(() => {});
     }
-  }, [conversationId]);
+  }, [matchId]);
+
+  //choose a random script
+  const chooseRandomScript = function(scripts) {
+    const randomIndex = _.random(0, scripts.length - 1);
+    return scripts[randomIndex];
+  };
+
+  //if it's one of our demo books, choose the appropriate script, otherwise choose a random one
+  const chooseTargetedScript = function(isbn, title, booknet_available) {
+    console.log("isbn is", isbn);
+    console.log("title is", title);
+    console.log("booknet_available is", booknet_available);
+
+    if (isbn === "9781982114428") {
+      return outOfTheAttic;
+    }
+    if (isbn === "9781770415034") {
+      return theForestCityKiller;
+    }
+    if (isbn === "9781459735699") {
+      return raisingRoyalty;
+    }
+
+    return chooseRandomScript(
+      booknet_available ? booknetScripts : otherScripts
+    );
+  };
 
   //Send to DB every time the user clicks
   useEffect(() => {
-    console.log(
-      "sending this to db:",
-      window.localStorage.getItem(`rsc_cache_${conversationId}`)
-    );
-    //on first conversation, these will all be null
-    // const parsedLocalStorage = JSON.parse(
-    //   window.localStorage.getItem(`rsc_cache_${conversationId}`)
+    // console.log(
+    //   "sending this to db:",
+    //   window.localStorage.getItem(`rsc_cache_${matchId}`)
     // );
-
-    // console.log(parsedLocalStorage);
-
-    // const mostRecentIndex = parsedLocalStorage[2].label;
-    // const mostRecentMessage = parsedLocalStorage[mostRecentIndex];
-    // console.log(mostRecentMessage);
 
     axios
 
       .put(
-        `/api/users/:id/conversations/${conversationId}`,
-        window.localStorage.getItem(`rsc_cache_${conversationId}`)
+        `/api/users/1/conversations/${matchId}`,
+        JSON.parse(window.localStorage.getItem(`rsc_cache_${matchId}`))
       )
       .then(() => {
-        console.log("successfully sent local storage to db");
+        // console.log("successfully sent local storage to db");
       })
       .catch((err) => {
         console.log("Error", err.message);
       });
   }, [state]);
 
-  if (!currentConversation) {
+  if (!match.title) {
     return <Loading />;
   }
   return (
     <>
       <BackBar
         className={"backBar"}
-        image={currentConversation.image}
-        id={currentConversation.id}
-        title={currentConversation.title}
+        image={match.image}
+        id={match.id}
+        title={match.title}
       />
-      <ChatBot
-        // steps={chooseScript(scripts)} //for random scripts
-        steps={[
-          {
-            id: "1",
-            message: "Click yes for the date",
-            trigger: "2",
-          },
-          {
-            id: "2",
-            options: [{ value: 1, label: "yes", trigger: "3" }],
-          },
-          {
-            id: "3",
-            component: <BookManagerLocation />,
-          },
-        ]}
-        cacheName={`rsc_cache_${currentConversation.id}`}
-        cache={true}
-        hideBotAvatar={true}
-        hideUserAvatar={true}
-        hideHeader={true}
-        botAvatar={"from state"}
-        userAvatar={"from user api, hardcode in"}
-      />
+      <ThemeProvider theme={theme}>
+        <ChatBot
+          steps={chooseTargetedScript(
+            match.isbn,
+            match.title,
+            match.booknet_available
+          )}
+          cacheName={`rsc_cache_${matchId}`}
+          cache={true}
+          hideBotAvatar={true}
+          hideUserAvatar={true}
+          hideHeader={true}
+        />
+      </ThemeProvider>
     </>
   );
 }

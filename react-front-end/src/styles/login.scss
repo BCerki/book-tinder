@@ -1,0 +1,86 @@
+@import "./variables.scss";
+
+div.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100vh;
+}
+
+.logo {
+  width: 60vw;
+}
+
+.formFields {
+  margin: 5em 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.appName {
+  font-family: $typewriter-font;
+  font-size: 5em;
+  font-weight: 700;
+}
+
+.tagline {
+  height: 100vh;
+  width: 100vw;
+  background-image: url("../images/tagline.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.credits {
+  color: whitesmoke;
+  padding: 0.75em;
+}
+a {
+  text-decoration: none;
+  .creditsLink {
+    color: whitesmoke;
+  }
+}
+//email and password
+.input {
+  margin: 1em 0;
+  width: 60vw;
+}
+
+.submit {
+  color: white;
+}
+
+//login button
+.loginButton {
+  background-color: $red;
+  padding: 0.5em 1em;
+  border: none;
+
+  width: 5em;
+  box-shadow: 0px 2px 1px -1px, 0px 1px 1px 0px, 0px 1px 3px 0px;
+}
+
+//animation
+.page {
+  animation: fadeAnimation ease 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeAnimation {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

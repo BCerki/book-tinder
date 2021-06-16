@@ -124,3 +124,20 @@ Want to see/join my table of conquests?--TOC
 Want to see if I come from good stock? Here are my parents--author photo
 Maybe when you pick me up and bring me back to your place, I could teach you a thing or two?--teacher's guide
 Maybe we could end the night between my endsheets?
+
+Tired of borrowing books at the library? Want to check out something fresh and novel?
+No, YOU''RE spineless
+Reading me is riding a magic carpet--I''ll show you a whole new world
+When you're done reading me, I think we should write a new book together
+
+How would you feel about romancing the tome with me?
+I think there's something wrong with my ISBN number--it's not your phone number
+Want to trade your phone number for my isbn
+I think there's seomthing wrong with your phone number
+If you want to feel something beautiful, hold me in your hands
+You know what my cover is made of? Datefriend material
+It's a good thing I have a library card because I'm totally checking you out
+I'm good with words
+When you're done reading me, I think we should write a new book together
+//Tired of borrowing books at the library? Want to check out something fresh and novel?
+No, YOU''RE spineless

@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { bookStateContext } from "../providers/BookStateProvider";
+import { toggleStateContext } from "../providers/ToggleStateProvider";
 import Loading from "./Loading";
 import axios from "axios";
 
@@ -16,61 +16,30 @@ import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 
 //Styling
-import "../styles/booksView.scss";
+import "../styles/matchesView.scss";
 
-export default function BooksView(props) {
-
-
-  //functions for book state
-  // const { providerBook, getConversations } = useContext(bookStateContext);
-
-  //functions for toggle
-  const [toggle, setToggle] = useState(false);
+export default function MatchesView(props) {
+  //toggle state
+  const { toggle, toggleContext } = useContext(toggleStateContext);
 
   const handleChange = (event) => {
-    setToggle(!toggle);
+    toggleContext(!toggle);
   };
-  // console.log("toggle in middle view", toggle);
 
-  // const handleClick = function(bookObject) {
-  //   providerBook(bookObject);
-  //   // console.log("handle click fired, bookObject is:", bookObject);
-  // };
-
-  //Create the cards for info
-  //if this gives async issues, get the conversations in a useEffect hook above instead
-
-  // const [currentBookObject, setCurrentBookObject] = useState();
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`/api/users/:id/books`)
-  //     .then((result) => {
-  //       const allBooks = result.data;
-  //       const bookObjectFromId = allBooks.find((book) => book.id === bookId);
-  //       setCurrentBookObject(bookObjectFromId);
-  //     })
-  //     .catch(() => {});
-  // }, []);
-
-  //get the conversation data
-  // const
   const [matches, setMatches] = useState([]);
-  const [searchTitle, setSearchTitle] = useState('');
+  const [searchTitle, setSearchTitle] = useState("");
 
   useEffect(() => {
     axios
-      .get("/api/users/:id/conversations")
+      .get("/api/users/1/conversations")
       .then((result) => {
         console.log("result.data is", result.data);
-        setMatches(result.data);
+        setMatches(result.data.reverse());
       })
       .catch((err) => {
         console.log("Error:", err.message);
       });
   }, []);
-
-  console.log("matches is", matches);
 
   const parseAge = function(date) {
     const thisYear = new Date().getFullYear();
@@ -79,39 +48,61 @@ export default function BooksView(props) {
 
   //FOR SEARCH BAR
   const filterMatches = () => {
-    console.log("searchTitle", searchTitle)
-    const filteredBooks = matches.filter(book => {
-      if (searchTitle === '') {
+    console.log("searchTitle", searchTitle);
+    const filteredBooks = matches.filter((book) => {
+      if (searchTitle === "") {
         return book;
       }
 
       const inputVal = searchTitle.toLowerCase();
-      
-      const newBook = (book.title).toString().toLowerCase().includes(inputVal);
-      return newBook
+
+      const newBook = book.title
+        .toString()
+        .toLowerCase()
+        .includes(inputVal);
+      return newBook;
     });
     console.log("filtered", filteredBooks);
     return filteredBooks;
   };
 
+  const retrieveLatestMessage = function(conversation) {
+    if (!conversation || Object.keys(conversation).length <= 2) {
+      return "You're my type!";
+    }
+
+    const parseConversation = JSON.parse(conversation);
+
+    let index = null;
+    for (const element of parseConversation) {
+      if (element.message) {
+        index = Number(element.message);
+        console.log("element is", element);
+        break;
+      }
+    }
+
+    const latestMessage = parseConversation[index];
+
+    return latestMessage;
+  };
 
   const bookCards = filterMatches().map((book) => {
+    // console.log("book.id is", book.id);
     return (
       <Link to={`/matches/${book.id}`} className="bookCardLink">
         <BookCard
-          id={book.id}
-          // onClick={() => {
-          //   handleClick(book);
-          // }}
+          key={book.id}
           title={book.title}
           author={book.author}
           coverImage={book.image}
           description={book.description}
           isbn={book.isbn}
-          pageCount={book.pageCount}
+          pageCount={book.page_count}
           price={book.price}
           age={parseAge(book.publish_date)}
           toggle={toggle}
+          message={retrieveLatestMessage(book.message)}
         />
       </Link>
     );
@@ -121,14 +112,13 @@ export default function BooksView(props) {
     return <Loading />;
   }
 
-
   return (
-    <>
+    <main>
       <section className="search-bar">
-        <SearchBar 
-          setSearchTitle = {setSearchTitle}
-          searchTitle = {searchTitle}
-          filterMatches = {filterMatches}
+        <SearchBar
+          setSearchTitle={setSearchTitle}
+          searchTitle={searchTitle}
+          filterMatches={filterMatches}
         />
       </section>
       <section className="toggle">
@@ -137,6 +127,6 @@ export default function BooksView(props) {
         <span className="toggle-label">Messages</span>
       </section>
       <section>{bookCards}</section>
-    </>
+    </main>
   );
 }

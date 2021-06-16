@@ -9,6 +9,7 @@ import Loading from "./Loading";
 // console.log("bookId is", bookId);
 
 export default function BooknetQuote(props) {
+  console.log("props in booknet quote", props);
   const matchId = Number(useLocation().pathname.replace("/matches/", ""));
 
   const [match, setMatch] = useState();
@@ -19,31 +20,28 @@ export default function BooknetQuote(props) {
   useEffect(() => {
     if (matchId) {
       axios
-        .get(`/api/users/:id/conversations`)
+        .get(`/api/users/1/conversations`)
         .then((result) => {
           //get the book isbn
           const allMatches = result.data;
+          console.log("all matches", allMatches);
           const thisMatch = allMatches.find((book) => book.id === matchId);
           setMatch(thisMatch);
           console.log("chatting book is", thisMatch);
-          // setQuote(getSample(chattingBook.isbn));
-
-          //   axios
-          //     .put(`/api/sample/${chattingBook.isbn}`, chattingBook.isbn)
-          //     .then(() => console.log("successfully sent isbn to Adrian"))
-          //     .catch(() => console.log("failed to send to Adrian"));
-          //
-        })
-        .then(() => {
+          //ask the back-end to retrieve a sample
           axios
-            .get(`/api/sample/${match.isbn}`)
+            .get(
+              `/api/sample/?isbn=${thisMatch.isbn}&randomNum=${props.randomNum}`
+            )
             .then((result) => {
-              console.log("this should be some quotes", result.data);
+              console.log("this should be some quotes:", result.data);
               setQuote(result.data);
             })
             .catch((err) => console.log("Error:", err.message));
         })
-        .catch(() => {});
+        .catch((err) => {
+          console.log(err.message);
+        });
     }
   }, []);
 
@@ -51,9 +49,5 @@ export default function BooknetQuote(props) {
   if (!match) {
     return <Loading />;
   }
-  return (
-    <div>
-      <span>i am a quote: {quote}</span>
-    </div>
-  );
+  return <span className={"customText"}>{quote} —Me</span>;
 }

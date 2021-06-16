@@ -54,9 +54,11 @@ App.get("/api/getlocation", (req, res) => {
 });
 
 // getSample helper
-App.get("/api/sample/:isbn", (req, res) => {
-  console.log("LOG: server.js: /api/sample/:isbn: At this route!");
-  getSample(req.params.isbn)
+App.get("/api/sample", (req, res) => {
+  console.log("LOG: server.js: /api/sample At this route!");
+  const isbn = req.query.isbn;
+  const randomNum = req.query.randomNum;
+  getSample(isbn, randomNum)
     .then((response) => {
       console.log("LOG: server.js: /api/sample: response:", response);
       res.json(response);
@@ -170,13 +172,13 @@ App.put("/api/users/:id/conversations/:id", (req, res) => {
 
   const newMessage = `UPDATE conversations SET message = $1 WHERE id = $2`;
 
-  const values = [req.body, convoId];
+  const values = [JSON.stringify(req.body), convoId];
 
   return pool
     .query(newMessage, values)
     .then((result) => {
       console.log(result);
-      res.send(result.rows);
+      res.json(result.rows);
     })
     .catch((err) => {
       console.error(err);
