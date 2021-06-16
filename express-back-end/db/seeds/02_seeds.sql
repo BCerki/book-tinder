@@ -1,5 +1,5 @@
 INSERT INTO users (name, age, page_count, price, max_distance, maturity, genres, postal_code)
-VALUES ('Don Juan', ARRAY[20, 40], ARRAY[256, 512], ARRAY[10, 30], 80, false, ARRAY['Mystery', 'Romance', 'Literary', 'Science Fiction', 'Fantasy', 'Children''s', 'Non-fiction', 'History', 'Biography/Memoir', 'Cooking', 'Humour', 'Self-help'], 'V6B5A1');
+VALUES ('Don Juan', ARRAY[0, 51], ARRAY[0, 1000], ARRAY[0, 200], 80, true, ARRAY['Mystery', 'Romance', 'Literary', 'Science Fiction', 'Fantasy', 'Children''s', 'Non-fiction', 'History', 'Biography/Memoir', 'Cooking', 'Humour', 'Self-help'], 'V6B5A1');
 
 
 -- INSERT INTO block_user (users_id, books_id)
