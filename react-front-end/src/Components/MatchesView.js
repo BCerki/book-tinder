@@ -33,7 +33,8 @@ export default function MatchesView(props) {
     axios
       .get("/api/users/1/conversations")
       .then((result) => {
-        console.log("result.data is", result.data);
+        // console.log("result.data is", result.data);
+        console.log("i am loading conversations");
         setMatches(result.data.reverse());
       })
       .catch((err) => {
@@ -77,7 +78,7 @@ export default function MatchesView(props) {
     for (const element of parseConversation) {
       if (element.message) {
         index = Number(element.message);
-        console.log("element is", element);
+        // console.log("element is", element);
         break;
       }
     }

@@ -20,13 +20,13 @@ import axios from "axios";
 
 export default function BackBar(props) {
   // const { currentBook, block } = useContext(bookStateContext);
-  console.log("back bar props are", props);
+  // console.log("back bar props are", props);
   const block = function(bookId) {
     axios
       //MICHELLE this should add the book to the blocked table
       .post(`/api/users/1/blocked/${bookId}`, bookId)
       .then((result) => {
-        console.log("in post blocked conversations, bookid is,", bookId);
+        console.log("successfully sent post to db, bookid is,", bookId);
       })
       .catch((err) => console.log("Error message:", err.message));
 
@@ -34,7 +34,7 @@ export default function BackBar(props) {
       //MICHELLE this should delete the book from the conversations table
       .delete(`/api/users/1/conversations/${bookId}`, bookId)
       .then((result) => {
-        console.log("in delete conversations, bookid is,", bookId);
+        console.log("successfully sent delete to db, bookid is,", bookId);
       })
       .catch((err) => console.log("Error message:", err.message));
   };
