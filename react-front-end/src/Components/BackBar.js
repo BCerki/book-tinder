@@ -20,7 +20,7 @@ import axios from "axios";
 
 export default function BackBar(props) {
   // const { currentBook, block } = useContext(bookStateContext);
-
+  console.log("back bar props are", props);
   const block = function(bookId) {
     axios
       //MICHELLE this should add the book to the blocked table
@@ -64,7 +64,7 @@ export default function BackBar(props) {
         <div className={"backBarIcon"}>
           <BlockIcon
             onClick={() => {
-              block(props.id);
+              block(props.bookId);
             }}
           />
         </div>

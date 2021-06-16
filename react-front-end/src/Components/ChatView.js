@@ -70,6 +70,7 @@ export default function ChatView(props) {
           const allMatches = result.data;
           const thisMatch = allMatches.find((match) => match.id === matchId);
           setMatch(thisMatch);
+          console.log("thismatch is", thisMatch);
 
           //AFTER PRESENTATION--choose a script based on whether it has any resources available in booknet
           // const scripts = thisMatch.booknet_available
@@ -136,7 +137,8 @@ export default function ChatView(props) {
       <BackBar
         className={"backBar"}
         image={match.image}
-        id={match.id}
+        key={match.id}
+        bookId={match.book_id}
         title={match.title}
       />
       <ThemeProvider theme={theme}>
