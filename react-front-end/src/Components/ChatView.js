@@ -37,7 +37,7 @@ const theme = {
   // headerBgColor: "#EF6C00",
   // headerFontColor: "#fff",
   // headerFontSize: "15px",
-  botBubbleColor: "#24408f",
+  botBubbleColor: "#1976d2",
   botFontColor: "#fff",
   userBubbleColor: "#fff",
   userFontColor: "#4a4a4a",

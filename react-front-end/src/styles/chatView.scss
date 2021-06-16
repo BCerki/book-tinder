@@ -13,6 +13,11 @@ img.booknet {
 .bNIVFd {
   height: 75vh !important;
 }
+
+//footer
+.rsc-footer {
+  visibility: hidden;
+}
 // //type input
 .iZDkca {
   position: fixed !important; //tried to override their style, couldn't
@@ -63,4 +68,8 @@ img.booknet {
 //chat user options
 .ebcVKS {
   font-family: $typewriter-font;
+}
+
+.MuiSvgIcon-root {
+  fill: white !important;
 }
