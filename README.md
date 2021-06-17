@@ -1,46 +1,74 @@
-# React + Express No-Fluff Boilerplate
+# BookUp: Judging a Book by its Cover
 
-A boilerplate project for anyone interested in making a project that uses React and Express.
+A Tinder-like dating app to help readers fall in love with local books based on their reading preferences. You can set up a profile with preferences for the books you want to “date” (preferred age range, commitment level, date cost, maximum distance, maturity, and genres). The app will present you with cover images and you can swipe to the right/left for like/nope. If the book swipes right on you too (all do), you get to message each other—the book will send you interior photos, quotes from itself (from Google Books and Booknet Canada APIs), predetermined book flirts, etc. If the book is in stock at a local bookstore (BookManager API), it’ll ask you to come pick it up for a date.
 
-This repository is a bootleg of @NimaBoscarino's [React Rails Boilerplate](https://github.com/NimaBoscarino/react-rails-boilerplate). It uses the same React app, but replaces the Rails server with an Express server.
+## Final Product
 
-Note! This boilerplate has _no fluff_! That means that there's nothing set up for you to do authentication stuff, there's no Redux stuff, and there's no React Router stuff. On the Express end, there is no session storage or database connection.
+!["Home/Login"](https://github.com/BCerki/book-tinder/blob/master/docs/home-login.png?raw=true)
+!["Info View"](https://github.com/BCerki/book-tinder/blob/master/docs/messages-view.png?raw=true)
+!["Profile View"](https://github.com/BCerki/book-tinder/blob/master/docs/profile.png?raw=true)
+!["Swipe View"](https://github.com/BCerki/book-tinder/blob/master/docs/swipe-view.png?raw=true)
+!["Chatting"](https://github.com/BCerki/book-tinder/blob/master/docs/chat.gif?raw=true)
+!["Rejecting a Cover"](https://github.com/BCerki/book-tinder/blob/master/docs/swipeleft.gif?raw=true)
+!["Liking a Cover"](https://github.com/BCerki/book-tinder/blob/master/docs/swipe-view.png?raw=true)
+
+## Setup
+
+Install dependencies with `npm install`.
+
+Back end
+"dependencies":
+"body-parser": "^1.18.3",
+"crawler-request": "^1.2.2",
+"express": "^4.16.4",
+"form-data": "^4.0.0",
+"lodash": "^4.17.21",
+"node-fetch": "^2.6.1",
+"nodemon": "^1.18.7",
+"pg": "^8.6.0",
+
+"devDependencies":
+"axios": "^0.21.1",
+"dotenv": "^10.0.0"
+
+Front end
+"dependencies":
+"@material-ui/core": "^4.11.4",
+"@material-ui/icons": "^4.11.2",
+"@material-ui/lab": "^4.0.0-alpha.58",
+"axios": "^0.18.1",
+"crawler-request": "^1.2.2",
+"react": "^16.8.6",
+"react-dom": "^16.8.6",
+"react-loadingg": "^1.7.2",
+"react-scripts": "2.1.8",
+"react-simple-chatbot": "^0.6.1",
+"styled-components": "^5.3.0"
+
+"devDependencies":
+"animate.css": "^4.1.1",
+"cheerio": "^1.0.0-rc.10",
+"crawler-request": "^1.2.2",
+"lodash": "^4.17.21",
+"node-sass": "^4.12.0",
+"pdf-parse": "^1.1.1",
+"react-router-dom": "^5.2.0",
+"react-tinder-card": "^1.4.0",
+"react-transition-group": "^4.4.2",
+"react-use-localstorage": "^3.5.3",
+"sass-loader": "^11.1.1",
+"sweetalert2": "^11.0.16",
+"sweetalert2-react-content": "^4.0.1"
+
+## Running the servers
 
 The main important bit is that the React project has `proxy` set to `localhost:8080` in the `package.json` file, and that the Express app listens to port 8080 in `server.js`. Take a look!
-
-You can (and perhaps should) rename the directories `express-back-end` and `react-front-end` if you want-- The name doesn't matter.
-
-## Running the projects
-
 You need **TWO** terminal windows/tabs for this (or some other plan for running two Node processes).
-
 In one terminal, `cd` into `react-front-end`. Run `npm install` or `yarn` to install the dependencies. Then run `npm start` or `yarn start`, and go to `localhost:3000` in your browser.
-
 In the other terminal, `cd` into `express-back-end`. Run `npm install` or `yarn` to install the dependencies, then `npm start` or `yarn start` to launch the server.
-
 In the browser, you can click on the button and see the data get loaded.
-
 If this doesn't work, please message me!
 
-## Next steps
+## Warnings & Tips
 
-From here, you can start working on your project!
-
-As soon as the dependencies are installed, your Express server can serve JSON and static assets (like images) in response to API calls from the React app. You can get started on developing your React app, routing plan, etc. right away! Any request that isn't handled by React is passed on to the Express server. That means that you can call a route like `/api/users` from React using `fetch`, `axios`, or something else, and Express will receive it as though they originated from the same app. For routing, best practice is to namespace all of your data routes to `/api`, so that they don't clash with other routing schemes, like React Router.
-
-At some point, you'll likely want to install and configure a database driver for Postgres or MongoDB-- Refer to past projects for hints on how to do this.
-
-And don't forget to update the README!
-
-## Example Projects
-
-You might want to look at examples of projects that have used this boilerplate for hints on how to extend it. Here are a few:
-
-* [Later Cart](https://github.com/bonitac/later-cart)
-* [Buddi.io](https://github.com/Danny-Tran/buddi.io)
-
-If you'd like your project added to the list, please shoot me a message.
-
-## Contact
-
-Please contact me on Slack (@garrettgsb) or Nima at `nima@lighthouselabs.com` if you have any questions, requests, or feedback, or post an issue to this repo. If you are using the boilerplate, I'd love to hear from you as well!
+You will need to obtain the appropraite tokens for the respective APIs (Google Books, BookNet, Bookmanager) and save them as environment variables.
