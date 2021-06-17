@@ -11,7 +11,6 @@ const { response } = require("express");
 const { result } = require("lodash");
 // const {cloudinary} = require('./cloudinary');
 
-
 // Helpers
 const getSample = require("./helpers/getSample");
 const getLocation = require("./helpers/getLocation");
@@ -192,10 +191,13 @@ App.delete("/api/users/:id/conversations/:id", (req, res) => {
 
   const values = [req.params.id];
 
+  console.log("blockedConvo", blockedConvo, "values:", values);
+
   return pool
     .query(blockedConvo, values)
     .then((result) => {
       res.send(result.rows);
+      console.log("result.rows", result.rows);
     })
     .catch((err) => {
       console.error(err);
@@ -227,11 +229,11 @@ App.get("/api/users/:id", (req, res) => {
           maturity: val.maturity,
           genres: val.genres,
           postalCode: val.postal_code,
-          avatar: val.avatar
+          avatar: val.avatar,
         };
         transformed.push(user);
       }
-      console.log("Transformed", transformed)
+      console.log("Transformed", transformed);
       res.send(transformed);
     })
     .catch((err) => {
@@ -256,7 +258,7 @@ App.post("/api/users/:id", (req, res) => {
     req.body.maturity,
     req.body.genres,
     req.body.postalCode,
-    req.body.avatar
+    req.body.avatar,
   ];
 
   return pool
@@ -273,9 +275,9 @@ App.post("/api/users/:id", (req, res) => {
 //Update user data in users table **WORKING**
 App.put("/api/users/:id", (req, res) => {
   // console.log("POST BODY:", req.body);
-  
+
   const id = parseInt(req.params.id);
-  
+
   const updateUser = `UPDATE users SET name = $1, age = $2, page_count = $3, price = $4,
   max_distance = $5, maturity = $6, genres = $7, postal_code = $8, avatar = $9 WHERE id = $10 `;
 
@@ -303,7 +305,6 @@ App.put("/api/users/:id", (req, res) => {
     });
 });
 
-
 //AVATAR UPLOAD TO CLOUD STORAGE (Cloudinary):
 // App.post("/api/upload", (req, res) => {
 //   console.log("POST BODY:", req.body);
@@ -328,7 +329,6 @@ App.put("/api/users/:id", (req, res) => {
 //   console.error(error);
 //   res.status(500).json({ err: "upload unsuccessful" });
 // }
-
 
 App.listen(PORT, () => {
   // eslint-disable-next-line no-console

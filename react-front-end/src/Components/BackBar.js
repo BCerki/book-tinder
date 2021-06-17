@@ -59,8 +59,8 @@ export default function BackBar(props) {
         </div>
       </Link>
       <Avatar src={props.image} alt={props.title} className={classes.large} />
-
-      <a href="/matches" className={"backBarIcon"}>
+      <Link to="/matches" className={"backBarIcon"}>
+        {/* <a href="/matches" className={"backBarIcon"}> */}
         <div>
           <BlockIcon
             onClick={() => {
@@ -68,7 +68,8 @@ export default function BackBar(props) {
             }}
           />
         </div>
-      </a>
+        {/* </a> */}
+      </Link>
     </div>
   );
 }
