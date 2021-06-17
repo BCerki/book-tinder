@@ -10,7 +10,7 @@ A Tinder-like dating app to help readers fall in love with local books based on 
 !["Swipe View"](https://github.com/BCerki/book-tinder/blob/master/docs/swipe-view.png?raw=true)
 !["Chatting"](https://github.com/BCerki/book-tinder/blob/master/docs/chat.gif?raw=true)
 !["Rejecting a Cover"](https://github.com/BCerki/book-tinder/blob/master/docs/swipeleft.gif?raw=true)
-!["Liking a Cover"](https://github.com/BCerki/book-tinder/blob/master/docs/swipe-view.png?raw=true)
+!["Liking a Cover"](https://github.com/BCerki/book-tinder/blob/master/docs/swiperight.gif?raw=true)
 
 ## Setup
 
