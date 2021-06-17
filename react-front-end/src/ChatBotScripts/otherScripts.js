@@ -16,7 +16,28 @@ const sendPix = function() {
   return resultsArray;
 };
 
-const heeeeeeyreader = [{ id: "1", message: "Heeeeeeeeeeey, bookworm 😘" }];
+const heeeeeeyreader = [
+  { id: "1", message: "Heeeeeeeeeeey, bookworm 😘", trigger: "2" },
+  {
+    id: "2",
+    options: [
+      {
+        value: "y",
+        label: "You're punny",
+        trigger: "3",
+      },
+      { value: "n", label: "Hey...", trigger: "no-response" },
+    ],
+  },
+  {
+    id: "yes-response",
+    message: "I'm good with words 🤓📚",
+  },
+  {
+    id: "no-response",
+    message: "💓",
+  },
+];
 
 const endsheets = [
   {
@@ -72,3 +93,25 @@ const otherScripts = [
 ];
 
 export default otherScripts;
+
+// {
+//   id: "4",
+//   message: "Here's a sample of my table of conquests",
+//   trigger: "5",
+// },
+// {
+//   id: "5",
+//   message: "errrr... *contents",
+//   trigger: "6a",
+// },
+// {
+//   id: "6a",
+//   options: [
+//     {
+//       value: 1,
+//       label:
+//         "That's not a very long list... are you sure you're at my reading level?",
+//       trigger: "6b",
+//     },
+//   ],
+// },
