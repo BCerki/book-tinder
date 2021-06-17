@@ -94,6 +94,8 @@ App.post("/api/users/:id/blocked/:id", (req, res) => {
   const bookId = parseInt(req.params.id);
   const userId = 1;
 
+  console.log("I am hitting");
+
   const blocked = `INSERT INTO block_user (users_id, books_id) VALUES ($1, $2)`;
 
   const values = [userId, bookId];
