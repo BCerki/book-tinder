@@ -16,7 +16,15 @@ export default function AvatarUpload(props) {
       return (
         <div className="update-avatar">
           <form>
-            <input type="file" name="avatar" onChange={props.onChange} />
+            <label for="fileUpload" className="fileUpload">
+              Choose file
+              <input
+                id="fileUpload"
+                type="file"
+                name="avatar"
+                onChange={props.onChange}
+              />
+            </label>
           </form>
         </div>
       );

@@ -33,7 +33,7 @@ export default function BookManagerLocation(props) {
           )
           .then((result) => {
             setDate(result.data);
-            console.log("result.data is", result.data);
+            // console.log("result.data is", result.data);
           })
           .catch((err) => console.log(err));
       });

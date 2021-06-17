@@ -84,7 +84,7 @@ export default function UserLogin() {
     );
   }
   if (finished) {
-    return <Redirect to="/profile" />;
+    return <Redirect to="/books" />;
   }
   return <Credits />;
 }

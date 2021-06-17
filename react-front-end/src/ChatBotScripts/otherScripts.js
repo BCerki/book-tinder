@@ -8,7 +8,7 @@ const sendPix = function() {
     resultsArray.push({
       id: `${i}`,
       message: "send pix",
-      botDelay: delay, //not working, invalid key?
+      // botDelay: delay, //not working, invalid key?
       trigger: `${i + 1}`,
     });
   }

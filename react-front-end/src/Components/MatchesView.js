@@ -30,15 +30,18 @@ export default function MatchesView(props) {
   const [searchTitle, setSearchTitle] = useState("");
 
   useEffect(() => {
-    axios
-      .get("/api/users/1/conversations")
-      .then((result) => {
-        console.log("result.data is", result.data);
-        setMatches(result.data.reverse());
-      })
-      .catch((err) => {
-        console.log("Error:", err.message);
-      });
+    setTimeout(() => {
+      axios
+        .get("/api/users/1/conversations")
+        .then((result) => {
+          // console.log("result.data is", result.data);
+          console.log("i am loading conversations");
+          setMatches(result.data.reverse());
+        })
+        .catch((err) => {
+          console.log("Error:", err.message);
+        });
+    }, 300);
   }, []);
 
   const parseAge = function(date) {
@@ -77,7 +80,7 @@ export default function MatchesView(props) {
     for (const element of parseConversation) {
       if (element.message) {
         index = Number(element.message);
-        console.log("element is", element);
+        // console.log("element is", element);
         break;
       }
     }
