@@ -41,7 +41,7 @@ export default function MatchesView(props) {
         .catch((err) => {
           console.log("Error:", err.message);
         });
-    }, 50);
+    }, 300);
   }, []);
 
   const parseAge = function(date) {
