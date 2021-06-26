@@ -27,7 +27,7 @@ export default function GoogleDescription(props) {
             .then((response) => {
               const longDescription =
                 response.data.items[0].volumeInfo.description;
-              console.log("long descrip", longDescription);
+
               setDescription(longDescription);
             });
         })

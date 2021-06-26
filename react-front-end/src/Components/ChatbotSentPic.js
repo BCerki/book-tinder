@@ -6,15 +6,12 @@ import Loading from "./Loading";
 
 const { BOOKNET_TOKEN } = secrets;
 
-// console.log("bookId is", bookId);
-
 export default function ChatbotSentPic(props) {
   const bookId = Number(useLocation().pathname.replace("/matches/", ""));
 
   const [currentBook, setCurrentBook] = useState();
 
   const [interiorImage, setInteriorImage] = useState();
-  // const { currentChatBook, chatContext } = useContext(chatBookStateContext);
 
   useEffect(() => {
     if (bookId) {
@@ -29,11 +26,10 @@ export default function ChatbotSentPic(props) {
           axios
             .get()
             .then((result) => {
-              console.log("result is:", result);
               setInteriorImage(result.data.items[0].id);
             })
-            .catch(() => {
-              console.log("couldnt' get image");
+            .catch((err) => {
+              console.log(err.message);
             });
 
           setCurrentBook(chattingBook);
@@ -42,7 +38,6 @@ export default function ChatbotSentPic(props) {
     }
   }, []);
 
-  // console.log("currentChatBook in chatbotsentpic is:", currentChatBook);
   if (!currentBook) {
     return <Loading />;
   }

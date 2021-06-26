@@ -11,7 +11,6 @@ export default function BookManagerLocation(props) {
   );
 
   const userId = props.userId;
-  console.log("userId is", userId);
 
   useEffect(() => {
     axios.get(`/api/users/1/conversations`).then((result) => {
@@ -21,10 +20,8 @@ export default function BookManagerLocation(props) {
         (conversation) => conversation.id === conversationId
       );
       setCurrentConversation(thisConversation);
-      console.log("the user id is  is", thisConversation.user_id);
 
       axios.get(`/api/users/${thisConversation.user_id}`).then((result) => {
-        console.log("user info is", result.data[0]);
         const postalCode = result.data[0].postalCode;
         const maxDistance = result.data[0].maxDistance;
         axios

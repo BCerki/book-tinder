@@ -58,39 +58,32 @@ export default function ProfileView(props) {
       .get("/api/users/1")
       .then((result) => {
         setUserState(result.data[0]);
-        console.log(
-          "i am in axios get for user, result.data[0] is:",
-          result.data[0]
-        );
+
         setChips(result.data[0].genres);
         setPostalCode(result.data[0].postalCode);
         setName(result.data[0].name);
         setAvatar(result.data[0].avatar);
-        console.log("WHAT IS THIS", result.data[0].avatar);
       })
       .catch((err) => console.log("Error message:", err.message));
   }, []);
 
   const sendToDB = function(userObject) {
-    console.log("send to DB is firing with userObject:", userObject);
     //need to send userObject, not userState, because it's not updated yet
-    console.log("userobject.id is", userObject.id);
-    console.log("userstate.id is", userState.id);
+
     //set state with new info
     setUserState(userObject);
     //send to db
     axios
       .put(`/api/users/${userState.id}`, userObject)
       .then((result) => {
-        console.log("all is well");
+        // console.log("all is well");
       })
       .catch((err) => console.log("Error message:", err.message));
   };
 
   const handleChange = (event, newValue, id) => {
-    console.log("handleChange is firing");
     const newUserObject = { ...userState, [id]: newValue };
-    console.log("newuserobject is:", newUserObject);
+
     sendToDB(newUserObject);
   };
 
@@ -166,16 +159,13 @@ export default function ProfileView(props) {
 
   //Genres
   const handleClick = function(genre) {
-    console.log("I am click handler and userState.genres is", userState.genres);
     const newGenres = [...userState.genres];
 
     if (userState.genres.includes(genre)) {
       const index = userState.genres.findIndex((element) => element === genre);
       newGenres.splice(index, 1);
-      console.log("i am removing", genre, "and new genres is", newGenres);
     } else {
       newGenres.push(genre);
-      console.log("i am adding", genre, "and new genres is", newGenres);
     }
     const newUserObject = { ...userState, genres: newGenres };
     sendToDB(newUserObject);
@@ -200,7 +190,6 @@ export default function ProfileView(props) {
   const [name, setName] = useState("");
   const [isEditingAvatar, setIsEditingAvatar] = useState(false);
 
-  console.log("postalCode state is", postalCode);
   //PostalCode
   const handleEditing = function(event) {
     setIsEditing(true);
@@ -238,7 +227,7 @@ export default function ProfileView(props) {
       "load",
       function() {
         // convert image file to base64 string
-        console.log("reader result:", reader.result);
+        // console.log("reader result:", reader.result);
 
         const newUserObject = { ...userState, avatar: reader.result };
 
@@ -296,20 +285,12 @@ export default function ProfileView(props) {
   //   }
   // };
 
-  console.log("avatar is:", avatar);
-  console.log("setAvatar is:", setAvatar);
-
-  console.log("isediting is", isEditing);
   //Return statements components
   if (!userState.id) {
     return <Loading />;
   }
   return (
     <main>
-      {/* <div className="profile-avatar">
-        <Avatar className={classes.large}
-        src={avatar}/>
-      </div> */}
       <div>
         <AvatarUpload
           onChange={handleAvatarChange}

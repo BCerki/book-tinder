@@ -60,7 +60,6 @@ export default function ChatView(props) {
           const allMatches = result.data;
           const thisMatch = allMatches.find((match) => match.id === matchId);
           setMatch(thisMatch);
-          console.log("thismatch is", thisMatch);
 
           //AFTER PRESENTATION--choose a script based on whether it has any resources available in booknet
           // const scripts = thisMatch.booknet_available
@@ -79,16 +78,9 @@ export default function ChatView(props) {
 
   //if it's one of our demo books, choose the appropriate script, otherwise choose a random one
   const chooseTargetedScript = function(isbn, title, booknet_available) {
-    console.log("isbn is", isbn);
-    console.log("title is", title);
-    console.log("booknet_available is", booknet_available);
-
     if (isbn === "9781982114428") {
       return outOfTheAttic;
     }
-    // if (isbn === "9781770415034") {
-    //   return theForestCityKiller;
-    // }
     if (isbn === "9781459735699") {
       return raisingRoyalty;
     }
@@ -100,11 +92,6 @@ export default function ChatView(props) {
 
   //Send to DB every time the user clicks
   useEffect(() => {
-    // console.log(
-    //   "sending this to db:",
-    //   window.localStorage.getItem(`rsc_cache_${matchId}`)
-    // );
-
     axios
 
       .put(

@@ -10,22 +10,20 @@ import { Link } from "react-router-dom";
 import "../styles/backbar.scss";
 
 export default function BackBar(props) {
-  // const { currentBook, block } = useContext(bookStateContext);
-  // console.log("back bar props are", props);
   const block = function(bookId) {
     axios
-      //MICHELLE this should add the book to the blocked table
+      //This adds the book to the blocked table
       .post(`/api/users/1/blocked/${bookId}`, bookId)
       .then((result) => {
-        console.log("successfully sent post to db, bookid is,", bookId);
+        // console.log("successfully sent post to db, bookid is,", bookId);
       })
       .catch((err) => console.log("Error message:", err.message));
 
     axios
-      //MICHELLE this should delete the book from the conversations table
+      //This deletes the book from the conversations table
       .delete(`/api/users/1/conversations/${bookId}`, bookId)
       .then((result) => {
-        console.log("successfully sent delete to db, bookid is,", bookId);
+        // console.log("successfully sent delete to db, bookid is,", bookId);
       })
       .catch((err) => console.log("Error message:", err.message));
   };
@@ -39,9 +37,6 @@ export default function BackBar(props) {
   }));
   const classes = useStyles();
 
-  // console.log("in the back bar, currentBook.image is", currentBook.image);
-  // console.log("in the back bar, currentBook.image is", currentBook.id);
-
   return (
     <div className="backBar">
       <Link to="/matches" className={"backBarIcon"}>
@@ -51,7 +46,6 @@ export default function BackBar(props) {
       </Link>
       <Avatar src={props.image} alt={props.title} className={classes.large} />
       <Link to="/matches" className={"backBarIcon"}>
-        {/* <a href="/matches" className={"backBarIcon"}> */}
         <div>
           <BlockIcon
             onClick={() => {
@@ -59,7 +53,6 @@ export default function BackBar(props) {
             }}
           />
         </div>
-        {/* </a> */}
       </Link>
     </div>
   );

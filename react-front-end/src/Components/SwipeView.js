@@ -17,7 +17,6 @@ export default function Swipe(props) {
     axios
       .get("/api/users/1/books")
       .then((response) => {
-        console.log("response.data", response.data);
         // setCurrentBook(_.shuffle(response.data)[0]);
         setRetrievedBooks(response.data);
       })
@@ -26,16 +25,14 @@ export default function Swipe(props) {
 
   const swiped = (direction, book) => {
     //gave swiped the entire book object
-    console.log("swiped book  is", book);
+
     setLastDirection(direction);
 
-    console.log("direction is", direction);
     //again, have to use direction, not lastDirection, because it's not set just yet
     if (direction === "left") {
       const foundIt = retrievedBooks.findIndex((input) => input.id === book.id);
-      // console.log("foundit", foundIt);
+
       retrievedBooks.splice(foundIt, 1);
-      // console.log("is foundit gone?", retrievedBooks);
 
       if (retrievedBooks.length === 0) {
         //grab some new books--probably not necessary for demo
@@ -45,7 +42,7 @@ export default function Swipe(props) {
       axios
         .post(`/api/users/1/rejected/${book.id}`, book.id)
         .then(() => {
-          console.log("all is well--left-swiped book sent to db");
+          // console.log("all is well--left-swiped book sent to db");
         })
         .catch((err) => {
           console.log("Error:", err.message);
@@ -92,11 +89,6 @@ export default function Swipe(props) {
     }
   };
 
-  // const onCardLeftScreen = (bookId) => {
-  //   console.log(bookId + " left the screen");
-  //   console.log("lastDirection is", lastDirection);
-  // };
-
   return (
     <div className="cardContainer">
       {retrievedBooks.map((book) => {
@@ -106,7 +98,6 @@ export default function Swipe(props) {
             key={book.id}
             preventSwipe={["up", "down"]}
             onSwipe={(dir) => swiped(dir, book)}
-            // onCardLeftScreen={() => onCardLeftScreen(`${book.id}`)}
           >
             <div
               className={"card"}

@@ -26,8 +26,6 @@ export default function MatchesView(props) {
       axios
         .get("/api/users/1/conversations")
         .then((result) => {
-          // console.log("result.data is", result.data);
-          console.log("i am loading conversations");
           setMatches(result.data.reverse());
         })
         .catch((err) => {
@@ -43,7 +41,7 @@ export default function MatchesView(props) {
 
   //FOR SEARCH BAR
   const filterMatches = () => {
-    console.log("searchTitle", searchTitle);
+    // console.log("searchTitle", searchTitle);
     const filteredBooks = matches.filter((book) => {
       if (searchTitle === "") {
         return book;
@@ -57,7 +55,7 @@ export default function MatchesView(props) {
         .includes(inputVal);
       return newBook;
     });
-    console.log("filtered", filteredBooks);
+    // console.log("filtered", filteredBooks);
     return filteredBooks;
   };
 
@@ -72,7 +70,7 @@ export default function MatchesView(props) {
     for (const element of parseConversation) {
       if (element.message) {
         index = Number(element.message);
-        // console.log("element is", element);
+
         break;
       }
     }
@@ -83,7 +81,6 @@ export default function MatchesView(props) {
   };
 
   const bookCards = filterMatches().map((book) => {
-    // console.log("book.id is", book.id);
     return (
       <Link to={`/matches/${book.id}`} className="bookCardLink">
         <BookCard

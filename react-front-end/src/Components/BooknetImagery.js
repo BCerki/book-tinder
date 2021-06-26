@@ -6,16 +6,12 @@ import Loading from "./Loading";
 
 const { BOOKNET_TOKEN, GOOGLE_BOOK_KEY } = secrets;
 
-// console.log("bookId is", bookId);
-
 export default function BooketImagery(props) {
-  console.log("BOOK_NET TOKEN is:", BOOKNET_TOKEN);
   const matchId = Number(useLocation().pathname.replace("/matches/", ""));
 
   const [match, setMatch] = useState();
 
   const [interiorImage, setInteriorImage] = useState();
-  // const { currentChatBook, chatContext } = useContext(chatBookStateContext);
 
   useEffect(() => {
     if (matchId) {

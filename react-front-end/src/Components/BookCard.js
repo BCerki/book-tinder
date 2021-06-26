@@ -13,14 +13,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function BookCard(props) {
-  // console.log("bookcard props", props);
   //styling hook
   const classes = useStyles();
-  //this file is where you're doing the conditional rendering
-  //check if doing info or messages
+
+  //check if reader wants to see info or messages
 
   const checkToggle = function(toggle) {
-    // console.log("props in book card", props);
     if (!toggle) {
       return (
         <Info

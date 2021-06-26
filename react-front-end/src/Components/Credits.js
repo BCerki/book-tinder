@@ -1,6 +1,5 @@
 import React from "react";
 export default function Credits(props) {
-  // console.log("props in info", props);
   return (
     <div className={"page"}>
       <div className={"tagline"}>
