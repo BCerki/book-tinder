@@ -1,4 +1,6 @@
 require("dotenv").config();
+const fetch = require("node-fetch");
+const axios = require("axios").default;
 
 const Express = require("express");
 const App = Express();
@@ -70,6 +72,86 @@ App.get("/api/sample", (req, res) => {
 
 // BookTinder GET route **WORKING**
 App.get("/api/users/:id/books", (req, res) => {
+  return pool
+    .query(
+      `SELECT * FROM books WHERE NOT EXISTS
+    (SELECT * FROM conversations WHERE books.id = conversations.book_id)
+    AND NOT EXISTS (SELECT * FROM block_user WHERE books.id = block_user.books_id)
+    AND NOT EXISTS (SELECT * FROM rejected WHERE books.id = rejected.book_id)`
+    )
+    .then(function (result) {
+      // console.log("LOG: server: query books: result:", result);
+      console.log("test", result.rows);
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log(err.message);
+      res.status(500).send(err.message);
+    });
+});
+
+// BookTinder GET from google **WORKING**
+App.get("/api/googlebooks", (req, res) => {
+  const helper = function (arg) {
+    let results = null;
+    arg.find((element) => {
+      if (element.identifier.length === 13) {
+        results = element.identifier;
+      }
+      return null;
+    });
+
+    return results;
+  };
+
+  axios(
+    `https://www.googleapis.com/books/v1/volumes?q=insubject:mystery&key=${process.env.GOOGLE_BOOK_KEY}`
+  ).then((response) => {
+    console.log("GOOGLE BOOKS RESPONSE:", response.data);
+    // console.log(response.json());
+    for (let i = 0; i < 10; i++) {
+      console.log(
+        `VALUES ('${helper(
+          response.data.items[i].volumeInfo.industryIdentifiers
+        )}','${response.data.items[i].volumeInfo.title}', '${
+          response.data.items[i].volumeInfo.authors[0]
+        }', '${response.data.items[i].volumeInfo.imageLinks.thumbnail}', '${
+          response.data.items[i].searchInfo.textSnippet
+        }', ${response.data.items[i].volumeInfo.pageCount}, '${
+          response.data.items[i].volumeInfo.publishedDate
+        }', ${
+          response.data.items[i].saleInfo.listPrice
+            ? response.data.items[i].saleInfo.listPrice.amount
+            : null
+        }, false)`
+      );
+    }
+    const newUser = `INSERT INTO users (name, age, page_count, price, max_distance, maturity, genres, postal_code)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`;
+
+    const values = [
+      req.body.name,
+      req.body.age,
+      req.body.pageCount,
+      req.body.price,
+      req.body.maxDistance,
+      req.body.maturity,
+      req.body.genres,
+      req.body.postalCode,
+      req.body.avatar,
+    ];
+
+    return pool
+      .query(newUser, values)
+      .then((result) => {
+        res.send(result.rows);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send(err.message);
+      });
+  });
+
   return pool
     .query(
       `SELECT * FROM books WHERE NOT EXISTS
