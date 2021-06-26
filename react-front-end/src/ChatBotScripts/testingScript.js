@@ -3,10 +3,6 @@ import React, { useContext } from "react";
 import ChatbotSentPic from "../Components/ChatbotSentPic";
 import BooknetQuote from "../Components/BooknetQuote";
 import BooknetImagery from "../Components/BooknetImagery";
-import ChatBookStateProvider from "../providers/ChatBookStateProvider";
-// import { chatBookStateContext } from "../providers/ChatBookStateProvider";
-
-// const { currentChatBook, chatContext } = useContext(chatBookStateContext);
 
 const testingScript = [
   {

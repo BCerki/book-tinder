@@ -1,7 +1,5 @@
 import React, { useContext } from "react";
 
-import { bookStateContext } from "../providers/BookStateProvider";
-
 //import components
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";

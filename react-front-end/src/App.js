@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
-import UserStateProvider from "./providers/UserStateProvider";
-import ChatBookStateProvider from "./providers/ChatBookStateProvider";
+
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -17,7 +16,6 @@ import Credits from "./Components/Credits";
 //Import styling
 
 import "./App.scss";
-import BookStateProvider from "./providers/BookStateProvider";
 
 export default function AppRouter() {
   return (
