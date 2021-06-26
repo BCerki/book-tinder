@@ -1,20 +1,10 @@
-import React, { useEffect } from "react";
-import { useState, useContext } from "react";
-import bookupLogo from "./bookupLogo.png";
 import TextField from "@material-ui/core/TextField";
-
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect,
-} from "react-router-dom";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
-import Credits from "./Credits";
-
+import React, { useEffect, useState } from "react";
+import { Redirect } from "react-router-dom";
 //Styling
 import "../styles/login.scss";
+import bookupLogo from "./bookupLogo.png";
+import Credits from "./Credits";
 
 export default function UserLogin() {
   const [email, setEmail] = useState("");

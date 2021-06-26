@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
-
-import { useLocation } from "react-router-dom";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import Loading from "./Loading";
+
 // import getSample from "../helpers/getSample";
 // import getSample from "../../../express-back-end/helpers/getSample";
 

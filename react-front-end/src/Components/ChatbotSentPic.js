@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
-
-import { useLocation } from "react-router-dom";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import secrets from "../.secrets";
 import Loading from "./Loading";
-const { BOOKNET_TOKEN, GOOGLE_BOOK_KEY } = secrets;
+
+const { BOOKNET_TOKEN } = secrets;
 
 // console.log("bookId is", bookId);
 

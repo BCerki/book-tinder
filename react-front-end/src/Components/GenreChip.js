@@ -1,7 +1,5 @@
-import React from "react";
-//<div className="isbn">ISBN: {props.isbn}</div>
-
 import classNames from "classnames";
+import React from "react";
 export default function GenreChip(props) {
   const chipClass = classNames(
     { selected: props.selected },

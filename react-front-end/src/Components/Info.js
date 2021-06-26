@@ -1,7 +1,6 @@
 import React from "react";
-//<div className="isbn">ISBN: {props.isbn}</div>
+
 export default function Info(props) {
-  // console.log("props in info", props);
   return (
     <div className={"infoBlock"}>
       <div className="third-row">

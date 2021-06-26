@@ -1,25 +1,17 @@
-import React, { useState, useContext, useEffect } from "react";
-
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
-import Avatar from "@material-ui/core/Avatar";
-import TextField from "@material-ui/core/TextField";
-import Chip from "@material-ui/core/Chip";
-import Checkbox from "@material-ui/core/Checkbox";
-import GenreChip from "./GenreChip";
-import PostalCode from "./PostalCode";
-import UserName from "./UserName";
-import AvatarUpload from "./AvatarUpload";
-
+import { makeStyles } from "@material-ui/core/styles";
 import Switch from "@material-ui/core/Switch";
-// import genreData from "../dummyData/dummyGenreData";
-import Loading from "./Loading";
-import classNames from "classnames";
 import axios from "axios";
-
+import React, { useEffect, useState } from "react";
 //Styling
 import "../styles/profileView.scss";
+import AvatarUpload from "./AvatarUpload";
+import GenreChip from "./GenreChip";
+// import genreData from "../dummyData/dummyGenreData";
+import Loading from "./Loading";
+import PostalCode from "./PostalCode";
+import UserName from "./UserName";
+
 const useStyles = makeStyles((theme) => ({
   large: {
     width: theme.spacing(10),

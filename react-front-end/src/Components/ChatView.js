@@ -1,34 +1,23 @@
-import React, { useEffect, useState, useContext } from "react";
+import axios from "axios";
+import _ from "lodash";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import ChatBot from "react-simple-chatbot";
 import { ThemeProvider } from "styled-components";
-import booknetScripts from "../ChatBotScripts/booknetScripts";
-import otherScripts from "../ChatBotScripts/otherScripts";
-import demoScripts from "../ChatBotScripts/demoScripts";
-import testingScript from "../ChatBotScripts/testingScript";
-import _ from "lodash";
-import BackBar from "./BackBar";
-import Loading from "./Loading";
-import Login from "./Login";
-import BooknetImagery from "../Components/BooknetImagery";
-import BooknetQuote from "../Components/BooknetQuote";
-import BookManagerLocation from "../Components/BookManagerLocation";
-
-import useLocalStorage from "react-use-localstorage";
-
-import { useLocation } from "react-router-dom";
-
-//Styling
-import "../styles/chatView.scss";
-import axios from "axios";
-
 //bookmanager
-
 //import demo scripts
-
 // import outOfTheAttic from "../ChatBotScripts/demoScripts";
 // import theForestCityKiller from "../ChatBotScripts/demoScripts";
 // import allTheLeavings from "../ChatBotScripts/demoScripts";
 import secrets from "../.secrets";
+import booknetScripts from "../ChatBotScripts/booknetScripts";
+import demoScripts from "../ChatBotScripts/demoScripts";
+import otherScripts from "../ChatBotScripts/otherScripts";
+//Styling
+import "../styles/chatView.scss";
+import BackBar from "./BackBar";
+import Loading from "./Loading";
+import Login from "./Login";
 
 // all available chatbot styling props
 const theme = {

@@ -1,13 +1,9 @@
-import React, { useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
-import TitleAuthorDisplay from "./TitleAuthorDisplay";
+import React from "react";
 import Info from "./Info";
 import Message from "./Message";
-import Grid from "@material-ui/core/Grid";
-//styling
-
-import axios from "axios";
+import TitleAuthorDisplay from "./TitleAuthorDisplay";
 
 const useStyles = makeStyles((theme) => ({
   large: {

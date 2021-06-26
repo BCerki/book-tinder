@@ -1,22 +1,14 @@
-import React, { useState, useContext, useEffect } from "react";
-import { toggleStateContext } from "../providers/ToggleStateProvider";
-import Loading from "./Loading";
-import axios from "axios";
-
-//import components
-import BookCard from "./BookCard";
-import MessageCard from "./Message";
-import bookData from "../dummyData/dummyBookData";
-import SearchBar from "./SearchBar";
-
-import FormGroup from "@material-ui/core/FormGroup";
 import Switch from "@material-ui/core/Switch";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import { toggleStateContext } from "../providers/ToggleStateProvider";
 //Styling
 import "../styles/matchesView.scss";
+//import components
+import BookCard from "./BookCard";
+import Loading from "./Loading";
+import SearchBar from "./SearchBar";
 
 export default function MatchesView(props) {
   //toggle state

@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import axios from "axios";
-import bookData from "../dummyData/dummyBookData";
-import _ from "lodash";
-import "../styles/swipeView.scss";
+import React, { useEffect, useState } from "react";
 import TinderCard from "react-tinder-card";
-
 //sweet alert
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import "../styles/swipeView.scss";
+
 const MySwal = withReactContent(Swal);
 
 export default function Swipe(props) {

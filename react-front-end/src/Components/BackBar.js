@@ -1,20 +1,13 @@
-import React, { useContext } from "react";
-
+import Avatar from "@material-ui/core/Avatar";
 //import components
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import MenuBookIcon from "@material-ui/icons/MenuBook";
-import ChatIcon from "@material-ui/icons/Chat";
-import Avatar from "@material-ui/core/Avatar";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import BlockIcon from "@material-ui/icons/Block";
-
+import axios from "axios";
+import React from "react";
+import { Link } from "react-router-dom";
 //Styling
 import "../styles/backbar.scss";
-import axios from "axios";
 
 export default function BackBar(props) {
   // const { currentBook, block } = useContext(bookStateContext);
