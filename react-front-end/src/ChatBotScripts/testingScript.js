@@ -2,12 +2,33 @@ import React, { useContext } from "react";
 
 import ChatbotSentPic from "../Components/ChatbotSentPic";
 import GoogleDescription from "../Components/GoogleDescription";
+import BooknetQuote from "../Components/BooknetQuote";
 import BooknetImagery from "../Components/BooknetImagery";
 
 const testingScript = [
   {
+    id: "a",
+    message: "Click yes for the booknet quote",
+    trigger: "b",
+  },
+  {
+    id: "b",
+    options: [{ value: 1, label: "yes", trigger: "c" }],
+  },
+  {
+    id: "c",
+    component: (
+      <BooknetQuote
+        className={"sc-gKAaRy gUoBaw rsc-ts-bubble"}
+        requestedInfo={"interiorImage"}
+      />
+    ),
+    trigger: "1",
+  },
+
+  {
     id: "1",
-    message: "Click yes for the materials",
+    message: "Click yes for the back cover image",
     trigger: "2",
   },
   {
