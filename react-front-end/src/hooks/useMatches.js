@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import { useLocation } from "react-router";
 import axios from "axios";
 
 const useMatches = function() {
@@ -22,7 +22,11 @@ const useMatches = function() {
   }, []);
 
   //Get the object for a particular match
-  const getChattingMatch = function(matchId) {
+  // const getChattingMatch = function(matchId) {
+  //   return matches.find((match) => match.id === matchId);
+  // };
+  const getChattingMatch = function() {
+    const matchId = Number(useLocation().pathname.replace("/matches/", ""));
     return matches.find((match) => match.id === matchId);
   };
 

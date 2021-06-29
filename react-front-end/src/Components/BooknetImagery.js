@@ -8,11 +8,8 @@ import Loading from "./Loading";
 const { BOOKNET_TOKEN, GOOGLE_BOOK_KEY } = secrets;
 
 export default function BooketImagery(props) {
-  const matchId = Number(useLocation().pathname.replace("/matches/", ""));
-
   const { getChattingMatch } = useMatches();
-
-  const match = getChattingMatch(matchId);
+  const match = getChattingMatch();
 
   if (!match) {
     return <Loading />;
