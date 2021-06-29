@@ -9,8 +9,13 @@ import "../styles/matchesView.scss";
 import BookCard from "./BookCard";
 import Loading from "./Loading";
 import SearchBar from "./SearchBar";
+//import hooks
+import useMatches from "../hooks/useMatches";
 
 export default function MatchesView(props) {
+  //Pull in state and functions from custom hook
+  const { matches, setMatches } = useMatches();
+
   //toggle state
   const { toggle, toggleContext } = useContext(toggleStateContext);
 
@@ -18,21 +23,21 @@ export default function MatchesView(props) {
     toggleContext(!toggle);
   };
 
-  const [matches, setMatches] = useState([]);
   const [searchTitle, setSearchTitle] = useState("");
 
-  useEffect(() => {
-    setTimeout(() => {
-      axios
-        .get("/api/users/1/conversations")
-        .then((result) => {
-          setMatches(result.data.reverse());
-        })
-        .catch((err) => {
-          console.log("Error:", err.message);
-        });
-    }, 300);
-  }, []);
+  //may need to address setTimeout later FIX FIX
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     axios
+  //       .get("/api/users/1/conversations")
+  //       .then((result) => {
+  //         setMatches(result.data.reverse());
+  //       })
+  //       .catch((err) => {
+  //         console.log("Error:", err.message);
+  //       });
+  //   }, 300);
+  // }, []);
 
   const parseAge = function(date) {
     const thisYear = new Date().getFullYear();
