@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router";
+
 import axios from "axios";
 
 const useMatches = function() {
-  //Get all the users' matches
+  //Manages array of all the users' matches
   const [matches, setMatches] = useState([]);
+
+  //Manages a particular match's object
+  // const [chattingMatch, setChattingMatch] = useState({});
 
   //hook up to auth0 for real userid later FIX FIX
   useEffect(() => {
@@ -18,10 +21,18 @@ const useMatches = function() {
       });
   }, []);
 
-  //get the match id
-  // const matchId = Number(useLocation().pathname.replace("/matches/", ""));
+  //Get the object for a particular match
+  const getChattingMatch = function(matchId) {
+    return matches.find((match) => match.id === matchId);
+  };
 
-  return { matches, setMatches };
+  return {
+    matches,
+    setMatches,
+    // chattingMatch,
+    // setChattingMatch,
+    getChattingMatch,
+  };
 };
 
 export default useMatches;

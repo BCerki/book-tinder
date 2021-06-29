@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import secrets from "../.secrets";
+import useMatches from "../hooks/useMatches";
 import Loading from "./Loading";
 
 const { BOOKNET_TOKEN, GOOGLE_BOOK_KEY } = secrets;
@@ -9,23 +10,9 @@ const { BOOKNET_TOKEN, GOOGLE_BOOK_KEY } = secrets;
 export default function BooketImagery(props) {
   const matchId = Number(useLocation().pathname.replace("/matches/", ""));
 
-  const [match, setMatch] = useState();
+  const { getChattingMatch } = useMatches();
 
-  const [interiorImage, setInteriorImage] = useState();
-
-  useEffect(() => {
-    if (matchId) {
-      axios
-        .get(`/api/users/1/conversations`)
-        .then((result) => {
-          //set the match
-          const allMatches = result.data;
-          const thisMatch = allMatches.find((book) => book.id === matchId);
-          setMatch(thisMatch);
-        })
-        .catch(() => {});
-    }
-  }, []);
+  const match = getChattingMatch(matchId);
 
   if (!match) {
     return <Loading />;

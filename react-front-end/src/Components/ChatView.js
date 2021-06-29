@@ -13,6 +13,7 @@ import secrets from "../.secrets";
 import booknetScripts from "../ChatBotScripts/booknetScripts";
 import demoScripts from "../ChatBotScripts/demoScripts";
 import otherScripts from "../ChatBotScripts/otherScripts";
+import testingScript from "../ChatBotScripts/testingScript";
 //Styling
 import "../styles/chatView.scss";
 import BackBar from "./BackBar";
@@ -123,11 +124,14 @@ export default function ChatView(props) {
       />
       <ThemeProvider theme={theme}>
         <ChatBot
-          steps={chooseTargetedScript(
-            match.isbn,
-            match.title,
-            match.booknet_available
-          )}
+          //real script functionality
+          // steps={chooseTargetedScript(
+          //   match.isbn,
+          //   match.title,
+          //   match.booknet_available
+          // )}
+          //test script
+          steps={testingScript}
           cacheName={`rsc_cache_${matchId}`}
           cache={true}
           hideBotAvatar={true}
