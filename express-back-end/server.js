@@ -10,6 +10,12 @@ const { Pool } = require("pg");
 const { response } = require("express");
 const { result } = require("lodash");
 
+// Stuff for PDF conversion
+const fs = require("fs");
+const download = require("download");
+const path = require("path");
+const pdf2img = require("pdf2img");
+
 // Helpers
 const getSample = require("./helpers/getSample");
 const getLocation = require("./helpers/getLocation");
@@ -33,6 +39,58 @@ const pool = new Pool({
 //     message: "Seems to work!",
 //   })
 // );
+
+// convertPdfToPic helper
+
+App.get("/api/convertPdfToPic", (req, res) => {
+  // res.send("Hi from convertPdfToPic");
+
+  // const file =
+  //   "https://www.biblioshare.ca/BNCServices/BNCServices.asmx/Samples?token=3e58phfbom2hx2z7&ean=9781459735699&san=&perspective=Sample&filenumber=";
+  // // Path at which image will get downloaded
+  // const filePath = `${__dirname}/downloads`;
+
+  // download(file, filePath).then(() => {
+  //   console.log("Download Completed");
+  // });
+
+  const input = __dirname + "/downloads/9781459735699_Sample.pdf";
+  // const input = "/downloads/9781459735699_Sample.pdf";
+  pdf2img.setOptions({
+    type: "png", // png or jpg, default jpg
+    size: 1024, // default 1024
+    density: 600, // default 600
+    // outputdir: __dirname + path.sep + "output", // output folder, default null (if null given, then it will create folder name same as file name)
+    outputdir: __dirname + "/downloads/images", // output folder, default null (if null given, then it will create folder name same as file name)
+    outputname: "covertPDF-01", // output file name, dafault null (if null given, then it will create image name same as input name)
+    page: null, // convert selected page, default null (if null given, then it will convert all pages)
+  });
+
+  pdf2img.convert(input, function (err, info) {
+    if (err) console.log(err);
+    else console.log(info);
+  });
+  // .catch((err) => {
+  //   console.error(err);
+  //   res.status(500).send(err.message);
+  // });
+
+  // const filePath =
+  //   "https://www.biblioshare.ca/BNCServices/BNCServices.asmx/Samples?token=3e58phfbom2hx2z7&ean=9781459735699&san=&perspective=Sample&filenumber="; // Or format the path using the `id` rest param
+  // var fileName = "./images/test.pdf"; // file name
+  // res.download(filePath, fileName);
+  // .download(
+  //   "https://www.biblioshare.ca/BNCServices/BNCServices.asmx/Samples?token=3e58phfbom2hx2z7&ean=9781459735699&san=&perspective=Sample&filenumber="
+  // )
+  // .then((response) => {
+  //   // console.log("LOG: server.js: /api/getLocation: response:", response);
+  //   res.status(200);
+  // })
+  // .catch((err) => {
+  //   console.error(err);
+  //   res.status(500).send(err.message);
+  // });
+});
 
 // getLocation helper
 App.get("/api/getlocation", (req, res) => {
