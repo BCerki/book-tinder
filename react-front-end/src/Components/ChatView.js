@@ -61,23 +61,12 @@ export default function ChatView(props) {
           const allMatches = result.data;
           const thisMatch = allMatches.find((match) => match.id === matchId);
           setMatch(thisMatch);
-
-          //AFTER PRESENTATION--choose a script based on whether it has any resources available in booknet
-          // const scripts = thisMatch.booknet_available
-          //   ? booknetScripts
-          //   : otherScripts;
         })
         .catch(() => {});
     }
   }, [matchId]);
 
-  //choose a random script
-  const chooseRandomScript = function(scripts) {
-    const randomIndex = _.random(0, scripts.length - 1);
-    return scripts[randomIndex];
-  };
-
-  //if it's one of our demo books, choose the appropriate script, otherwise choose a random one
+  //if it's one of our demo books, choose the appropriate script. If it's at booknet, choose a random script (these scripts include materials booknet holds). If it's not, choose a random other script.
   const chooseTargetedScript = function(isbn, title, booknet_available) {
     if (isbn === "9781982114428") {
       return outOfTheAttic;
@@ -85,10 +74,11 @@ export default function ChatView(props) {
     if (isbn === "9781459735699") {
       return raisingRoyalty;
     }
+    if (booknet_available) {
+      return booknetScripts[_.random(0, booknetScripts.length - 1)];
+    }
 
-    return chooseRandomScript(
-      booknet_available ? booknetScripts : otherScripts
-    );
+    return otherScripts[_.random(0, otherScripts.length - 1)];
   };
 
   //Send to DB every time the user clicks
