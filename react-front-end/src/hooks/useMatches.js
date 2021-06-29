@@ -25,6 +25,8 @@ const useMatches = function() {
   // const getChattingMatch = function(matchId) {
   //   return matches.find((match) => match.id === matchId);
   // };
+
+  //why is this async? FIX FIX
   const getChattingMatch = function() {
     const matchId = Number(useLocation().pathname.replace("/matches/", ""));
     return matches.find((match) => match.id === matchId);
