@@ -17,54 +17,6 @@ A Tinder-like dating app to help readers fall in love with local books based on 
 Install dependencies with `npm install`.
 
 Back end
-<<<<<<< HEAD
-
-- "dependencies":
-- "body-parser": "^1.18.3",
-- "crawler-request": "^1.2.2",
-- "express": "^4.16.4",
-- "form-data": "^4.0.0",
-- "lodash": "^4.17.21",
-- "node-fetch": "^2.6.1",
-- "nodemon": "^1.18.7",
-- "pg": "^8.6.0",
-
-"devDependencies":
-
-- "axios": "^0.21.1",
-- "dotenv": "^10.0.0"
-
-Front end
-
-- "dependencies":
-- "@material-ui/core": "^4.11.4",
-- "@material-ui/icons": "^4.11.2",
-- "@material-ui/lab": "^4.0.0-alpha.58",
-- "axios": "^0.18.1",
-- "crawler-request": "^1.2.2",
-- "react": "^16.8.6",
-- "react-dom": "^16.8.6",
-- "react-loadingg": "^1.7.2",
-- "react-scripts": "2.1.8",
-- "react-simple-chatbot": "^0.6.1",
-- "styled-components": "^5.3.0"
-
-"devDependencies":
-
-- "animate.css": "^4.1.1",
-- "cheerio": "^1.0.0-rc.10",
-- "crawler-request": "^1.2.2",
-- "lodash": "^4.17.21",
-- "node-sass": "^4.12.0",
-- "pdf-parse": "^1.1.1",
-- "react-router-dom": "^5.2.0",
-- "react-tinder-card": "^1.4.0",
-- "react-transition-group": "^4.4.2",
-- "react-use-localstorage": "^3.5.3",
-- "sass-loader": "^11.1.1",
-- "sweetalert2": "^11.0.16",
-- "sweetalert2-react-content": "^4.0.1"
-=======
 "dependencies":
 "body-parser": "^1.18.3",
 "crawler-request": "^1.2.2",
@@ -116,7 +68,6 @@ In one terminal, `cd` into `react-front-end`. Run `npm install` or `yarn` to ins
 In the other terminal, `cd` into `express-back-end`. Run `npm install` or `yarn` to install the dependencies, then `npm start` or `yarn start` to launch the server.
 In the browser, you can click on the button and see the data get loaded.
 If this doesn't work, please message me!
->>>>>>> 33ab0dfd5e703bf22be8c79ae2f92408cf5b5b62
 
 ## Warnings & Tips
 
