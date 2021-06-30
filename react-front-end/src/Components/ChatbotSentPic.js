@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
-import { chatBookStateContext } from "../providers/ChatBookStateProvider";
-import { useLocation } from "react-router-dom";
 import axios from "axios";
-import BOOK_TOKEN from "../../src/.secrets";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import secrets from "../.secrets";
 import Loading from "./Loading";
 
-// console.log("bookId is", bookId);
+const { BOOKNET_TOKEN } = secrets;
 
 export default function ChatbotSentPic(props) {
   const bookId = Number(useLocation().pathname.replace("/matches/", ""));
@@ -13,12 +12,11 @@ export default function ChatbotSentPic(props) {
   const [currentBook, setCurrentBook] = useState();
 
   const [interiorImage, setInteriorImage] = useState();
-  // const { currentChatBook, chatContext } = useContext(chatBookStateContext);
 
   useEffect(() => {
     if (bookId) {
       axios
-        .get(`/api/users/:id/conversations`)
+        .get(`/api/users/1/conversations`)
         .then((result) => {
           //get the book isbn
           const allBooks = result.data;
@@ -28,11 +26,10 @@ export default function ChatbotSentPic(props) {
           axios
             .get()
             .then((result) => {
-              console.log("result is:", result);
               setInteriorImage(result.data.items[0].id);
             })
-            .catch(() => {
-              console.log("couldnt' get image");
+            .catch((err) => {
+              console.log(err.message);
             });
 
           setCurrentBook(chattingBook);
@@ -41,7 +38,6 @@ export default function ChatbotSentPic(props) {
     }
   }, []);
 
-  // console.log("currentChatBook in chatbotsentpic is:", currentChatBook);
   if (!currentBook) {
     return <Loading />;
   }
@@ -49,7 +45,7 @@ export default function ChatbotSentPic(props) {
     <div>
       <span>{interiorImage}</span>
       <img
-        src={`https://www.biblioshare.org/bncServices/BNCServices.asmx/DetailImages?token=${BOOK_TOKEN}&san=&ean=${currentBook.isbn}&thumbnail=No&Perspective=back&filenumber=&maxWidth=200&maxHeight=`}
+        src={`https://www.biblioshare.org/bncServices/BNCServices.asmx/DetailImages?token=${BOOKNET_TOKEN}&san=&ean=${currentBook.isbn}&thumbnail=No&Perspective=back&filenumber=&maxWidth=200&maxHeight=`}
         alt={currentBook.title}
       />
     </div>

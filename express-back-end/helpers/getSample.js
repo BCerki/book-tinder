@@ -58,6 +58,6 @@ const getSample = (isbn, userNum) => {
 };
 
 // Test code
-// getSample(9781770415034, 19);
+getSample(9781770415034, 19);
 
 module.exports = getSample;
