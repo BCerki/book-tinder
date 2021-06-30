@@ -9,6 +9,7 @@ const { Pool } = require("pg");
 // const getUserData = require("./routes/user");
 const { response } = require("express");
 const { result } = require("lodash");
+// const {cloudinary} = require('./cloudinary');
 
 // Helpers
 const getSample = require("./helpers/getSample");
@@ -91,6 +92,8 @@ App.get("/api/users/:id/books", (req, res) => {
 App.post("/api/users/:id/blocked/:id", (req, res) => {
   const bookId = parseInt(req.params.id);
   const userId = 1;
+
+  console.log("I am hitting");
 
   const blocked = `INSERT INTO block_user (users_id, books_id) VALUES ($1, $2)`;
 
@@ -190,10 +193,13 @@ App.delete("/api/users/:id/conversations/:id", (req, res) => {
 
   const values = [req.params.id];
 
+  console.log("blockedConvo", blockedConvo, "values:", values);
+
   return pool
     .query(blockedConvo, values)
     .then((result) => {
       res.send(result.rows);
+      console.log("result.rows", result.rows);
     })
     .catch((err) => {
       console.error(err);
@@ -212,6 +218,7 @@ App.get("/api/users/:id", (req, res) => {
   return pool
     .query(queryUser, values)
     .then((result) => {
+      console.log("GET ROUTE:", result.rows);
       const transformed = [];
       for (const val of result.rows) {
         const user = {
@@ -224,9 +231,11 @@ App.get("/api/users/:id", (req, res) => {
           maturity: val.maturity,
           genres: val.genres,
           postalCode: val.postal_code,
+          avatar: val.avatar,
         };
         transformed.push(user);
       }
+      console.log("Transformed", transformed);
       res.send(transformed);
     })
     .catch((err) => {
@@ -240,7 +249,7 @@ App.post("/api/users/:id", (req, res) => {
   // const id = parseInt(req.params.id);
 
   const newUser = `INSERT INTO users (name, age, page_count, price, max_distance, maturity, genres, postal_code)
-  VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`;
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`;
 
   const values = [
     req.body.name,
@@ -251,6 +260,7 @@ App.post("/api/users/:id", (req, res) => {
     req.body.maturity,
     req.body.genres,
     req.body.postalCode,
+    req.body.avatar,
   ];
 
   return pool
@@ -266,11 +276,12 @@ App.post("/api/users/:id", (req, res) => {
 
 //Update user data in users table **WORKING**
 App.put("/api/users/:id", (req, res) => {
+  // console.log("POST BODY:", req.body);
+
   const id = parseInt(req.params.id);
-  console.log("body:", req.body);
 
   const updateUser = `UPDATE users SET name = $1, age = $2, page_count = $3, price = $4,
-  max_distance = $5, maturity = $6, genres = $7, postal_code = $8 WHERE id = $9 `;
+  max_distance = $5, maturity = $6, genres = $7, postal_code = $8, avatar = $9 WHERE id = $10 `;
 
   const values = [
     req.body.name,
@@ -281,6 +292,7 @@ App.put("/api/users/:id", (req, res) => {
     req.body.maturity,
     req.body.genres,
     req.body.postalCode,
+    req.body.avatar,
     id,
   ];
 
@@ -294,6 +306,31 @@ App.put("/api/users/:id", (req, res) => {
       res.status(500).send(err.message);
     });
 });
+
+//AVATAR UPLOAD TO CLOUD STORAGE (Cloudinary):
+// App.post("/api/upload", (req, res) => {
+//   console.log("POST BODY:", req.body);
+//   const fileString = req.body;
+//   return cloudinary.uploader.upload(fileString)
+//   .then((result) => {
+//     res.send(result);
+//   })
+//   .catch((err) => {
+//     res.status(500).send(err.message);
+//   });
+// });
+
+// try {
+//   const fileString = JSON.parse(JSON.stringify(req.body));
+//   const uploadedResponse = await cloudinary.uploader.upload(fileString, {
+//     upload_preset: "book-tinder",
+//   });
+//   console.log(uploadedResponse);
+//   res.json("Upload Successful!");
+// } catch (error) {
+//   console.error(error);
+//   res.status(500).json({ err: "upload unsuccessful" });
+// }
 
 App.listen(PORT, () => {
   // eslint-disable-next-line no-console

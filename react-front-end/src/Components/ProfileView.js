@@ -1,24 +1,17 @@
-import React, { useState, useContext, useEffect } from "react";
-
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
-import Avatar from "@material-ui/core/Avatar";
-import TextField from "@material-ui/core/TextField";
-import Chip from "@material-ui/core/Chip";
-import Checkbox from "@material-ui/core/Checkbox";
+import { makeStyles } from "@material-ui/core/styles";
+import Switch from "@material-ui/core/Switch";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+//Styling
+import "../styles/profileView.scss";
+import AvatarUpload from "./AvatarUpload";
 import GenreChip from "./GenreChip";
+// import genreData from "../dummyData/dummyGenreData";
+import Loading from "./Loading";
 import PostalCode from "./PostalCode";
 import UserName from "./UserName";
 
-import Switch from "@material-ui/core/Switch";
-// import genreData from "../dummyData/dummyGenreData";
-import Loading from "./Loading";
-import classNames from "classnames";
-import axios from "axios";
-
-//Styling
-import "../styles/profileView.scss";
 const useStyles = makeStyles((theme) => ({
   large: {
     width: theme.spacing(10),
@@ -42,6 +35,7 @@ export default function ProfileView(props) {
   const [maxDistance, setMaxDistance] = useState(80);
   const [maturity, setMaturity] = useState(false);
   const [chips, setChips] = useState([]);
+  const [avatar, setAvatar] = useState("");
 
   const [userState, setUserState] = useState({
     id: null,
@@ -53,7 +47,10 @@ export default function ProfileView(props) {
     maxDistance: null,
     maturity: null,
     genres: [],
+    avatar: "",
   });
+  //AVATAR: add avatar to user state above??
+
   useEffect(() => {
     //get the user info that's currently in the db
     axios
@@ -61,37 +58,32 @@ export default function ProfileView(props) {
       .get("/api/users/1")
       .then((result) => {
         setUserState(result.data[0]);
-        console.log(
-          "i am in axios get for user, result.data[0] is:",
-          result.data[0]
-        );
+
         setChips(result.data[0].genres);
         setPostalCode(result.data[0].postalCode);
         setName(result.data[0].name);
+        setAvatar(result.data[0].avatar);
       })
       .catch((err) => console.log("Error message:", err.message));
   }, []);
 
   const sendToDB = function(userObject) {
-    console.log("send to DB is firing with userObject:", userObject);
     //need to send userObject, not userState, because it's not updated yet
-    console.log("userobject.id is", userObject.id);
-    console.log("userstate.id is", userState.id);
+
     //set state with new info
     setUserState(userObject);
     //send to db
     axios
       .put(`/api/users/${userState.id}`, userObject)
       .then((result) => {
-        console.log("all is well");
+        // console.log("all is well");
       })
       .catch((err) => console.log("Error message:", err.message));
   };
 
   const handleChange = (event, newValue, id) => {
-    console.log("handleChange is firing");
     const newUserObject = { ...userState, [id]: newValue };
-    console.log("newuserobject is:", newUserObject);
+
     sendToDB(newUserObject);
   };
 
@@ -153,24 +145,27 @@ export default function ProfileView(props) {
   const genreData = [
     "Mystery",
     "Romance",
-    "Young Adult",
-    "Fiction",
+    "Literary",
     "Science Fiction",
-    "Biography",
+    "Fantasy",
+    "Children's",
+    "Non-fiction",
+    "History",
+    "Biography/Memoir",
+    "Cooking",
+    "Humour",
+    "Self-help",
   ];
 
   //Genres
   const handleClick = function(genre) {
-    console.log("I am click handler and userState.genres is", userState.genres);
     const newGenres = [...userState.genres];
 
     if (userState.genres.includes(genre)) {
       const index = userState.genres.findIndex((element) => element === genre);
       newGenres.splice(index, 1);
-      console.log("i am removing", genre, "and new genres is", newGenres);
     } else {
       newGenres.push(genre);
-      console.log("i am adding", genre, "and new genres is", newGenres);
     }
     const newUserObject = { ...userState, genres: newGenres };
     sendToDB(newUserObject);
@@ -181,6 +176,7 @@ export default function ProfileView(props) {
     return (
       <GenreChip
         id={genre}
+        key={genre}
         onClick={() => {
           handleClick(genre);
         }}
@@ -192,8 +188,8 @@ export default function ProfileView(props) {
   const [isEditingName, setIsEditingName] = useState(false);
   const [postalCode, setPostalCode] = useState("");
   const [name, setName] = useState("");
+  const [isEditingAvatar, setIsEditingAvatar] = useState(false);
 
-  console.log("postalCode state is", postalCode);
   //PostalCode
   const handleEditing = function(event) {
     setIsEditing(true);
@@ -221,15 +217,87 @@ export default function ProfileView(props) {
     sendToDB(newUserObject);
   };
 
-  console.log("isediting is", isEditing);
+  //AVATAR
+  const handleAvatarChange = (event) => {
+    event.preventDefault();
+
+    const reader = new FileReader();
+
+    reader.addEventListener(
+      "load",
+      function() {
+        // convert image file to base64 string
+        // console.log("reader result:", reader.result);
+
+        const newUserObject = { ...userState, avatar: reader.result };
+
+        sendToDB(newUserObject);
+        setAvatar(reader.result);
+        setIsEditingAvatar(false);
+      },
+      false
+    );
+
+    if (event.target.files[0]) {
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  };
+
+  //CLOUDINARY IMPLEMENTATION
+  // const handleAvatarChange = (event) => {
+  //   const file = event.target.files[0];
+  //   const reader = new FileReader();
+  //   if (!file) return;
+  //   reader.readAsDataURL(file);
+  //   reader.onloadend = () => {
+  //     console.log("FILE IS:", reader.result);
+  //     uploadImage(reader.result);
+  //   };
+  //   reader.onerror = () => {
+  //     console.error("Did not work!");
+  //   };
+  // };
+
+  // const uploadImage = function(base64EncodedImage) {
+  //   console.log("Did I hit?");
+  //   setAvatar('');
+  //   axios
+  //   .post('/api/upload/', base64EncodedImage)
+  //   .then((result) => {
+  //     console.log("image post worked!");
+  //   })
+  //   .catch((err) => console.log("Error message:", err.message));
+  // };
+
+  const handleAvatarClick = function() {
+    setIsEditingAvatar(true);
+  };
+
+  //   try {
+  //     await fetch ('/api/upload', {
+  //       method: 'POST',
+  //       body: JSON.stringify({data: base64EncodedImage}),
+  //       headers: {"Content-Type": "application/json"},
+  //     });
+  //     setAvatar("");
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
+
   //Return statements components
   if (!userState.id) {
     return <Loading />;
   }
   return (
     <main>
-      <div className="profile-avatar">
-        <Avatar className={classes.large} />
+      <div>
+        <AvatarUpload
+          onChange={handleAvatarChange}
+          avatar={avatar}
+          isEditingAvatar={isEditingAvatar}
+          onClick={handleAvatarClick}
+        />
       </div>
       <div>
         <UserName
@@ -249,8 +317,8 @@ export default function ProfileView(props) {
         />
       </div>
       <div className="profile-preference">
-        <span className="profile-label">Age range (publication date)</span>
-
+        <span className="profile-label">Age range</span>{" "}
+        <span className={"explanation"}>(publication date)</span>
         <Slider
           id={"age"}
           value={[userState.age[0], userState.age[1]]}
@@ -270,7 +338,8 @@ export default function ProfileView(props) {
         </div>
       </div>
       <div className="profile-preference">
-        <span class="profile-label">Commitment level (page count)</span>
+        <span className={"profile-label"}>Commitment level</span>{" "}
+        <span className={"explanation"}> (page count)</span>
         <Slider
           value={[userState.pageCount[0], userState.pageCount[1]]}
           marks={pageCountMarks}
@@ -289,7 +358,9 @@ export default function ProfileView(props) {
         </div>
       </div>
       <div className="profile-preference">
-        <span class="profile-label">Date cost (price range)</span>
+        <span className={"profile-label"}>Date cost</span>{" "}
+        <span className={"explanation"}> (price range)</span>{" "}
+        <span className={"explanation"}></span>
         <Slider
           value={[userState.price[0], userState.price[1]]}
           marks={priceMarks}
@@ -308,7 +379,8 @@ export default function ProfileView(props) {
         </div>
       </div>
       <div className="profile-preference">
-        <span class="profile-label">Maximum distance (to a bookstore)</span>
+        <span className={"profile-label"}>Maximum distance</span>{" "}
+        <span className={"explanation"}> (to a bookstore)</span>
         <Slider
           value={userState.maxDistance}
           // defaultValue={maxDistance}
@@ -330,9 +402,8 @@ export default function ProfileView(props) {
       </div>
       <div className="profile-preference">
         <div className="maturity">
-          <span class="profile-label">
-            Adventurous? (include mature content)
-          </span>
+          <span className={"profile-label"}>Adventurous?</span>{" "}
+          <span className={"explanation"}> (include mature content)</span>
           <Switch
             checked={userState.maturity}
             onChange={(event, newValue) => {
@@ -345,8 +416,9 @@ export default function ProfileView(props) {
         </div>
       </div>
       <div className="profile-preference">
-        <span class="profile-label">Genres</span>
-        <div class="genre-box">{genreChips}</div>
+        <span className={"profile-label"}>Passions</span>{" "}
+        <span className={"explanation"}>(genres)</span>
+        <div className={"genre-box"}>{genreChips}</div>
       </div>
     </main>
   );

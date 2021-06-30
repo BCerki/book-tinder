@@ -9,13 +9,22 @@
   height: auto;
 }
 
+.infoBlock {
+  border-bottom: 1px solid lightgrey;
+  padding-bottom: 0.5em;
+  margin: 0 $spacing1;
+}
+
+.messagePreview {
+}
+
 a.bookCardLink {
   color: black;
   text-decoration: none;
 }
 
 .title-author {
-  margin: 0 $spacing1;
+  margin: $spacinghalf $spacing1;
 }
 
 //info styles
@@ -23,33 +32,41 @@ a.bookCardLink {
   display: flex;
   justify-content: space-between;
   align-content: stretch;
-  margin: 0 $spacing1;
+  // margin: 0 $spacing1;
 }
-.third-row {
-  margin: 0 $spacing1;
-}
+// .third-row {
+//   margin: 0 $spacing1;
+// }
 
 .title-author {
   font-weight: bold;
+  font-family: $typewriter-font;
+  font-size: 1.5em;
+  line-height: 1;
 }
 
 .age {
-  color: pink;
+  font-family: $roboto;
+  font-weight: 500;
 }
 .page-count {
-  color: green;
+  font-family: $roboto;
+  font-weight: 500;
 }
 .price {
-  color: blue;
+  font-family: $roboto;
+  font-weight: 500;
 }
 
-.description {
-  color: navy;
+.description,
+.messagePreview {
+  margin: 0.25em 0;
+  font-family: $roboto;
 }
 
 //toggle styles
 .toggle-label {
-  font-family: $primary-font;
+  font-family: $roboto;
 }
 
 section.toggle {
@@ -62,9 +79,15 @@ section.toggle {
 section.search-bar {
   display: flex;
   justify-content: center;
+  margin-top: 2em;
 }
 
 //genrechip
 .genreChip {
   border: 1px solid black;
+}
+
+.author {
+  opacity: 0.5;
+  font-size: 75%;
 }

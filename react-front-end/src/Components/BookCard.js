@@ -1,13 +1,9 @@
-import React, { useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
-import TitleAuthorDisplay from "./TitleAuthorDisplay";
+import React from "react";
 import Info from "./Info";
 import Message from "./Message";
-import Grid from "@material-ui/core/Grid";
-//styling
-
-import axios from "axios";
+import TitleAuthorDisplay from "./TitleAuthorDisplay";
 
 const useStyles = makeStyles((theme) => ({
   large: {
@@ -17,32 +13,33 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function BookCard(props) {
-  // console.log("bookcard props", props);
   //styling hook
   const classes = useStyles();
-  //this file is where you're doing the conditional rendering
-  //check if doing info or messages
+
+  //check if reader wants to see info or messages
 
   const checkToggle = function(toggle) {
     if (!toggle) {
       return (
         <Info
+          key={props.isbn}
           coverImage={props.image}
           description={props.description}
-          isbn={props.isbn}
+          // isbn={props.isbn}
           pageCount={props.pageCount}
           price={props.price}
           age={props.age}
         />
       );
     }
-    return <Message message={props.message} />;
+    return <Message key={props.isbn} message={props.message} />;
   };
 
   return (
     <article className="card-skeleton" onClick={props.onClick}>
       <div className="avatar-middle">
         <Avatar
+          key={props.isbn}
           src={props.coverImage}
           alt={props.title}
           className={classes.large}
@@ -53,9 +50,13 @@ export default function BookCard(props) {
       ns"
       >
         <div className="title-author">
-          <TitleAuthorDisplay title={props.title} author={props.author} />
+          <TitleAuthorDisplay
+            key={props.isbn}
+            title={props.title}
+            author={props.author}
+          />
         </div>
-        <div class>{checkToggle(props.toggle)}</div>
+        <div>{checkToggle(props.toggle)}</div>
       </div>
     </article>
   );

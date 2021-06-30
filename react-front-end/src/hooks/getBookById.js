@@ -4,7 +4,7 @@ import axios from "axios";
 
 // const setCurrentBookObjectById = function(bookId) {
 //   axios
-//     .get(`/api/users/:id/books`)
+//     .get(`/api/users/1/books`)
 //     .then((result) => {
 //       const allBooks = result.data;
 
@@ -19,7 +19,7 @@ const useCurrentBookObject = function(bookId) {
   const [currentBookObject, setCurrentBookObject] = useState();
 
   axios
-    .get(`/api/users/:id/books`)
+    .get(`/api/users/1/books`)
     .then((result) => {
       const allBooks = result.data;
       const bookObjectFromId = allBooks.find((book) => book.id === bookId);

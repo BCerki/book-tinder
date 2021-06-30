@@ -1,9 +1,8 @@
-import React from "react";
-import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
-//<div className="isbn">ISBN: {props.isbn}</div>
+import TextField from "@material-ui/core/TextField";
+import React from "react";
+
 export default function PostCode(props) {
-  console.log("props in postalcode are", props);
   //styling
   const useStyles = makeStyles((theme) => ({
     large: {
@@ -29,5 +28,9 @@ export default function PostCode(props) {
     return <div onClick={props.onClick}>{props.postalCode}</div>;
   };
 
-  return <div onBlur={props.onBlur}>{isEditing()}</div>;
+  return (
+    <div className={"postalCode"} onBlur={props.onBlur}>
+      {isEditing()}
+    </div>
+  );
 }
