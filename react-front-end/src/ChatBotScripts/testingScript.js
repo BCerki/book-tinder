@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 
-import ChatbotSentPic from "../Components/ChatbotSentPic";
 import GoogleDescription from "../Components/GoogleDescription";
 import BooknetQuote from "../Components/BooknetQuote";
 import BooknetImagery from "../Components/BooknetImagery";
