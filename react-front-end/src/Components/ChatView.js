@@ -14,6 +14,7 @@ import booknetScripts from "../ChatBotScripts/booknetScripts";
 import demoScripts from "../ChatBotScripts/demoScripts";
 import otherScripts from "../ChatBotScripts/otherScripts";
 import testingScript from "../ChatBotScripts/testingScript";
+import useMatches from "../hooks/useMatches";
 //Styling
 import "../styles/chatView.scss";
 import BackBar from "./BackBar";
@@ -36,7 +37,8 @@ const { outOfTheAttic, theForestCityKiller, raisingRoyalty } = demoScripts;
 const { BOOKNET_TOKEN, GOOGLE_BOOK_KEY } = secrets;
 
 export default function ChatView(props) {
-  const [match, setMatch] = useState({});
+  const { getChattingMatch } = useMatches();
+  const match = getChattingMatch();
   //state for the hacky function
   const [state, setState] = useState();
 
@@ -47,24 +49,6 @@ export default function ChatView(props) {
   //FIX FIX memory leak
 
   window.onclick = hackyFunction;
-
-  //get the match id
-  let location = useLocation();
-  const matchId = Number(location.pathname.replace("/matches/", ""));
-
-  useEffect(() => {
-    if (matchId) {
-      axios
-        .get(`/api/users/1/conversations`)
-        .then((result) => {
-          //set match state (conversations are proxy for matches)
-          const allMatches = result.data;
-          const thisMatch = allMatches.find((match) => match.id === matchId);
-          setMatch(thisMatch);
-        })
-        .catch(() => {});
-    }
-  }, [matchId]);
 
   //if it's one of our demo books, choose the appropriate script. If it's at booknet, choose a random script (these scripts include materials booknet holds). If it's not, choose a random other script.
   const chooseTargetedScript = function(isbn, title, booknet_available) {
@@ -83,18 +67,19 @@ export default function ChatView(props) {
 
   //Send to DB every time the user clicks
   useEffect(() => {
-    axios
-
-      .put(
-        `/api/users/1/conversations/${matchId}`,
-        JSON.parse(window.localStorage.getItem(`rsc_cache_${matchId}`))
-      )
-      .then(() => {
-        // console.log("successfully sent local storage to db");
-      })
-      .catch((err) => {
-        console.log("Error", err.message);
-      });
+    if (match) {
+      axios
+        .put(
+          `/api/users/1/conversations/${match.id}`,
+          JSON.parse(window.localStorage.getItem(`rsc_cache_${match.id}`))
+        )
+        .then(() => {
+          // console.log("successfully sent local storage to db");
+        })
+        .catch((err) => {
+          console.log("Error", err.message);
+        });
+    }
   }, [state]);
 
   if (!match) {
@@ -122,7 +107,7 @@ export default function ChatView(props) {
           // )}
           //test script
           steps={testingScript}
-          cacheName={`rsc_cache_${matchId}`}
+          cacheName={`rsc_cache_${match.id}`}
           cache={true}
           hideBotAvatar={true}
           hideUserAvatar={true}
