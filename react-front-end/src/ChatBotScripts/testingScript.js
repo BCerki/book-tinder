@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import GoogleDescription from "../Components/GoogleDescription";
 import BooknetQuote from "../Components/BooknetQuote";
 import BooknetImagery from "../Components/BooknetImagery";
+import BookManagerLocation from "../Components/BookManagerLocation";
 
 const testingScript = [
   {
@@ -56,7 +57,18 @@ const testingScript = [
   {
     id: "6",
     component: <GoogleDescription />,
-    // message: "just kidding, not ready yet",
+    trigger: "7",
   },
+  {
+    id: "7",
+    message: "Click yes for the bookmanager location",
+    trigger: "8",
+  },
+  {
+    id: "8",
+    options: [{ value: 1, label: "yes", trigger: "9" }],
+  },
+
+  { id: "9", component: <BookManagerLocation /> },
 ];
 export default testingScript;
